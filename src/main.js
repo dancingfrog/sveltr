@@ -1,4 +1,6 @@
 import App from './apps/App.svelte';
+// GuideApp code is from https://github.com/PacktPublishing/Svelte.js---The-Complete-Guide.git
+import GuideApp from './guide/base-syntax-02-two-way/src/App.svelte';
 import TestApp from './apps/TestApp.svelte';
 
 const appId = "svelte-app";
@@ -13,6 +15,26 @@ export default ( // Check if app id exists in DOM
         props: {
             greeting:
 `Hooray 🎉 - you've built this with <a href="https://github.com/dancingfrog/sveltr" target="_blank">Sveltr</a>!`
+        }
+    }) : {};
+
+// Examples from the course:
+// "Svelte.js - The Complete Guide"
+// by Maximilian Schwarzmüller (Acade Mind)
+// https://www.packtpub.com/web-development/svelte-js-the-complete-guide-video
+// https://github.com/PacktPublishing/Svelte.js---The-Complete-Guide.git
+const guideAppId = "svelte-js-the-complete-guide";
+const guideAppElement = document.getElementById(guideAppId);
+export const guideApp = ( // Check if app id exists in DOM
+    guideAppElement !== null &&
+    (guideAppElement.constructor.name === 'HTMLElement' ||
+        guideAppElement.constructor.name === 'HTMLDivElement')
+) ?
+    new GuideApp({
+        target: guideAppElement,
+        props: {
+            name:
+                `Dev`
         }
     }) : {};
 
