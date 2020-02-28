@@ -4,6 +4,7 @@
 node_modules
 dist
 public
+src/guide
 content/*html
 webpack.json
 .Rproj.user
