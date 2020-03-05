@@ -1,3 +1,4 @@
+import './styles/global.css';
 import App from './apps/App.svelte';
 // GuideApp code is from https://github.com/PacktPublishing/Svelte.js---The-Complete-Guide.git
 import GuideApp from './guide/base-syntax-02-two-way/src/App.svelte';
