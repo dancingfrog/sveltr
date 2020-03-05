@@ -1,8 +1,8 @@
 import './styles/global.css';
 import App from './apps/App.svelte';
+import TestApp from './apps/TestApp.svelte';
 // GuideApp code is from https://github.com/PacktPublishing/Svelte.js---The-Complete-Guide.git
 import GuideApp from './guide/base-syntax-02-two-way/src/App.svelte';
-import TestApp from './apps/TestApp.svelte';
 
 const appId = "svelte-app";
 const appElement = document.getElementById(appId);
@@ -16,6 +16,20 @@ export default ( // Check if app id exists in DOM
         props: {
             greeting:
 `Hooray 🎉 - you've built this with <a href="https://github.com/dancingfrog/sveltr" target="_blank">Sveltr</a>!`
+        }
+    }) : {};
+
+const testAppId = "test-app";
+const testAppElement = document.getElementById(testAppId);
+export const testApp = (
+    testAppElement !== null &&
+    (testAppElement.constructor.name === 'HTMLElement' ||
+        testAppElement.constructor.name === 'HTMLDivElement')
+    ) ?
+    new TestApp({
+        target: testAppElement,
+        props: {
+            title: "🦊 Hello Svelte!"
         }
     }) : {};
 
@@ -36,20 +50,5 @@ export const guideApp = ( // Check if app id exists in DOM
         props: {
             name:
                 `Dev`
-        }
-    }) : {};
-
-
-const testAppId = "test-app";
-const testAppElement = document.getElementById(testAppId);
-export const testApp = (
-    testAppElement !== null &&
-    (testAppElement.constructor.name === 'HTMLElement' ||
-        testAppElement.constructor.name === 'HTMLDivElement')
-    ) ?
-    new TestApp({
-        target: testAppElement,
-        props: {
-            title: "🦊 Hello Svelte!"
         }
     }) : {};
