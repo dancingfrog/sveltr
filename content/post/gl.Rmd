@@ -34,21 +34,24 @@ if (!require("png")) {
 library(png)
 ```
 
-If the output target is HTML, R has some methods for turning R data into JavaScript or JSON data and printing the results within HTML tags:
-```{r data, echo = FALSE}
+If the output target is HTML, R has some methods for turning R data into JavaScript or JSON data and printing the results within HTML tags.
+<br />
+<br />
+<img src="/post/data/heightmap-small.png" style="float: right; width:256px;" />
+After using R to read each pixel of this heightmap, the table (data.frame) is written to json ...
+<br />
+```{r data, echo = FALSE, results = "asis"}
 options(warn = -1)
 working_dir <- getwd()
 # print(working_dir)
 heightmap <- data.frame(c())
-if (print(file.exists("data/heightmap-small.png"))) {
+if (file.exists("data/heightmap-small.png")) {
     heightmap <- data.frame(png::readPNG("data/heightmap-small.png"))
-    head(heightmap)
+    # head(heightmap)
     # length(heightmap)
     # str(heightmap)
 }
-```
 
-```{r data_in_html, echo=FALSE, results='asis'}
 require(jsonlite)
 
 # print without tabs so R markdown will add it to the DOM tree of the resulting page
