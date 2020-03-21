@@ -2,7 +2,7 @@ import './styles/global.css';
 import App from './apps/App.svelte';
 import TestApp from './apps/TestApp.svelte';
 // GuideApp code is from https://github.com/PacktPublishing/Svelte.js---The-Complete-Guide.git
-import GuideApp from './guide/base-syntax-02-two-way/src/App.svelte';
+import GuideApp from './guide/base-syntax-04-nested-components/src/App.svelte';
 
 const appId = "svelte-app";
 const appElement = document.getElementById(appId);
