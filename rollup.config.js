@@ -56,7 +56,11 @@ export default {
 		shader( {
 			// All match files will be parsed by default,
 			// but you can also specifically include/exclude files
-			include: [ 'node_modules/@sveltejs/gl/**/*.glsl', '**/*.vs', '**/*.fs' ],
+			include: [
+				'../@sveltejs/gl/**/*.glsl',
+				'**/*.glsl',
+				'**/*.vs',
+				'**/*.fs' ],
 			// specify whether to remove comments
 			removeComments: true,   // default: true
 		} ),

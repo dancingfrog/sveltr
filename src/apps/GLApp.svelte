@@ -1,6 +1,8 @@
 <script>
     import { onMount } from 'svelte';
     import * as GL from '@sveltejs/gl';
+    import vert_default from './shaders/custom/basic-vertex-shader.glsl';
+    import frag_default from './shaders/custom/basic-fragment-shader.glsl';
 
     export let title;
 
@@ -87,6 +89,8 @@
             location={[0,h/2,0]}
             rotation={[0,-20,0]}
             scale={[w,h,d]}
+            vert={vert_default}
+            frag={frag_default}
             uniforms={{ color: adjustColor(color) }}
     />
 
