@@ -1,9 +1,12 @@
 .idea
 .RData
 .Rhistory
-node_modules
+.Rproj*
+*html
+blogdown
+content/SvelteGL
 dist
+node_modules
 public
-content/*html
+static/*_files
 webpack.json
-.Rproj.user
