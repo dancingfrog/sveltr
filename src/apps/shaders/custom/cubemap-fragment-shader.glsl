@@ -24,22 +24,32 @@
 //uniform PointLight POINT_LIGHTS[NUM_LIGHTS];
 /* end builtins */
 
+#define NAME cubemap-fragment-shader
+
 uniform vec3 color;
 
 #ifdef has_alpha
 uniform float alpha;
 #endif
 
+uniform samplerCube uTexture;
+
 in vec3 v_normal;
+
+in vec3 v_view_position;
+
+in vec2 v_textureCoords;
 
 out mediump vec4 fragColor;
 
 void main () {
 	vec3 normal = normalize(v_normal);
 
-	fragColor = vec4(color, 1.0);
+	vec3 staticCameraPosition = vec3(0.5, 0.0, 0.1);
+	vec3 eyeToSurfaceDir = normalize(staticCameraPosition - v_view_position);
+	vec3 staticDirection = reflect(eyeToSurfaceDir, normal);
 
-	#ifdef has_alpha
-	fragColor.a *= alpha;
-	#endif
+	fragColor = texture(uTexture, staticDirection); // TEXURE_CUBE_MAP
+//	fragColor = texture(uTexture, v_textureCoords);
+//	fragColor.rgb *= color;
 }

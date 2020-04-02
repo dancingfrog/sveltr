@@ -41,3 +41,10 @@ ESSL 300 provides two types of constants (*uniform* and *attribute*) and one typ
     mat4
 
 
+There are also multiple levels of precision:
+
+    lowp
+    mediump
+
+
+
