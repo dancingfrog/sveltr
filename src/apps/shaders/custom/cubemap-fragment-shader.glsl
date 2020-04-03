@@ -45,8 +45,8 @@ out mediump vec4 fragColor;
 void main () {
 	vec3 normal = normalize(v_normal);
 
-	vec3 staticCameraPosition = vec3(0.5, 0.0, 0.1);
-	vec3 eyeToSurfaceDir = normalize(staticCameraPosition - v_view_position);
+	vec3 staticCameraPosition = vec3(0.0, 0.0, 0.0);
+	vec3 eyeToSurfaceDir = normalize(v_view_position - staticCameraPosition);
 	vec3 staticDirection = reflect(eyeToSurfaceDir, normal);
 
 	fragColor = texture(uTexture, staticDirection); // TEXURE_CUBE_MAP

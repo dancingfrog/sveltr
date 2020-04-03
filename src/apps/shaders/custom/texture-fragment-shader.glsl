@@ -24,7 +24,7 @@
 //uniform PointLight POINT_LIGHTS[NUM_LIGHTS];
 /* end builtins */
 
-#define NAME cubemap-fragment-shader
+#define NAME texture-fragment-shader
 
 uniform vec3 color;
 

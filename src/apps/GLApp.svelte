@@ -3,83 +3,115 @@
     import * as GL from '@sveltejs/gl';
     import generateFace from './content/grid-generator';
     // import vert from './shaders/default/vert.glsl';
-    import vert from './shaders/custom/texture-vertex-shader.glsl';
+    // import vert from './shaders/custom/texture-vertex-shader.glsl';
+    import vert from './shaders/custom/normal-selected-txt-vertex-shader.glsl';
     // import frag from './shaders/default/frag.glsl';
     // import frag from './shaders/custom/basic-fragment-shader.glsl';
     // import frag from './shaders/custom/texture-fragment-shader.glsl';
-    import frag from './shaders/custom/cubemap-fragment-shader.glsl';
+    import frag from './shaders/custom/normal-selected-txt-fragment-shader.glsl';
+    // import frag from './shaders/custom/cubemap-fragment-shader.glsl';
 
     export let title;
 
     export let color = '#ff3e00';
 
     let webgl;
-    let texture;
+    let textures = [];
     let process_extra_shader_components = (gl, material, model) => {
         // console.log("Process Extra Shader Components");
         const program = material.program;
 
-        if (material.vertName == "texture-vertex-shader" && material.fragName == "cubemap-fragment-shader") {
+        if ((material.vertName == "texture-vertex-shader" && material.fragName == "texture-fragment-shader") ||
+            (material.vertName == "normal-selected-txt-vertex-shader" && material.fragName == "normal-selected-txt-fragment-shader")
+        ) {
+            // console.log(material.vertName, material.fragName);
+
+            const vertexTextureCoords = gl.getAttribLocation(program, "vertexTextureCoords");
+
+            // gl.disable(gl.CULL_FACE); // for double-sided poly
+
+            gl.enableVertexAttribArray(vertexTextureCoords);
+            const textureBuffer = gl.createBuffer();
+            const textureCoords = [
+
+                // front: 0 1 2 3
+                1.0, 1.0,
+                0.0, 1.0,
+                1.0, 0.0,
+                0.0, 0.0,
+
+                // left: 1 4 3 6
+                1.0, 1.0,
+                0.0, 1.0,
+                1.0, 0.0,
+                0.0, 0.0,
+
+                // back: 4 5 6 7
+                1.0, 1.0,
+                0.0, 1.0,
+                1.0, 0.0,
+                0.0, 0.0,
+
+                // right: 5 0 7 2
+                1.0, 1.0,
+                0.0, 1.0,
+                1.0, 0.0,
+                0.0, 0.0,
+
+                // top: 4 1 5 0
+                0.0, 1.0,
+                0.0, 0.0,
+                1.0, 1.0,
+                1.0, 0.0,
+
+                // bottom: 3 6 2 7
+                0.0, 1.0,
+                0.0, 0.0,
+                1.0, 1.0,
+                1.0, 0.0,
+            ];
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
+            gl.vertexAttribPointer(vertexTextureCoords, 2, gl.FLOAT, false, 0, 0);
+
+            // Un-bind buffers
+            gl.bindBuffer(gl.ARRAY_BUFFER, null);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+
+            if ((material.vertName == "normal-selected-txt-vertex-shader" && material.fragName == "normal-selected-txt-fragment-shader")) {
+                for (let t = 0; t < 6; ++t) {
+                    if (!!textures[t]) {
+                        const fragmentTextureLocation = gl.getUniformLocation(program, "uTexture" + t);
+                        switch(t) {
+                            case 1: gl.activeTexture(gl.TEXTURE1); break;
+                            case 2: gl.activeTexture(gl.TEXTURE2); break;
+                            case 3: gl.activeTexture(gl.TEXTURE3); break;
+                            case 4: gl.activeTexture(gl.TEXTURE4); break;
+                            case 5: gl.activeTexture(gl.TEXTURE5); break;
+                            default:
+                                gl.activeTexture(gl.TEXTURE0);
+                        }
+                        gl.bindTexture(gl.TEXTURE_2D, textures[t]);
+                        gl.uniform1i(fragmentTextureLocation, t);
+                    }
+                }
+            } else {
+                if (!!textures[0]) {
+                    const fragmentTextureLocation = gl.getUniformLocation(program, "uTexture0");
+                    gl.activeTexture(gl.TEXTURE0);
+                    gl.bindTexture(gl.TEXTURE_2D, textures[0]);
+                    gl.uniform1i(fragmentTextureLocation, 0);
+                }
+            }
+
+        } else if (material.vertName == "texture-vertex-shader" && material.fragName == "cubemap-fragment-shader") {
             // console.log(material.vertName, material.fragName);
 
             const fragmentTextureLocation = gl.getUniformLocation(program, "uTexture");
-            const vertexTextureCoords = gl.getAttribLocation(program, "vertexTextureCoords");
 
-            gl.disable(gl.CULL_FACE); // for double-sided poly
-
-            // gl.enableVertexAttribArray(vertexTextureCoords);
-            // const textureBuffer = gl.createBuffer();
-            // const textureCoords = [
-            //
-            //     // front: 0 1 2 3
-            //     1.0, 1.0,
-            //     0.0, 1.0,
-            //     1.0, 0.0,
-            //     0.0, 0.0,
-            //
-            //     // left: 1 4 3 6
-            //     1.0, 1.0,
-            //     0.0, 1.0,
-            //     1.0, 0.0,
-            //     0.0, 0.0,
-            //
-            //     // back: 4 5 6 7
-            //     1.0, 1.0,
-            //     0.0, 1.0,
-            //     1.0, 0.0,
-            //     0.0, 0.0,
-            //
-            //     // right: 5 0 7 2
-            //     1.0, 1.0,
-            //     0.0, 1.0,
-            //     1.0, 0.0,
-            //     0.0, 0.0,
-            //
-            //     // top: 4 1 5 0
-            //     0.0, 1.0,
-            //     0.0, 0.0,
-            //     1.0, 1.0,
-            //     1.0, 0.0,
-            //
-            //     // bottom: 3 6 2 7
-            //     0.0, 1.0,
-            //     0.0, 0.0,
-            //     1.0, 1.0,
-            //     1.0, 0.0,
-            // ];
-            //
-            // gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
-            // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
-            // gl.vertexAttribPointer(vertexTextureCoords, 2, gl.FLOAT, false, 0, 0);
-            //
-            // // Un-bind buffers
-            // gl.bindBuffer(gl.ARRAY_BUFFER, null);
-            // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
-
-            if (!!texture) {
-                gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture);
-                // gl.activeTexture(gl.TEXTURE0);
-                // gl.bindTexture(gl.TEXTURE_2D, texture);
+            if (!!textures[0]) {
+                gl.bindTexture(gl.TEXTURE_CUBE_MAP, textures[0]);
                 gl.uniform1i(fragmentTextureLocation, 0);
             }
         }
@@ -114,26 +146,28 @@
 
         console.log(webgl);
 
-        if (!!texture == false) {
-            // Create a texture.
-            texture = webgl.createTexture();
-            // webgl.bindTexture(webgl.TEXTURE_2D, texture);
-            webgl.bindTexture(webgl.TEXTURE_CUBE_MAP, texture);
+        for (let t = 0; t < 6; ++t) {
+            if (!!textures[t] == false) {
+                // Create a texture and create initial bind
+                textures[t] = webgl.createTexture();
+                webgl.bindTexture(webgl.TEXTURE_2D, textures[t]);
+                // webgl.bindTexture(webgl.TEXTURE_CUBE_MAP, texture);
+            }
         }
 
         const faceInfos = [
-            {target: webgl.TEXTURE_CUBE_MAP_POSITIVE_X, faceColor: '#F00', textColor: '#0FF', text: '+X'},
-            {target: webgl.TEXTURE_CUBE_MAP_NEGATIVE_X, faceColor: '#FF0', textColor: '#00F', text: '-X'},
-            {target: webgl.TEXTURE_CUBE_MAP_POSITIVE_Y, faceColor: '#0F0', textColor: '#F0F', text: '+Y'},
-            {target: webgl.TEXTURE_CUBE_MAP_NEGATIVE_Y, faceColor: '#0FF', textColor: '#F00', text: '-Y'},
-            {target: webgl.TEXTURE_CUBE_MAP_POSITIVE_Z, faceColor: '#00F', textColor: '#FF0', text: '+Z'},
-            {target: webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z, faceColor: '#F0F', textColor: '#0F0', text: '-Z'}
-            // {target: webgl.TEXTURE_2D, faceColor: '#F00', textColor: '#0FF', text: '+X'},
-            // {target: webgl.TEXTURE_2D, faceColor: '#FF0', textColor: '#00F', text: '-X'},
-            // {target: webgl.TEXTURE_2D, faceColor: '#0F0', textColor: '#F0F', text: '+Y'},
-            // {target: webgl.TEXTURE_2D, faceColor: '#0FF', textColor: '#F00', text: '-Y'},
-            // {target: webgl.TEXTURE_2D, faceColor: '#00F', textColor: '#FF0', text: '+Z'},
-            // {target: webgl.TEXTURE_2D, faceColor: '#F0F', textColor: '#0F0', text: '-Z'}
+            // {target: webgl.TEXTURE_CUBE_MAP_POSITIVE_X, faceColor: '#F00', textColor: '#0FF', text: '+X'},
+            // {target: webgl.TEXTURE_CUBE_MAP_NEGATIVE_X, faceColor: '#FF0', textColor: '#00F', text: '-X'},
+            // {target: webgl.TEXTURE_CUBE_MAP_POSITIVE_Y, faceColor: '#0F0', textColor: '#F0F', text: '+Y'},
+            // {target: webgl.TEXTURE_CUBE_MAP_NEGATIVE_Y, faceColor: '#0FF', textColor: '#F00', text: '-Y'},
+            // {target: webgl.TEXTURE_CUBE_MAP_POSITIVE_Z, faceColor: '#00F', textColor: '#FF0', text: '+Z'},
+            // {target: webgl.TEXTURE_CUBE_MAP_NEGATIVE_Z, faceColor: '#F0F', textColor: '#0F0', text: '-Z'}
+            {target: webgl.TEXTURE_2D, faceColor: '#F00', textColor: '#0FF', text: '+X'},
+            {target: webgl.TEXTURE_2D, faceColor: '#FF0', textColor: '#00F', text: '-X'},
+            {target: webgl.TEXTURE_2D, faceColor: '#0F0', textColor: '#F0F', text: '+Y'},
+            {target: webgl.TEXTURE_2D, faceColor: '#0FF', textColor: '#F00', text: '-Y'},
+            {target: webgl.TEXTURE_2D, faceColor: '#00F', textColor: '#FF0', text: '+Z'},
+            {target: webgl.TEXTURE_2D, faceColor: '#F0F', textColor: '#0F0', text: '-Z'}
         ];
 
         faceInfos.forEach((faceInfo, i, a) => {
@@ -165,15 +199,15 @@
             img.addEventListener('load', function () {
                 // Now that the image has loaded make copy it to the texture.
                 console.log("Bind to texture");
-                // webgl.bindTexture(webgl.TEXTURE_2D, texture);
-                webgl.bindTexture(webgl.TEXTURE_CUBE_MAP, texture);
+                webgl.bindTexture(webgl.TEXTURE_2D, textures[i]);
+                // webgl.bindTexture(webgl.TEXTURE_CUBE_MAP, texture);
                 webgl.pixelStorei(webgl.UNPACK_FLIP_Y_WEBGL, true);
-                // webgl.generateMipmap(webgl.TEXTURE_2D);
                 webgl.texImage2D(target, level, internalFormat, format, type, img);
-                if (i >= 5) webgl.generateMipmap(webgl.TEXTURE_CUBE_MAP);
-                // webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MAG_FILTER, webgl.NEAREST_MIPMAP_LINEAR);
-                // webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MIN_FILTER, webgl.NEAREST_MIPMAP_LINEAR); // webgl.LINEAR_MIPMAP_LINEAR);
-                webgl.texParameteri(webgl.TEXTURE_CUBE_MAP, webgl.TEXTURE_MIN_FILTER, webgl.NEAREST_MIPMAP_LINEAR); // webgl.LINEAR_MIPMAP_LINEAR);
+                webgl.generateMipmap(webgl.TEXTURE_2D);
+                // if (i >= 5) webgl.generateMipmap(webgl.TEXTURE_CUBE_MAP);
+                webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MAG_FILTER, webgl.NEAREST_MIPMAP_LINEAR); // webgl.LINEAR_MIPMAP_LINEAR);
+                webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MIN_FILTER, webgl.NEAREST_MIPMAP_LINEAR); // webgl.LINEAR_MIPMAP_LINEAR);
+                // webgl.texParameteri(webgl.TEXTURE_CUBE_MAP, webgl.TEXTURE_MIN_FILTER, webgl.NEAREST_MIPMAP_LINEAR); // webgl.LINEAR_MIPMAP_LINEAR);
                 // document.body.appendChild(img);
             });
 
@@ -182,7 +216,7 @@
             });
 
             // Setup each face so it's immediately renderable
-            if (!!texture) webgl.texImage2D(target, level, internalFormat, width, height, 0, format, type, null);
+            if (!!textures[i]) webgl.texImage2D(target, level, internalFormat, width, height, 0, format, type, null);
         });
 
         const loop = () => {
@@ -249,7 +283,7 @@
             scale={[w,h,d]}
             vert={vert}
             frag={frag}
-            uniforms={{ color: adjustColor(color), alpha: 0.9 }}
+            uniforms={{ color: adjustColor(color), alpha: 1.0 }}
             transparent
     />
 
