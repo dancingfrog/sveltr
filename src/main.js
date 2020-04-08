@@ -1,6 +1,7 @@
 import './styles/global.css';
 import App from './apps/App.svelte';
 import GLApp from './apps/GLApp.svelte';
+import GLSLApp from './apps/GLSLApp.svelte';
 import TestApp from './apps/TestApp.svelte';
 import VizRApp from './apps/VizRApp.svelte';
 
@@ -14,6 +15,20 @@ export const glApp = (
 ) ?
     new GLApp({
         target: glAppElement,
+        props: {
+            title: "🦊 Hello SvelteGL!"
+        }
+    }) : {};
+
+const glslAppId = "glsl-app";
+const glslAppElement = document.getElementById(glslAppId);
+export const glslApp = (
+    glslAppElement !== null &&
+    (glslAppElement.constructor.name === 'HTMLElement' ||
+        glslAppElement.constructor.name === 'HTMLDivElement')
+) ?
+    new GLSLApp({
+        target: glslAppElement,
         props: {
             title: "🦊 Hello SvelteGL!"
         }
