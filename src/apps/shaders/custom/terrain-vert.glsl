@@ -17,10 +17,7 @@ out vec3 v_view_position;
 #endif
 
 out vec3 v_surface_to_light[NUM_LIGHTS];
-
-#ifdef has_specularity
 out vec3 v_surface_to_view[NUM_LIGHTS];
-#endif
 
 #ifdef USE_FOG
 out float v_fog_depth;
@@ -32,7 +29,14 @@ out float v_fog_depth;
 uniform sampler2D heightMap;
 
 void main() {
-	vec4 pos = vec4(position, 1.0);
+	float displacement = texture(heightMap, uv).r;
+
+	vec3 displace_along_normal = vec3(normal * displacement);
+
+	vec3 displaced_position = position + (0.99 * displace_along_normal);
+
+	//	vec4 pos = vec4(position, 1.0);
+	vec4 pos = vec4(displaced_position, 1.0);
 	vec4 model_view_pos = VIEW * MODEL * pos;
 
 	v_normal = (MODEL_INVERSE_TRANSPOSE * vec4(normal, 0.0)).xyz;
@@ -60,12 +64,5 @@ void main() {
 		#endif
 	}
 
-	// gl_Position = PROJECTION * model_view_pos;
-
-	float displacement = texture(heightMap, uv).r;
-
-	vec3 displace_along_normal = vec3(normal * displacement);
-
-	vec3 displaced_position = position + displace_along_normal;
-	gl_Position = PROJECTION * VIEW * MODEL * vec4(displaced_position, 1.0);
+	gl_Position = PROJECTION * model_view_pos;
 }

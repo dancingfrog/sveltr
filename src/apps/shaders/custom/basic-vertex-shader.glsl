@@ -2,6 +2,7 @@
  * every custom vertex shader in @svelte/gl:
  */
 /* start builtins */
+//
 //precision highp float;
 //
 //uniform mat4 MODEL;
@@ -35,10 +36,7 @@ out vec3 v_view_position;
 #endif
 
 out vec3 v_surface_to_light[NUM_LIGHTS];
-
-#ifdef has_specularity
 out vec3 v_surface_to_view[NUM_LIGHTS];
-#endif
 
 #ifdef USE_FOG
 out float v_fog_depth;
