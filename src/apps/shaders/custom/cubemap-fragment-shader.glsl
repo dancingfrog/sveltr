@@ -2,8 +2,7 @@
  * every custom fragment shader in @svelte/gl:
  */
 /* start builtins */
-//#extension GL_OES_standard_derivatives : enable
-
+//
 //precision highp float;
 //
 //struct DirectionalLight {
@@ -24,13 +23,19 @@
 //uniform PointLight POINT_LIGHTS[NUM_LIGHTS];
 /* end builtins */
 
-#define NAME cubemap-fragment-shader
-
+/* Uniforms supplied by Svelte materials: */
 uniform vec3 color;
-
-#ifdef has_alpha
+uniform vec3 emissive;
 uniform float alpha;
-#endif
+uniform float specularity;
+uniform sampler2D bumpmap;
+uniform sampler2D colormap;
+uniform sampler2D emissivemap;
+uniform sampler2D specularitymap;
+uniform vec3 FOG_COLOR;
+uniform float FOG_DENSITY;
+
+#define NAME cubemap-fragment-shader
 
 uniform samplerCube uTexture;
 
@@ -50,6 +55,4 @@ void main () {
 	vec3 staticDirection = reflect(eyeToSurfaceDir, normal);
 
 	fragColor = texture(uTexture, staticDirection); // TEXURE_CUBE_MAP
-//	fragColor = texture(uTexture, v_textureCoords);
-//	fragColor.rgb *= color;
 }

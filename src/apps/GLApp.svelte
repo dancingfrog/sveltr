@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import * as GL from '@sveltejs/gl';
     import terrainVert from './shaders/custom/terrain-vert.glsl';
-    import terrainFrag from './shaders/custom/basic-fragment-shader.glsl';
+    import terrainFrag from './shaders/custom/terrain-frag.glsl';
 
     export let title;
 
@@ -24,65 +24,11 @@
         return Math.abs((((hr < 255) ? hr : r) << 16) + (g << 8) + ((hb < 255) ? hb : b));
     }
 
-    let terrain;
-    const terrainMap = new Image();
-    const heightMap = new Image();
-    terrainMap.alt = 'Terrain Texture';
-    heightMap.crossOrigin = terrainMap.crossOrigin = '';
-
     let webgl;
-    let displacementTexture = null;
-    let process_extra_shader_components = (gl, material, model) => {
-        // console.log("Process Extra Shader Components");
-        const program = material.program;
-
-        if (material.vertName === "terrain-vert") {
-            // console.log(material.vertName);
-
-            if (!!displacementTexture) {
-                const displacementTextureLocation = gl.getUniformLocation(program, "heightMap");
-
-                gl.activeTexture(gl.TEXTURE1);
-                gl.bindTexture(gl.TEXTURE_2D, displacementTexture);
-                gl.uniform1i(displacementTextureLocation, 1);
-
-
-            }
-
-        }
-
-    };
+    let terrain;
 
     onMount(() => {
         let frame;
-
-        console.log(webgl);
-
-        if (!!displacementTexture === false) {
-            // Create a texture and create initial bind
-            displacementTexture = webgl.createTexture();
-            webgl.bindTexture(webgl.TEXTURE_2D, displacementTexture);
-            webgl.bindTexture(webgl.TEXTURE_2D, null);
-        }
-
-        // Texture constants
-        const level = 0;
-        const internalFormat = webgl.RGBA;
-        const format = webgl.RGBA;
-        const type = webgl.UNSIGNED_BYTE;
-
-        heightMap.addEventListener('load', function () {
-            // Now that the image has loaded copy it to the texture.
-            console.log("Bind to texture");
-
-            webgl.bindTexture(webgl.TEXTURE_2D, displacementTexture);
-            webgl.texImage2D(webgl.TEXTURE_2D, level, internalFormat, format, type, heightMap);
-            webgl.generateMipmap(webgl.TEXTURE_2D);
-            webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MAG_FILTER, webgl.NEAREST_MIPMAP_LINEAR);
-            webgl.texParameteri(webgl.TEXTURE_2D, webgl.TEXTURE_MIN_FILTER, webgl.NEAREST_MIPMAP_LINEAR);
-        });
-
-        heightMap.src = "images/heightmap.png";
 
         terrain = new GL.Texture("/images/heightmap.png", { width: 512, height: 512 });
 
@@ -100,7 +46,7 @@
     });
 </script>
 
-<GL.Scene bind:gl={webgl} backgroundOpacity=1.0 process_extra_shader_components={process_extra_shader_components}>
+<GL.Scene bind:gl={webgl} backgroundOpacity=1.0 process_extra_shader_components={null}>
     <GL.Target id="center" location={[0, h/2, 0]}/>
 
     <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>
@@ -127,7 +73,7 @@
       rotation={[-90, 0, 0]}
       scale={h}
       uniforms={{ color: 0x0066ff, alpha: 0.45 }}
-      transparency
+      transparent
     />
 
     <!-- moving light -->

@@ -2,21 +2,40 @@
     import { onMount } from 'svelte';
     import * as GL from '@sveltejs/gl';
     import generateFace from './content/grid-generator';
-    // import vert from './shaders/default/vert.glsl';
-    // import vert from './shaders/custom/texture-vertex-shader.glsl';
     import vert from './shaders/custom/normal-selected-txt-vertex-shader.glsl';
-    // import frag from './shaders/default/frag.glsl';
-    // import frag from './shaders/custom/basic-fragment-shader.glsl';
-    // import frag from './shaders/custom/texture-fragment-shader.glsl';
     import frag from './shaders/custom/normal-selected-txt-fragment-shader.glsl';
-    // import frag from './shaders/custom/cubemap-fragment-shader.glsl';
 
     export let title;
 
-    export let color = '#ff3e00';
+    export let color = '#F7C77B';
+
+    let w = 1;
+    let h = 1;
+    let d = 1;
+
+    const light = {};
+
+    // initial view
+    let location = new Float32Array([ 0.25, 1, 2.5 ]);
+    let target = new Float32Array([0, 1, 0]);
+
+    const captureViewDirection = (loc, tgt) => "";
+
+    function adjustColor (clr, height = 1) {
+        const r = parseInt('0x' + clr.substr(1, 2), 16),
+                g = parseInt('0x' + clr.substr(3, 2), 16),
+                b = parseInt('0x' + clr.substr(5, 2), 16);
+
+        const hr = Math.floor(r * (height / 0.25)),
+                hb = Math.floor(b * (height / 0.25));
+        return Math.abs((((hr < 255) ? hr : r) << 16) + (g << 8) + ((hb < 255) ? hb : b));
+    }
 
     let webgl;
     let textures = [];
+    const ctx = document.createElement("canvas").getContext("2d");
+    ctx.canvas.width = 256;
+    ctx.canvas.height = 256;
     let process_extra_shader_components = (gl, material, model) => {
         // console.log("Process Extra Shader Components");
         const program = material.program;
@@ -26,11 +45,11 @@
         ) {
             // console.log(material.vertName, material.fragName);
 
-            const vertexTextureCoords = gl.getAttribLocation(program, "vertexTextureCoords");
+            const uvCoordLocation = gl.getAttribLocation(program, "uv");
 
             // gl.disable(gl.CULL_FACE); // for double-sided poly
 
-            gl.enableVertexAttribArray(vertexTextureCoords);
+            gl.enableVertexAttribArray(uvCoordLocation);
             const textureBuffer = gl.createBuffer();
             const textureCoords = [
 
@@ -73,7 +92,7 @@
 
             gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW);
-            gl.vertexAttribPointer(vertexTextureCoords, 2, gl.FLOAT, false, 0, 0);
+            gl.vertexAttribPointer(uvCoordLocation, 2, gl.FLOAT, false, 0, 0);
 
             // Un-bind buffers
             gl.bindBuffer(gl.ARRAY_BUFFER, null);
@@ -117,29 +136,6 @@
         }
 
     };
-
-    let w = 1;
-    let h = 1;
-    let d = 1;
-
-
-    const light = {};
-
-    // Get A 2D context for dynamic textures
-    /** @type {Canvas2DRenderingContext} */
-    const ctx = document.createElement("canvas").getContext("2d");
-    ctx.canvas.width = 256;
-    ctx.canvas.height = 256;
-
-    function adjustColor (clr, height = 1) {
-        const r = parseInt('0x' + clr.substr(1, 2), 16),
-                g = parseInt('0x' + clr.substr(3, 2), 16),
-                b = parseInt('0x' + clr.substr(5, 2), 16);
-
-        const hr = Math.floor(r * (height / 0.25)),
-                hb = Math.floor(b * (height / 0.25));
-        return Math.abs((((hr < 255) ? hr : r) << 16) + (g << 8) + ((hb < 255) ? hb : b));
-    }
 
     onMount(() => {
         let frame;
@@ -268,8 +264,8 @@
 <GL.Scene bind:gl={webgl} backgroundOpacity=1.0 process_extra_shader_components={process_extra_shader_components}>
     <GL.Target id="center" location={[0, h/2, 0]}/>
 
-    <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>
-        <GL.PerspectiveCamera {location} lookAt="center" near={0.01} far={1000}/>
+    <GL.OrbitControls maxPolarAngle={Math.PI / 2} {location}>
+        <GL.PerspectiveCamera bind:location={location} lookAt="center" near={0.01} far={1000}/>
     </GL.OrbitControls>
 
     <GL.AmbientLight intensity={0.3}/>

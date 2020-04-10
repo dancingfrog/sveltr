@@ -24,25 +24,20 @@
 #define NAME texture-vertex-shader
 
 in vec3 position;
+
 in vec3 normal;
 
-in vec2 vertexTextureCoords;
-
-out vec2 v_textureCoords;
-
-//out vec3 v_view_position;
+in vec2 uv; // available when texture maps (bumpmap, colormap, ...) are used on object
 
 out vec3 v_normal;
 
+out vec2 v_textureCoords;
+
 void main() {
-	vec4 pos = vec4(position, 1.0);
-	vec4 model_view_pos = VIEW * MODEL * pos;
 
 	v_normal = (MODEL_INVERSE_TRANSPOSE * vec4(normal, 0.0)).xyz;
 
-//	v_view_position = model_view_pos.xyz;
+	v_textureCoords = uv;
 
-	v_textureCoords = vertexTextureCoords;
-
-	gl_Position = PROJECTION * model_view_pos;
+	gl_Position = PROJECTION * VIEW * MODEL * vec4(position, 1.0);
 }

@@ -2,8 +2,7 @@
  * every custom fragment shader in @svelte/gl:
  */
 /* start builtins */
-//#extension GL_OES_standard_derivatives : enable
-
+//
 //precision highp float;
 //
 //struct DirectionalLight {
@@ -24,13 +23,17 @@
 //uniform PointLight POINT_LIGHTS[NUM_LIGHTS];
 /* end builtins */
 
-#define NAME normal-selected-txt-fragment-shader
-
+/* Uniforms supplied by Svelte materials: */
 uniform vec3 color;
-
-#ifdef has_alpha
+uniform vec3 emissive;
 uniform float alpha;
-#endif
+uniform float specularity;
+uniform sampler2D bumpmap;
+uniform sampler2D colormap;
+uniform sampler2D emissivemap;
+uniform sampler2D specularitymap;
+uniform vec3 FOG_COLOR;
+uniform float FOG_DENSITY;
 
 uniform sampler2D uTexture0;
 uniform sampler2D uTexture1;
@@ -39,37 +42,36 @@ uniform sampler2D uTexture3;
 uniform sampler2D uTexture4;
 uniform sampler2D uTexture5;
 
-in vec3 v_normal;
+#define NAME normal-selected-txt-fragment-shader
 
-in vec3 v_objNormal;
+in vec3 v_normal;
 
 in vec2 v_textureCoords;
 
 out mediump vec4 fragColor;
 
 void main () {
-	vec3 normal = normalize(v_normal);
 
-	if (v_objNormal.z == 1.0) {
+	if (v_normal.z == 1.0) {
 		fragColor = texture(uTexture0, v_textureCoords);
 
-	} else if (v_objNormal.x == -1.0) {
+	} else if (v_normal.x == -1.0) {
 //		fragColor = vec4(1.0, 0.0, 1.0, 1.0);
 		fragColor = texture(uTexture1, v_textureCoords);
 
-	} else if (v_objNormal.z == -1.0) {
+	} else if (v_normal.z == -1.0) {
 //		fragColor = vec4(0.0, 1.0, 1.0, 1.0);
 		fragColor = texture(uTexture2, v_textureCoords);
 
-	} else if (v_objNormal.x == 1.0) {
+	} else if (v_normal.x == 1.0) {
 //		fragColor = vec4(1.0, 1.0, 0.0, 1.0);
 		fragColor = texture(uTexture3, v_textureCoords);
 
-	} else if (v_objNormal.y == 1.0) {
+	} else if (v_normal.y == 1.0) {
 //		fragColor = vec4(0.0, 1.0, 0.0, 1.0);
 		fragColor = texture(uTexture4, v_textureCoords);
 
-	} else if (v_objNormal.y == -1.0) {
+	} else if (v_normal.y == -1.0) {
 //		fragColor = vec4(0.0, 0.0, 1.0, 1.0);
 		fragColor = texture(uTexture5, v_textureCoords);
 
@@ -77,7 +79,5 @@ void main () {
 		fragColor = vec4(color, 1.0);
 	}
 
-	#ifdef has_alpha
 	fragColor.a *= alpha;
-	#endif
 }
