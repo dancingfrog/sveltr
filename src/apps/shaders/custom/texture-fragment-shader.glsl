@@ -32,7 +32,7 @@ uniform vec3 color;
 uniform float alpha;
 #endif
 
-uniform sampler2D uTexture;
+uniform sampler2D colormap;
 
 in vec3 v_normal;
 
@@ -43,7 +43,7 @@ out mediump vec4 fragColor;
 void main () {
 	vec3 normal = normalize(v_normal);
 
-	fragColor = texture(uTexture, v_textureCoords);
+	fragColor = texture(colormap, v_textureCoords);
 
 	#ifdef has_alpha
 	fragColor.a *= alpha;

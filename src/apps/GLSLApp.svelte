@@ -40,9 +40,7 @@
         // console.log("Process Extra Shader Components");
         const program = material.program;
 
-        if ((material.vertName == "texture-vertex-shader" && material.fragName == "texture-fragment-shader") ||
-            (material.vertName == "normal-selected-txt-vertex-shader" && material.fragName == "normal-selected-txt-fragment-shader")
-        ) {
+        if (material.vertName == "normal-selected-txt-vertex-shader" && material.fragName == "normal-selected-txt-fragment-shader") {
             // console.log(material.vertName, material.fragName);
 
             const uvCoordLocation = gl.getAttribLocation(program, "uv");
