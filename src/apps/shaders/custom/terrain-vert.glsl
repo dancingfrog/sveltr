@@ -39,7 +39,11 @@ void main() {
 	vec4 pos = vec4(displaced_position, 1.0);
 	vec4 model_view_pos = VIEW * MODEL * pos;
 
-	v_normal = (MODEL_INVERSE_TRANSPOSE * vec4(normal, 0.0)).xyz;
+	mat4 mvp_matrix = PROJECTION * VIEW * MODEL;
+
+	// NEED TO CALCULATE NORMAL DISPLACEMENT BY SAMPLING NEIGHBOR UV's
+//	v_normal = (MODEL_INVERSE_TRANSPOSE * vec4(normal + displacement, 0.0)).xyz;
+	v_normal = normal + displacement;
 
 	#ifdef has_textures
 	v_uv = uv;
@@ -64,5 +68,7 @@ void main() {
 		#endif
 	}
 
-	gl_Position = PROJECTION * model_view_pos;
+//	gl_Position = PROJECTION * VIEW * MODEL * pos;
+//	gl_Position = PROJECTION * model_view_pos;
+	gl_Position = mvp_matrix * pos;
 }

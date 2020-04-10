@@ -287,23 +287,6 @@
             transparent
     />
 
-        <!-- spheres -->
-    <GL.Mesh
-            geometry={GL.sphere({ turns: 36, bands: 36 })}
-            location={[ -0.5, 2.4, 1.2 ]}
-            scale={0.4}
-            uniforms={{ color: 0x123456, alpha: 0.9 }}
-            transparent
-    />
-
-    <GL.Mesh
-            geometry={GL.sphere({ turns: 36, bands: 36 })}
-            location={[ -1.4, 2.6, 0.2 ]}
-            scale={0.6}
-            uniforms={{ color: 0x336644, alpha: 1.0 }}
-            transparent
-    />
-
     <!-- floor -->
     <GL.Mesh
             geometry={GL.plane()}

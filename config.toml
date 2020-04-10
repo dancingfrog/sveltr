@@ -1,7 +1,7 @@
 baseurl = "/"
 languageCode = "en-us"
 languageLang = "en"
-title = "My new blogdown site"
+title = "Sveltr"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 

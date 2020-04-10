@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import * as GL from '@sveltejs/gl';
 	import Keypad from './components/Keypad.svelte';
 
 	export let title;
@@ -12,16 +13,20 @@
 		alert(`submitted ${pin}`);
 	}
 
-	import * as GL from '@sveltejs/gl';
-
 	export let color = '#ff3e00';
 	let w = 1;
 	let h = 1;
 	let d = 1;
 
-	const from_hex = hex => parseInt(hex.slice(1), 16);
-
 	const light = {};
+
+	// initial view
+	let location = new Float32Array([ 0.25, 0.5, 2.5 ]);
+	let target = new Float32Array([0, 1, 0]);
+
+	const captureViewDirection = (loc, tgt) => "";
+
+	const from_hex = hex => parseInt(hex.slice(1), 16);
 
 	onMount(() => {
 		let frame;
@@ -71,8 +76,9 @@
 <GL.Scene>
 	<GL.Target id="center" location={[0, h/2, 0]}/>
 
-	<GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>
-		<GL.PerspectiveCamera {location} lookAt="center" near={0.01} far={1000}/>
+	<GL.OrbitControls maxPolarAngle={Math.PI / 2} {location} {target}>
+		{captureViewDirection(location, target)}
+		<GL.PerspectiveCamera bind:location={location} lookAt="center" near={0.01} far={1000}/>
 	</GL.OrbitControls>
 
 	<GL.AmbientLight intensity={0.3}/>

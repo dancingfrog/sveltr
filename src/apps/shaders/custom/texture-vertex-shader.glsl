@@ -30,7 +30,7 @@ in vec2 vertexTextureCoords;
 
 out vec2 v_textureCoords;
 
-out vec3 v_view_position;
+//out vec3 v_view_position;
 
 out vec3 v_normal;
 
@@ -40,7 +40,7 @@ void main() {
 
 	v_normal = (MODEL_INVERSE_TRANSPOSE * vec4(normal, 0.0)).xyz;
 
-	v_view_position = model_view_pos.xyz;
+//	v_view_position = model_view_pos.xyz;
 
 	v_textureCoords = vertexTextureCoords;
 

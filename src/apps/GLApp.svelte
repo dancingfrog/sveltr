@@ -6,7 +6,7 @@
 
     export let title;
 
-    export let color = '#ff3e00';
+    export let color = '#F7C77B';
 
     let w = 1;
     let h = 1;
@@ -116,9 +116,9 @@
       location={[0, -0.01, 0]}
       rotation={[-90, 0, 0]}
       scale={h}
-      vert={terrainVert}
       frag={terrainFrag}
-      uniforms={{ color: adjustColor(color, h), colormap: terrain }}
+      vert={terrainVert}
+      uniforms={{ color: adjustColor(color, h), alpha: 1.0, bumpmap: terrain }}
     />
 
     <GL.Mesh

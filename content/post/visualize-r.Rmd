@@ -166,8 +166,7 @@ Here's the full source of the Svelte GL app:
             padding: 24px;
         }
     </style>
-
-    <GL.Scene>
+<GL.Scene>
         <GL.Target id="center" location={[0, h/2, 0]}/>
 
         <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>
@@ -179,7 +178,7 @@ Here's the full source of the Svelte GL app:
 
         {#each Array(heightmap.length) as _, k}
             {#each Array(heightmap[k].length) as _, i}
-                <!-- box -->
+            <!-- box -->
                 <GL.Mesh geometry={GL.box({ x: 0, y: 0, z: 0 , w: (gridSizeX / heightmap[i].length), h: (1 * heightmap[k][i]), d: (gridSizeZ / heightmap.length) })}
                          location={[ (-(gridSizeX / 2) + (i * (gridSizeX / heightmap[0].length))), 0, (-(gridSizeZ / 2) + (k * (gridSizeZ / heightmap.length))) ]}
                          rotation={[ 0, 0, 0]}
@@ -188,23 +187,6 @@ Here's the full source of the Svelte GL app:
                 />
             {/each}
         {/each}
-
-            <!-- spheres -->
-        <GL.Mesh
-                geometry={GL.sphere({ turns: 36, bands: 36 })}
-                location={[ -0.5, 2.4, 1.2 ]}
-                scale={0.4}
-                uniforms={{ color: 0x123456, alpha: 0.9 }}
-                transparent
-        />
-
-        <GL.Mesh
-                geometry={GL.sphere({ turns: 36, bands: 36 })}
-                location={[ -1.4, 2.6, 0.2 ]}
-                scale={0.6}
-                uniforms={{ color: 0x336644, alpha: 1.0 }}
-                transparent
-        />
 
         <!-- floor -->
         <GL.Mesh
@@ -267,7 +249,7 @@ Here's the full source of the Svelte GL app:
             />
         </GL.Group>
     </GL.Scene>
-
+    
     <div class="controls">
         <label>
             <input type="color" style="height: 40px" bind:value={color}>
