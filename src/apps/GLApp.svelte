@@ -57,6 +57,19 @@
             const displacementMultLocation = gl.getUniformLocation(program, "displace_multiply");
             gl.uniform1f(displacementMultLocation, h);
 
+            // uniform vec3 light_direction; // normalized direction in eye
+            // uniform vec3 light_halfplane; // normalized half-plane vector
+            // uniform vec4 light_ambient_color;
+            // uniform vec4 light_diffuse_color;
+            // uniform vec4 light_specular_color;
+
+            // uniform vec4 material_ambient_color;
+            // uniform vec4 material_diffuse_color;
+            const diffuseColorLocation = gl.getUniformLocation(program, "material_diffuse_color");
+            gl.uniform4fv(diffuseColorLocation, new Float32Array([...normalizeColor(color), 1.0]));
+            // uniform vec4 material_specular_color;
+            // uniform float material_specular_exponent;
+
         }
 
     };

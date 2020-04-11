@@ -61,6 +61,8 @@ out vec2 v_textureCoords;
 //uniform material_props material;
 //uniform direction_light light;
 
+out vec4 v_color;
+
 vec4 directional_light_color (vec3 normal) {
 	vec4 computed_color = vec4(C_ZERO, C_ZERO, C_ZERO, C_ZERO);
 	float ndotL; // dot product of normal & light direction
@@ -89,6 +91,8 @@ void main() {
 	v_normal = normal + displacement;
 
 	v_textureCoords = uv;
+
+	v_color = material_diffuse_color;
 
 	gl_Position = PROJECTION * VIEW * MODEL * vec4(displaced_position, C_ONE);
 }
