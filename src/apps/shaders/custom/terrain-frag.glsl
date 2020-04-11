@@ -37,7 +37,7 @@ uniform float FOG_DENSITY;
 
 #define NAME terrain-frag
 
-in vec4 v_color;
+in vec4 v_shading;
 
 in vec3 v_normal;
 
@@ -47,7 +47,7 @@ in vec2 v_textureCoords;
 out mediump vec4 fragColor;
 
 void main () {
-    fragColor = v_color;
+    fragColor = v_shading * vec4(color, 1.0);
 
     if (alpha == 0.0 || (0.0 <= alpha && alpha <= 1.0)) {
         fragColor.a *= alpha;

@@ -13,7 +13,9 @@
     let h = 0.75;
     let d = 1;
 
-    const light = {};
+    const light = {
+        color: "#FFFFFF"
+    };
 
     function adjustColor (clr, height = 1) {
         const r = parseInt('0x' + clr.substr(1, 2), 16),
@@ -55,20 +57,33 @@
             // }
 
             const displacementMultLocation = gl.getUniformLocation(program, "displace_multiply");
-            gl.uniform1f(displacementMultLocation, h);
+            gl.uniform1f(displacementMultLocation, h/2);
 
             // uniform vec3 light_direction; // normalized direction in eye
-            // uniform vec3 light_halfplane; // normalized half-plane vector
+            const lightDirectionLocation = gl.getUniformLocation(program, "light_direction");
+            gl.uniform3fv(lightDirectionLocation, new Float32Array([light.x,light.y,light.z]));
             // uniform vec4 light_ambient_color;
+            const ambientLightLocation = gl.getUniformLocation(program, "light_ambient_color");
+            gl.uniform4fv(ambientLightLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
             // uniform vec4 light_diffuse_color;
+            const diffuseLightLocation = gl.getUniformLocation(program, "light_diffuse_color");
+            gl.uniform4fv(diffuseLightLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
             // uniform vec4 light_specular_color;
+            const specularLightLocation = gl.getUniformLocation(program, "light_specular_color");
+            gl.uniform4fv(specularLightLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
 
-            // uniform vec4 material_ambient_color;
-            // uniform vec4 material_diffuse_color;
-            const diffuseColorLocation = gl.getUniformLocation(program, "material_diffuse_color");
-            gl.uniform4fv(diffuseColorLocation, new Float32Array([...normalizeColor(color), 1.0]));
-            // uniform vec4 material_specular_color;
-            // uniform float material_specular_exponent;
+            // // uniform vec4 material_ambient_color;
+            // const ambientColorLocation = gl.getUniformLocation(program, "material_ambient_color");
+            // gl.uniform4fv(ambientColorLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
+            // // uniform vec4 material_diffuse_color;
+            // const diffuseColorLocation = gl.getUniformLocation(program, "material_diffuse_color");
+            // gl.uniform4fv(diffuseColorLocation, new Float32Array([...normalizeColor(color), 1.0]));
+            // // uniform vec4 material_specular_color;
+            // const specularColorLocation = gl.getUniformLocation(program, "material_specular_color");
+            // gl.uniform4fv(specularColorLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
+            // // uniform float material_specular_exponent;
+            // const specularExpLocation = gl.getUniformLocation(program, "material_specular_exponent");
+            // gl.uniform1f(specularExpLocation, 1.0);
 
         }
 
@@ -82,9 +97,9 @@
         const loop = () => {
             frame = requestAnimationFrame(loop);
 
-            light.x = 3 * Math.sin(Date.now() * 0.001);
-            light.y = 2.5 + 2 * Math.sin(Date.now() * 0.0004);
-            light.z = 3 * Math.cos(Date.now() * 0.002);
+            light.x = 1.5 * Math.sin(Date.now() * 0.001);
+            light.y = 1.5; // + 2 * Math.sin(Date.now() * 0.0004);
+            light.z = 1.5 * Math.cos(Date.now() * 0.002);
         };
 
         loop();
@@ -94,7 +109,7 @@
 </script>
 
 <GL.Scene bind:gl={webgl} backgroundOpacity=1.0 process_extra_shader_components={process_extra_shader_components}>
-    <GL.Target id="center" location={[0, h/2, 0]}/>
+    <GL.Target id="center" location={[0, h/2 - h, 0]}/>
 
     <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>
         <GL.PerspectiveCamera {location} lookAt="center" near={0.01} far={1000}/>
@@ -116,7 +131,7 @@
 
     <GL.Mesh
       geometry={GL.plane()}
-      location={[0, -(h - h * h)/2, 0]}
+      location={[0, -(h - h * h/2)/2, 0]}
       rotation={[-90, 0, 0]}
       scale={h}
       uniforms={{ color: 0x0066ff, alpha: 0.45 }}

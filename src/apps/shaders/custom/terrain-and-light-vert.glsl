@@ -45,37 +45,39 @@ out vec2 v_textureCoords;
 
 //struct direction_light {
 	uniform vec3 light_direction; // normalized direction in eye
-	uniform vec3 light_halfplane; // normalized half-plane vector
 	uniform vec4 light_ambient_color;
 	uniform vec4 light_diffuse_color;
 	uniform vec4 light_specular_color;
 //};
 
 //struct material_props {
-	uniform vec4 material_ambient_color;
-	uniform vec4 material_diffuse_color;
-	uniform vec4 material_specular_color;
-	uniform float material_specular_exponent;
+//	uniform vec4 material_ambient_color;
+//	uniform vec4 material_diffuse_color;
+//	uniform vec4 material_specular_color;
+//	uniform float material_specular_exponent;
 //};
 
 //uniform material_props material;
 //uniform direction_light light;
 
-out vec4 v_color;
+out vec4 v_shading;
 
 vec4 directional_light_color (vec3 normal) {
 	vec4 computed_color = vec4(C_ZERO, C_ZERO, C_ZERO, C_ZERO);
+	vec3 nlight_direction = normalize(light_direction); // normalized direction in eye
+	vec3 nlight_halfplane = normalize(vec3(nlight_direction.x + 0.0, nlight_direction.y + 1.0, nlight_direction.z + 0.0)); // normalized half-plane vector
 	float ndotL; // dot product of normal & light direction
 	float ndotH; // dot product of nomral and & half-plane vector
 
-	ndotL = max(C_ZERO, dot(normal, light_direction));
-	ndotH = max(C_ZERO, dot(normal, light_halfplane));
-	computed_color += light_ambient_color * material_ambient_color;
-	computed_color += ndotL * light_diffuse_color * material_diffuse_color;
+	ndotL = max(C_ZERO, dot(normal, nlight_direction));
+	ndotH = max(C_ZERO, dot(normal, nlight_halfplane));
+//	computed_color += light_ambient_color * material_ambient_color;
+//	computed_color += ndotL * light_diffuse_color * material_diffuse_color;
+	computed_color += ndotL * light_diffuse_color * vec4(1.0, 1.0, 1.0, 1.0); //material_diffuse_color;
 
-	if (ndotH > C_ZERO) {
-		computed_color += pow(ndotH, material_specular_exponent) * material_specular_color * light_specular_color;
-	}
+//	if (ndotH > C_ZERO) {
+//		computed_color += pow(ndotH, material_specular_exponent) * material_specular_color * light_specular_color;
+//	}
 
 	return computed_color;
 }
@@ -87,12 +89,11 @@ void main() {
 
 	vec3 displaced_position = position + (displace_multiply * displace_along_normal);
 
-	// NEED TO CALCULATE NORMAL DISPLACEMENT BY SAMPLING NEIGHBOR UV's
 	v_normal = normal + displacement;
 
 	v_textureCoords = uv;
 
-	v_color = material_diffuse_color;
+	v_shading = directional_light_color((MODEL_INVERSE_TRANSPOSE * vec4(normal, C_ZERO)).xyz);
 
 	gl_Position = PROJECTION * VIEW * MODEL * vec4(displaced_position, C_ONE);
 }
