@@ -24,6 +24,8 @@
 
 #define NAME terrain-vert
 
+#define DISPLACE_MULTIPLY 0.99
+
 // texture containing elevation data
 //uniform sampler2D heightMap;
 uniform sampler2D bumpmap;
@@ -43,7 +45,7 @@ void main() {
 
 	vec3 displace_along_normal = vec3(normal * displacement);
 
-	vec3 displaced_position = position + (0.99 * displace_along_normal);
+	vec3 displaced_position = position + (DISPLACE_MULTIPLY * displace_along_normal);
 
 	// NEED TO CALCULATE NORMAL DISPLACEMENT BY SAMPLING NEIGHBOR UV's
 	v_normal = normal + displacement;

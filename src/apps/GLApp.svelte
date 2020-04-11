@@ -1,7 +1,8 @@
 <script>
     import { onMount } from 'svelte';
     import * as GL from '@sveltejs/gl';
-    import terrainVert from './shaders/custom/terrain-vert.glsl';
+    // import terrainVert from './shaders/custom/terrain-vert.glsl';
+    import terrainVert from './shaders/custom/terrain-and-light-vert.glsl';
     import terrainFrag from './shaders/custom/terrain-frag.glsl';
 
     export let title;
@@ -9,7 +10,7 @@
     export let color = '#F7C77B';
 
     let w = 1;
-    let h = 1;
+    let h = 0.75;
     let d = 1;
 
     const light = {};
@@ -24,8 +25,41 @@
         return Math.abs((((hr < 255) ? hr : r) << 16) + (g << 8) + ((hb < 255) ? hb : b));
     }
 
+    function normalizeColor(clr) {
+        const r = parseInt('0x' + clr.substr(1, 2), 16),
+                g = parseInt('0x' + clr.substr(3, 2), 16),
+                b = parseInt('0x' + clr.substr(5, 2), 16);
+
+        return [ r/255, g/255, b/255 ];
+    }
+
     let webgl;
     let terrain;
+    // const heightMap = new Image();
+    // let displacementTexture = null;
+    let process_extra_shader_components = (gl, material, model) => {
+        // console.log("Process Extra Shader Components");
+        const program = material.program;
+
+        if (material.vertName === "terrain-vert") {
+            // console.log(material.vertName);
+
+            // if (!!displacementTexture) {
+            //     const displacementTextureLocation = gl.getUniformLocation(program, "heightMap");
+            //
+            //     gl.activeTexture(gl.TEXTURE1);
+            //     gl.bindTexture(gl.TEXTURE_2D, displacementTexture);
+            //     gl.uniform1i(displacementTextureLocation, 1);
+            //
+            //
+            // }
+
+            const displacementMultLocation = gl.getUniformLocation(program, "displace_multiply");
+            gl.uniform1f(displacementMultLocation, h);
+
+        }
+
+    };
 
     onMount(() => {
         let frame;
@@ -46,7 +80,7 @@
     });
 </script>
 
-<GL.Scene bind:gl={webgl} backgroundOpacity=1.0 process_extra_shader_components={null}>
+<GL.Scene bind:gl={webgl} backgroundOpacity=1.0 process_extra_shader_components={process_extra_shader_components}>
     <GL.Target id="center" location={[0, h/2, 0]}/>
 
     <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>
@@ -59,7 +93,7 @@
     <!-- ground -->
     <GL.Mesh
       geometry={GL.terrain()}
-      location={[0, -0.01, 0]}
+      location={[0, -h/2, 0]}
       rotation={[-90, 0, 0]}
       scale={h}
       frag={terrainFrag}
@@ -69,7 +103,7 @@
 
     <GL.Mesh
       geometry={GL.plane()}
-      location={[0, h/2 - 0.05, 0]}
+      location={[0, -(h - h * h)/2, 0]}
       rotation={[-90, 0, 0]}
       scale={h}
       uniforms={{ color: 0x0066ff, alpha: 0.45 }}

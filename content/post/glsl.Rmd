@@ -45,6 +45,8 @@ There are also multiple levels of precision:
 
     lowp
     mediump
+    highp
+
 
 To create custom shaders for use with `@svelte/gl`, I had to make some changes to the `gl` source, beginning add a declaration to all shaders compile by `Material.mjs`:
 
@@ -64,7 +66,7 @@ Updating the shader version to 3.00 also required all attributes and varyings in
     in vec3 position;
     in vec3 normal;
 
-The final output var in the fragment shader also had to be changed, as the gl_FragColor builtin was no longer valid:
+The final output varying in the fragment shader also had to be changed because the gl_FragColor builtin was no longer valid:
 
     out mediump vec4 fragColor;
     ...
