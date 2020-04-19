@@ -92,7 +92,7 @@
     onMount(() => {
         let frame;
 
-        terrain = new GL.Texture("/images/heightmap.png", { width: 512, height: 512 });
+        terrain = new GL.Texture("/images/normalmap.png", { width: 512, height: 512 });
 
         const loop = () => {
             frame = requestAnimationFrame(loop);
@@ -126,17 +126,18 @@
       scale={h}
       frag={terrainFrag}
       vert={terrainVert}
-      uniforms={{ color: adjustColor(color, h), alpha: 1.0, bumpmap: terrain }}
+      uniforms={{ color: adjustColor(color, h), alpha: 1.0, normalmap: terrain }}
     />
 
-    <GL.Mesh
-      geometry={GL.plane()}
-      location={[0, -(h - h * h/2)/2, 0]}
-      rotation={[-90, 0, 0]}
-      scale={h}
-      uniforms={{ color: 0x0066ff, alpha: 0.45 }}
-      transparent
-    />
+    <!-- water -->
+<!--    <GL.Mesh-->
+<!--      geometry={GL.plane()}-->
+<!--      location={[0, -(h - h * h/2)/2, 0]}-->
+<!--      rotation={[-90, 0, 0]}-->
+<!--      scale={h}-->
+<!--      uniforms={{ color: 0x0066ff, alpha: 0.45 }}-->
+<!--      transparent-->
+<!--    />-->
 
     <!-- moving light -->
     <GL.Group location={[light.x,light.y,light.z]}>

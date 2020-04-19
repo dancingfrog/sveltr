@@ -29,7 +29,8 @@
 
 // texture containing elevation data
 //uniform sampler2D heightMap;
-uniform sampler2D bumpmap;
+//uniform sampler2D bumpmap;
+uniform sampler2D normalmap;
 
 uniform float displace_multiply;
 
@@ -71,9 +72,8 @@ vec4 directional_light_color (vec3 normal) {
 
 	ndotL = max(C_ZERO, dot(normal, nlight_direction));
 	ndotH = max(C_ZERO, dot(normal, nlight_halfplane));
-//	computed_color += light_ambient_color * material_ambient_color;
-//	computed_color += ndotL * light_diffuse_color * material_diffuse_color;
-	computed_color += ndotL * light_diffuse_color * vec4(1.0, 1.0, 1.0, 1.0); //material_diffuse_color;
+	computed_color += light_ambient_color * vec4(0.05, 0.05, 0.05, C_ONE); //material_ambient_color;
+	computed_color += ndotL * light_diffuse_color * vec4(C_ONE, C_ONE, C_ONE, C_ONE); //material_diffuse_color;
 
 //	if (ndotH > C_ZERO) {
 //		computed_color += pow(ndotH, material_specular_exponent) * material_specular_color * light_specular_color;
@@ -83,17 +83,17 @@ vec4 directional_light_color (vec3 normal) {
 }
 
 void main() {
-	float displacement = texture(bumpmap, uv).r;
+	float displacement = texture(normalmap, uv).b;
 
 	vec3 displace_along_normal = vec3(normal * displacement);
 
 	vec3 displaced_position = position + (displace_multiply * displace_along_normal);
 
-	v_normal = normal + displacement;
+	v_normal = normal + texture(normalmap, uv).rgb;
 
 	v_textureCoords = uv;
 
-	v_shading = directional_light_color((MODEL_INVERSE_TRANSPOSE * vec4(normal, C_ZERO)).xyz);
+	v_shading = directional_light_color((MODEL_INVERSE_TRANSPOSE * vec4(v_normal, C_ZERO)).xyz);
 
 	gl_Position = PROJECTION * VIEW * MODEL * vec4(displaced_position, C_ONE);
 }
