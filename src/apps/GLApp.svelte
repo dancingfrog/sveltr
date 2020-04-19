@@ -10,7 +10,7 @@
     export let color = '#F7C77B';
 
     let w = 1;
-    let h = 0.75;
+    let h = 1;
     let d = 1;
 
     const light = {
@@ -46,44 +46,25 @@
         if (material.vertName === "terrain-vert") {
             // console.log(material.vertName);
 
-            // if (!!displacementTexture) {
-            //     const displacementTextureLocation = gl.getUniformLocation(program, "heightMap");
-            //
-            //     gl.activeTexture(gl.TEXTURE1);
-            //     gl.bindTexture(gl.TEXTURE_2D, displacementTexture);
-            //     gl.uniform1i(displacementTextureLocation, 1);
-            //
-            //
-            // }
-
             const displacementMultLocation = gl.getUniformLocation(program, "displace_multiply");
             gl.uniform1f(displacementMultLocation, h/2);
 
             // uniform vec3 light_direction; // normalized direction in eye
             const lightDirectionLocation = gl.getUniformLocation(program, "light_direction");
             gl.uniform3fv(lightDirectionLocation, new Float32Array([light.x,light.y,light.z]));
-            // uniform vec4 light_ambient_color;
+            // uniform vec3 light_ambient_color;
             const ambientLightLocation = gl.getUniformLocation(program, "light_ambient_color");
-            gl.uniform4fv(ambientLightLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
-            // uniform vec4 light_diffuse_color;
+            gl.uniform3fv(ambientLightLocation, new Float32Array([...normalizeColor(light.color)]));
+            // uniform vec3 light_diffuse_color;
             const diffuseLightLocation = gl.getUniformLocation(program, "light_diffuse_color");
-            gl.uniform4fv(diffuseLightLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
-            // uniform vec4 light_specular_color;
+            gl.uniform3fv(diffuseLightLocation, new Float32Array([...normalizeColor(light.color)]));
+            // uniform vec3 light_specular_color;
             const specularLightLocation = gl.getUniformLocation(program, "light_specular_color");
-            gl.uniform4fv(specularLightLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
+            gl.uniform3fv(specularLightLocation, new Float32Array([...normalizeColor(light.color)]));
 
-            // // uniform vec4 material_ambient_color;
-            // const ambientColorLocation = gl.getUniformLocation(program, "material_ambient_color");
-            // gl.uniform4fv(ambientColorLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
-            // // uniform vec4 material_diffuse_color;
-            // const diffuseColorLocation = gl.getUniformLocation(program, "material_diffuse_color");
-            // gl.uniform4fv(diffuseColorLocation, new Float32Array([...normalizeColor(color), 1.0]));
-            // // uniform vec4 material_specular_color;
-            // const specularColorLocation = gl.getUniformLocation(program, "material_specular_color");
-            // gl.uniform4fv(specularColorLocation, new Float32Array([...normalizeColor(light.color), 1.0]));
-            // // uniform float material_specular_exponent;
-            // const specularExpLocation = gl.getUniformLocation(program, "material_specular_exponent");
-            // gl.uniform1f(specularExpLocation, 1.0);
+            // uniform float material_specular_exponent;
+            const specularExpLocation = gl.getUniformLocation(program, "material_specular_exponent");
+            gl.uniform1f(specularExpLocation, 0.99);
 
         }
 
@@ -98,7 +79,7 @@
             frame = requestAnimationFrame(loop);
 
             light.x = 1.5 * Math.sin(Date.now() * 0.001);
-            light.y = 1.5; // + 2 * Math.sin(Date.now() * 0.0004);
+            light.y = 1.5 + h * Math.sin(Date.now() * 0.0004);
             light.z = 1.5 * Math.cos(Date.now() * 0.002);
         };
 
@@ -130,14 +111,14 @@
     />
 
     <!-- water -->
-<!--    <GL.Mesh-->
-<!--      geometry={GL.plane()}-->
-<!--      location={[0, -(h - h * h/2)/2, 0]}-->
-<!--      rotation={[-90, 0, 0]}-->
-<!--      scale={h}-->
-<!--      uniforms={{ color: 0x0066ff, alpha: 0.45 }}-->
-<!--      transparent-->
-<!--    />-->
+    <GL.Mesh
+      geometry={GL.plane()}
+      location={[0, -h/2 + (h * h/16), 0]}
+      rotation={[-90, 0, 0]}
+      scale={h}
+      uniforms={{ color: 0x0066ff, alpha: 0.45 }}
+      transparent
+    />
 
     <!-- moving light -->
     <GL.Group location={[light.x,light.y,light.z]}>
@@ -162,7 +143,7 @@
     </label>
 
     <label>
-        <input type="range" bind:value={h} min={0.5} max={2} step={0.1}><br />
+        <input type="range" bind:value={h} min={0.75} max={2} step={0.05}><br />
         size ({h})
     </label>
 </div>

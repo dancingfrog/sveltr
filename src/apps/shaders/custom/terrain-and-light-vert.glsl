@@ -25,6 +25,8 @@
 #define NAME terrain-vert
 
 #define C_ZERO 0.0
+#define C_QUARTER 0.25
+#define C_HALF 0.5
 #define C_ONE 1.0
 
 // texture containing elevation data
@@ -38,62 +40,58 @@ in vec3 position;
 
 in vec3 normal;
 
-in vec2 uv; // available when texture maps (bumpmap, colormap, ...) are used on object
+// available when texture maps are used
+// (bumpmap, colormap, normalmap...)
+in vec2 uv;
 
 out vec3 v_normal;
 
 out vec2 v_textureCoords;
 
-//struct direction_light {
-	uniform vec3 light_direction; // normalized direction in eye
-	uniform vec4 light_ambient_color;
-	uniform vec4 light_diffuse_color;
-	uniform vec4 light_specular_color;
-//};
+uniform vec3 light_direction; // normalized direction in eye
+uniform vec3 light_ambient_color;
+uniform vec3 light_diffuse_color;
+uniform vec3 light_specular_color;
+uniform float material_specular_exponent;
 
-//struct material_props {
-//	uniform vec4 material_ambient_color;
-//	uniform vec4 material_diffuse_color;
-//	uniform vec4 material_specular_color;
-//	uniform float material_specular_exponent;
-//};
+out vec3 v_directional_light_shading;
 
-//uniform material_props material;
-//uniform direction_light light;
-
-out vec4 v_shading;
-
-vec4 directional_light_color (vec3 normal) {
-	vec4 computed_color = vec4(C_ZERO, C_ZERO, C_ZERO, C_ZERO);
+vec3 directional_light_shading (vec3 normal) {
+	vec3 computed_shade = vec3(C_ZERO, C_ZERO, C_ZERO);
+	vec3 halfplane_vector = vec3(C_ZERO, C_ONE, C_ZERO);
 	vec3 nlight_direction = normalize(light_direction); // normalized direction in eye
-	vec3 nlight_halfplane = normalize(vec3(nlight_direction.x + 0.0, nlight_direction.y + 1.0, nlight_direction.z + 0.0)); // normalized half-plane vector
+	vec3 nlight_halfplane = normalize(nlight_direction + halfplane_vector); // normalized half-plane vector
 	float ndotL; // dot product of normal & light direction
 	float ndotH; // dot product of nomral and & half-plane vector
 
 	ndotL = max(C_ZERO, dot(normal, nlight_direction));
+	computed_shade += light_ambient_color * vec3(C_QUARTER, C_QUARTER, C_QUARTER);
+	computed_shade += ndotL * light_diffuse_color * vec3(C_ONE, C_ONE, C_ONE);
+
+	// The resolution of the vertex shader is not fine enough
+	// for specular lighting, but this is the equation
 	ndotH = max(C_ZERO, dot(normal, nlight_halfplane));
-	computed_color += light_ambient_color * vec4(0.05, 0.05, 0.05, C_ONE); //material_ambient_color;
-	computed_color += ndotL * light_diffuse_color * vec4(C_ONE, C_ONE, C_ONE, C_ONE); //material_diffuse_color;
+	if (ndotH > C_ZERO) {
+		computed_shade += pow(ndotH, material_specular_exponent) * vec3(C_ONE, C_ONE, C_ONE) * light_specular_color;
+	}
 
-//	if (ndotH > C_ZERO) {
-//		computed_color += pow(ndotH, material_specular_exponent) * material_specular_color * light_specular_color;
-//	}
-
-	return computed_color;
+	return computed_shade;
 }
 
 void main() {
-	float displacement = texture(normalmap, uv).b;
+	vec3 displacement = texture(normalmap, uv).rgb;
+
+	vec3 displace_along_verticle = vec3(C_ZERO, C_ZERO, normal.z) * displacement * (displace_multiply * C_HALF);
+
+	vec3 displaced_position = position + displace_along_verticle;
 
 	vec3 displace_along_normal = vec3(normal * displacement);
 
-	vec3 displaced_position = position + (displace_multiply * displace_along_normal);
-
-	v_normal = normal + texture(normalmap, uv).rgb;
+	v_normal = displace_multiply * displace_along_normal;
 
 	v_textureCoords = uv;
 
-	v_shading = directional_light_color((MODEL_INVERSE_TRANSPOSE * vec4(v_normal, C_ZERO)).xyz);
+	v_directional_light_shading = directional_light_shading((MODEL_INVERSE_TRANSPOSE * vec4(v_normal, C_ZERO)).xyz);
 
 	gl_Position = PROJECTION * VIEW * MODEL * vec4(displaced_position, C_ONE);
 }
