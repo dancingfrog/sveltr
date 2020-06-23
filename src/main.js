@@ -2,7 +2,7 @@ import './styles/global.css';
 import App from './apps/App.svelte';
 import GLApp from './apps/GLApp.svelte';
 import GLSLApp from './apps/GLSLApp.svelte';
-import TestApp from './apps/TestApp.svelte';
+import TechApp from './apps/TechApp.svelte';
 import VizRApp from './apps/VizRApp.svelte';
 
 
@@ -34,7 +34,7 @@ export const glslApp = (
         }
     }) : {};
 
-const appId = "svelte-app";
+const appId = 'svelte-app';
 const appElement = document.getElementById(appId);
 export default ( // Check if app id exists in DOM
     appElement !== null &&
@@ -45,27 +45,42 @@ export default ( // Check if app id exists in DOM
         target: appElement,
         props: {
             greeting:
-`Hooray 🎉 - you've built this with <a href="https://github.com/dancingfrog/sveltr" target="_blank">Sveltr</a>!`
+`Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>Sveltr</a>!`
         }
     }) : {};
 
 
-const testAppId = "test-app";
-const testAppElement = document.getElementById(testAppId);
-export const testApp = (
-    testAppElement !== null &&
-    (testAppElement.constructor.name === 'HTMLElement' ||
-        testAppElement.constructor.name === 'HTMLDivElement')
+const techAppId = 'tech-app';
+const techAppElement = document.getElementById(techAppId);
+export const techApp = (
+    techAppElement !== null &&
+    (techAppElement.constructor.name === 'HTMLElement' ||
+        techAppElement.constructor.name === 'HTMLDivElement')
     ) ?
-    new TestApp({
-        target: testAppElement,
+    new TechApp({
+        target: techAppElement,
         props: {
-            title: "🦊 Hello Svelte!"
+            title: '🦊 Hello Svelte!'
         }
     }) : {};
 
-// A special reference for running the VizR app on www.real-currents.com
-const vizrAppId = "uni-sol";
+
+const glAppId = 'gl-app';
+const glAppElement = document.getElementById(glAppId);
+export const glApp = (
+    glAppElement !== null &&
+    (glAppElement.constructor.name === 'HTMLElement' ||
+        glAppElement.constructor.name === 'HTMLDivElement')
+    ) ?
+    new GLApp({
+        target: glAppElement,
+        props: {
+            title: '🦊 Hello SvelteGL!'
+        }
+    }) : {};
+
+
+const vizrAppId = 'uni-sol';
 const vizrAppElement = document.getElementById(vizrAppId);
 if (
     vizrAppElement !== null &&
@@ -84,6 +99,6 @@ export const vizrApp = (
     new VizRApp({
         target: vizrAppElement,
         props: {
-            title: "🦊 Hello SvelteGL!"
+            title: 'Visualizing R Data with Sveltr'
         }
     }) : {};

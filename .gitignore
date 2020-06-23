@@ -1,12 +1,12 @@
 .idea
+.ipynb_checkpoints
 .RData
 .Rhistory
-.Rproj*
-*html
+*.Rproj*
 blogdown
-content/SvelteGL
 dist
+content/*html
 node_modules
 public
-static/*_files
+static
 webpack.json

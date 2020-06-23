@@ -1,8 +1,23 @@
 <script>
     import { onMount } from 'svelte';
     import * as GL from '@sveltejs/gl';
+    import NavigationControls from './components/NavigationControls.svelte';
 
     export let title;
+
+    export let options = {
+        labels: [],
+        values: []
+    };
+
+    // initial view
+    let location = new Float32Array([ 0, 10, 5 ]);
+    let target = new Float32Array([0, 1, 0]);
+
+    const captureViewDirection = (loc, tgt) => {
+        console.log("location: ", loc, "\n", "target: ", tgt);
+        return "";
+    };
 
     export let color = '#ff3e00';
 
@@ -37,8 +52,31 @@
 
     const light = {};
 
+    let webgl;
+
+
+    /* This is a helper callback to bind custom uniforms/attributes
+     * and to pass custom buffers, like the ad-hoc texture coords
+     * used in normal-selected texture shader below. I inserted a
+     * hook directly in the @sveltejs/gl source for this purpose
+     */
+    let process_extra_shader_components = (gl, material, model) => {
+        // console.log("Process Extra Shader Components");
+        const program = material.program;
+    };
+
+    let updateWorld = (event) => {
+        console.log(event);
+    };
+
+    let navControlInit;
+
     onMount(() => {
         let frame;
+
+        if (typeof navControlInit === 'function') {
+            navControlInit();
+        }
 
         const loop = () => {
             frame = requestAnimationFrame(loop);
@@ -56,40 +94,16 @@
 
 <style>
     .controls {
-        float: right;
-        position: relative;
-        margin: 8px;
         margin-top: -160px;
-        width: 300px;
         height: 128px;
-        padding: 1em;
-        background-color: rgba(255,255,255,0.7);
-        border-radius: 2px;
-        z-index: 2;
-    }
-
-    @media screen and (max-width: 480px) {
-        .controls {
-            margin-top: 8px;
-        }
-    }
-
-    .controls label input[type="color"] {
-        clear: both;
-        margin: 100px;
-        margin-top: 2px;
-        margin-bottom: 10px;
-    }
-
-    .keys * {
-        padding: 24px;
     }
 </style>
 
-<GL.Scene>
+<GL.Scene bind:gl={webgl} backgroundOpacity=1.0 process_extra_shader_components={process_extra_shader_components}>
     <GL.Target id="center" location={[0, h/2, 0]}/>
 
-    <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>
+    <GL.OrbitControls maxPolarAngle={Math.PI / 2} {location} {target}>
+        {captureViewDirection(location, target)}
         <GL.PerspectiveCamera {location} lookAt="center" near={0.01} far={1000}/>
     </GL.OrbitControls>
 
@@ -108,51 +122,6 @@
         {/each}
     {/each}
 
-    <!-- floor -->
-    <GL.Mesh
-            geometry={GL.plane()}
-            location={[0,-0.01,0]}
-            rotation={[-90,0,0]}
-            scale={10}
-            uniforms={{ color: 0xffffff }}
-    />
-
-    <!-- ceiling -->
-    <GL.Mesh
-            geometry={GL.plane()}
-            location={[0,5.0,0]}
-            rotation={[90,0,0]}
-            scale={10}
-            uniforms={{ color: 0xffffff }}
-    />
-
-    <!-- wall1 -->
-    <GL.Mesh
-            geometry={GL.plane()}
-            location={[0,-0.01,-10.0]}
-            rotation={[0,0,0]}
-            scale={10}
-            uniforms={{ color: 0xffffff }}
-    />
-
-    <!-- wall2 -->
-    <GL.Mesh
-            geometry={GL.plane()}
-            location={[10.0,-0.01,0.0]}
-            rotation={[0,-90,0]}
-            scale={10}
-            uniforms={{ color: 0xffffff }}
-    />
-
-    <!-- wall3 -->
-    <GL.Mesh
-            geometry={GL.plane()}
-            location={[-10.0,-0.01,0.0]}
-            rotation={[0,90,0]}
-            scale={10}
-            uniforms={{ color: 0xffffff }}
-    />
-
     <!-- moving light -->
     <GL.Group location={[light.x,light.y,light.z]}>
         <GL.Mesh
@@ -169,6 +138,14 @@
         />
     </GL.Group>
 </GL.Scene>
+
+<NavigationControls
+        bind:init={navControlInit}
+        bind:optionFlags={options}
+        bind:viewLocation={location}
+        bind:viewTarget={target}
+        title={title}
+        on:move={(event) => updateWorld(event)}/>
 
 <div class="controls">
     <label>
