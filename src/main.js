@@ -6,6 +6,22 @@ import TechApp from './apps/TechApp.svelte';
 import VizRApp from './apps/VizRApp.svelte';
 
 
+const appId = 'svelte-app';
+const appElement = document.getElementById(appId);
+export default ( // Check if app id exists in DOM
+    appElement !== null &&
+    (appElement.constructor.name === 'HTMLElement' ||
+        appElement.constructor.name === 'HTMLDivElement')
+) ?
+    new App({
+        target: appElement,
+        props: {
+            greeting:
+                `Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>Sveltr</a>!`
+        }
+    }) : {};
+
+
 const glAppId = "gl-app";
 const glAppElement = document.getElementById(glAppId);
 export const glApp = (
@@ -19,6 +35,7 @@ export const glApp = (
             title: "🦊 Hello SvelteGL!"
         }
     }) : {};
+
 
 const glslAppId = "glsl-app";
 const glslAppElement = document.getElementById(glslAppId);
@@ -34,21 +51,6 @@ export const glslApp = (
         }
     }) : {};
 
-const appId = 'svelte-app';
-const appElement = document.getElementById(appId);
-export default ( // Check if app id exists in DOM
-    appElement !== null &&
-    (appElement.constructor.name === 'HTMLElement' ||
-        appElement.constructor.name === 'HTMLDivElement')
-    ) ?
-    new App({
-        target: appElement,
-        props: {
-            greeting:
-`Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>Sveltr</a>!`
-        }
-    }) : {};
-
 
 const techAppId = 'tech-app';
 const techAppElement = document.getElementById(techAppId);
@@ -61,21 +63,6 @@ export const techApp = (
         target: techAppElement,
         props: {
             title: '🦊 Hello Svelte!'
-        }
-    }) : {};
-
-
-const glAppId = 'gl-app';
-const glAppElement = document.getElementById(glAppId);
-export const glApp = (
-    glAppElement !== null &&
-    (glAppElement.constructor.name === 'HTMLElement' ||
-        glAppElement.constructor.name === 'HTMLDivElement')
-    ) ?
-    new GLApp({
-        target: glAppElement,
-        props: {
-            title: '🦊 Hello SvelteGL!'
         }
     }) : {};
 

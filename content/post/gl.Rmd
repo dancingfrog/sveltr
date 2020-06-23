@@ -19,7 +19,7 @@ tags:
 
 ## Terrain
 
-```{r setup, include=FALSE}
+```{r setup, echo=FALSE, include=FALSE}
 options(warn = -1)
 working_dir <- getwd()
 print(working_dir)
@@ -37,7 +37,7 @@ if (!require("png")) {
 library(png)
 ```
 
-If the output target is HTML, R has some methods for turning R data into JavaScript or JSON data and printing the results within HTML tags:
+If the output target is HTML, R has some methods for turning R data:
 ```{r data, echo = FALSE}
 options(warn = -1)
 working_dir <- getwd()
@@ -51,7 +51,8 @@ if (print(file.exists("data/heightmap-small.png"))) {
 }
 ```
 
-```{r data_in_html, echo=FALSE, results='asis'}
+... into JavaScript or JSON data and printing the results within HTML tags:
+```{r data_in_html, results='asis'}
 require(jsonlite)
 
 # print without tabs so R markdown will add it to the DOM tree of the resulting page
