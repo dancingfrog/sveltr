@@ -1,5 +1,5 @@
 ---
-title: Visualizing R Data with Sveltr
+title: Visualizing R Data with SveltR
 author: John
 date: '2020-03-14'
 draft: false
@@ -14,7 +14,7 @@ tags:
 
 <div id="uni-sol"></div>
 
-## Visualizing R Data with [Sveltr](https://github.com/dancingfrog/sveltr)
+## Visualizing R Data with [SveltR](https://github.com/dancingfrog/sveltr)
 
 ```{r setup, include=FALSE}
 options(warn = -1)

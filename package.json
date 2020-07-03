@@ -1,7 +1,7 @@
 {
   "name": "sveltr",
   "version": "1.0.0",
-  "description": "Sveltr is a blogdown boilerplate for creating truly epic visualizations!",
+  "description": "SveltR is a blogdown boilerplate for creating truly epic visualizations!",
   "repository": "dancingfrog/sveltr",
   "main": "index.js",
   "scripts": {

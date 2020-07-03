@@ -11,7 +11,7 @@ tags:
 
 <div id="tech-app"></div>
 
-# [Sveltr](https://github.com/dancingfrog/sveltr)
+# [SveltR](https://github.com/dancingfrog/sveltr)
 
 <a href="https://bookdown.org/yihui/blogdown" target="_blank">
     <img src="https://bookdown.org/yihui/blogdown/images/logo.png"

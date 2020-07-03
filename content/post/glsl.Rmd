@@ -82,4 +82,4 @@ The final output varying in the fragment shader also had to be changed because t
 	fragColor.rgb *= mix(AMBIENT_LIGHT, vec3(1.0, 1.0, 1.0), lighting);
 	fragColor.rgb += spec_amount;
 
-With these changes in place I can now use all of the latest shader features within GL-powered Sveltr apps and pages.
+With these changes in place I can now use all of the latest shader features within GL-powered SveltR apps and pages.

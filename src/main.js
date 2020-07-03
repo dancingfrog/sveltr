@@ -17,7 +17,7 @@ export default ( // Check if app id exists in DOM
         target: appElement,
         props: {
             greeting:
-                `Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>Sveltr</a>!`
+                `Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>SveltR</a>!`
         }
     }) : {};
 
@@ -86,6 +86,6 @@ export const vizrApp = (
     new VizRApp({
         target: vizrAppElement,
         props: {
-            title: 'Visualizing R Data with Sveltr'
+            title: 'Visualizing R Data with SveltR'
         }
     }) : {};
