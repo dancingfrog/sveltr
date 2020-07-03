@@ -5,7 +5,8 @@
 *.Rproj*
 blogdown
 dist
-content/*html
+*.htm
+*.html
 node_modules
 public
 static
