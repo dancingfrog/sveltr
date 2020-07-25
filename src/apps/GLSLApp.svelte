@@ -228,18 +228,6 @@
 </script>
 
 <style>
-    .controls {
-        float: right;
-        position: relative;
-        margin: 8px;
-        margin-top: -160px;
-        width: 300px;
-        height: 128px;
-        padding: 1em;
-        background-color: rgba(255,255,255,0.7);
-        border-radius: 2px;
-        z-index: 2;
-    }
 
     @media screen and (max-width: 480px) {
         .controls {
@@ -343,7 +331,7 @@
     </GL.Group>
 </GL.Scene>
 
-<div class="controls">
+<div class="controls right">
     <label>
         <input type="color" style="height: 40px" bind:value={color}>
     </label>

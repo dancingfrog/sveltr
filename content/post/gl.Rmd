@@ -12,8 +12,7 @@ tags:
   - WebGL
 ---
 
-<div style="width: 100%; width: 1280px; min-width: 640px;">
-<main id="gl-app" role="main"></main>
+<div id="gl-app" role="main" style="width: 100%;">
 &nbsp;
 </div>
 
@@ -55,6 +54,13 @@ if (print(file.exists("data/heightmap-small.png"))) {
 ```{r data_in_html, results='asis'}
 require(jsonlite)
 
-# print without tabs so R markdown will add it to the DOM tree of the resulting page
-cat(paste('<div id="data_in_html"><script type="application/json">', toJSON(heightmap), '\n</script>\n</div>', sep=""))
+# print without tabs so R markdown will add
+# it to the DOM tree of the resulting page
+cat(paste(
+'<div id="data_in_html">\n',
+    '<script type="application/json">\n',
+    toJSON(heightmap), '\n',
+    '</script>\n',
+'</div>',
+sep=""))
 ```

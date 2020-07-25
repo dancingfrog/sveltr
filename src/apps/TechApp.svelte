@@ -50,6 +50,7 @@
 		top: calc(50vh - (100vw / 5.75));
 		right: 0;
 		margin: 8px;
+		margin-top: 128px;
 		position: absolute;
 		width: 256px;
 		height: 256px;
@@ -181,6 +182,6 @@
 </div>
 
 <div class="controls keys">
-	<h1 style="color: {pin ? '#999' : '#fff'}">{view}</h1>
+	<h4 style="color: {pin ? '#999' : '#fff'}">{view}</h4>
 	<Keypad bind:value={pin} on:submit={handleSubmit}/>
 </div>

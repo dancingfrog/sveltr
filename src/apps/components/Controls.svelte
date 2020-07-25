@@ -124,15 +124,16 @@
 </script>
 
 <style>
-    .controls h4 {
+    .controls h2 {
+        color: black;
         cursor: pointer;
         pointer-events: all;
     }
 </style>
 
-<div class="controls">
+<div class="controls right">
 
-    <h4>{ title }</h4>
+    <h2>{ title }</h2>
 
     {#if (optionFlags['labels'].length > 0 && optionFlags['values'].length > 0)}
         {#each optionFlags['values'] as option, o}

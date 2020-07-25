@@ -89,6 +89,12 @@
     });
 </script>
 
+<style>
+    .controls {
+        width: 256px;
+    }
+</style>
+
 <GL.Scene bind:gl={webgl} backgroundOpacity=1.0 process_extra_shader_components={process_extra_shader_components}>
     <GL.Target id="center" location={[0, h/2 - h, 0]}/>
 
@@ -137,7 +143,7 @@
     </GL.Group>
 </GL.Scene>
 
-<div class="controls">
+<div class="controls right">
     <label>
         <input type="color" style="height: 64px" bind:value={color}>
     </label>

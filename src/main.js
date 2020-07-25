@@ -67,17 +67,8 @@ export const techApp = (
     }) : {};
 
 
-const vizrAppId = 'uni-sol';
+const vizrAppId = 'vizr-app';
 const vizrAppElement = document.getElementById(vizrAppId);
-if (
-    vizrAppElement !== null &&
-    (vizrAppElement.constructor.name === 'HTMLElement' ||
-        vizrAppElement.constructor.name === 'HTMLDivElement')
-)  {
-    const numChildren = vizrAppElement.children.length;
-    for (let c=(numChildren - 1); c >= 0; c--)
-        vizrAppElement.removeChild(vizrAppElement.children[c]);
-}
 export const vizrApp = (
     vizrAppElement !== null &&
     (vizrAppElement.constructor.name === 'HTMLElement' ||

@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import * as GL from '@sveltejs/gl';
-    import NavigationControls from './components/NavigationControls.svelte';
+    import Controls from './components/Controls.svelte';
 
     export let title;
 
@@ -139,7 +139,7 @@
     </GL.Group>
 </GL.Scene>
 
-<NavigationControls
+<Controls
         bind:init={navControlInit}
         bind:optionFlags={options}
         bind:viewLocation={location}
@@ -147,7 +147,7 @@
         title={title}
         on:move={(event) => updateWorld(event)}/>
 
-<div class="controls">
+<div class="controls right">
     <label>
         <input type="color" style="height: 40px" bind:value={color}>
     </label>
