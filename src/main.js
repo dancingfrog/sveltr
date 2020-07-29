@@ -22,7 +22,7 @@ export default ( // Check if app id exists in DOM
     }) : {};
 
 
-const glAppId = "gl-app";
+const glAppId = "terrain-app";
 const glAppElement = document.getElementById(glAppId);
 export const glApp = (
     glAppElement !== null &&

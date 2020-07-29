@@ -1,5 +1,5 @@
 ---
-title: Terrain
+title: Generating Planar Terrain Mesh
 author: John
 date: '2020-04-07'
 draft: false
@@ -12,13 +12,13 @@ tags:
   - WebGL
 ---
 
-<div id="gl-app" role="main" style="width: 100%;">
+<div id="terrain-app" role="main" style="width: 100%;">
 &nbsp;
 </div>
 
-## Terrain
+## Generating Planar Terrain Mesh
 
-```{r setup, echo=FALSE, include=FALSE}
+```{r setup, echo = FALSE, include=FALSE}
 options(warn = -1)
 working_dir <- getwd()
 print(working_dir)
@@ -36,31 +36,328 @@ if (!require("png")) {
 library(png)
 ```
 
-If the output target is HTML, R has some methods for turning R data:
-```{r data, echo = FALSE}
-options(warn = -1)
-working_dir <- getwd()
-# print(working_dir)
-heightmap <- data.frame(c())
-if (print(file.exists("data/heightmap-small.png"))) {
-    heightmap <- data.frame(png::readPNG("data/heightmap-small.png"))
-    head(heightmap)
-    # length(heightmap)
-    # str(heightmap)
+Given a gray scale heightmap, I need a planar triangulated mesh to serve as the base for a terrain object + shader to be used in the above webapp.
+
+I already have some tools to abstract a heightmap from an image. I'm going to start with a smaller version of the terrain image file which I've converted to grayscale:
+
+```{r image, echo = TRUE, results = "asis"}
+if (file.exists("data/terrain-small.png")) {
+    small_input <- "data/terrain-small.png"
+} else {
+    small_input <- file.choose()
+}
+
+image <- data.frame(png::readPNG(small_input))
+
+cat(paste0('<img src="/post/', small_input, '" style="float: right; width:256px; padding: 1%;" />'))
+```
+
+<div class="r-data">
+
+```{r preview_1, echo = TRUE}
+length(image[,1])   # width of the map
+length(image[1,])   # height of the map
+str(image)
+```
+</div>
+
+Now for every point in the image, I need to create coordinates for a 3d vertex (x, y, z), a normal for each vertex and texture coordinates (s, t) for each vertex:
+
+```{r map_vert_data, echo = TRUE}
+
+mapHeight <- function (image_map, image_width, image_height) {
+    # make a 1.0 x 1.0 plane starting at (0, 0, 0)... z is up
+    map <- matrix(nrow = image_width, ncol = image_height)
+
+    for (y in 1:image_height) {
+        for (x in 1:image_width) {
+            map[y, x] <- round(image_map[y, x], 6)
+            # vertices (x, y, z)
+            print(paste0(round((x / image_width), 6), ", ", round(y / image_height, 6), ", ", round(image_map[y, x], 6))) # z is "up"
+            # normals
+            print(paste0(0.0, ", ", 0.0, ", ", 1.0)) # z is "up"
+            # texture coordinates (s, t)
+            print(paste0(round((x / image_width), 6), ", ", round(y / image_height, 6)))
+        }
+    }
+
+    map
 }
 ```
 
-... into JavaScript or JSON data and printing the results within HTML tags:
-```{r data_in_html, results='asis'}
+<div class="r-data">
+
+```{r preview_map_data, echo = TRUE}
+heightmap <- mapHeight(image, length(image[1,]), length(image[, 1]))
+
+length(heightmap[,1])   # width of the heightmap
+length(heightmap[1,])   # height of the heightmap
+```
+</div>
+
+
+The following line will convert the heightmap frame into JavaScript or JSON data and optionally print the results within HTML tags:
+```{r data_in_html, echo = TRUE, results = "asis"}
 require(jsonlite)
+
+jsonHeightmap <- toJSON(heightmap)
 
 # print without tabs so R markdown will add
 # it to the DOM tree of the resulting page
 cat(paste(
 '<div id="data_in_html">\n',
     '<script type="application/json">\n',
-    toJSON(heightmap), '\n',
+    jsonHeightmap, '\n',
     '</script>\n',
 '</div>',
 sep=""))
+
+```
+
+```{r image_test, echo = FALSE, results = "asis"}
+
+if (file.exists("data")) {
+    vertex_test_file <- "data/terrain-test.png"
+} else {
+    vertex_test_file <- file.choose(new = TRUE)
+}
+
+# test write to png
+png::writePNG(heightmap, vertex_test_file)
+
+cat(paste0('<img src="/post/', vertex_test_file, '" style="float: right; width:256px; padding: 1%;" />'))
+
+```
+
+The input and output test looks good, so time to work on a larger (medium sized) terrain image.
+```{r image_2, echo = TRUE, results = "asis"}
+if (file.exists("data/terrain-medium.png")) {
+    medium_input <- "data/terrain-medium.png"
+} else {
+    medium_input <- file.choose()
+}
+
+image <- data.frame(png::readPNG(medium_input))
+```
+
+<div class="r-data">
+
+```{r preview_2, echo = TRUE}
+length(image[,1])   # width of the map
+length(image[1,])   # height of the map
+str(image)
+```
+</div>
+
+Once the vertices, the normals, and the texture coordinates have been built for this new map, I will need indices to tie everything together. The sequence of the indices will trace the vertices into triangular faces:
+
+```{r idx_data, echo = TRUE}
+
+mapTerrainCoords <- function (image_map) {
+    # make a 2.0 x 2.0 plane, starting from at (-1, -1, 0) ... z is up
+    image_width <- length(image_map[1,])
+    image_height <- length(image_map[, 1])
+    heights <- list()
+    vertices <- list()
+    normals <- list()
+    normal_array <- array(dim = c(image_height, image_width, 3))
+    textureCoords <- list()
+
+    # map vetices, normals, texture
+    i <- 0
+    for (y in 1:image_height) {
+        height_array_x <- c()
+        for (x in 1:image_width) {
+            i <- i + 1 # increment before to start on 1
+            height_array_x <- c(height_array_x , image_map[y, x]) # z is up
+            # vertices (x, y, z)
+            vertices[[i]] <- c(2.0 * round((x / image_width - (1.0 / image_width) - 0.5), 6), 2.0 * round((y / image_height - (1.0 / image_height) - 0.5), 6), 0.0)  # z is "up", but use flat plane for now
+            # normals
+            normals[[i]] <- c(0.0, 0.0, 1.0)
+            # texture coordinates (s, t)
+            textureCoords[[i]] <- c(round((x / image_width - ((image_width - x) /  (image_width * image_width))), 6), round(1.0 - (y / image_height - ((image_height - y) /  (image_height * image_height))), 6)) # go to flip the y
+        }
+
+        # start mapping z normals
+        for (x in 1:image_width) {
+            normal_array[y, x,] <- c(0.0, 0.0, round(height_array_x[x], 6))
+        }
+
+        heights[[y]] <- height_array_x
+    }
+
+    length(heights[1])
+    length(heights[[1]])
+    # print(height_array[64])
+    # print(height_array[[64]])
+
+    total_points <- i
+
+    # Now re-calculate x and y normals based on neighboring heightmap coords
+    i <- 0
+    for (y in 1:image_height) {
+        i <- i + 1 # increment before to start on 1
+        for (x in 1:image_width) {
+            if (x < image_width) {
+                za <- normal_array[y, x, 3]
+                zb <- normal_array[y, x + 1, 3]
+                xa <- (za - zb) # / image_width
+                # print(paste0(za, " - ", zb,  " = ", xa))
+                # normal_array[y, x,] <- c(round(xa, 6), 0.0, 0.0)
+                normal_array[y, x,] <- c(round(xa, 6), normal_array[y, x, 2], normal_array[y, x, 3])
+            }
+            if (y < image_height) {
+                za <- normal_array[y, x, 3]
+                zb <- normal_array[y + 1, x, 3]
+                ya <- (za - zb) # / image_height
+                # print(paste0(za, " - ", zb,  " = ", ya))
+                # normal_array[y, x,] <- c(0.0, round(ya, 6), 0.0)
+                normal_array[y, x,] <- c(normal_array[y, x, 1], round(ya, 6), normal_array[y, x, 3])
+            }
+
+            normals[i] <- normal_array[y, x,]
+        }
+    }
+
+    print(length(normal_array[,,1]))    # total sets of normal coords
+    print(length(normal_array[,1,1]))   # normal coords per image row
+    print(length(normal_array[1,1,]))   # normal coordinate dimensions
+    list(
+        heights = heights,
+        vertices = vertices,
+        normals = normals,
+        normal_array = normal_array,
+        textureCoords = textureCoords
+    )
+}
+```
+
+```{r normal_preview, echo = FALSE, results = "asis"}
+map <- mapTerrainCoords(image)
+heights <- map$heights
+vertices <- map$vertices
+normals <- map$normals
+textureCoords <- map$textureCoords
+
+if (file.exists("data")) {
+   normal_test_file <- "data/normal-test.png"
+} else {
+    normal_test_file <- file.choose(new = TRUE)
+}
+
+# test write to png
+png::writePNG(map$normal_array, normal_test_file)
+
+cat(paste0('<img src="/post/', normal_test_file, '" style="float: right; width:256px; padding: 1%;" />'))
+```
+
+Now I have some idea of what this is supposed to look like, so I can verify whether my indexing algorithm works...
+```{r idx_data_2, echo = TRUE}
+currentRow <- 1
+indices <- c()
+indices <- c(indices, (image_width - 1)) # start at the end,
+indices <- c(indices, (image_width - 2)) # walk back one,
+indices <- c(indices, (image_width - 1 + image_width)) # cross diagnally down right, landing on the next row
+indices <- c(indices, (image_width - 1 + (image_width - 1)))# start again on one to the left
+indices <- c(indices, (image_width - 1 + image_width)) # walk back to the right
+indices <- c(indices, (image_width - 2)) # cross diagnolly up to the left, landing on the starting row
+# one point to the left
+
+print(indices)
+```
+
+It's looking like this might be recursive, so I will need a helper function...
+<pre><code class="r idx_knit_recurssion_fail">
+knitTriangleIndices <- function(img_width, img_height) {
+    ind <- c()
+    width <- img_width - 1
+    row <- 1
+
+    ...
+
+    knitTriangleIndices(..., ...)
+
+    ...
+}
+</code></pre>
+
+Hours later, I decide my force powers are not strong enough for recursion in R, hence the following for-loop.
+```{r idx_knit_for_loop, echo = TRUE}
+
+knitTriangleIndices <- function(img_width, img_height) {
+    ind <- c()
+    width <- img_width - 1
+    row <- 1
+
+    for (r in 1:(img_height - 1)) {
+        offset <- (img_width * (row - 1))
+        while (width > 0) {
+            idx1 <- (width) + offset
+            idx2 <- (width - 1) + offset # walk back one,
+            idx3 <- (width + img_width) + offset # cross diagnally down right, landing on the next row
+            idx4 <- (width + (img_width - 1)) + offset # start again on one to the left
+            idx5 <- (width + img_width) + offset# walk back to the right
+            idx6 <- (width - 1) + offset # cross diagnolly up to the left, landing on the starting row
+            print(idx1)
+            print(idx2)
+            print(idx3)
+            print(idx4)
+            print(idx5)
+            print(idx6)
+            ind <- c(ind, idx1, idx2, idx3, idx4, idx5, idx6)
+
+            width <- (width - 1)
+        }
+        width <- img_width - 1
+        row <- row + 1
+    }
+
+    ind
+}
+
+```
+
+Finally, all of this data must be saved to json and then stitched together into a JS module which defines a new `terrain` (heightmap) object that can be imported by `@svelte/js`, with the form:
+<pre><code>
+export default memoize(() => {
+    return new Geometry({
+        position: {
+            data: new Float32Array([ /* array of vertices ... */ ]
+                .flat(Infinity)),
+            size: 3
+        },
+
+        normal: {
+            data: new Float32Array([ /* array of normals ... */ ]
+            .flat(Infinity)),
+            size: 3
+        },
+
+        uv: {
+            data: new Float32Array([ /* array of textureCoords ... */ ]
+            .flat(Infinity)),
+            size: 2
+        }
+    }, {
+        index: new Uint32Array([ /* array of indices returned by knitTriangleIndices */ ]
+        )
+    });
+});
+</code></pre>
+
+In R:
+<pre><code class="r idx_knit_recurssion_fail">
+jsonlite::write_json(vertices, "data/planar-terrain-verts.json")
+jsonlite::write_json(normals, "data/planar-terrain-norms.json")
+jsonlite::write_json(textureCoords, "data/planar-terrain-uvs.json")
+jsonlite::write_json(knitTriangleIndices(image_width, image_height), "data/planar-terrain-idx.json")
+</code></pre>
+
+Now this turns out to be a [ginormous MJS file](/post/data/terrain.mjs) (~ 20MB), so I will ultimately use the smaller heightmap as the basis of `terrain` object imported by `@svelte/js`. However, it is useful to export the height data to it's own json file for reference and use it to place the markers in the webapp above:
+```{r json_write_2}
+jsonlite::write_json(vertices, "data/planar-terrain-verts.json")
+jsonlite::write_json(normals, "data/planar-terrain-norms.json")
+jsonlite::write_json(textureCoords, "data/planar-terrain-uvs.json")
+jsonlite::write_json(knitTriangleIndices(image_width, image_height), "data/planar-terrain-idx.json")
+jsonlite::write_json(height_array, "data/planar-terrain-heights.json")
 ```

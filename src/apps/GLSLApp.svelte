@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import * as GL from '@sveltejs/gl';
-    import generateFace from './content/grid-generator';
+    import generateFace from './modules/grid-generator';
     import vert from './shaders/custom/normal-selected-txt-vertex-shader.glsl';
     import frag from './shaders/custom/normal-selected-txt-fragment-shader.glsl';
 
