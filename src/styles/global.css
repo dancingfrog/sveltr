@@ -152,9 +152,10 @@ button:focus {
 }
 
 .content * .r-data pre {
+    clear: right;
     display: block;
     display: -webkit-box;
-    max-width: 740px;
+    max-width: 1024px;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 15;

@@ -50,7 +50,7 @@ There are also multiple levels of precision:
     highp
 
 
-To create custom shaders for use with `@svelte/gl`, I had to make some changes to the `gl` source, beginning by adding a declaration to all shaders compile by `Material.mjs`:
+To create custom shaders for use with `@sveltejs/gl`, I had to make some changes to the `gl` source, beginning by adding a declaration to all shaders compile by `Material.mjs`:
 
         const { program, uniforms, attributes } = compile(
 			gl,

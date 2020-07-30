@@ -1,9 +1,12 @@
 <script>
     import { onMount } from 'svelte';
     import * as GL from '@sveltejs/gl';
+    import terrain from './modules/terrain';
+    import terrainFrag from './shaders/default/frag.glsl';
+    import terrainVert from './shaders/default/vert.glsl';
+    // import terrainFrag from './shaders/custom/terrain-frag.glsl';
     // import terrainVert from './shaders/custom/terrain-vert.glsl';
-    import terrainVert from './shaders/custom/terrain-and-light-vert.glsl';
-    import terrainFrag from './shaders/custom/terrain-frag.glsl';
+    // import terrainVert from './shaders/custom/terrain-and-light-vert.glsl';
 
     export let title;
 
@@ -36,7 +39,7 @@
     }
 
     let webgl;
-    let terrain;
+    let normalmap;
     // const heightMap = new Image();
     // let displacementTexture = null;
     let process_extra_shader_components = (gl, material, model) => {
@@ -73,14 +76,15 @@
     onMount(() => {
         let frame;
 
-        terrain = new GL.Texture("/images/normalmap.png", { width: 512, height: 512 });
+        normalmap = new GL.Texture("/post/data/terrain-normals.png", { width: 512, height: 512 });
+        // normalmap = new GL.Texture("/post/data/terrain-heights.png", { width: 512, height: 512 });
+
+        light.z = Math.cos(Date.now() * 0.0004);
 
         const loop = () => {
             frame = requestAnimationFrame(loop);
-
-            light.x = 1.5 * Math.sin(Date.now() * 0.001);
-            light.y = 1.5 + h * Math.sin(Date.now() * 0.0004);
-            light.z = 1.5 * Math.cos(Date.now() * 0.002);
+            light.x = 1.5 * Math.sin(Date.now() * 0.0005);
+            light.y = h/2 + 1.5 * Math.sin(Date.now() * 0.001);
         };
 
         loop();
@@ -107,19 +111,19 @@
 
     <!-- ground -->
     <GL.Mesh
-      geometry={GL.terrain()}
+      geometry={terrain()}
       location={[0, -h/2, 0]}
       rotation={[-90, 0, 0]}
       scale={h}
       frag={terrainFrag}
       vert={terrainVert}
-      uniforms={{ color: adjustColor(color, h), alpha: 1.0, normalmap: terrain }}
+      uniforms={{ color: adjustColor(color, h), alpha: 1.0, normalmap: normalmap }}
     />
 
     <!-- water -->
     <GL.Mesh
       geometry={GL.plane()}
-      location={[0, -h/2 + (h * h/16), 0]}
+      location={[0, -h * 63/128, 0]}
       rotation={[-90, 0, 0]}
       scale={h}
       uniforms={{ color: 0x0066ff, alpha: 0.45 }}

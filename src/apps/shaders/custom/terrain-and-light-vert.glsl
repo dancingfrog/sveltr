@@ -1,5 +1,5 @@
 /* The following builtins are prepended to
- * every custom vertex shader in @svelte/gl:
+ * every custom vertex shader in @sveltejs/gl:
  */
 /* start builtins */
 //
@@ -28,6 +28,8 @@
 #define C_QUARTER 0.25
 #define C_HALF 0.5
 #define C_ONE 1.0
+
+#define DISPLACE_MULTIPLY 0.1
 
 // texture containing elevation data
 //uniform sampler2D heightMap;
@@ -81,7 +83,7 @@ vec3 directional_light_shading (vec3 normal) {
 void main() {
 	vec3 displacement = texture(normalmap, uv).rgb;
 
-	vec3 displace_along_verticle = vec3(C_ZERO, C_ZERO, normal.z) * displacement * (displace_multiply * C_HALF);
+	vec3 displace_along_verticle = vec3(C_ZERO, C_ZERO, normal.z) * displacement * (DISPLACE_MULTIPLY * displace_multiply);
 
 	vec3 displaced_position = position + displace_along_verticle;
 

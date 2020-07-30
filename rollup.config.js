@@ -1,13 +1,9 @@
 import svelte from 'rollup-plugin-svelte';
 import commonjs from 'rollup-plugin-commonjs';
 import copy from 'rollup-plugin-copy'
-import livereload from 'rollup-plugin-livereload';
 import resolve from 'rollup-plugin-node-resolve';
 import postcss from "rollup-plugin-postcss";
 import shader from 'rollup-plugin-shader';
-import { terser } from 'rollup-plugin-terser';
-
-const production = !process.env.ROLLUP_WATCH;
 
 export default {
 	input: 'src/main.js',
@@ -19,14 +15,19 @@ export default {
 		file: 'public/main.js'
 	},
 	plugins: [
-		svelte({
-			// enable run-time checks when not in production
-			dev: !production,
-			// we'll extract any component CSS out into
-			// a separate file - better for performance
-			css: css => {
-				css.write('public/main.css');
-			}
+
+		commonjs(),
+
+		copy({
+			targets: [
+				{ src: 'src/images', dest: 'public/' },
+				{ src: 'static/*', dest: 'public/' }
+			]
+		}),
+
+		postcss({
+			extract: 'public/global.css',
+			plugins: []
 		}),
 
 		// If you have external dependencies installed from
@@ -39,21 +40,7 @@ export default {
 			dedupe: ['svelte']
 		}),
 
-		postcss({
-			extract: 'public/global.css',
-			plugins: []
-		}),
-
-		commonjs(),
-
-		copy({
-			targets: [
-				{ src: 'src/images', dest: 'public/' },
-				{ src: 'static/*', dest: 'public/' }
-			]
-		}),
-
-		shader( {
+		shader({
 			// All match files will be parsed by default,
 			// but you can also specifically include/exclude files
 			include: [
@@ -63,19 +50,17 @@ export default {
 				'**/*.fs' ],
 			// specify whether to remove comments
 			removeComments: true,   // default: true
-		} ),
+		}),
 
-		// In dev mode, call `npm run start` once
-		// the bundle has been generated
-		!production && serve(),
-
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
-		!production && livereload('public'),
-
-		// If we're building for production (npm run build
-		// instead of npm run dev), minify
-		production && terser()
+		svelte({
+			// enable run-time checks when not in production
+			dev: false,
+			// we'll extract any component CSS out into
+			// a separate file - better for performance
+			css: css => {
+				css.write('public/main.css');
+			}
+		})
 	],
 	watch: {
 		clearScreen: false
