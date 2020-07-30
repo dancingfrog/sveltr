@@ -18,7 +18,7 @@ tags:
 
 ## Generating Planar Terrain Mesh
 
-```{r setup, echo = FALSE, include=FALSE}
+```{r setup, cache = FALSE, echo = FALSE, include=FALSE}
 options(warn = -1)
 working_dir <- getwd()
 print(working_dir)
@@ -26,7 +26,7 @@ if (!require("knitr")) {
     install.packages("knitr")
     library("knitr")
 }
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(cache = FALSE)
 knitr::opts_chunk$set(echo = TRUE)
 
 # Load reticulate package for running python
@@ -35,14 +35,14 @@ if (!require("png")) {
 }
 library(png)
 
-DISPLACE_MULTIPLY <- 0.0025
+DISPLACE_MULTIPLY <- 0.1
 ```
 
 Given a gray scale heightmap, I need a planar triangulated mesh to serve as the base for a terrain object + shader to be used in the above webapp.
 
 I already have some tools to abstract a heightmap from an image. I'm going to start with a smaller version of the terrain image file which I've converted to grayscale:
 
-```{r image, echo = TRUE, results = "asis"}
+```{r image, cache = FALSE, echo = TRUE, results = "asis"}
 if (file.exists("data/terrain-small.png")) {
     small_input <- "data/terrain-small.png"
 } else {
@@ -56,7 +56,7 @@ cat(paste0('<img src="/post/', small_input, '" style="float: right; width:256px;
 
 <div class="r-data">
 
-```{r preview_1, echo = FALSE}
+```{r preview_1, cache = FALSE, echo = FALSE}
 length(image[,1])   # width of the map
 length(image[1,])   # height of the map
 str(image)
@@ -65,7 +65,7 @@ str(image)
 
 Now for every point in the image, I need to create coordinates for a 3d vertex (x, y, z), a normal for each vertex and texture coordinates (s, t) for each vertex:
 
-```{r map_vert_data, echo = TRUE}
+```{r map_vert_data, cache = FALSE, echo = TRUE}
 
 mapHeight <- function (image_map, image_width, image_height) {
     # make a 1.0 x 1.0 plane starting at (0, 0, 0)... z is up
@@ -73,9 +73,15 @@ mapHeight <- function (image_map, image_width, image_height) {
 
     for (y in 1:image_height) {
         for (x in 1:image_width) {
-            heights[y, x] <- DISPLACE_MULTIPLY * round(image_map[y, x], 6)
+            heights[y, x] <- round(image_map[y, x], 6)
+        }
+    }
+
+    for (y in 1:image_height) {
+        for (x in 1:image_width) {
             # vertices (x, y, z)
-            print(paste0(round((x / image_width), 6), ", ", round(y / image_height, 6), ", ", heights[y, x])) # z is "up"
+             # z is "up", and png y coordinate system is reverse of WebGL
+            print(paste0(round((x / image_width), 6), ", ", round(y / image_height, 6), ", ", heights[(image_width + 1) - y, x]))
             # normals
             print(paste0(0.0, ", ", 0.0, ", ", 1.0)) # z is "up"
             # texture coordinates (s, t)
@@ -89,7 +95,7 @@ mapHeight <- function (image_map, image_width, image_height) {
 
 <div class="r-data">
 
-```{r preview_map_data, echo = FALSE}
+```{r preview_map_data, cache = FALSE, echo = FALSE}
 heightmap <- mapHeight(image, length(image[1,]), length(image[, 1]))
 
 length(heightmap[1,])   # width of the heightmap
@@ -114,7 +120,7 @@ cat(paste0(
 
 ```
 
-```{r image_test, echo = FALSE, results = "asis"}
+```{r image_test, cache = FALSE, echo = FALSE, results = "asis"}
 
 if (file.exists("data")) {
     vertex_test_file <- "data/terrain-heights.png"
@@ -130,7 +136,7 @@ cat(paste0('<img src="/post/', vertex_test_file, '" style="float: right; width:2
 ```
 
 The input and output test looks good, so time to work on a larger (medium sized) terrain image.
-```{r image_2, echo = TRUE, results = "asis"}
+```{r image_2, cache = FALSE, echo = TRUE, results = "asis"}
 if (file.exists("data/terrain-medium.png")) {
     medium_input <- "data/terrain-medium.png"
 } else {
@@ -142,7 +148,7 @@ image <- data.frame(png::readPNG(medium_input))
 
 <div class="r-data">
 
-```{r preview_2, echo = TRUE}
+```{r preview_2, cache = FALSE, echo = TRUE}
 length(image[1,])   # width of the map
 length(image[,1])   # height of the map
 str(image)
@@ -151,7 +157,7 @@ str(image)
 
 Once the vertices, the normals, and the texture coordinates have been built for this new map, I will need indices to tie everything together. The sequence of the indices will trace the vertices into triangular faces:
 
-```{r idx_data, echo = TRUE}
+```{r idx_data, cache = FALSE, echo = TRUE}
 
 mapTerrainCoords <- function (image_map, image_width, image_height) {
     # make a 2.0 x 2.0 plane, starting from at (-1, -1, 0) ... z is up
@@ -168,10 +174,10 @@ mapTerrainCoords <- function (image_map, image_width, image_height) {
         height_array_x <- c()
         for (x in 1:image_width) {
             i <- i + 1 # increment before to start on 1
-            heights[y, x] <- DISPLACE_MULTIPLY * round(image_map[y, x], 6)
+            heights[y, x] <- round(image_map[(image_width + 1) - y, x], 6) # png y coordinate system is reverse of WebGL
             height_array_x <- c(height_array_x , heights[y, x])
             # vertices (x, y, z)
-            vertices[[i]] <- c(2.0 * round((x / image_width - (1.0 / image_width) - 0.5), 6), 2.0 * round((y / image_height - (1.0 / image_height) - 0.5), 6), heights[y, x])  # z is up
+            vertices[[i]] <- c(2.0 * round((x / image_width - (1.0 / image_width) - 0.5), 6), 2.0 * round((y / image_height - (1.0 / image_height) - 0.5), 6), heights[y, x] * DISPLACE_MULTIPLY)  # z is up
             # normals
             normals[[i]] <- c(0.0, 0.0, 1.0)
             # texture coordinates (s, t)
@@ -205,8 +211,8 @@ mapTerrainCoords <- function (image_map, image_width, image_height) {
     # Now re-calculate x and y normals based on neighboring heightmap coords
     i <- 0
     for (y in 1:image_height) {
-        i <- i + 1 # increment before to start on 1
         for (x in 1:image_width) {
+            i <- i + 1 # increment before to start on 1
             if (x < image_width) {
                 za <- normal_array[y, x, 3]
                 zb <- normal_array[y, x + 1, 3]
@@ -214,6 +220,7 @@ mapTerrainCoords <- function (image_map, image_width, image_height) {
                 # print(paste0(za, " - ", zb,  " = ", xa))
                 # normal_array[y, x,] <- c(round(xa, 6), 0.0, 0.0)
                 normal_array[y, x,] <- c(round(xa, 6), normal_array[y, x, 2], normal_array[y, x, 3])
+                normals[[i]] <- c(round(xa, 6), normal_array[y, x, 2], normal_array[y, x, 3])
             }
             if (y < image_height) {
                 za <- normal_array[y, x, 3]
@@ -222,9 +229,20 @@ mapTerrainCoords <- function (image_map, image_width, image_height) {
                 # print(paste0(za, " - ", zb,  " = ", ya))
                 # normal_array[y, x,] <- c(0.0, round(ya, 6), 0.0)
                 normal_array[y, x,] <- c(normal_array[y, x, 1], round(ya, 6), normal_array[y, x, 3])
+                normals[[i]] <- c(normal_array[y, x, 1], round(ya, 6), normal_array[y, x, 3])
             }
+        }
+    }
 
-            #normals[i] <- normal_array[y, x,]
+    i <- 0
+    for (y in 1:image_height) {
+        height_array_x <- c()
+        for (x in 1:image_width) {
+            i <- i + 1 # increment before to start on 1
+            if(length(normals[[i]]) < 3) {
+                print(paste0(x, ", ", y, ":"))
+                print(normals[[i]])
+            }
         }
     }
 
@@ -248,7 +266,7 @@ image_height <- length(image[, 1])
 map <- mapTerrainCoords(image, image_width, image_height)
 ```
 
-```{r normal_preview, echo = FALSE, results = "asis"}
+```{r normal_preview, cache = FALSE, echo = FALSE, results = "asis"}
 heights <- map$heights
 vertices <- map$vertices
 normals <- map$normals
@@ -267,16 +285,17 @@ cat(paste0('<img src="/post/', normal_test_file, '" style="float: right; width:2
 ```
 
 Now I have some idea of what this is supposed to look like, so I can verify whether my indexing algorithm works...
-```{r idx_data_2, echo = TRUE}
+```{r idx_data_2, cache = FALSE, echo = TRUE}
 currentRow <- 1
 indices <- c()
-indices <- c(indices, (image_width - 1)) # start at the end,
-indices <- c(indices, (image_width - 2)) # walk back one,
-indices <- c(indices, (image_width - 1 + image_width)) # cross diagnally down right, landing on the next row
-indices <- c(indices, (image_width - 1 + (image_width - 1)))# start again on one to the left
-indices <- c(indices, (image_width - 1 + image_width)) # walk back to the right
-indices <- c(indices, (image_width - 2)) # cross diagnolly up to the left, landing on the starting row
-# one point to the left
+
+indices <- c(indices, (image_width - 2))
+indices <- c(indices, (image_width - 1 + image_width))
+indices <- c(indices, (image_width - 1 + (image_width - 1)))
+
+indices <- c(indices, (image_width - 1 + image_width))
+indices <- c(indices, (image_width - 2))
+indices <- c(indices, (image_width - 1))
 
 print(indices)
 ```
@@ -297,29 +316,25 @@ knitTriangleIndices <- function(img_width, img_height) {
 </code></pre>
 
 Hours later, I decide my force powers are not strong enough for recursion in R, hence the following for-loop.
-```{r idx_knit_for_loop, echo = TRUE}
+```{r idx_knit_for_loop, cache = FALSE, echo = TRUE}
 
 knitTriangleIndices <- function(img_width, img_height) {
-    ind <- c()
+    indices <- c()
     width <- img_width - 1
     row <- 1
 
     for (r in 1:(img_height - 1)) {
         offset <- (img_width * (row - 1))
         while (width > 0) {
-            idx1 <- (width) + offset
-            idx2 <- (width - 1) + offset # walk back one,
-            idx3 <- (width + img_width) + offset # cross diagnally down right, landing on the next row
-            idx4 <- (width + (img_width - 1)) + offset # start again on one to the left
-            idx5 <- (width + img_width) + offset# walk back to the right
-            idx6 <- (width - 1) + offset # cross diagnolly up to the left, landing on the starting row
-            #print(idx1)
-            #print(idx2)
-            #print(idx3)
-            #print(idx4)
-            #print(idx5)
-            #print(idx6)
-            ind <- c(ind, idx1, idx2, idx3, idx4, idx5, idx6)
+            idx1 <- (width - 1) + offset
+            idx2 <- (width + img_width) + offset
+            idx3 <- (width + (img_width - 1)) + offset
+
+            idx4 <- (width + img_width) + offset
+            idx5 <- (width - 1) + offset
+            idx6 <- (width) + offset
+
+            indices <- c(indices, idx1, idx2, idx3, idx4, idx5, idx6)
 
             width <- (width - 1)
         }
@@ -327,7 +342,7 @@ knitTriangleIndices <- function(img_width, img_height) {
         row <- row + 1
     }
 
-    ind
+    indices
 }
 
 ```
@@ -361,7 +376,8 @@ Finally, all of this data must be saved to json and then stitched together into 
 
 Now this turns out to be a [ginormous MJS file](/post/data/terrain.mjs) (~ 20MB), so I will ultimately use the smaller heightmap as the basis of `terrain` object imported by `@sveltejs/gl`. However, it is useful to export the height data to its own json file for reference and use it to place the markers in the webapp above:
 
-```{r json_write}
+```{r json_write, cache = FALSE}
+
 i <- 0
 for (y in 1:image_height) {
     height_array_x <- c()

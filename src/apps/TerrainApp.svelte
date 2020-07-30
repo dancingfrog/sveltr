@@ -15,6 +15,7 @@
     let w = 1;
     let h = 1;
     let d = 1;
+    let rot = 90;
 
     const light = {
         color: "#FFFFFF"
@@ -113,7 +114,7 @@
     <GL.Mesh
       geometry={terrain()}
       location={[0, -h/2, 0]}
-      rotation={[-90, 0, 0]}
+      rotation={[-rot, 0, 0]}
       scale={h}
       frag={terrainFrag}
       vert={terrainVert}
@@ -155,5 +156,10 @@
     <label>
         <input type="range" bind:value={h} min={0.75} max={2} step={0.05}><br />
         size ({h})
+    </label>
+
+    <label>
+        <input type="range" bind:value={rot} min={-180} max={180} step={15.0}><br />
+        rotation ({rot})
     </label>
 </div>

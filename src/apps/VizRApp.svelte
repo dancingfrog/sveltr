@@ -115,8 +115,8 @@
         <!-- box -->
             <GL.Mesh geometry={GL.box({ x: 0, y: 0, z: 0 , w: (gridSizeX / heightmap[i].length), h: (1 * heightmap[k][i]), d: (gridSizeZ / heightmap.length) })}
                      location={[ (-(gridSizeX / 2) + (i * (gridSizeX / heightmap[0].length))), 0, (-(gridSizeZ / 2) + (k * (gridSizeZ / heightmap.length))) ]}
-                     rotation={[ 0, 0, 0]}
-                     scale={[ w, h, d]}
+                     rotation={[ 0, 0, 0 ]}
+                     scale={[ w, h, d ]}
                      uniforms={{ color: adjustColor(color, heightmap[k][i]) }}
             />
         {/each}
