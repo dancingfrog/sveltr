@@ -118,7 +118,7 @@
       scale={h}
       frag={terrainFrag}
       vert={terrainVert}
-      uniforms={{ color: adjustColor(color, h), alpha: 1.0 }}
+      uniforms={{ color: adjustColor(color, h), alpha: 1.0, normalmap: normalmap }}
     />
 
     <!-- water -->
