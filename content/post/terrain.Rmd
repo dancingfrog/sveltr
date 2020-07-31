@@ -373,19 +373,6 @@ Finally, all of this data must be saved to json and then stitched together into 
 Now this turns out to be a [ginormous MJS file](/post/data/terrain.mjs) (~ 20MB), so I will ultimately use the smaller heightmap as the basis of `terrain` object imported by `@sveltejs/gl`. However, I will use the higher density height data exported by the normalmap (the blue PNG above) as well as create a json file for reference and use it to place the markers on the terrain later:
 
 ```{r json_write, cache = FALSE}
-
-i <- 0
-for (y in 1:image_height) {
-    height_array_x <- c()
-    for (x in 1:image_width) {
-        i <- i + 1 # increment before to start on 1
-        if(length(normals[[i]]) < 3) {
-            print(paste0(x, ", ", y, ":"))
-            print(normals[[i]])
-        }
-    }
-}
-
 jsonlite::write_json(heights, "data/planar-terrain-heights.json")
 jsonlite::write_json(vertices, "data/planar-terrain-verts.json")
 jsonlite::write_json(normals, "data/planar-terrain-norms.json")
