@@ -143,7 +143,7 @@ if (file.exists("data/terrain-medium.png")) {
     medium_input <- file.choose()
 }
 
-#image <- data.frame(png::readPNG(medium_input))
+image <- data.frame(png::readPNG(medium_input))
 ```
 
 <div class="r-data">
@@ -370,7 +370,7 @@ Finally, all of this data must be saved to json and then stitched together into 
 
 </code></pre>
 
-Now this turns out to be a [ginormous MJS file](/post/data/terrain.mjs) (~ 20MB), so I will ultimately use the smaller heightmap as the basis of `terrain` object imported by `@sveltejs/gl`. However, it is useful to export the height data to its own json file for reference and use it to place the markers in the webapp above:
+Now this turns out to be a [ginormous MJS file](/post/data/terrain.mjs) (~ 20MB), so I will ultimately use the smaller heightmap as the basis of `terrain` object imported by `@sveltejs/gl`. However, I will use the higher density height data exported by the normalmap (the blue PNG above) as well as create a json file for reference and use it to place the markers on the terrain later:
 
 ```{r json_write, cache = FALSE}
 

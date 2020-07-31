@@ -1,12 +1,11 @@
 <script>
     import { onMount } from 'svelte';
     import * as GL from '@sveltejs/gl';
-    import terrain from './modules/terrain';
-    import terrainFrag from './shaders/default/frag.glsl';
-    import terrainVert from './shaders/default/vert.glsl';
-    // import terrainFrag from './shaders/custom/terrain-frag.glsl';
-    // import terrainVert from './shaders/custom/terrain-vert.glsl';
-    // import terrainVert from './shaders/custom/terrain-and-light-vert.glsl';
+    import terrain from './modules/terrain-small';
+    // import terrainFrag from './shaders/default/frag.glsl';
+    // import terrainVert from './shaders/default/vert.glsl';
+    import terrainFrag from './shaders/custom/terrain-frag.glsl';
+    import terrainVert from './shaders/custom/terrain-and-light-vert.glsl';
 
     export let title;
 
@@ -50,8 +49,8 @@
         if (material.vertName === "terrain-vert") {
             // console.log(material.vertName);
 
-            const displacementMultLocation = gl.getUniformLocation(program, "displace_multiply");
-            gl.uniform1f(displacementMultLocation, h/2);
+            const heigthAdjMultLocation = gl.getUniformLocation(program, "height_adjustment");
+            gl.uniform1f(heigthAdjMultLocation, 0.000125);
 
             // uniform vec3 light_direction; // normalized direction in eye
             const lightDirectionLocation = gl.getUniformLocation(program, "light_direction");
@@ -80,12 +79,12 @@
         normalmap = new GL.Texture("/post/data/terrain-normals.png", { width: 512, height: 512 });
         // normalmap = new GL.Texture("/post/data/terrain-heights.png", { width: 512, height: 512 });
 
-        light.z = Math.cos(Date.now() * 0.0004);
+        light.z = 0.1 * Math.cos(Date.now() * 0.0002);
 
         const loop = () => {
             frame = requestAnimationFrame(loop);
-            light.x = 1.5 * Math.sin(Date.now() * 0.0002);
-            light.y = h/2 + 1.5 * Math.sin(Date.now() * 0.0001);
+            light.x = 1.5 * Math.sin(Date.now() * 0.0001);
+            light.y = h/2 * Math.sin(Math.pow((h - light.x)/2, 2));
         };
 
         loop();
@@ -133,13 +132,6 @@
 
     <!-- moving light -->
     <GL.Group location={[light.x,light.y,light.z]}>
-        <GL.Mesh
-          geometry={GL.sphere({ turns: 36, bands: 36 })}
-          location={[0,0.2,0]}
-          scale={0.1}
-          uniforms={{ color: adjustColor(color, h), emissive: adjustColor(color) }}
-        />
-
         <GL.PointLight
                 location={[0,0,0]}
                 color={adjustColor(color, 1.0)}
