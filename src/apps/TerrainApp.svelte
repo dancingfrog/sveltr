@@ -84,8 +84,8 @@
 
         const loop = () => {
             frame = requestAnimationFrame(loop);
-            light.x = 1.5 * Math.sin(Date.now() * 0.0005);
-            light.y = h/2 + 1.5 * Math.sin(Date.now() * 0.001);
+            light.x = 1.5 * Math.sin(Date.now() * 0.0002);
+            light.y = h/2 + 1.5 * Math.sin(Date.now() * 0.0001);
         };
 
         loop();
@@ -118,7 +118,7 @@
       scale={h}
       frag={terrainFrag}
       vert={terrainVert}
-      uniforms={{ color: adjustColor(color, h), alpha: 1.0, normalmap: normalmap }}
+      uniforms={{ color: adjustColor(color, h), alpha: 1.0 }}
     />
 
     <!-- water -->
