@@ -83,13 +83,17 @@ vec3 directional_light_shading (vec3 normal) {
 void main() {
 	vec3 displacement = texture(normalmap, uv).rgb;
 
-	vec3 displace_along_verticle = vec3(C_ZERO, C_ZERO, normal.z) * displacement * (DISPLACE_MULTIPLY * height_adjustment);
+	vec3 displace_along_verticle = normal * displacement * (DISPLACE_MULTIPLY * height_adjustment);
 
 	vec3 displaced_position = position + displace_along_verticle;
 
 	vec3 displace_along_normal = vec3(normal * displacement);
 
-	v_normal = DISPLACE_MULTIPLY * normal; // * displace_along_normal;
+	v_normal = DISPLACE_MULTIPLY * normal;
+
+	#if defined(has_normalmap)
+	v_normal = DISPLACE_MULTIPLY * displace_along_normal;
+	#endif
 
 	v_textureCoords = uv;
 

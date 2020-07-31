@@ -40,17 +40,15 @@
 
     let webgl;
     let normalmap;
-    // const heightMap = new Image();
-    // let displacementTexture = null;
     let process_extra_shader_components = (gl, material, model) => {
-        // console.log("Process Extra Shader Components");
+        console.log("Process Extra Shader Components");
         const program = material.program;
 
         if (material.vertName === "terrain-vert") {
             // console.log(material.vertName);
 
             const heigthAdjMultLocation = gl.getUniformLocation(program, "height_adjustment");
-            gl.uniform1f(heigthAdjMultLocation, 0.000125);
+            gl.uniform1f(heigthAdjMultLocation, 0.000125); // if using GL.terrain() (which is flat) use larger adjustment => 0.125
 
             // uniform vec3 light_direction; // normalized direction in eye
             const lightDirectionLocation = gl.getUniformLocation(program, "light_direction");
@@ -84,7 +82,7 @@
         const loop = () => {
             frame = requestAnimationFrame(loop);
             light.x = 1.5 * Math.sin(Date.now() * 0.0001);
-            light.y = h/2 * Math.sin(Math.pow((h - light.x)/2, 2));
+            light.y = h + h/2 * Math.sin(Math.pow((h - light.x)/2, 2));
         };
 
         loop();
