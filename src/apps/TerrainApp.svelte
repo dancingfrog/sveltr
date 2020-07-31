@@ -149,7 +149,7 @@
     </label>
 
     <label>
-        <input type="range" bind:value={rot} min={-180} max={180} step={15.0}><br />
+        <input type="range" bind:value={rot} min={0} max={180} step={15.0}><br />
         rotation ({rot})
     </label>
 </div>
