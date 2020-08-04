@@ -1,7 +1,7 @@
 ---
 title: Generating Planar Terrain Mesh
 author: John
-date: '2020-04-07'
+date: '2020-07-31'
 draft: false
 categories:
   - GL
