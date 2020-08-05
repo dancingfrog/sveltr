@@ -6,7 +6,9 @@
 
     let navContext;
 
-    export let optionFlags = [];
+    export let booleanOptions = [];
+    export let colorOptions = [];
+    export let rangeOptions = [];
 
     export let viewLocation, viewTarget;
 
@@ -18,8 +20,12 @@
 
     let sinceLastMovementEvent = 0;
 
+    let isFullscreen = false;
+
+    let toggleFullscreen = function () {};
+
     export const init = function () {
-        console.log("Initializing Navigation Controls...");
+        console.log("Initializing Controls...");
 
         document.querySelectorAll('.controls h4').forEach(c => {
             console.log(c);
@@ -42,29 +48,25 @@
             c.title = "Click To See Article";
         });
 
-
         document.querySelectorAll('canvas').forEach(c => {
             console.log(c);
-            c.addEventListener('wheel', function (event) {
-                const wheelEvent = (event || window['event']);
 
-                if (((new Date()).getTime() - sinceLastMovementEvent) > 66) {
-
-                    sinceLastMovementEvent = (new Date()).getTime();
-
-                    if (wheelEvent.deltaY < 0) {
-                        dispatch('up');
-                    } else if (wheelEvent.deltaY > 0) {
-                        dispatch('down');
+            toggleFullscreen = () => {
+                if (!isFullscreen) {
+                    isFullscreen = true;
+                    c.parentElement.className += " fullscreen"
+                    for (const control of document.getElementsByClassName("controls")) {
+                        control.className += " fullscreen";
+                    }
+                } else {
+                    isFullscreen = false;
+                    c.parentElement.className = c.parentElement.className.replace("fullscreen", '');
+                    for (const control of document.getElementsByClassName("controls")) {
+                        control.className = control.className.replace("fullscreen", '');
                     }
                 }
+            }
 
-                wheelEvent.preventDefault();
-            });
-        })
-
-        document.querySelectorAll('canvas').forEach(c => {
-            console.log(c);
             c.addEventListener('keydown', function (event) {
                 const kbEvent = (event || window['event']); // cross-browser shenanigans
 
@@ -119,12 +121,29 @@
                     }
                 }
             });
+
+            c.addEventListener('wheel', function (event) {
+                const wheelEvent = (event || window['event']);
+
+                if (((new Date()).getTime() - sinceLastMovementEvent) > 66) {
+
+                    sinceLastMovementEvent = (new Date()).getTime();
+
+                    if (wheelEvent.deltaY < 0) {
+                        dispatch('up');
+                    } else if (wheelEvent.deltaY > 0) {
+                        dispatch('down');
+                    }
+                }
+
+                // wheelEvent.preventDefault();
+            });
         });
     };
 </script>
 
 <style>
-    .controls h2 {
+    .controls h4 {
         color: black;
         cursor: pointer;
         pointer-events: all;
@@ -133,14 +152,36 @@
 
 <div class="controls right">
 
-    <h2>{ title }</h2>
+    <h4>{ title }</h4>
 
-    {#if (optionFlags['labels'].length > 0 && optionFlags['values'].length > 0)}
-        {#each optionFlags['values'] as option, o}
-        <label>
-            <input type="checkbox" bind:checked={option} /> {optionFlags['labels'][o]}
-        </label><br />
+    {#if (booleanOptions['labels'].length > 0 && booleanOptions['values'].length > 0)}
+        {#each booleanOptions['values'] as option, o}
+            <label>
+                <input type="checkbox" bind:checked={option.value} /> {booleanOptions['labels'][o]}
+            </label><br />
         {/each}
     {/if}
+
+    {#if (colorOptions['labels'].length > 0 && colorOptions['values'].length > 0)}
+        {#each colorOptions['values'] as option, o}
+            <label>
+                <input type="color" style="height: 40px" bind:value={option.value} /><br />
+                {colorOptions['labels'][o]}
+            </label><br />
+        {/each}
+    {/if}
+
+    {#if (rangeOptions['labels'].length > 0 && rangeOptions['values'].length > 0)}
+        {#each rangeOptions['values'] as option, o}
+            <label>
+                <input type="range" bind:value={option.value} min={rangeOptions['min'][o]} max={rangeOptions['max'][o]} step={rangeOptions['step'][o]} /><br />
+                {rangeOptions['labels'][o]}({option.value})
+            </label><br />
+        {/each}
+    {/if}
+
+    <label>
+        <button on:click="{toggleFullscreen}">{((isFullscreen) ? 'minimize' : 'maximize')}</button>
+    </label>
 
 </div>

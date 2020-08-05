@@ -69,8 +69,6 @@ button:focus {
 
 .content {
     width: 100%;
-    min-width: 360px;
-    max-height: 80px;
     padding: 0;
 }
 
@@ -78,67 +76,44 @@ button:focus {
     width: 100%;
 }
 
-.content * img {
-    margin: 8px -4px 0 0;
-}
-.content * img[alt^="Stymaps"] {
-    width:                226px;
-}
-.content * img[src$="svg"] {
-    width:                604px;
+.content * .container * {
+    image-rendering: optimizespeed !important;
 }
 
-.content div#version {
-    position:			fixed;
-    left:				2px;
-    bottom:			2px;
-    font-size:		10pt;
-}
-.content div#version * {
-    font-size:        10pt;
-    margin-left:      8px;
-}
-.content div#version * img {
-    width:			72px;
-    height:			72px;
-    margin-left:	-4px;
-    margin-bottom:	-8px;
+.content * .container.fullscreen {
+    position: fixed;
+    left: 0;
+    top: 0;
 }
 
-.content h3 {
-    width:          604px;
-    min-width:      360px;
-    min-height:		154px;
-    border-top:		2px solid #7f7fff;
-    padding-top:	6px;
-    padding-right:	4px;
-}
-.content h4 {
-    padding-top:	6px;
-    padding-right:	4px;
-}
-.content > p, .content > h4 {
-    margin-top: 	10px;
-    margin-bottom:	30px;
-}
-.content > ul {
-    margin-bottom:	60px;
-}
-.content * a {
-    font-weight: 			bold;
-    text-decoration: 		none;
-    color: 				#a277ff;
+.content * .r-data pre {
+    display: block;
+    display: -webkit-box;
+    max-width: 800px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 15;
+    -webkit-box-orient: vertical;
 }
 
 .content * img {
     float:			right;
-    position:		relative;
     width:			320px;
     margin-top: 	-2px;
     margin-bottom: 	-1px;
 }
 
-.content * pre {
+.content * .r-mapping img {
+    float:			none;
+    margin:         auto;
+    width:			100%;
+}
+
+.section {
+    width: 100%;
+}
+
+pre {
     /*width: 72.5%;*/
     width: 100%;
     margin-left: auto;
@@ -154,39 +129,15 @@ button:focus {
     background: rgba(66, 66, 66, 0.5);
 }
 
-.content * pre code {
+pre code {
     max-width: 1024px;
     word-wrap: break-word;
 }
 
-.content * .r-data pre {
-    clear: right;
-    display: block;
-    display: -webkit-box;
-    max-width: 1024px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 15;
-    -webkit-box-orient: vertical;
-}
-
-.content * .r-mapping img {
-    float:			none;
-    position:		relative;
-    margin:         auto;
-    width:			100%;
-}
-
-.section {
-    width: 100%;
-    padding: 4px;
-}
-
 .controls {
-    float: left;
-    color: #282c34;
-    position: relative;
+    position: absolute;
     margin: -50% 8px 8px 0px;
+    color: #282c34;
     width: 300px;
     padding: 1em;
     text-align: center;
@@ -197,11 +148,19 @@ button:focus {
 
 .controls.right {
     float: right;
+    left: 50vw;
+}
+
+.controls.fullscreen {
+    position: fixed;
+    left: auto;
+    right: 0;
+    margin-top: 0;
 }
 
 .controls label {
     clear: both;
-    margin: 10px;
+    margin: 2px;
 }
 
 .controls label input[type="color"] {
@@ -217,6 +176,7 @@ button:focus {
     }
 
     .controls {
+        margin-top: 8px;
         padding-left: 0;
         padding-right: 0;
     }
