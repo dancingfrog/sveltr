@@ -1,8 +1,10 @@
 .idea
+.DS_Store
 .RData
 .Rhistory
-node_modules
-dist
-public
+/node_modules
+/dist
+/public
+/resources
 content/*html
 webpack.json
