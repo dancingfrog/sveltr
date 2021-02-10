@@ -1,6 +1,6 @@
 if (!require("blogdown")) {
-    install.packages("blogdown")
-    library(blogdown)
-    blogdown::install_hugo()
+    devtools::install_version("blogdown", version = "0.20")
+    blogdown::install_hugo("0.40.3", force = TRUE, use_brew = FALSE)
 }
+
 blogdown::build_site(local = TRUE)

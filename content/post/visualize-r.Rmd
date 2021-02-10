@@ -3,6 +3,9 @@ title: Visualizing R Data with SveltR
 author: John
 date: '2020-03-14'
 draft: false
+output:
+  html_document:
+    keep_md: yes
 categories:
   - GL
 tags:
@@ -10,12 +13,7 @@ tags:
   - SvelteJS
   - SvelteGL
   - WebGL
-output:
-  html_document:
-    keep_md: yes
-
 ---
-
 <div id="vizr-app" role="main" style="width: 100%; min-width: 800px;">
 &nbsp;
 </div>
@@ -39,7 +37,6 @@ if (!require("png")) {
 }
 library(png)
 ```
-
 If the output target of your Rmd (R Markdown) content is HTML, R has some methods for turning R data into JavaScript or JSON data and printing the results within HTML tags.
 <br />
 <br />
@@ -48,14 +45,15 @@ After using R to read each pixel of this heightmap, the table (data.frame) is wr
 <br />
 <br />
 <br />
+
 ```{r gl_data, echo = FALSE, results = "asis"}
 options(warn = -1)
 working_dir <- getwd()
 # print(working_dir)
-heightmap <- data.frame(c())
+heightmap <- data.frame(NULL)
 if (file.exists("data/heightmap-small.png")) {
-    #heightmap <- data.frame(png::readPNG("data/heightmap-small.png"))
-    heightmap <- data.frame(magick::image_read("data/heightmap-small.png"))
+    heightmap <- data.frame(png::readPNG("data/heightmap-small.png"))
+    #heightmap <- data.frame(magick::image_read("data/heightmap-small.png"))
     # head(heightmap)
     # length(heightmap)
     # str(heightmap)

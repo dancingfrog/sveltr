@@ -10,5 +10,5 @@
 /public
 /resources
 /static
-content/*html
+**/*html
 webpack.json
