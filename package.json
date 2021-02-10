@@ -4,25 +4,9 @@
   "description": "SveltR is a blogdown boilerplate for creating truly epic visualizations!",
   "repository": "https://github.com/Real-Currents/SveltR.git",
   "main": "index.js",
-  "scripts": {
-    "build": "npm run build:_rollup && npm run build:blogdown",
-    "build:preview": "npm run build:_rollup && npm run build:_preview",
-    "build:blogdown": "Rscript src/build.R; echo 'done'",
-    "build:_preview": "Rscript src/build_preview.R; echo 'done'",
-    "build:_rollup": "rollup -c",
-    "build:_webpack": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
-    "install-extra:fedora": "sudo dnf install pandoc pandoc-citeproc gdal-devel geos-devel proj-devel udunits2-devel",
-    "lint": "eslint src",
-    "live-preview": "run-p live-preview:**",
-    "live-preview:_webpack": "webpack --config webpack.dev.js -w",
-    "live-preview:blogdown": "npm run start -- ",
-    "prebuild": "rimraf dist",
-    "postinstall": "Rscript src/install.R",
-    "start": "http-server -p 4321 public",
-    "start:dev": "rollup -c -w"
-  },
   "author": "",
   "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.8.0",
@@ -62,12 +46,9 @@
     "rollup-plugin-postcss": "^2.2.0",
     "rollup-plugin-shader": "0.0.3",
     "rollup-plugin-svelte": "^5.1.1",
-    "rollup-plugin-terser": "^7.0.2",
     "sass-loader": "^8.0.0",
-    "serialize-javascript": "^5.0.1",
     "style-loader": "^1.0.0",
     "svelte": "^3.19.1",
-    "uglifyjs-webpack-plugin": "git+https://github.com/Real-Currents/uglifyjs-webpack-plugin.git#real/currents",
     "url-loader": "^2.1.0",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.6",
@@ -78,5 +59,21 @@
   "resolutions": {
     "natives": "1.1.6"
   },
-  "dependencies": {}
+  "scripts": {
+    "build": "npm run build:_rollup && npm run build:blogdown",
+    "build:preview": "npm run build:_rollup && npm run build:_preview",
+    "build:blogdown": "Rscript src/build.R; echo 'done'",
+    "build:_preview": "Rscript src/build_preview.R; echo 'done'",
+    "build:_rollup": "rollup -c",
+    "build:_webpack": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
+    "install-extra:fedora": "sudo dnf install pandoc pandoc-citeproc gdal-devel geos-devel proj-devel udunits2-devel",
+    "lint": "eslint src",
+    "live-preview": "run-p live-preview:**",
+    "live-preview:_webpack": "webpack --config webpack.dev.js -w",
+    "live-preview:blogdown": "npm run start -- ",
+    "prebuild": "rimraf dist",
+    "postinstall": "Rscript src/install.R",
+    "start": "http-server -p 4321 public",
+    "start:dev": "rollup -c -w"
+  }
 }
