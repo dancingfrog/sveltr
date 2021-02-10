@@ -2,7 +2,10 @@
 title: 'Visualizing Data For Regression'
 author: 'John'
 date: '2020-06-23'
-output: html_document
+output:
+  html_document:
+    keep_md: yes
+
 ---
 
 ```{r setup, echo=FALSE, include=FALSE}
@@ -26,14 +29,14 @@ read.auto <- function(file = 'Automobile price data _Raw_.csv'){
     auto.price <- read.csv(file, header = TRUE, stringsAsFactors = FALSE)
 
     numcols <- switch(
-      as.character((!exists("numcols") || is.na(numcols) || is.null(numcols))[1]), 
-      "TRUE" = { # if numcols does not exist or is not populated ("TRUE"), 
+      as.character((!exists("numcols") || is.na(numcols) || is.null(numcols))[1]),
+      "TRUE" = { # if numcols does not exist or is not populated ("TRUE"),
         # use these defaults:
         c('price', 'bore', 'stroke', 'horsepower', 'peak.rpm')
       }, # else use existing values
       numcols)
     print(c("numeric columns:", numcols))
-    
+
     for(col in c('price', 'bore', 'stroke', 'horsepower', 'peak.rpm')){
         for (idx in (1:length(auto.price[,col]))) {
           temp = auto.price[idx,col]
@@ -43,23 +46,23 @@ read.auto <- function(file = 'Automobile price data _Raw_.csv'){
             print(c(col, idx, auto.price[idx,col]))
           }
         }
-      
+
         ## Coerce some character columns to numeric
         auto.price[,col] = as.numeric(auto.price[,col])
     }
 
-    ## Remove cases or rows with missing values. 
-    ## Keep the rows which do not have NAs. 
+    ## Remove cases or rows with missing values.
+    ## Keep the rows which do not have NAs.
     auto.price = auto.price[complete.cases(auto.price[, numcols]), ]
-    
+
     ## Drop some unneeded columns
     auto.price[,'symboling'] = NULL
     auto.price[,'normalized.losses'] = NULL
-    
+
     return(auto.price)
 }
 
-cat_cols <- c('fuel.type', 'aspiration', 'num.of.doors', 'body.style', 
+cat_cols <- c('fuel.type', 'aspiration', 'num.of.doors', 'body.style',
             'drive.wheels', 'engine.location', 'engine.type', 'num.of.cylinders')
 
 plotcols <- c('price', 'city.mpg', 'curb.weight', 'engine.size', 'horsepower', 'fuel.type')
@@ -80,13 +83,13 @@ summary(auto_prices)
 ```{r bar_charts}
 plot_bars <- function(df){
     options(repr.plot.width=4, repr.plot.height=3.5) # Set the initial plot area dimensions
-  
+
     print("character columns:")
     for(col in colnames(df)){
         if(is.character(df[,col])){
             print(col)
-            p <- ggplot(df, aes_string(col)) + 
-                       geom_bar(alpha = 0.6) + 
+            p <- ggplot(df, aes_string(col)) +
+                       geom_bar(alpha = 0.6) +
                        theme(axis.text.x = element_text(angle = 90, hjust = 1))
             print(p)
         }
@@ -101,7 +104,7 @@ plot_dist <- function(df, plotcols){
     options(repr.plot.width=4, repr.plot.height=3) # Set the initial plot area dimensions
     for(col in plotcols){
         #if(is.numeric(df[,col])){
-            p <- ggplot(df, aes_string(col)) + 
+            p <- ggplot(df, aes_string(col)) +
                        geom_density(color = 'blue') +
                        geom_rug()
             print(p)
@@ -116,7 +119,7 @@ plot_dist(auto_prices, plotcols)
 plot_scatter_t <- function(df, cols, col_y = 'price', alpha = 1.0){
     options(repr.plot.width=4, repr.plot.height=3.5) # Set the initial plot area dimensions
     for(col in cols){
-        p <- ggplot(df, aes_string(col, col_y)) + 
+        p <- ggplot(df, aes_string(col, col_y)) +
                    geom_point(alpha = alpha) +
                    ggtitle(paste('Scatter plot of', col_y, 'vs.', col))
         print(p)
@@ -130,7 +133,7 @@ plot_scatter_t(auto_prices, plotcols, alpha = 0.2)
 plot_hex <- function(df, cols, col_y = 'price', bins = 30){
     options(repr.plot.width=4, repr.plot.height=3.5) # Set the initial plot area dimensions
     for(col in cols){
-        p <- ggplot(df, aes_string(col, col_y)) + 
+        p <- ggplot(df, aes_string(col, col_y)) +
                    geom_hex(show.legend = TRUE, bins = bins) +
                    ggtitle(paste('2-D hexbin plot of', col_y, 'vs.', col))
         print(p)
@@ -144,7 +147,7 @@ plot_hex(auto_prices, plotcols, bins = 10)
 plot_box <- function(df, cols, col_y = 'price'){
     options(repr.plot.width=4, repr.plot.height=3.5) # Set the initial plot area dimensions
     for(col in cols){
-        p <- ggplot(df, aes_string(col, col_y)) + 
+        p <- ggplot(df, aes_string(col, col_y)) +
                    geom_boxplot() +
                    ggtitle(paste('Box plot of', col, 'vs.', col_y))
         print(p)
@@ -158,7 +161,7 @@ plot_box(auto_prices, cat_cols)
 plot_violin <- function(df, cols, col_y = 'price', bins = 30){
     options(repr.plot.width=4, repr.plot.height=3.5) # Set the initial plot area dimensions
     for(col in cols){
-        p <- ggplot(df, aes_string(col, col_y)) + 
+        p <- ggplot(df, aes_string(col, col_y)) +
                    geom_violin() +
                    ggtitle(paste('Violin plot of', col, 'vs.', col_y))
         print(p)
@@ -171,7 +174,7 @@ plot_violin(auto_prices, cat_cols)
 plot_scatter_sp <- function(df, cols, col_y = 'price', alpha = 1.0){
     options(repr.plot.width=5, repr.plot.height=3.5) # Set the initial plot area dimensions
     for(col in cols){
-        p <- ggplot(df, aes_string(col, col_y)) + 
+        p <- ggplot(df, aes_string(col, col_y)) +
                    geom_point(aes(shape = factor(fuel.type)), alpha = alpha) +
                    ggtitle(paste('Scatter plot of', col_y, 'vs.', col, '\n with shape by fuel type'))
         print(p)
@@ -186,7 +189,7 @@ plot_scatter_sp_sz = function(df, cols, col_y = 'price', alpha = 1.0){
     options(repr.plot.width=5, repr.plot.height=3.5) # Set the initial plot area dimensions
     df$curb.weight.2 = df$curb.weight**2
     for(col in cols){
-        p = ggplot(df, aes_string(col, col_y)) + 
+        p = ggplot(df, aes_string(col, col_y)) +
                    geom_point(aes(shape = factor(fuel.type), size = curb.weight.2), alpha = alpha) +
                    ggtitle(paste('Scatter plot of', col_y, 'vs.', col, '\n with shape by fuel type'))
         print(p)
@@ -201,10 +204,10 @@ plot_scatter_sp_sz_cl = function(df, cols, col_y = 'price', alpha = 1.0){
     options(repr.plot.width=5, repr.plot.height=3.5) # Set the initial plot area dimensions
     df$curb.weight.2 = df$curb.weight**2
     for(col in cols){
-        p = ggplot(df, aes_string(col, col_y)) + 
-                   geom_point(aes(shape = factor(fuel.type), size = curb.weight.2, color = aspiration), 
+        p = ggplot(df, aes_string(col, col_y)) +
+                   geom_point(aes(shape = factor(fuel.type), size = curb.weight.2, color = aspiration),
                               alpha = alpha) +
-                   ggtitle(paste('Scatter plot of', col_y, 'vs.', col, 
+                   ggtitle(paste('Scatter plot of', col_y, 'vs.', col,
                                  '\n with shape by fuel type',
                                  '\n and color by aspiration'))
         print(p)

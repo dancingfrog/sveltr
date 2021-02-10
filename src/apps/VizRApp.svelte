@@ -64,22 +64,26 @@
 
 
     /* This is a helper callback to bind custom uniforms/attributes
-     * and to pass custom buffers. I inserted a hook directly in the
-     * @sveltejs/gl source for this purpose:
-     * https://github.com/Real-Currents/SvelteGL/tree/real/currents
+     * and to pass custom buffers, like the ad-hoc texture coords
+     * used in normal-selected texture shader below. I inserted a
+     * hook directly in the @sveltejs/gl source for this purpose
      */
     let process_extra_shader_components = (gl, material, model) => {
         // console.log("Process Extra Shader Components");
         const program = material.program;
     };
 
-    let controlInit;
+    let updateWorld = (event) => {
+        console.log(event);
+    };
+
+    let navControlInit;
 
     onMount(() => {
         let frame;
 
-        if (typeof controlInit === 'function') {
-            controlInit();
+        if (typeof navControlInit === 'function') {
+            navControlInit();
         }
 
         const loop = () => {
@@ -152,7 +156,7 @@
 </GL.Scene>
 
 <Controls
-        bind:init={controlInit}
+        bind:init={navControlInit}
         bind:color={color}
         bind:options={options}
         bind:rangeOptions={ranges}

@@ -7,6 +7,10 @@ categories:
   - R
 tags:
   - R Markdown
+output:
+  html_document:
+    keep_md: yes
+
 ---
 
 <div id="tech-app" role="main" style="width: 100%; min-width: 800px;">

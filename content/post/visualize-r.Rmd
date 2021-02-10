@@ -10,6 +10,10 @@ tags:
   - SvelteJS
   - SvelteGL
   - WebGL
+output:
+  html_document:
+    keep_md: yes
+
 ---
 
 <div id="vizr-app" role="main" style="width: 100%; min-width: 800px;">
@@ -50,7 +54,8 @@ working_dir <- getwd()
 # print(working_dir)
 heightmap <- data.frame(c())
 if (file.exists("data/heightmap-small.png")) {
-    heightmap <- data.frame(png::readPNG("data/heightmap-small.png"))
+    #heightmap <- data.frame(png::readPNG("data/heightmap-small.png"))
+    heightmap <- data.frame(magick::image_read("data/heightmap-small.png"))
     # head(heightmap)
     # length(heightmap)
     # str(heightmap)
