@@ -2,7 +2,11 @@
 
 <main id="svelte-app" role="main"></main><br /><br />
 
-<div style="position: relative; margin-top: -100%">
+<div class="front">
+
+  <a href="{{ "tech" | relURL }}">Check out the tech</a>
+  <br /><br />
+
   {{ if .Content }}
   <article class="article">
     {{ if .Title }}
@@ -30,7 +34,6 @@
     {{ end }}
   </div>
 
-  <a href="{{ "tech" | relURL }}">Check out the tech</a>
 </div>
 
 {{ end }}

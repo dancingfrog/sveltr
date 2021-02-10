@@ -13778,7 +13778,7 @@ var app = (function (exports) {
             target: appElement,
             props: {
                 greeting:
-`Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>Sveltr</a>!`
+`Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>SveltR</a>!`
             }
         }) : {};
 
@@ -13823,7 +13823,7 @@ var app = (function (exports) {
         new VizRApp({
             target: vizrAppElement,
             props: {
-                title: 'Visualizing R Data with Sveltr'
+                title: 'Visualizing R Data with SveltR'
             }
         }) : {};
 

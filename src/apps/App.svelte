@@ -3,14 +3,6 @@
 
 	export let greeting;
 
-	let pin;
-	let view;
-	$: view = pin ? pin.replace(/\d(?!$)/g, '*') : 'enter your pin';
-
-	function handleSubmit() {
-		alert(`submitted ${pin}`);
-	}
-
 	let canvas;
 
 	onMount(() => {
