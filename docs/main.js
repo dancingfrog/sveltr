@@ -526,14 +526,14 @@ var app = (function (exports) {
     			h3 = element("h3");
     			t = space();
     			canvas_1 = element("canvas");
-    			add_location(h3, file, 62, 1, 1390);
+    			add_location(h3, file, 62, 1, 1388);
     			attr_dev(canvas_1, "width", canvas_1_width_value = 32);
     			attr_dev(canvas_1, "height", canvas_1_height_value = 32);
-    			attr_dev(canvas_1, "class", "svelte-s3eu65");
-    			add_location(canvas_1, file, 63, 1, 1417);
+    			attr_dev(canvas_1, "class", "svelte-y9ulwz");
+    			add_location(canvas_1, file, 63, 1, 1415);
     			attr_dev(div, "id", "view");
-    			attr_dev(div, "class", "svelte-s3eu65");
-    			add_location(div, file, 61, 0, 1373);
+    			attr_dev(div, "class", "svelte-y9ulwz");
+    			add_location(div, file, 61, 0, 1371);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
