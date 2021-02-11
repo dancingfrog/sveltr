@@ -1,5 +1,3 @@
-
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 var app = (function (exports) {
     'use strict';
 
@@ -3809,7 +3807,7 @@ var app = (function (exports) {
     	let { process_extra_shader_components } = $$props; // (gl, material) => {}
 
     	let draw = () => {
-    		
+
     	};
 
     	let camera_stores = {
@@ -3826,7 +3824,7 @@ var app = (function (exports) {
     			}
     		}
     	: () => {
-    			
+
     		};
 
     	const width = writable(1);
@@ -3950,7 +3948,7 @@ var app = (function (exports) {
     				return;
     			}
 
-    			
+
     			$$invalidate(12, pending = false);
 
     			// gl.clearColor(...bg, backgroundOpacity);
@@ -7896,7 +7894,7 @@ var app = (function (exports) {
     			rotate(dx * 0.003, dy * 0.003);
     			last_x = touch.clientX;
     			last_y = touch.clientY;
-    			
+
     		});
 
     		function handle_touchend(event) {
@@ -8612,7 +8610,7 @@ var app = (function (exports) {
     			gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, index, gl.STATIC_DRAW);
     			this.buffers.__index = buffer;
     		}
-    		
+
     		// Un-bind buffers
     		gl.bindBuffer(gl.ARRAY_BUFFER, null);
     		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
@@ -8635,7 +8633,7 @@ var app = (function (exports) {
 
     			// Bind the position buffer.
     			const buffer = this.buffers[key];
-    			
+
     			// if (this.primitive = 'POINTS') console.log("enableVertexAttribArray on location ", key);
 
     			gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -9719,9 +9717,9 @@ var app = (function (exports) {
     		} else {
     			gl.texImage2D(TEXTURE_2D, 0, RGBA, RGBA, UNSIGNED_BYTE, data);
     		}
-    		
+
     		gl.generateMipmap(TEXTURE_2D);
-    		
+
     		const width  = 'naturalWidth'  in data ? data.naturalWidth  : data.width;
     		const height = 'naturalHeight' in data ? data.naturalHeight : data.height;
 
@@ -11340,7 +11338,7 @@ var app = (function (exports) {
     	let isFullscreen = false;
 
     	let toggleFullscreen = function () {
-    		
+
     	};
 
     	const init = function () {
