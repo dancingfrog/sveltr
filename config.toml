@@ -1,6 +1,7 @@
-baseurl = "/SveltR/"
+baseurl = "/"
 languageCode = "en-us"
 languageLang = "en"
+publishDir = "public"
 title = "SveltR: Truly Epic Visualizations"
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]

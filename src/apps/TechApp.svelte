@@ -41,16 +41,29 @@
 </script>
 
 <style>
-	.keys {
-		top: calc(50vh - (100vw / 5.75));
-		right: 0;
-		margin: 8px;
+	.controls.keys {
 		position: absolute;
+		top: calc(50vh - (100vw / 5.75));
+		left: auto;
+		right: 0;
+		margin: 8px 1rem 8px 8px;
 		width: 256px;
 		height: 256px;
 		padding: 24px;
 		background-color: transparent;
 		z-index: 2;
+	}
+
+	@media screen and (max-width: 960px) {
+		.controls.keys {
+			position: relative;
+			top: calc(50vh - (100vw / 1.05));
+			width: 256px;
+			height: 256px;
+			padding: 24px;
+			background-color: transparent;
+			z-index: 2;
+		}
 	}
 
 	.keys * {

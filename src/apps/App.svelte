@@ -3,14 +3,6 @@
 
 	export let greeting;
 
-	let pin;
-	let view;
-	$: view = pin ? pin.replace(/\d(?!$)/g, '*') : 'enter your pin';
-
-	function handleSubmit() {
-		alert(`submitted ${pin}`);
-	}
-
 	let canvas;
 
 	onMount(() => {
@@ -59,8 +51,8 @@
 		width: 100%;
 		height: 100%;
 		background-color: #666;
-		-webkit-mask: url("images/svelte-logo-mask.svg") 50% 50% content-box view-box no-repeat;
-		mask: url("images/svelte-logo-mask.svg") 50% 50% content-box view-box no-repeat;
+		-webkit-mask: url("../images/svelte-logo-mask.svg") 50% 50% content-box view-box no-repeat;
+		mask: url("../images/svelte-logo-mask.svg") 50% 50% content-box view-box no-repeat;
 	}
 	#view {
 		text-align: center;
