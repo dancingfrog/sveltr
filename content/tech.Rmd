@@ -10,6 +10,7 @@ tags:
 output:
   html_document:
     keep_md: yes
+always_allow_html: true
 ---
 <div id="tech-app" role="main" style="width: 100%;"></div>
 
