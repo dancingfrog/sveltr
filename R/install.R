@@ -1,0 +1,9 @@
+remotes::install_version("glmnet", version = "2.0-18")
+remotes::install_version("caTools", version = "1.17.1.1")
+remotes::install_version("ROCR", version = "1.0-7")
+
+install.packages(c(
+    "caret","cluster","ggplot2","dplyr","gridExtra","GGally","hexbin","kknn",
+    "MASS","magrittr","nnet","plotly","purrr","randomForest","repr","ROCR","pROC",
+    "MLmetrics","e1071","klaR"
+))

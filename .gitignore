@@ -1,8 +1,8 @@
 .idea
 .ipynb_checkpoints
 .DS_Store
-.RData
-.Rhistory
+*.RData
+*.Rhistory
 *.Rproj*
 /blogdown
 /node_modules
@@ -12,3 +12,4 @@
 /static
 **/*html
 webpack.json
+CORI Software Developer Candidate Assessment.pdf
