@@ -7,14 +7,32 @@ you just follow the instructions.”*
 
 ### Approach
 
-The first step in developing this data-oriented application is to
-understand the information that this data is intended to convey. The
-title of the dataset gives some indication of its content. My overall
-sense of what kinds of experiences can be meaningfully facilitated by
-the information contained therein can be greatly enhanced by 1) A
-description of each field, 2) Knowledge of how the data was gathered and
-maintained, and 3) Some exploratory operations (statistical aggregation,
-plotting, mapping, etc.) on the dataset elements/features.
+Starting off by thinking about the purely technological side of this
+activity, I would like to make use of some lightweight framework and
+tooling for this application. My favorite frontend library of late has
+been SvelteJS, so I will continue to explore that solution. On the
+backend, while I have a lot of experience with PostgreSQL/PostGIS and
+have even set up a few GeoServers over the years, I really want to take
+advantage of the fact that this data is already stored in “the cloud”
+thanks to Carto. I actually do not have much experience beyond fetching
+simple basemaps from Carto, so again, this will be a great learning
+opportunity. I would also like to move some or all of the data into
+Elasticsearch and make use of its excellent filtering and aggregation
+features. This last preference may require a very thin middleware server
+like NodeJS or Nginx to skirt around some Cross-Origin Request issues
+that occasionally come up.
+
+The first step in developing this data-oriented application is to begin
+to grasp what or which information the data is intended to convey. The
+title of the dataset gives some indication of its content. I did gain
+some qualitative context by reading a couple articles about [“Deaths of
+Despair”](https://ifstudies.org/blog/deaths-of-despair-and-covid-19-what-we-know-so-far).
+Going beyond this, my overall sense of what kinds of experiences can be
+meaningfully facilitated by the information contained therein can be
+greatly enhanced by 1) A description of each field, 2) Knowledge of how
+the data was gathered and maintained, and 3) Some exploratory operations
+(statistical aggregation, plotting, mapping, etc.) on the dataset
+elements/features.
 
 1.  A description of the fields was provided. Among these, the
     `database` field is described as naming the source of the given
@@ -123,14 +141,20 @@ would be good to filter records by an additional characteristic, in this
 case, Cause of Death (`death_cause`), before beginning to look deeper at
 each “bucket” of data that is produced.
 
-The five causes of death included in this data are:
+    ## 
+    ## Attaching package: 'dplyr'
 
-1 2 3 4 5
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
 
-… again, suspecting that `death_cause = "DoD"` may be an aggregate term
-in respect to the other four causes. The data corresponding to each of
-these causes has been filtered into its own object/table using R
-(comments include Carto SQL queries to do the same).
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+The five causes of death included in this data are "Alcohol", "Cirrhosis", "Drug", "Suicide", and  "DoD" ("Deaths of Despair"), 
+again, suspecting that `death_cause = "DoD"` may be an aggregate term in respect to the other four causes. 
+The data corresponding to each of these causes has been filtered into its own object/table using R (comments include Carto SQL queries to do the same).
 
     death_by_alcohol_data <- dod_covid_county_data[grepl("Alcohol", dod_covid_county_data[, 25]), ] #dod_covid_county_data %>% dplyr::filter(death_cause = "Alcohol")
     #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Alcohol%27", flatten = TRUE)$rows)
@@ -1714,9 +1738,226 @@ bound it to the data as an additional column before indexing in
 Elasticsearch. This way, ES can ignore the geom field, but still be
 respond to spatial queries for the features in this dataset:
 
+    ## Loading required package: geojsonio
+
+    ## 
+    ## Attaching package: 'geojsonio'
+
+    ## The following object is masked from 'package:base':
+    ## 
+    ##     pretty
+
+    options(warn = -1)
+    if (!require(elasticsearchr)) {
+        devtools::install_github("alexioannides/elasticsearchr", upgrade = FALSE)
+    }
+
+    ## Loading required package: elasticsearchr
+
+    library(elasticsearchr)
+    library(geojson)
+
+    ## 
+    ## Attaching package: 'geojson'
+
+    ## The following object is masked from 'package:graphics':
+    ## 
+    ##     polygon
+
+    library(geojsonio)
+    library(rgeos)
+
+    ## Loading required package: sp
+
+    ## rgeos version: 0.5-5, (SVN revision 640)
+    ##  GEOS runtime version: 3.9.0-CAPI-1.16.2 
+    ##  Linking to sp version: 1.4-4 
+    ##  Polygon checking: TRUE
+
+    library(wicket)
+
+    # Setup each Elasticsearch index with the following minimal mapping:
+
+    ## The old way
+    #PUT dod_covid_county?include_type_name=true
+    #{
+    #    "settings": {
+    #        "number_of_shards": 1
+    #    },
+    #    "mappings": {
+    #        "_doc": {
+    #            "properties": {
+    #                "geom_box": {
+    #                    "type": "shape"
+    #                }
+    #            }
+    #        }
+    #    }
+    #}
+    #
+    ## The new way ES 7.0+
+    #PUT dod_covid_county
+    #{
+    #  "settings": {
+    #    "number_of_shards": 1
+    #  }
+    #}
+    #
+    #PUT dod_covid_county/_mapping?include_type_name=false
+    #{
+    #  "properties": {
+    #    "geom_box": {
+    #      "type": "shape"
+    #    }
+    #  }
+    #}
+
+
+    index_by_rate <- function (rate_index, rate_data) {
+        hits <- data.frame()
+      # Try index
+        try({
+            hits <- elasticsearchr::elastic("http://52.52.217.209:9200", rate_index) %search% query('{
+              "match_all": {}
+            }')
+        })
+        total <-  9999 # length(rate_data[,1]) # length(dod_covid_county_data[,1])
+
+        if (dim(hits) == c(0, 0) || is.na(hits) || length(hits[,1]) < total) { # check length of hit is > total
+            for (i in c(1:total)) {
+                # Safest to index 1 record at a time... might take a while
+                wkt_geom <- rate_data[c(i), ]$geom
+                wkt_sp <- rgeos::readWKT(wkt_geom)
+                geojson <- geojsonio::geojson_json(wkt_sp)
+                bbox <- wicket::wkt_bounding(wkt_geom)
+                geom_box <- data.frame(geom_box = paste0(
+                  "POLYGON ((",
+                    bbox$min_x, " ", bbox$min_y,", ", bbox$max_x, " ", bbox$min_y,", ",
+                    bbox$max_x, " ", bbox$max_y, ", ", bbox$min_x, " ", bbox$max_y, ", ",
+                    bbox$min_x, " ", bbox$min_y, "))"))
+                geometry_frame <- dplyr::bind_cols(rate_data[c(i), c(1:(length(rate_data) - 1))], geom_box = geom_box, geom = geojson)
+                elastic("http://52.52.217.209:9200", rate_index, "_doc")  %index% geometry_frame
+                print(paste0("Indexing ", rate_index, ": ", i ," of ", total, " records complete"))
+                rm(bbox)
+                rm(geom_box)
+                rm(geometry_frame)
+            }
+        }
+    }
+
+    ## ......
+
+    ## ......
+
+    ## ......
+
+    ## ......
+
+    ## ......
+
+With the data successfully imported into Elasticsearch and previously
+available via Carto SQL, I have enough resources to build a preliminary
+mapping interface and visualization tool. Please return to the [landing
+page](/) to see the results.
+
 Scenarios
 =========
 
 ### 2.1 CORI Website map
 
+A map has become a kind of dashboard in the context of a modern digital
+society. Very few of the digital maps that are created at this time are
+ever used to navigate or even to survey in the traditional sense. My
+experience with this tendency for information visualizations to veer
+towards the geographic or geospatial has been almost entirely in regards
+to property, commercial interests and macro-economic analysis. Which is
+to say, even when the content of the map is something else, the impetus
+for creating and/or maintaining these new maps is often financial in
+nature. That preface gives me a chance to continue by saying that my
+first instinct would be to understand the economic motives that are
+driving the stakeholders a project to design or desire a new mapping
+application, even a small one which is intended to be embedded in a
+larger system. If the purpose of this interactive presentation is to
+convey information to a community, audience or organization, or even to
+go as far as persuading users to consider opportunities in their
+environment in a new way, then I need to become familiar with what that
+perspective could be. This is a great excuse to have meaningful
+conversations with people, and explore their considerations and
+concerns. I understand that my primary role is not to directly
+facilitate conversations or manage peoples’ engagement with one another,
+but I find it very helpful, sometimes in unexpected to ways, to build a
+foundation for my development work by participating in those type of
+exchanges and cultivating trust in the idea of sharing a vision. After
+all, the purpose of building software is to bring something into the
+world that previously only existed in someone else’s mind, and I believe
+that fostering interpersonal resilience and openness to exploring other
+people’s ideals is a key requirement in that endeavor.
+
+My next step would be to use all of the information that has emerged as
+both requirements and aspiration to start making technology decisions.
+Again, there are conversations that usually need to happen at this
+stage, but possibly with a different audience or group of stakeholders,
+each who may have a different orientation to these objectives. Sharing
+the workplace with highly experience people is an invaluable input to
+these efforts and I’m always interested in hearing about another way of
+approaching a problem. Sometimes that may require early exploration or
+simulation in order to understand how far a path might take us, even if
+we ultimately decided not to keep moving in that direction. In the
+context of this specific scenario, I believe that approaching the
+mapping app as a feature of the website, in general, as opposed to
+seeing as an independent “add on” component will be the best possible
+way to ensure that the whole experience achieves the desired effect.
+This means considering the aesthetic, functional and “nitty-griity”
+(Cost, Deployment, Code/Data Management, Due dates, etc.) of the whole
+package, keeping in mind that that is how users will perceive the
+experience. If the map is intended to collect or solicit information for
+users, it’s essential to consider how that is done within the greater
+context of the whole website. Even as one more of us being to code and
+to re-code, we will return to these kinds of questions repeatedly,
+because that level of decision-making is just as iterative as any other
+aspect of the work.
+
+At this point, I can be candid about which technology choices I
+recommend or simply have become more enamored with. I think Vector-based
+mapping platforms and tools (GeoJSON, TopoJSON, MVT) are necessarily the
+way to go with any new web mapping project because they offer incredible
+advances in performance, contextual search and in terms of the sheer
+volume of data that can be delivered, in contrast to the legacy raster
+tools. I began my response to this section by implying that maps have
+become something very different from what they used to be. Maps are now
+libraries, portfolios and play spaces, and I don’t see any fundamental
+reason to develop a mapping application, unless it is capable of
+responding to these new expectations.
+
 ### 2.2 Broadband explorer
+
+To aid in the work of expanding the broadband infrastructure of
+communities near and far, I think my overall strategy would center on
+understanding the industrial incentives that have driven us and other
+communities, into the present circumstance. As exciting as the
+development of telecommunications technology has been and continues to
+be, it’s embedded in a social network (not FB, or not *just* FB) of
+human desires, fears, and speculations and is subject to all of the
+trials and tribulations and moral conflagrations, just as any large and
+complicated industrial market persists in being difficult, if not
+impossible to predict. So, that’s not just a big disclaimer or hedge
+regarding how much progress we can actually make on this issue, but also
+an appeal to approach the humanistic, psychological factors of this with
+the same interest to understand the dimensions of the problem as we
+might approach the technical and economic factors. From that perspective
+it might be useful to view this effort as a critical health and safety
+issue. Can we find information and quantitative data about quality of
+life and disposition, not as an effect of using technology or high-speed
+internet, but as passive benefit for those who live in technological
+corridors when compared to those who do not. I know similar studies have
+been done around questions about the quality of life for those who have
+direct access to green spaces and open nature, but what about people who
+have experienced both as a part of their day-to-day environment. You can
+probably tell from my meandering consideration sthat there are many
+philosophical and psychological lenses for me to put on when exploring
+this subject. While I will always keep those close by, the strategies I
+adopt when dawning my technical/developer hat would be specific to the
+set of tasks that others have identified as being essential to these
+efforts. As stated in my response above building relationship with
+others who are already centered and focused on this topic is key to
+finding my way.
