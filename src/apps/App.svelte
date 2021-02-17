@@ -5,6 +5,10 @@
     import mapboxgl from 'mapbox-gl';
 
     let map;
+    let mapBounds = [
+      [ -80.83415919532996, 39.98043619521454 ],
+      [ -73.45134669532756, 35.74110771792324 ]
+    ];
     let fips = "";
     let name = "";
     let state = "";
@@ -194,7 +198,23 @@
 
       map.on('move', function() {
         window.bounds = map.getBounds();
-        console.log('A move event occurred: ', window.bounds);
+        // Example
+        // {
+        //   "_sw": {
+        //   "lng": -80.9355207272108,
+        //     "lat": 35.38870537135182
+        // },
+        //   "_ne": {
+        //   "lng": -72.49775691763645,
+        //     "lat": 40.23623113003447
+        // }
+        // }
+
+        mapBounds = [
+          [  window.bounds['_sw']['lng'], window.bounds['_ne']['lat'] ]
+          [  window.bounds['_ne']['lng'], window.bounds['_sw']['lat'] ]
+        ];
+        console.log('A move event occurred: ', mapBounds);
       });
 
 
