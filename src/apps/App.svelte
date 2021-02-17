@@ -1,6 +1,6 @@
 <script>
     import {onMount} from 'svelte';
-    import Keypad from './components/Keypad.svelte';
+    import ChartPanel from './components/ChartPanel.svelte';
     import carto from '@carto/carto-vl';
     import mapboxgl from 'mapbox-gl';
 
@@ -9,6 +9,18 @@
     let name = "";
     let state = "";
     let pop = "";
+
+    let chartData = [
+      { name: 'data1'},
+      { name: 'data2'},
+      { name: 'data3'},
+      { name: 'data4'},
+      { name: 'data5'}
+    ];
+
+    let handleFeatureSearch = (evt) => {
+      console.log(`submitted ${chartData}`);
+    }
 
     let dod_color = '#c80e38';
     let dod_rate = 50;
@@ -388,6 +400,7 @@
     }
 
     .controls .box label input[type="color"] {
+      float: left;
       height: 18px;
       width: 24px;
       margin: 10px 2px 10px;
@@ -425,35 +438,37 @@
             <input type="radio" bind:group value={'2014-2018'} class="my-super-special-classname">2014 - 2018
         </label>
         <br />
-
-        <label>
-            <input type="color" bind:value={dod_color} onchange={changeDodColor}>
-            Deaths of Despair Rate <br/> <span class="minimum_rate">{(dod_rate > 0) ? "(Minimum " + dod_rate + " per 100k ppl)" : ""}</span><br/>
-            <input type="range" bind:value={dod_rate} min={-0.1} max={200} step={1} onchange={changeDodRate}>
-        </label>
+        <br />
+        <br />
 
         <label>
             <input type="color" bind:value={alc_color} onchange={changeAlcColor}>
-            Deaths by Alcohol Rate <br/> <span class="minimum_rate">{(alc_rate > 0) ? "(Minimum " + alc_rate + " per 100k ppl)" : ""}</span><br/>
+            Alcohol Death Rate <br/> <span class="minimum_rate">{(alc_rate > 0) ? "(Minimum " + alc_rate + " per 100k ppl)" : ""}</span><br/>
             <input type="range" bind:value={alc_rate} min={-0.1} max={200} step={1} onchange={changeAlcRate}>
         </label>
 
         <label>
             <input type="color" bind:value={crh_color} onchange={changeCrhColor}>
-            Deaths by Cirrhosis Rate <br/> <span class="minimum_rate">{(crh_rate > 0) ? "(Minimum " + crh_rate + " per 100k ppl)" : ""}</span><br/>
+            Cirrhosis Death Rate <br/> <span class="minimum_rate">{(crh_rate > 0) ? "(Minimum " + crh_rate + " per 100k ppl)" : ""}</span><br/>
             <input type="range" bind:value={crh_rate} min={-0.1} max={200} step={1} onchange={changeCrhRate}>
         </label>
 
         <label>
             <input type="color" bind:value={drg_color} onchange={changeDrgColor}>
-            Deaths by Drug Rate <br/> <span class="minimum_rate">{(drg_rate > 0) ? "(Minimum " + drg_rate + " per 100k ppl)" : ""}</span><br/>
+            Drug Death Rate <br/> <span class="minimum_rate">{(drg_rate > 0) ? "(Minimum " + drg_rate + " per 100k ppl)" : ""}</span><br/>
             <input type="range" bind:value={drg_rate} min={-0.1} max={200} step={1} onchange={changeDrgRate}>
         </label>
 
         <label>
             <input type="color" bind:value={sui_color} onchange={changeSuiColor}>
-            Deaths by Suicide Rate <br/> <span class="minimum_rate">{(sui_rate > 0) ? "(Minimum " + sui_rate + " per 100k ppl)" : ""}</span><br/>
+            Suicide Death Rate <br/> <span class="minimum_rate">{(sui_rate > 0) ? "(Minimum " + sui_rate + " per 100k ppl)" : ""}</span><br/>
             <input type="range" bind:value={sui_rate} min={-0.1} max={200} step={1} onchange={changeSuiRate}>
+        </label>
+
+        <label>
+            <input type="color" bind:value={dod_color} onchange={changeDodColor}>
+            Deaths of Despair Rate <br/> <span class="minimum_rate">{(dod_rate > 0) ? "(Minimum " + dod_rate + " per 100k ppl)" : ""}</span><br/>
+            <input type="range" bind:value={dod_rate} min={-0.1} max={200} step={1} onchange={changeDodRate}>
         </label>
 
         <footer class="js-footer"></footer>
@@ -467,3 +482,8 @@
         </svg>
     </div>
 </div>
+
+<div class="charts controls right">
+    <ChartPanel bind:value={chartData} on:submit={handleFeatureSearch}/>
+</div>
+

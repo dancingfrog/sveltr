@@ -181,8 +181,29 @@ pre code {
     word-wrap: break-word;
 }
 
+table thead {
+    background: rgba(66, 66, 66, 0.5);
+    border: none;
+}
+
+table thead th,
+table thead th tr {
+    padding: 2px 8px;
+    text-align: center;
+}
+
+table tbody * td {
+    padding: 2px 8px;
+    background: rgba(127, 127, 127, 0.5);
+}
+
+table tbody * td[align="left"] {
+    min-width: 200px;
+}
+
 .controls {
     position: absolute;
+    right: 0;
     left: 0;
     margin: -20% 8px 8px 2.5rem;
     color: #282c34;
@@ -196,7 +217,8 @@ pre code {
 
 .controls.right {
     float: right;
-    left: 70vw;
+    right: 10%;
+    left: auto;
 }
 
 .controls.fullscreen {
@@ -239,6 +261,7 @@ pre code {
         position: relative;
         float: none;
         left: auto;
+        right: 10%;
     }
 
 }
@@ -253,4 +276,22 @@ pre code {
     .controls.right.toolbox {
         display: none;
     }
+}
+
+.charts {
+    z-index: auto;
+}
+
+.charts.right {
+    margin: 24px;
+    max-height: 95vh;
+}
+
+.charts.right:hover {
+    left: auto;
+}
+
+.charts.right:hover {
+    transition: right 1.5s 0.25s ease-in-out;
+    right: 25%;
 }

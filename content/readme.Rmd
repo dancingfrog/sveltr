@@ -353,7 +353,7 @@ index_by_rate <- function (rate_index, rate_data) {
           "match_all": {}
         }')
     })
-    total <-  length(rate_data[,1]) # length(dod_covid_county_data[,1])
+    total <-  9999 # length(rate_data[,1]) # length(dod_covid_county_data[,1])
 
     if (dim(hits) == c(0, 0) || is.na(hits) || length(hits[,1]) < total) { # check length of hit is > total
         for (i in c(1:total)) {
