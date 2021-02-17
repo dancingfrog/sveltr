@@ -24,7 +24,9 @@ params:
 
 ### Approach
 
-The first step in developing this data-oriented application is to understand the information that this data is intended to convey. The title of the dataset gives some indication of its content. My overall sense of what kinds of experiences can be meaningfully facilitated by the information contained therein can be greatly enhanced by 1) A description of each field, 2) Knowledge of how the data was gathered and maintained, and 3) Some exploratory operations (statistical aggregation, plotting, mapping, etc.) on the dataset elements/features.
+Starting off by thinking about the purely technological side of this activity, I would like to make use of some lightweight framework and tooling for this application. My favorite frontend library of late has been SvelteJS, so I will continue to explore that solution. On the backend, while I have a lot of experience with PostgreSQL/PostGIS and  have even set up a few GeoServers over the years, I really want to take advantage of the fact that this data is already stored in "the cloud" thanks to Carto. I actually do not have much experience beyond fetching simple basemaps from Carto, so again, this will be a great learning opportunity. I would also like to move some or all of the data into Elasticsearch and make use of its excellent filtering and aggregation features. This last preference may require a very thin middleware server like NodeJS or Nginx to skirt around some Cross-Origin Request issues that occasionally come up.
+
+The first step in developing this data-oriented application is to begin to grasp what or which information the data is intended to convey. The title of the dataset gives some indication of its content. I did gain some qualitative context by reading a couple articles about ["Deaths of Despair"](https://ifstudies.org/blog/deaths-of-despair-and-covid-19-what-we-know-so-far). Going beyond this, my overall sense of what kinds of experiences can be meaningfully facilitated by the information contained therein can be greatly enhanced by 1) A description of each field, 2) Knowledge of how the data was gathered and maintained, and 3) Some exploratory operations (statistical aggregation, plotting, mapping, etc.) on the dataset elements/features.
 
   1. A description of the fields was provided. Among these, the `database` field is described as naming the source of the given record in the dataset, which will help with step **2**. The fields labeled `geoid_co` and `geoid_st` respectively contain county and state level FIPS identifiers, which is useful for sorting and grouping the data by county/state while in its tabular form (i.e. pre-visualization filters). `the_geom` field contains geometry in a binary format, which can be transformed into GeoJSON or WKT. To minimize the size of the query response, I removed both `the_geom` and `the_geom_webmercator` from the Carto SQL request and replaced them with `ST_AsText(the_geom) as geom` (WKT), for subsequent geospatial processing.
 
@@ -406,10 +408,14 @@ index_by_rate("death_by_dod_data", death_by_dod_data)
 
 ```
 
+With the data successfully imported into Elasticsearch and previously available via Carto SQL, I have enough resources to build a preliminary mapping interface and visualization tool. Please return to the [landing page](/) to see the results.
+
 
 
 # Scenarios
 
 ### 2.1 CORI Website map
+
+
 
 ### 2.2 Broadband explorer
