@@ -21,7 +21,7 @@
     $: changeDodRate(dod_rate);
 
     let changeTimePeriod = (group) => {
-      console.log("Set time period of dataset", group)
+      console.log("Set time period of dataset ", group)
     };
     $: changeTimePeriod(group);
 
@@ -127,8 +127,8 @@
                     setTimeout(async () => {
                         // If updates coming in fast, delay and check for value consistency
                         if (
-                          (dod_color === color || alc_color === color || crh_color === color) &&
-                          (dod_rate === rate || alc_rate === rate || crh_rate === rate) &&
+                          (dod_color === color || alc_color === color || crh_color === color || drg_color === color || sui_color === color) &&
+                          (dod_rate === rate || alc_rate === rate || crh_rate === rate || drg_rate === rate || sui_rate === rate) &&
                           group === time_period
                         ) {
                             clearTimeout(removeDelayA[cause]);
@@ -245,7 +245,7 @@
 
         changeDodRate = (rate) => fetchDoD(dod_color, rate, group, 'DoD');
 
-        changeTimePeriod = (time_period) => fetchDoD(dod_color, dod_rate, time_period, 'DoD');
+        changeTimePeriod = (time_period) =>
 
         fetchDoD(alc_color, alc_rate, group, 'Alcohol');
 
@@ -253,15 +253,11 @@
 
         changeAlcRate = (rate) => fetchDoD(alc_color, rate, group, 'Alcohol');
 
-        changeTimePeriod = (time_period) => fetchDoD(alc_color, alc_rate, time_period, 'Alcohol');
-
         fetchDoD(crh_color, crh_rate, group, 'Cirrhosis');
 
         changeCrhColor = (color) => fetchDoD(color, crh_rate, group, 'Cirrhosis');
 
         changeCrhRate = (rate) => fetchDoD(crh_color, rate, group, 'Cirrhosis');
-
-        changeTimePeriod = (time_period) => fetchDoD(crh_color, crh_rate, time_period, 'Cirrhosis');
 
         fetchDoD(drg_color, drg_rate, group, 'Drug');
 
@@ -269,15 +265,19 @@
 
         changeDrgRate = (rate) => fetchDoD(drg_color, rate, group, 'Drug');
 
-        changeTimePeriod = (time_period) => fetchDoD(drg_color, drg_rate, time_period, 'Drug');
-
         fetchDoD(sui_color, sui_rate, group, 'Suicide');
 
         changeSuiColor = (color) => fetchDoD(color, sui_rate, group, 'Suicide');
 
         changeSuiRate = (rate) => fetchDoD(sui_color, rate, group, 'Suicide');
 
-        changeTimePeriod = (time_period) => fetchDoD(sui_color, sui_rate, time_period, 'Suicide');
+        changeTimePeriod = (time_period) => {
+          fetchDoD(dod_color, dod_rate, time_period, 'DoD');
+          fetchDoD(alc_color, alc_rate, time_period, 'Alcohol');
+          fetchDoD(crh_color, crh_rate, time_period, 'Cirrhosis');
+          fetchDoD(drg_color, drg_rate, time_period, 'Drug');
+          fetchDoD(sui_color, sui_rate, time_period, 'Suicide');
+        }
 
         (function loop() {
             frame = requestAnimationFrame(loop);
