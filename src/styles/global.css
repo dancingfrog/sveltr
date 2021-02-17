@@ -12,15 +12,25 @@ body {
     background-color: rgb(34, 6, 20);
 }
 
+body>main{
+    width: 100%;
+}
+
 body>div, main>div {
     margin-left: auto;
     margin-right: auto;
     max-width: 1344px;
 }
 
+body>div#loader, main>div#loader {
+    max-width: none;
+}
+
 body>div.front {
-    position: relative;
-    margin-top: -50%;
+    position: absolute;
+    bottom: 0;
+    left: 24px;
+    pointer-events: visiblepainted;
 }
 
 a {
@@ -87,7 +97,7 @@ button:focus {
 }
 
 .content main, .content * .section div.section div, .content * .section div.section .section p {
-    text-align: center;
+    text-align: justify;
     width: 100%;
 }
 
@@ -200,7 +210,7 @@ pre code {
 @media screen and (max-width: 960px) {
 
     body>div.front {
-        margin-top: -66%;
+        margin-top: 33vh;
     }
 
     pre {
@@ -227,6 +237,10 @@ pre code {
 @media screen and (max-height: 720px) {
 
     body>div.front {
-        margin-top: -75%;
+        margin-top: 37vh;
+    }
+
+    .controls.right.toolbox {
+        display: none;
     }
 }

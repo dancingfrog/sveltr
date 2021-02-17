@@ -26,7 +26,7 @@ plotting, mapping, etc.) on the dataset elements/features.
     in a binary format, which can be transformed into GeoJSON or WKT. To
     minimize the size of the query response, I removed both `the_geom`
     and `the_geom_webmercator` from the Carto SQL request and replaced
-    them with `ST_AsText(the_geom_webmercator) as geom`, for subsequent
+    them with `ST_AsText(the_geom) as geom` (WKT), for subsequent
     geospatial processing.
 
 2.  Values in the `database` field include [Underlying Cause of Death
@@ -49,8 +49,10 @@ plotting, mapping, etc.) on the dataset elements/features.
     dataset has already been transformed in some non-trivial way as
     compared to one of its source (i.e., “Underlying Cause of Death
     1999-2018”) and the concept of “Deaths of Despair” seems to come
-    from another source entirely, along with any informatin relating to
-    Covid-19.
+    from another source entirely, along with any information relating to
+    Covid-19. `death_cause = "DoD"` may actually be an aggregation of
+    the other four values found in the data, but I wasn’t able to
+    determine if that is the case.
 
 3.  R was used to read in the JSON data from Rural Innovation’s Carto
     platform and save it to local disk:
@@ -59,7 +61,7 @@ plotting, mapping, etc.) on the dataset elements/features.
 
     data_file <- paste0(working_dir, "/content/data/dod_covid_county.RData")
     if (!file.exists(data_file)) {
-      dod_covid_county_data <- data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom_webmercator)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county", flatten = TRUE)$rows)
+      dod_covid_county_data <- data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county", flatten = TRUE)$rows)
        save(dod_covid_county_data, file = data_file)
     }
 
@@ -68,8 +70,8 @@ plotting, mapping, etc.) on the dataset elements/features.
     str(dod_covid_county_data)
 
     ## 'data.frame':    62840 obs. of  45 variables:
-    ##  $ cartodb_id                   : int  1203 1205 1207 1209 1211 1213 1215 1217 1219 1221 ...
-    ##  $ fid                          : int  1 2 3 4 5 6 7 8 9 10 ...
+    ##  $ cartodb_id                   : int  1203 1205 1207 1209 1211 1213 1215 1219 1217 1225 ...
+    ##  $ fid                          : int  1 2 3 4 5 6 7 9 8 11 ...
     ##  $ geoid_co                     : chr  "01001" "01001" "01001" "01001" ...
     ##  $ name                         : chr  "Autauga" "Autauga" "Autauga" "Autauga" ...
     ##  $ namelsad                     : chr  "Autauga County" "Autauga County" "Autauga County" "Autauga County" ...
@@ -96,12 +98,12 @@ plotting, mapping, etc.) on the dataset elements/features.
     ##  $ age_group                    : chr  "All" "All" "All" "All" ...
     ##  $ gender                       : chr  "All" "All" "All" "All" ...
     ##  $ race                         : chr  "All" "All" "All" "All" ...
-    ##  $ population                   : int  224232 255052 274733 277263 224232 255052 274733 277263 224232 255052 ...
-    ##  $ deaths_dod                   : int  10 13 0 13 14 12 32 27 54 64 ...
-    ##  $ age_adjusted_rate            : num  4.5 5.1 NA 4.7 6.2 4.7 10.9 8.5 24.2 25.1 ...
-    ##  $ age_adjusted_rate_se         : num  1.4 1.3 NA 1.2 1.9 1.4 2 1.6 3.3 3.2 ...
-    ##  $ age_adjusted_rate_lower_95_ci: num  2.1 2.5 NA 2.2 3.8 2.5 7.4 5.6 18.2 19.3 ...
-    ##  $ age_adjusted_rate_upper_95_ci: num  8.2 8.1 NA 7.6 12.1 8.4 15.5 12.3 31.7 32.1 ...
+    ##  $ population                   : int  224232 255052 274733 277263 224232 255052 274733 224232 277263 274733 ...
+    ##  $ deaths_dod                   : int  10 13 0 13 14 12 32 54 27 83 ...
+    ##  $ age_adjusted_rate            : num  4.5 5.1 NA 4.7 6.2 4.7 10.9 24.2 8.5 29.7 ...
+    ##  $ age_adjusted_rate_se         : num  1.4 1.3 NA 1.2 1.9 1.4 2 3.3 1.6 3.3 ...
+    ##  $ age_adjusted_rate_lower_95_ci: num  2.1 2.5 NA 2.2 3.8 2.5 7.4 18.2 5.6 23.6 ...
+    ##  $ age_adjusted_rate_upper_95_ci: num  8.2 8.1 NA 7.6 12.1 8.4 15.5 31.7 12.3 36.9 ...
     ##  $ crude_rate                   : num  4.46 5.1 NA 4.69 6.24 ...
     ##  $ crude_rate_se                : num  1.41 1.41 NA 1.3 1.67 ...
     ##  $ crude_rate_lower_95_ci       : num  2.14 2.71 NA 2.5 3.41 ...
@@ -112,7 +114,7 @@ plotting, mapping, etc.) on the dataset elements/features.
     ##  $ deaths_covid                 : int  67 67 67 67 67 67 67 67 67 67 ...
     ##  $ confirmed_per_100k           : num  9843 9843 9843 9843 9843 ...
     ##  $ deaths_per_100k              : num  120 120 120 120 120 ...
-    ##  $ geom                         : chr  "MULTIPOLYGON(((-9676023.27786233 3849936.1130791,-9675929.3242121 3850071.11293602,-9675935.89206205 3850271.30"| __truncated__ "MULTIPOLYGON(((-9676023.27786233 3849936.1130791,-9675929.3242121 3850071.11293602,-9675935.89206205 3850271.30"| __truncated__ "MULTIPOLYGON(((-9676023.27786233 3849936.1130791,-9675929.3242121 3850071.11293602,-9675935.89206205 3850271.30"| __truncated__ "MULTIPOLYGON(((-9676023.27786233 3849936.1130791,-9675929.3242121 3850071.11293602,-9675935.89206205 3850271.30"| __truncated__ ...
+    ##  $ geom                         : chr  "MULTIPOLYGON(((-86.921196 32.657542,-86.920352 32.658563,-86.920411 32.660077,-86.917595 32.664169,-86.91461 32"| __truncated__ "MULTIPOLYGON(((-86.921196 32.657542,-86.920352 32.658563,-86.920411 32.660077,-86.917595 32.664169,-86.91461 32"| __truncated__ "MULTIPOLYGON(((-86.921196 32.657542,-86.920352 32.658563,-86.920411 32.660077,-86.917595 32.664169,-86.91461 32"| __truncated__ "MULTIPOLYGON(((-86.921196 32.657542,-86.920352 32.658563,-86.920411 32.660077,-86.917595 32.664169,-86.91461 32"| __truncated__ ...
 
 Having read portions of the “Underlying Cause of Death 1999-2019”
 technical documentation and looking at the data itself, I can see that
@@ -121,69 +123,24 @@ would be good to filter records by an additional characteristic, in this
 case, Cause of Death (`death_cause`), before beginning to look deeper at
 each “bucket” of data that is produced.
 
-The five recorded causes of death included in this data are:
+The five causes of death included in this data are:
 
-\[1\] “Alcohol” “Cirrhosis” “DoD” “Drug” “Suicide”
+1 2 3 4 5
 
-The data corresponding to each of these causes is filter into its own
-object/table using R (comments include Carto SQL queries to do the
-same).
+… again, suspecting that `death_cause = "DoD"` may be an aggregate term
+in respect to the other four causes. The data corresponding to each of
+these causes has been filtered into its own object/table using R
+(comments include Carto SQL queries to do the same).
 
     death_by_alcohol_data <- dod_covid_county_data[grepl("Alcohol", dod_covid_county_data[, 25]), ] #dod_covid_county_data %>% dplyr::filter(death_cause = "Alcohol")
-    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom_webmercator)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Alcohol%27", flatten = TRUE)$rows)
+    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Alcohol%27", flatten = TRUE)$rows)
+
     death_by_alcohol_data %>% showTablePreivew
 
-<table style="width:100%;">
-<colgroup>
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 6%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 3%" />
-<col style="width: 12%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
+<th></th>
 <th style="text-align: right;">cartodb_id</th>
 <th style="text-align: right;">fid</th>
 <th style="text-align: left;">geoid_co</th>
@@ -206,8 +163,8 @@ same).
 <th style="text-align: left;">co_name</th>
 <th style="text-align: left;">cbsa_name</th>
 <th style="text-align: left;">cdc_urbanization</th>
-<th style="text-align: left;">time_interval</th>
-<th style="text-align: left;">time_period</th>
+<th style="text-align: center;">time_interval</th>
+<th style="text-align: center;">time_period</th>
 <th style="text-align: left;">death_cause</th>
 <th style="text-align: left;">age_group</th>
 <th style="text-align: left;">gender</th>
@@ -232,7 +189,7 @@ same).
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1161</td>
+<td>1171</td>
 <td style="text-align: right;">1203</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">01001</td>
@@ -255,8 +212,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">1999-2003</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">1999-2003</td>
 <td style="text-align: left;">Alcohol</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -279,7 +236,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1163</td>
+<td>1174</td>
 <td style="text-align: right;">1205</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: left;">01001</td>
@@ -302,8 +259,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2004-2008</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2004-2008</td>
 <td style="text-align: left;">Alcohol</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -326,7 +283,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1166</td>
+<td>1177</td>
 <td style="text-align: right;">1207</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: left;">01001</td>
@@ -349,8 +306,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2009-2013</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2009-2013</td>
 <td style="text-align: left;">Alcohol</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -373,7 +330,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1169</td>
+<td>1180</td>
 <td style="text-align: right;">1209</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: left;">01001</td>
@@ -396,8 +353,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2014-2018</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2014-2018</td>
 <td style="text-align: left;">Alcohol</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -420,7 +377,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1126</td>
+<td>1127</td>
 <td style="text-align: right;">1166</td>
 <td style="text-align: right;">24</td>
 <td style="text-align: left;">01003</td>
@@ -443,8 +400,8 @@ same).
 <td style="text-align: left;">Baldwin</td>
 <td style="text-align: left;">Daphne-Fairhope-Foley, AL</td>
 <td style="text-align: left;">Small Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2014-2018</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2014-2018</td>
 <td style="text-align: left;">Alcohol</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -470,60 +427,14 @@ same).
 </table>
 
     death_by_cirrhosis_data <- dod_covid_county_data[grepl("Cirrhosis", dod_covid_county_data[, 25]), ] #dod_covid_county_data %>% dplyr::filter(death_cause = "Cirrhosis")
-    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom_webmercator)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Cirrhosis%27", flatten = TRUE)$rows)
+    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Cirrhosis%27", flatten = TRUE)$rows)
+
     death_by_cirrhosis_data %>% showTablePreivew
 
-<table style="width:100%;">
-<colgroup>
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 6%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 3%" />
-<col style="width: 12%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
+<th></th>
 <th style="text-align: right;">cartodb_id</th>
 <th style="text-align: right;">fid</th>
 <th style="text-align: left;">geoid_co</th>
@@ -546,8 +457,8 @@ same).
 <th style="text-align: left;">co_name</th>
 <th style="text-align: left;">cbsa_name</th>
 <th style="text-align: left;">cdc_urbanization</th>
-<th style="text-align: left;">time_interval</th>
-<th style="text-align: left;">time_period</th>
+<th style="text-align: center;">time_interval</th>
+<th style="text-align: center;">time_period</th>
 <th style="text-align: left;">death_cause</th>
 <th style="text-align: left;">age_group</th>
 <th style="text-align: left;">gender</th>
@@ -572,7 +483,7 @@ same).
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1172</td>
+<td>1182</td>
 <td style="text-align: right;">1211</td>
 <td style="text-align: right;">5</td>
 <td style="text-align: left;">01001</td>
@@ -595,8 +506,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">1999-2003</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">1999-2003</td>
 <td style="text-align: left;">Cirrhosis</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -619,7 +530,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1175</td>
+<td>1186</td>
 <td style="text-align: right;">1213</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: left;">01001</td>
@@ -642,8 +553,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2004-2008</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2004-2008</td>
 <td style="text-align: left;">Cirrhosis</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -666,7 +577,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1178</td>
+<td>1189</td>
 <td style="text-align: right;">1215</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: left;">01001</td>
@@ -689,8 +600,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2009-2013</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2009-2013</td>
 <td style="text-align: left;">Cirrhosis</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -713,7 +624,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1180</td>
+<td>1192</td>
 <td style="text-align: right;">1217</td>
 <td style="text-align: right;">8</td>
 <td style="text-align: left;">01001</td>
@@ -736,8 +647,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2014-2018</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2014-2018</td>
 <td style="text-align: left;">Cirrhosis</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -760,7 +671,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1128</td>
+<td>1128</td>
 <td style="text-align: right;">1167</td>
 <td style="text-align: right;">25</td>
 <td style="text-align: left;">01003</td>
@@ -783,8 +694,8 @@ same).
 <td style="text-align: left;">Baldwin</td>
 <td style="text-align: left;">Daphne-Fairhope-Foley, AL</td>
 <td style="text-align: left;">Small Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">1999-2003</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">1999-2003</td>
 <td style="text-align: left;">Cirrhosis</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -809,401 +720,15 @@ same).
 </tbody>
 </table>
 
-    death_by_dod_data <- dod_covid_county_data[grepl("DoD", dod_covid_county_data[, 25]), ] #dod_covid_county_data %>% dplyr::filter(death_cause = "DoD" )
-    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom_webmercator)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27DoD%27", flatten = TRUE)$rows)
-    death_by_dod_data %>% showTablePreivew
-
-<table style="width:100%;">
-<colgroup>
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 6%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 3%" />
-<col style="width: 12%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">cartodb_id</th>
-<th style="text-align: right;">fid</th>
-<th style="text-align: left;">geoid_co</th>
-<th style="text-align: left;">name</th>
-<th style="text-align: left;">namelsad</th>
-<th style="text-align: left;">st_stusps</th>
-<th style="text-align: left;">geoid_st</th>
-<th style="text-align: left;">st_name</th>
-<th style="text-align: right;">land_sqmi</th>
-<th style="text-align: right;">water_sqmi</th>
-<th style="text-align: right;">lon</th>
-<th style="text-align: right;">lat</th>
-<th style="text-align: left;">acp_name</th>
-<th style="text-align: left;">cbsa_type</th>
-<th style="text-align: right;">rin_flag</th>
-<th style="text-align: left;">database</th>
-<th style="text-align: left;">geo_level</th>
-<th style="text-align: left;">geoid_cbsa</th>
-<th style="text-align: right;">geoid_acp</th>
-<th style="text-align: left;">co_name</th>
-<th style="text-align: left;">cbsa_name</th>
-<th style="text-align: left;">cdc_urbanization</th>
-<th style="text-align: left;">time_interval</th>
-<th style="text-align: left;">time_period</th>
-<th style="text-align: left;">death_cause</th>
-<th style="text-align: left;">age_group</th>
-<th style="text-align: left;">gender</th>
-<th style="text-align: left;">race</th>
-<th style="text-align: right;">population</th>
-<th style="text-align: right;">deaths_dod</th>
-<th style="text-align: right;">age_adjusted_rate</th>
-<th style="text-align: right;">age_adjusted_rate_se</th>
-<th style="text-align: right;">age_adjusted_rate_lower_95_ci</th>
-<th style="text-align: right;">age_adjusted_rate_upper_95_ci</th>
-<th style="text-align: right;">crude_rate</th>
-<th style="text-align: right;">crude_rate_se</th>
-<th style="text-align: right;">crude_rate_lower_95_ci</th>
-<th style="text-align: right;">crude_rate_upper_95_ci</th>
-<th style="text-align: left;">acp_image</th>
-<th style="text-align: right;">pop</th>
-<th style="text-align: right;">confirmed</th>
-<th style="text-align: right;">deaths_covid</th>
-<th style="text-align: right;">confirmed_per_100k</th>
-<th style="text-align: right;">deaths_per_100k</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1183</td>
-<td style="text-align: right;">1219</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: left;">01001</td>
-<td style="text-align: left;">Autauga</td>
-<td style="text-align: left;">Autauga County</td>
-<td style="text-align: left;">AL</td>
-<td style="text-align: left;">01</td>
-<td style="text-align: left;">Alabama</td>
-<td style="text-align: right;">594.44</td>
-<td style="text-align: right;">9.92547</td>
-<td style="text-align: right;">-86.64273</td>
-<td style="text-align: right;">32.53492</td>
-<td style="text-align: left;">Exurbs</td>
-<td style="text-align: left;">Metropolitan Statistical Areas</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
-<td style="text-align: left;">county</td>
-<td style="text-align: left;">33860</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Autauga</td>
-<td style="text-align: left;">Montgomery, AL</td>
-<td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">1999-2003</td>
-<td style="text-align: left;">DoD</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: right;">224232</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">24.2</td>
-<td style="text-align: right;">3.3</td>
-<td style="text-align: right;">18.2</td>
-<td style="text-align: right;">31.7</td>
-<td style="text-align: right;">24.08220</td>
-<td style="text-align: right;">3.277</td>
-<td style="text-align: right;">18.091</td>
-<td style="text-align: right;">31.422</td>
-<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg</a></td>
-<td style="text-align: right;">55869</td>
-<td style="text-align: right;">5499</td>
-<td style="text-align: right;">67</td>
-<td style="text-align: right;">9842.668</td>
-<td style="text-align: right;">119.92339</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1186</td>
-<td style="text-align: right;">1221</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: left;">01001</td>
-<td style="text-align: left;">Autauga</td>
-<td style="text-align: left;">Autauga County</td>
-<td style="text-align: left;">AL</td>
-<td style="text-align: left;">01</td>
-<td style="text-align: left;">Alabama</td>
-<td style="text-align: right;">594.44</td>
-<td style="text-align: right;">9.92547</td>
-<td style="text-align: right;">-86.64273</td>
-<td style="text-align: right;">32.53492</td>
-<td style="text-align: left;">Exurbs</td>
-<td style="text-align: left;">Metropolitan Statistical Areas</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
-<td style="text-align: left;">county</td>
-<td style="text-align: left;">33860</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Autauga</td>
-<td style="text-align: left;">Montgomery, AL</td>
-<td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2004-2008</td>
-<td style="text-align: left;">DoD</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: right;">255052</td>
-<td style="text-align: right;">64</td>
-<td style="text-align: right;">25.1</td>
-<td style="text-align: right;">3.2</td>
-<td style="text-align: right;">19.3</td>
-<td style="text-align: right;">32.1</td>
-<td style="text-align: right;">25.09292</td>
-<td style="text-align: right;">3.137</td>
-<td style="text-align: right;">19.325</td>
-<td style="text-align: right;">32.043</td>
-<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg</a></td>
-<td style="text-align: right;">55869</td>
-<td style="text-align: right;">5499</td>
-<td style="text-align: right;">67</td>
-<td style="text-align: right;">9842.668</td>
-<td style="text-align: right;">119.92339</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1194</td>
-<td style="text-align: right;">1225</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: left;">01001</td>
-<td style="text-align: left;">Autauga</td>
-<td style="text-align: left;">Autauga County</td>
-<td style="text-align: left;">AL</td>
-<td style="text-align: left;">01</td>
-<td style="text-align: left;">Alabama</td>
-<td style="text-align: right;">594.44</td>
-<td style="text-align: right;">9.92547</td>
-<td style="text-align: right;">-86.64273</td>
-<td style="text-align: right;">32.53492</td>
-<td style="text-align: left;">Exurbs</td>
-<td style="text-align: left;">Metropolitan Statistical Areas</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
-<td style="text-align: left;">county</td>
-<td style="text-align: left;">33860</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Autauga</td>
-<td style="text-align: left;">Montgomery, AL</td>
-<td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2009-2013</td>
-<td style="text-align: left;">DoD</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: right;">274733</td>
-<td style="text-align: right;">83</td>
-<td style="text-align: right;">29.7</td>
-<td style="text-align: right;">3.3</td>
-<td style="text-align: right;">23.6</td>
-<td style="text-align: right;">36.9</td>
-<td style="text-align: right;">30.21115</td>
-<td style="text-align: right;">3.316</td>
-<td style="text-align: right;">24.063</td>
-<td style="text-align: right;">37.451</td>
-<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg</a></td>
-<td style="text-align: right;">55869</td>
-<td style="text-align: right;">5499</td>
-<td style="text-align: right;">67</td>
-<td style="text-align: right;">9842.668</td>
-<td style="text-align: right;">119.92339</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1197</td>
-<td style="text-align: right;">1229</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: left;">01001</td>
-<td style="text-align: left;">Autauga</td>
-<td style="text-align: left;">Autauga County</td>
-<td style="text-align: left;">AL</td>
-<td style="text-align: left;">01</td>
-<td style="text-align: left;">Alabama</td>
-<td style="text-align: right;">594.44</td>
-<td style="text-align: right;">9.92547</td>
-<td style="text-align: right;">-86.64273</td>
-<td style="text-align: right;">32.53492</td>
-<td style="text-align: left;">Exurbs</td>
-<td style="text-align: left;">Metropolitan Statistical Areas</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
-<td style="text-align: left;">county</td>
-<td style="text-align: left;">33860</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Autauga</td>
-<td style="text-align: left;">Montgomery, AL</td>
-<td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2014-2018</td>
-<td style="text-align: left;">DoD</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: right;">277263</td>
-<td style="text-align: right;">94</td>
-<td style="text-align: right;">33.5</td>
-<td style="text-align: right;">3.5</td>
-<td style="text-align: right;">27.0</td>
-<td style="text-align: right;">41.1</td>
-<td style="text-align: right;">33.90283</td>
-<td style="text-align: right;">3.497</td>
-<td style="text-align: right;">27.397</td>
-<td style="text-align: right;">41.489</td>
-<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg</a></td>
-<td style="text-align: right;">55869</td>
-<td style="text-align: right;">5499</td>
-<td style="text-align: right;">67</td>
-<td style="text-align: right;">9842.668</td>
-<td style="text-align: right;">119.92339</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1133</td>
-<td style="text-align: right;">1171</td>
-<td style="text-align: right;">29</td>
-<td style="text-align: left;">01003</td>
-<td style="text-align: left;">Baldwin</td>
-<td style="text-align: left;">Baldwin County</td>
-<td style="text-align: left;">AL</td>
-<td style="text-align: left;">01</td>
-<td style="text-align: left;">Alabama</td>
-<td style="text-align: right;">1589.79</td>
-<td style="text-align: right;">437.47400</td>
-<td style="text-align: right;">-87.72256</td>
-<td style="text-align: right;">30.72748</td>
-<td style="text-align: left;">Graying America</td>
-<td style="text-align: left;">Metropolitan Statistical Areas</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
-<td style="text-align: left;">county</td>
-<td style="text-align: left;">19300</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">Baldwin</td>
-<td style="text-align: left;">Daphne-Fairhope-Foley, AL</td>
-<td style="text-align: left;">Small Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">1999-2003</td>
-<td style="text-align: left;">DoD</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: left;">All</td>
-<td style="text-align: right;">722311</td>
-<td style="text-align: right;">215</td>
-<td style="text-align: right;">29.2</td>
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">25.2</td>
-<td style="text-align: right;">33.1</td>
-<td style="text-align: right;">29.76557</td>
-<td style="text-align: right;">2.030</td>
-<td style="text-align: right;">25.787</td>
-<td style="text-align: right;">33.744</td>
-<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/06/iStock-891978510-2.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/06/iStock-891978510-2.jpg</a></td>
-<td style="text-align: right;">223234</td>
-<td style="text-align: right;">17627</td>
-<td style="text-align: right;">217</td>
-<td style="text-align: right;">7896.199</td>
-<td style="text-align: right;">97.20741</td>
-</tr>
-</tbody>
-</table>
-
     death_by_drug_data <- dod_covid_county_data[grepl("Drug", dod_covid_county_data[, 25]), ] #dod_covid_county_data %>% dplyr::filter(death_cause = "Drug")
-    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom_webmercator)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Drug%27", flatten = TRUE)$rows)
+    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Drug%27", flatten = TRUE)$rows)
+
     death_by_drug_data %>% showTablePreivew
 
-<table style="width:100%;">
-<colgroup>
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 6%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 3%" />
-<col style="width: 12%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
+<th></th>
 <th style="text-align: right;">cartodb_id</th>
 <th style="text-align: right;">fid</th>
 <th style="text-align: left;">geoid_co</th>
@@ -1226,8 +751,8 @@ same).
 <th style="text-align: left;">co_name</th>
 <th style="text-align: left;">cbsa_name</th>
 <th style="text-align: left;">cdc_urbanization</th>
-<th style="text-align: left;">time_interval</th>
-<th style="text-align: left;">time_period</th>
+<th style="text-align: center;">time_interval</th>
+<th style="text-align: center;">time_period</th>
 <th style="text-align: left;">death_cause</th>
 <th style="text-align: left;">age_group</th>
 <th style="text-align: left;">gender</th>
@@ -1252,7 +777,7 @@ same).
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1203</td>
+<td>1204</td>
 <td style="text-align: right;">1233</td>
 <td style="text-align: right;">13</td>
 <td style="text-align: left;">01001</td>
@@ -1275,8 +800,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">1999-2003</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">1999-2003</td>
 <td style="text-align: left;">Drug</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1299,7 +824,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1208</td>
+<td>1213</td>
 <td style="text-align: right;">1238</td>
 <td style="text-align: right;">14</td>
 <td style="text-align: left;">01001</td>
@@ -1322,8 +847,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2004-2008</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2004-2008</td>
 <td style="text-align: left;">Drug</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1346,7 +871,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1213</td>
+<td>1216</td>
 <td style="text-align: right;">1242</td>
 <td style="text-align: right;">15</td>
 <td style="text-align: left;">01001</td>
@@ -1369,8 +894,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2009-2013</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2009-2013</td>
 <td style="text-align: left;">Drug</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1393,7 +918,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1215</td>
+<td>1220</td>
 <td style="text-align: right;">1245</td>
 <td style="text-align: right;">16</td>
 <td style="text-align: left;">01001</td>
@@ -1416,8 +941,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2014-2018</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2014-2018</td>
 <td style="text-align: left;">Drug</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1440,7 +965,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1139</td>
+<td>1138</td>
 <td style="text-align: right;">1175</td>
 <td style="text-align: right;">33</td>
 <td style="text-align: left;">01003</td>
@@ -1463,8 +988,8 @@ same).
 <td style="text-align: left;">Baldwin</td>
 <td style="text-align: left;">Daphne-Fairhope-Foley, AL</td>
 <td style="text-align: left;">Small Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">1999-2003</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">1999-2003</td>
 <td style="text-align: left;">Drug</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1490,60 +1015,14 @@ same).
 </table>
 
     death_by_suicide_data <- dod_covid_county_data[grepl("Suicide", dod_covid_county_data[, 25]), ] #dod_covid_county_data %>% dplyr::filter(death_cause = "Suicide")
-    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom_webmercator)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Suicide%27", flatten = TRUE)$rows)
+    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Suicide%27", flatten = TRUE)$rows)
+
     death_by_suicide_data %>% showTablePreivew
 
-<table style="width:100%;">
-<colgroup>
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 6%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 0%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 4%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 3%" />
-<col style="width: 3%" />
-<col style="width: 12%" />
-<col style="width: 0%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
+<th></th>
 <th style="text-align: right;">cartodb_id</th>
 <th style="text-align: right;">fid</th>
 <th style="text-align: left;">geoid_co</th>
@@ -1566,8 +1045,8 @@ same).
 <th style="text-align: left;">co_name</th>
 <th style="text-align: left;">cbsa_name</th>
 <th style="text-align: left;">cdc_urbanization</th>
-<th style="text-align: left;">time_interval</th>
-<th style="text-align: left;">time_period</th>
+<th style="text-align: center;">time_interval</th>
+<th style="text-align: center;">time_period</th>
 <th style="text-align: left;">death_cause</th>
 <th style="text-align: left;">age_group</th>
 <th style="text-align: left;">gender</th>
@@ -1592,7 +1071,7 @@ same).
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1221</td>
+<td>1225</td>
 <td style="text-align: right;">1250</td>
 <td style="text-align: right;">17</td>
 <td style="text-align: left;">01001</td>
@@ -1615,8 +1094,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">1999-2003</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">1999-2003</td>
 <td style="text-align: left;">Suicide</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1639,7 +1118,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1229</td>
+<td>1230</td>
 <td style="text-align: right;">1254</td>
 <td style="text-align: right;">18</td>
 <td style="text-align: left;">01001</td>
@@ -1662,8 +1141,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2004-2008</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2004-2008</td>
 <td style="text-align: left;">Suicide</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1686,7 +1165,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1230</td>
+<td>1233</td>
 <td style="text-align: right;">1258</td>
 <td style="text-align: right;">19</td>
 <td style="text-align: left;">01001</td>
@@ -1709,8 +1188,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2009-2013</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2009-2013</td>
 <td style="text-align: left;">Suicide</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1733,7 +1212,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1233</td>
+<td>1240</td>
 <td style="text-align: right;">1260</td>
 <td style="text-align: right;">20</td>
 <td style="text-align: left;">01001</td>
@@ -1756,8 +1235,8 @@ same).
 <td style="text-align: left;">Autauga</td>
 <td style="text-align: left;">Montgomery, AL</td>
 <td style="text-align: left;">Medium Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">2014-2018</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2014-2018</td>
 <td style="text-align: left;">Suicide</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1780,7 +1259,7 @@ same).
 <td style="text-align: right;">119.92339</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1143</td>
+<td>1145</td>
 <td style="text-align: right;">1179</td>
 <td style="text-align: right;">37</td>
 <td style="text-align: left;">01003</td>
@@ -1803,8 +1282,8 @@ same).
 <td style="text-align: left;">Baldwin</td>
 <td style="text-align: left;">Daphne-Fairhope-Foley, AL</td>
 <td style="text-align: left;">Small Metro</td>
-<td style="text-align: left;">Years Aggregate</td>
-<td style="text-align: left;">1999-2003</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">1999-2003</td>
 <td style="text-align: left;">Suicide</td>
 <td style="text-align: left;">All</td>
 <td style="text-align: left;">All</td>
@@ -1829,6 +1308,300 @@ same).
 </tbody>
 </table>
 
+    death_by_dod_data <- dod_covid_county_data[grepl("DoD", dod_covid_county_data[, 25]), ] #dod_covid_county_data %>% dplyr::filter(death_cause = "DoD" )
+    #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27DoD%27", flatten = TRUE)$rows)
+
+    death_by_dod_data %>% showTablePreivew
+
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">cartodb_id</th>
+<th style="text-align: right;">fid</th>
+<th style="text-align: left;">geoid_co</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">namelsad</th>
+<th style="text-align: left;">st_stusps</th>
+<th style="text-align: left;">geoid_st</th>
+<th style="text-align: left;">st_name</th>
+<th style="text-align: right;">land_sqmi</th>
+<th style="text-align: right;">water_sqmi</th>
+<th style="text-align: right;">lon</th>
+<th style="text-align: right;">lat</th>
+<th style="text-align: left;">acp_name</th>
+<th style="text-align: left;">cbsa_type</th>
+<th style="text-align: right;">rin_flag</th>
+<th style="text-align: left;">database</th>
+<th style="text-align: left;">geo_level</th>
+<th style="text-align: left;">geoid_cbsa</th>
+<th style="text-align: right;">geoid_acp</th>
+<th style="text-align: left;">co_name</th>
+<th style="text-align: left;">cbsa_name</th>
+<th style="text-align: left;">cdc_urbanization</th>
+<th style="text-align: center;">time_interval</th>
+<th style="text-align: center;">time_period</th>
+<th style="text-align: left;">death_cause</th>
+<th style="text-align: left;">age_group</th>
+<th style="text-align: left;">gender</th>
+<th style="text-align: left;">race</th>
+<th style="text-align: right;">population</th>
+<th style="text-align: right;">deaths_dod</th>
+<th style="text-align: right;">age_adjusted_rate</th>
+<th style="text-align: right;">age_adjusted_rate_se</th>
+<th style="text-align: right;">age_adjusted_rate_lower_95_ci</th>
+<th style="text-align: right;">age_adjusted_rate_upper_95_ci</th>
+<th style="text-align: right;">crude_rate</th>
+<th style="text-align: right;">crude_rate_se</th>
+<th style="text-align: right;">crude_rate_lower_95_ci</th>
+<th style="text-align: right;">crude_rate_upper_95_ci</th>
+<th style="text-align: left;">acp_image</th>
+<th style="text-align: right;">pop</th>
+<th style="text-align: right;">confirmed</th>
+<th style="text-align: right;">deaths_covid</th>
+<th style="text-align: right;">confirmed_per_100k</th>
+<th style="text-align: right;">deaths_per_100k</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1191</td>
+<td style="text-align: right;">1219</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">01001</td>
+<td style="text-align: left;">Autauga</td>
+<td style="text-align: left;">Autauga County</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: left;">01</td>
+<td style="text-align: left;">Alabama</td>
+<td style="text-align: right;">594.44</td>
+<td style="text-align: right;">9.92547</td>
+<td style="text-align: right;">-86.64273</td>
+<td style="text-align: right;">32.53492</td>
+<td style="text-align: left;">Exurbs</td>
+<td style="text-align: left;">Metropolitan Statistical Areas</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
+<td style="text-align: left;">county</td>
+<td style="text-align: left;">33860</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Autauga</td>
+<td style="text-align: left;">Montgomery, AL</td>
+<td style="text-align: left;">Medium Metro</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">1999-2003</td>
+<td style="text-align: left;">DoD</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: right;">224232</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">24.2</td>
+<td style="text-align: right;">3.3</td>
+<td style="text-align: right;">18.2</td>
+<td style="text-align: right;">31.7</td>
+<td style="text-align: right;">24.08220</td>
+<td style="text-align: right;">3.277</td>
+<td style="text-align: right;">18.091</td>
+<td style="text-align: right;">31.422</td>
+<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg</a></td>
+<td style="text-align: right;">55869</td>
+<td style="text-align: right;">5499</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">9842.668</td>
+<td style="text-align: right;">119.92339</td>
+</tr>
+<tr class="even">
+<td>1194</td>
+<td style="text-align: right;">1225</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">01001</td>
+<td style="text-align: left;">Autauga</td>
+<td style="text-align: left;">Autauga County</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: left;">01</td>
+<td style="text-align: left;">Alabama</td>
+<td style="text-align: right;">594.44</td>
+<td style="text-align: right;">9.92547</td>
+<td style="text-align: right;">-86.64273</td>
+<td style="text-align: right;">32.53492</td>
+<td style="text-align: left;">Exurbs</td>
+<td style="text-align: left;">Metropolitan Statistical Areas</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
+<td style="text-align: left;">county</td>
+<td style="text-align: left;">33860</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Autauga</td>
+<td style="text-align: left;">Montgomery, AL</td>
+<td style="text-align: left;">Medium Metro</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2009-2013</td>
+<td style="text-align: left;">DoD</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: right;">274733</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">29.7</td>
+<td style="text-align: right;">3.3</td>
+<td style="text-align: right;">23.6</td>
+<td style="text-align: right;">36.9</td>
+<td style="text-align: right;">30.21115</td>
+<td style="text-align: right;">3.316</td>
+<td style="text-align: right;">24.063</td>
+<td style="text-align: right;">37.451</td>
+<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg</a></td>
+<td style="text-align: right;">55869</td>
+<td style="text-align: right;">5499</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">9842.668</td>
+<td style="text-align: right;">119.92339</td>
+</tr>
+<tr class="odd">
+<td>1195</td>
+<td style="text-align: right;">1221</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">01001</td>
+<td style="text-align: left;">Autauga</td>
+<td style="text-align: left;">Autauga County</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: left;">01</td>
+<td style="text-align: left;">Alabama</td>
+<td style="text-align: right;">594.44</td>
+<td style="text-align: right;">9.92547</td>
+<td style="text-align: right;">-86.64273</td>
+<td style="text-align: right;">32.53492</td>
+<td style="text-align: left;">Exurbs</td>
+<td style="text-align: left;">Metropolitan Statistical Areas</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
+<td style="text-align: left;">county</td>
+<td style="text-align: left;">33860</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Autauga</td>
+<td style="text-align: left;">Montgomery, AL</td>
+<td style="text-align: left;">Medium Metro</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2004-2008</td>
+<td style="text-align: left;">DoD</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: right;">255052</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">25.1</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">32.1</td>
+<td style="text-align: right;">25.09292</td>
+<td style="text-align: right;">3.137</td>
+<td style="text-align: right;">19.325</td>
+<td style="text-align: right;">32.043</td>
+<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg</a></td>
+<td style="text-align: right;">55869</td>
+<td style="text-align: right;">5499</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">9842.668</td>
+<td style="text-align: right;">119.92339</td>
+</tr>
+<tr class="even">
+<td>1203</td>
+<td style="text-align: right;">1229</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">01001</td>
+<td style="text-align: left;">Autauga</td>
+<td style="text-align: left;">Autauga County</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: left;">01</td>
+<td style="text-align: left;">Alabama</td>
+<td style="text-align: right;">594.44</td>
+<td style="text-align: right;">9.92547</td>
+<td style="text-align: right;">-86.64273</td>
+<td style="text-align: right;">32.53492</td>
+<td style="text-align: left;">Exurbs</td>
+<td style="text-align: left;">Metropolitan Statistical Areas</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
+<td style="text-align: left;">county</td>
+<td style="text-align: left;">33860</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Autauga</td>
+<td style="text-align: left;">Montgomery, AL</td>
+<td style="text-align: left;">Medium Metro</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">2014-2018</td>
+<td style="text-align: left;">DoD</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: right;">277263</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">33.5</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">27.0</td>
+<td style="text-align: right;">41.1</td>
+<td style="text-align: right;">33.90283</td>
+<td style="text-align: right;">3.497</td>
+<td style="text-align: right;">27.397</td>
+<td style="text-align: right;">41.489</td>
+<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/08/iStock-171147284.jpg</a></td>
+<td style="text-align: right;">55869</td>
+<td style="text-align: right;">5499</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">9842.668</td>
+<td style="text-align: right;">119.92339</td>
+</tr>
+<tr class="odd">
+<td>1134</td>
+<td style="text-align: right;">1171</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: left;">01003</td>
+<td style="text-align: left;">Baldwin</td>
+<td style="text-align: left;">Baldwin County</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: left;">01</td>
+<td style="text-align: left;">Alabama</td>
+<td style="text-align: right;">1589.79</td>
+<td style="text-align: right;">437.47400</td>
+<td style="text-align: right;">-87.72256</td>
+<td style="text-align: right;">30.72748</td>
+<td style="text-align: left;">Graying America</td>
+<td style="text-align: left;">Metropolitan Statistical Areas</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Underlying Cause of Death 1999-2018 - CDC Wonder</td>
+<td style="text-align: left;">county</td>
+<td style="text-align: left;">19300</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Baldwin</td>
+<td style="text-align: left;">Daphne-Fairhope-Foley, AL</td>
+<td style="text-align: left;">Small Metro</td>
+<td style="text-align: center;">Years Aggregate</td>
+<td style="text-align: center;">1999-2003</td>
+<td style="text-align: left;">DoD</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: left;">All</td>
+<td style="text-align: right;">722311</td>
+<td style="text-align: right;">215</td>
+<td style="text-align: right;">29.2</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">25.2</td>
+<td style="text-align: right;">33.1</td>
+<td style="text-align: right;">29.76557</td>
+<td style="text-align: right;">2.030</td>
+<td style="text-align: right;">25.787</td>
+<td style="text-align: right;">33.744</td>
+<td style="text-align: left;"><a href="https://www.americancommunities.org/wp-content/uploads/2018/06/iStock-891978510-2.jpg" class="uri">https://www.americancommunities.org/wp-content/uploads/2018/06/iStock-891978510-2.jpg</a></td>
+<td style="text-align: right;">223234</td>
+<td style="text-align: right;">17627</td>
+<td style="text-align: right;">217</td>
+<td style="text-align: right;">7896.199</td>
+<td style="text-align: right;">97.20741</td>
+</tr>
+</tbody>
+</table>
+
 #### Potential Uses
 
 At this point, I believe that this dataset allows one to explore
@@ -1837,76 +1610,109 @@ total number of deaths due to Covid-19 (in 2020), and to “drill down” on
 those relationships within a given location (county or metropolitan
 area). As I mentioned early, I can get a “feel” for ways to position the
 data by looking at some basic summary statistics and quick
-visualizations for a given bucket (i.e. “Suicide” in the examples
-below).
+visualizations for a given bucket (i.e. “DoD” in the examples below).
 
-    ## [1] "1620 county suicide rate records for 1999-2003 (death_cause = 'Suicide'): "
+    ## [1] "1691 county dod rate records for 1999-2003 (death_cause = 'DoD'): "
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   4.059  10.981  13.571  14.492  17.026  60.907
+    ##   7.096  18.065  22.654  24.199  28.167 118.688
 
-    ## [1] "1620 county 'population' records for 1999-2003 (death_cause = 'Suicide'): "
+    ## [1] "1691 county 'population' records for 1999-2003 (death_cause = 'DoD'): "
 
-    ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-    ##     4269    34534    63045   176424   149170 10138787
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##    3933   31263   56115  156843  130104 9611144
 
     ## [1] "county 'pop' summary for 2019 :"
 
     ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-    ##     4230    35470    65769   191222   163281 10039107
+    ##     3981    32837    62317   182667   158015 10039107
 
-    ## [1] "1603 county suicide rate records for 2004-2008 (death_cause = 'Suicide'): "
-
-    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   4.641  10.765  13.403  14.284  16.894  45.465
-
-    ## [1] "1603 county 'population' records for 2004-2008 (death_cause = 'Suicide'): "
+    ## [1] "1747 county dod rate records for 2004-2008 (death_cause = 'DoD'): "
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##    4399   35870   64038  180495  150761 9894984
+    ##   6.428  22.353  28.055  30.032  35.296 151.404
+
+    ## [1] "1747 county 'population' records for 2004-2008 (death_cause = 'DoD'): "
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##    3834   29403   55935  159951  135047 9750619
 
     ## [1] "county 'pop' summary for 2019 :"
 
     ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-    ##     4230    36600    66824   195500   166535 10039107
+    ##     3981    30508    58988   177182   152515 10039107
 
-    ## [1] "1641 county suicide rate records for 2009-2013 (death_cause = 'Suicide'): "
-
-    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   3.786  11.140  13.766  14.639  17.231  78.144
-
-    ## [1] "1641 county 'population' records for 2009-2013 (death_cause = 'Suicide'): "
+    ## [1] "1753 county dod rate records for 2009-2013 (death_cause = 'DoD'): "
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##    4095   33906   61997  172998  148788 9611144
+    ##   10.67   26.58   32.70   35.07   41.02  154.61
+
+    ## [1] "1753 county 'population' records for 2009-2013 (death_cause = 'DoD'): "
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##    3970   29495   57351  166824  142066 9894984
 
     ## [1] "county 'pop' summary for 2019 :"
 
     ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-    ##     4230    34823    64735   188215   163354 10039107
+    ##     4016    30060    58722   176588   151391 10039107
 
-    ## [1] "1636 county suicide rate records for 2014-2018 (death_cause = 'Suicide'): "
-
-    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   4.718  11.150  13.974  14.682  17.258  42.086
-
-    ## [1] "1636 county 'population' records for 2014-2018 (death_cause = 'Suicide'): "
+    ## [1] "1779 county dod rate records for 2014-2018 (death_cause = 'DoD'): "
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##    4752   34296   61097  168741  144788 9750619
+    ##   11.88   33.80   42.22   44.81   53.24  175.74
+
+    ## [1] "1779 county 'population' records for 2014-2018 (death_cause = 'DoD'): "
+
+    ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+    ##     2993    28815    56860   171283   144823 10138787
 
     ## [1] "county 'pop' summary for 2019 :"
 
     ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-    ##     6243    34776    64551   182646   158212 10039107
+    ##     3038    29020    57602   174136   149592 10039107
 
 *For each county record the `population` value appears to be the sum of
 5 years worth of population estimates, as compared to the single year
 (2019) estimate stored in `pop`.*
 
-![](/home/revlin/Public/cori/README_files/figure-markdown_strict/covid_deaths_vs_suicide_rate-1.png)![](/home/revlin/Public/cori/README_files/figure-markdown_strict/covid_deaths_vs_suicide_rate-2.png)![](/home/revlin/Public/cori/README_files/figure-markdown_strict/covid_deaths_vs_suicide_rate-3.png)![](/home/revlin/Public/cori/README_files/figure-markdown_strict/covid_deaths_vs_suicide_rate-4.png)
+![](/Users/jo088ha/Projects/Currents/blogdown/sveltr/README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-1.png)![](/Users/jo088ha/Projects/Currents/blogdown/sveltr/README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-2.png)![](/Users/jo088ha/Projects/Currents/blogdown/sveltr/README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-3.png)![](/Users/jo088ha/Projects/Currents/blogdown/sveltr/README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-4.png)
+
+What’s really intresting to me is that the extreme outliers on these
+plots have relatively high rates of “Deaths of Despair” when compared to
+the population, making me wonder if there is something else in the
+dataset (location? demographics?) that might help to shine light on why
+the rates are so high.
 
 ### Preperation for Web/Visualization
+
+Regarding mapping and visualization of this dataset, it is possible to
+take advantage of the existing store (Carto) which has already spatially
+indexed the data and offers a nice SQL-like DSL to perform queries.
+However, I also want to make use of the extensive search, filter and
+aggregation capabilities of Elasticsearch and although ES can also index
+features/records by geospatial coordinates, it’s tesselation processor
+was having a hard time with this particular dataset because some
+geometry values produce this error:
+
+    {
+      "error": {
+        "root_cause": [
+          {
+            "type": "mapper_parsing_exception",
+            "reason": "failed to parse field [geom] of type [geo_shape]"
+          }
+        ],
+        "type": "mapper_parsing_exception",
+        "reason": "failed to parse field [geom] of type [geo_shape]",
+        "caused_by": {
+          "type": "illegal_argument_exception",
+          "reason": "Unable to Tessellate shape ...
+
+To work around the error above, I have computed the bounding box and
+bound it to the data as an additional column before indexing in
+Elasticsearch. This way, ES can ignore the geom field, but still be
+respond to spatial queries for the features in this dataset:
 
 Scenarios
 =========

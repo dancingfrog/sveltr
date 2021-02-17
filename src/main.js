@@ -13,10 +13,7 @@ export default ( // Check if app id exists in DOM
     ) ?
     new App({
         target: appElement,
-        props: {
-            greeting:
-`Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>SveltR</a>!`
-        }
+        props: {}
     }) : {};
 
 

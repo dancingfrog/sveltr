@@ -4,29 +4,30 @@
 
 <div class="front">
 
-  <a href="{{ "tech" | relURL }}">Check out the tech</a>
-  <br /><br />
-
   {{ if .Content }}
-  <article class="article">
+  <article class="article" style="pointer-events: visiblepainted;">
     {{ if .Title }}
-    <h1 class="article-title">{{ .Title }}</h1>
+    <h1 class="article-title" style="pointer-events: visiblepainted;">{{ .Title }}</h1>
     {{ end }}
-    <div class="article-content">
+    <div class="article-content" style="pointer-events: visiblepainted;">
       {{ .Content }}
     </div>
-  </article><br /><br />
+  </article><br style="pointer-events: visiblepainted;" /><br style="pointer-events: visiblepainted;" />
   {{ end }}
-  <div class="archive">
+
+  <a href="{{ "readme" | relURL }}" style="pointer-events: visiblepainted;">README</a>
+  <br style="pointer-events: visiblepainted;" /><br style="pointer-events: visiblepainted;" />
+
+  <div class="archive" style="pointer-events: visiblepainted;">
     {{ $pages := .Pages }}
     {{ if .IsHome }}
     {{ $pages = .Site.RegularPages }}
     {{ end }}
     {{ range (where $pages "Section" "!=" "").GroupByDate "2006" }}
     {{ range .Pages }}
-    <article class="archive-item">
-      <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .Title }}</a>
-      <span class="archive-item-date">
+    <article class="archive-item" style="pointer-events: visiblepainted;">
+      <a href="{{ .RelPermalink }}" class="archive-item-link" style="pointer-events: visiblepainted;">{{ .Title }}</a>
+      <span class="archive-item-date" style="pointer-events: visiblepainted;">
           {{ .Date.Format "Jan, 02 2006" }}
         </span>
     </article><br />
