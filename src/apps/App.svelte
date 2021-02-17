@@ -83,22 +83,29 @@
     onMount(() => {
         let frame;
 
+      // "LngLat(-72.92534844759798, 40.02120870764847), LngLat(-80.30816094760172, 35.78429715317695)"
+
         console.log(carto.basemaps.darkmatter);
         const map = new mapboxgl.Map({
             container: 'map',
             style: carto.basemaps.darkmatter,
-            center: [-96, 30],
+            center: [-77, 37.9],
             zoom: 7,
             scrollZoom: true
         });
-
         const nav = new mapboxgl.NavigationControl({
             showCompass: false
         });
         map.addControl(nav, 'top-left');
         map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
 
-        // Define user
+      map.on('move', function() {
+        window.bounds = map.getBounds();
+        console.log('A move event occurred: ', window.bounds);
+      });
+
+
+      // Define user
         carto.setDefaultAuth({
           apiKey: 'default_public',
           username: 'dancingfrog'
@@ -117,12 +124,13 @@
         };
         let init = {};
 
-        let sinceLastRateChange = 0;
+        let sinceLastRateChange = {};
 
         const fetchDoD = (color, rate, time_period, cause) => {
+            console.log(!!init[cause]);
             const style_ramp = `ramp(linear($crude_rate,1,70), [${color}, gold])`;
 
-            if (((new Date()).getTime() - sinceLastRateChange) < 533 && !!init[cause]) {
+            if (!!sinceLastRateChange[cause] && ((new Date()).getTime() - sinceLastRateChange[cause]) < 533) {
                 if (dod_color === color && dod_rate === rate && group === time_period) {
                     setTimeout(async () => {
                         // If updates coming in fast, delay and check for value consistency
@@ -166,11 +174,10 @@
                 }, 533);
                 currentLayer[cause] = cause + 'A';
               }
-              sinceLastRateChange = (new Date()).getTime();
+              sinceLastRateChange[cause] = (new Date()).getTime();
 
             } else {
-                init[cause] = true;
-                sinceLastRateChange = (new Date()).getTime();
+                sinceLastRateChange[cause] = (new Date()).getTime();
             }
 
             const sql_query = `select cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,time_interval,time_period,crude_rate,death_cause,population,deaths_dod,pop,the_geom_webmercator from "ruralinnovation-admin".dod_covid_county where death_cause ilike '${cause}' and time_period ilike '${time_period}' and crude_rate > ${rate}`;
@@ -245,8 +252,6 @@
 
         changeDodRate = (rate) => fetchDoD(dod_color, rate, group, 'DoD');
 
-        changeTimePeriod = (time_period) =>
-
         fetchDoD(alc_color, alc_rate, group, 'Alcohol');
 
         changeAlcColor = (color) => fetchDoD(color, alc_rate, group, 'Alcohol');
@@ -272,6 +277,7 @@
         changeSuiRate = (rate) => fetchDoD(sui_color, rate, group, 'Suicide');
 
         changeTimePeriod = (time_period) => {
+          console.log("Set time period of dataset ", group);
           fetchDoD(dod_color, dod_rate, time_period, 'DoD');
           fetchDoD(alc_color, alc_rate, time_period, 'Alcohol');
           fetchDoD(crh_color, crh_rate, time_period, 'Cirrhosis');
@@ -318,9 +324,15 @@
         text-align: left;
         text-shadow: none;
     }
+
     .controls .box label {
         font-size: 1em;
     }
+
+    .controls .box label .minimum_rate {
+        font-size: 0.75em;
+    }
+
     .controls .box label input[type="color"] {
       height: 18px;
       width: 24px;
@@ -361,31 +373,31 @@
 
         <label>
             <input type="color" bind:value={dod_color} onchange={changeDodColor}>
-            Deaths of Despair Rate <br/> {(dod_rate > 0) ? "(Minimum " + dod_rate + " per 100k ppl)" : ""}<br/>
+            Deaths of Despair Rate <br/> <span class="minimum_rate">{(dod_rate > 0) ? "(Minimum " + dod_rate + " per 100k ppl)" : ""}</span><br/>
             <input type="range" bind:value={dod_rate} min={-0.1} max={200} step={1} onchange={changeDodRate}>
         </label>
 
         <label>
             <input type="color" bind:value={alc_color} onchange={changeAlcColor}>
-            Deaths by Alcohol Rate <br/> {(alc_rate > 0) ? "(Minimum " + alc_rate + " per 100k ppl)" : ""}<br/>
+            Deaths by Alcohol Rate <br/> <span class="minimum_rate">{(alc_rate > 0) ? "(Minimum " + alc_rate + " per 100k ppl)" : ""}</span><br/>
             <input type="range" bind:value={alc_rate} min={-0.1} max={200} step={1} onchange={changeAlcRate}>
         </label>
 
         <label>
             <input type="color" bind:value={crh_color} onchange={changeCrhColor}>
-            Deaths by Cirrhosis Rate <br/> {(crh_rate > 0) ? "(Minimum " + crh_rate + " per 100k ppl)" : ""}<br/>
+            Deaths by Cirrhosis Rate <br/> <span class="minimum_rate">{(crh_rate > 0) ? "(Minimum " + crh_rate + " per 100k ppl)" : ""}</span><br/>
             <input type="range" bind:value={crh_rate} min={-0.1} max={200} step={1} onchange={changeCrhRate}>
         </label>
 
         <label>
             <input type="color" bind:value={drg_color} onchange={changeDrgColor}>
-            Deaths by Drug Rate <br/> {(drg_rate > 0) ? "(Minimum " + drg_rate + " per 100k ppl)" : ""}<br/>
+            Deaths by Drug Rate <br/> <span class="minimum_rate">{(drg_rate > 0) ? "(Minimum " + drg_rate + " per 100k ppl)" : ""}</span><br/>
             <input type="range" bind:value={drg_rate} min={-0.1} max={200} step={1} onchange={changeDrgRate}>
         </label>
 
         <label>
             <input type="color" bind:value={sui_color} onchange={changeSuiColor}>
-            Deaths by Suicide Rate <br/> {(sui_rate > 0) ? "(Minimum " + sui_rate + " per 100k ppl)" : ""}<br/>
+            Deaths by Suicide Rate <br/> <span class="minimum_rate">{(sui_rate > 0) ? "(Minimum " + sui_rate + " per 100k ppl)" : ""}</span><br/>
             <input type="range" bind:value={sui_rate} min={-0.1} max={200} step={1} onchange={changeSuiRate}>
         </label>
 
