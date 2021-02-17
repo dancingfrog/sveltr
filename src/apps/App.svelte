@@ -12,6 +12,7 @@
     let fips = "";
     let name = "";
     let state = "";
+    let covid_deaths = "";
     let pop = "";
 
     let chartData =  [];
@@ -95,7 +96,7 @@
                   (cause_index === 'death_by_cirrhosis_data') ? "Cirrhosis Death Rate (per 100k)" :
                     (cause_index === 'death_by_drug_data') ? "Drug Death Rate (per 100k)" :
                       (cause_index === 'death_by_suicide_data') ? "Suicide Death Rate (per 100k)" :
-                        (cause_index === 'death_by_dod_data') ? "" : "Deaths of Despair Rate (per 100k)"
+                        "Deaths of Despair Rate (per 100k)"
             };
             newChart['aggregations'] = json['result']['aggregations'];
             newChart['points'] = json['result']['hits']['hits'].map(county => {
@@ -103,7 +104,7 @@
                 county['x'] = county['fields']['crude_rate'][0];
                 county['y'] = county['fields']['deaths_per_100k'][0];
               } catch (e) {
-                console.log("'crude_rate' missing from ", county['fields']);
+                // console.log("'crude_rate' missing from ", county['fields']);
               }
               return county;
             });
@@ -125,6 +126,7 @@
         fips = county_source.geoid_co[0];
         name = county_source.name[0];
         state = county_source.st_name[0];
+        covid_deaths = county_source.deaths_per_100k[0].toFixed(0);
         pop = county_source.pop[0].toFixed(0);
         console.log(`You have clicked on ${name}, ${state} (${fips}) with a population of ${pop}`);
         console.log(county_source['deaths_per_100k'])
@@ -337,7 +339,7 @@
                 sinceLastRateChange[cause] = (new Date()).getTime();
             }
 
-            const sql_query = `select cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,time_interval,time_period,crude_rate,death_cause,population,deaths_dod,pop,the_geom_webmercator from "ruralinnovation-admin".dod_covid_county where death_cause ilike '${cause}' and time_period ilike '${time_period}' and crude_rate > ${rate}`;
+            const sql_query = `select cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,time_interval,time_period,crude_rate,death_cause,population,deaths_dod,deaths_per_100k,pop,the_geom_webmercator from "ruralinnovation-admin".dod_covid_county where death_cause ilike '${cause}' and time_period ilike '${time_period}' and crude_rate > ${rate}`;
             console.log(sql_query);
 
             const viz1 = new carto.Viz(`
@@ -345,6 +347,7 @@
               @fips: $geoid_co
               @name: $name
               @state: $st_name
+              @deaths: $deaths_per_100k
               @pop: $pop
               @style: opacity(${style_ramp}, 0.05)
               color: @style
@@ -372,6 +375,7 @@
               fips = feature.variables.fips.value;
               name = feature.variables.name.value;
               state = feature.variables.state.value;
+              covid_deaths = feature.variables.deaths.value.toFixed(0);
               pop = feature.variables.pop.value.toFixed(0);
               console.log(`You have clicked on ${name}, ${state} (${fips}) with a population of ${pop}`);
             });
@@ -564,7 +568,8 @@
                 noting the communities that remain visible as the data reveals more desperate and
                 intractable circumstances.</p>
             <h5>County: {name}, {state}</h5>
-            <h5>Population: {pop}</h5>
+            <h5>Population (2019): {pop}</h5>
+            <h5>Covid-19 Deaths: {covid_deaths} (Rate per 100k)</h5>
         </section>
         <hr/>
 

@@ -35,8 +35,8 @@ app.use(async (ctx) => {
 
     if (ctx.path.match(/\/search/) !== null) {
 
-      // let esRequestURI = "http://52.52.217.209:9200" + ctx.path.replace("/search", "");
-      let esRequestURI = "http://172.31.4.111:9200" + ctx.path.replace("/search", "");
+      let esRequestURI = "http://52.52.217.209:9200" + ctx.path.replace("/search", "");
+      // let esRequestURI = "http://172.31.4.111:9200" + ctx.path.replace("/search", "");
 
       await (async function main (uri, query) {
         console.log(uri, query);

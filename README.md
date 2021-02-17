@@ -152,9 +152,12 @@ each “bucket” of data that is produced.
     ## 
     ##     intersect, setdiff, setequal, union
 
-The five causes of death included in this data are "Alcohol", "Cirrhosis", "Drug", "Suicide", and  "DoD" ("Deaths of Despair"), 
-again, suspecting that `death_cause = "DoD"` may be an aggregate term in respect to the other four causes. 
-The data corresponding to each of these causes has been filtered into its own object/table using R (comments include Carto SQL queries to do the same).
+The five causes of death included in this data are “Alcohol”,
+“Cirrhosis”, “Drug”, “Suicide”, and “DoD” (“Deaths of Despair”), again,
+suspecting that `death_cause = "DoD"` may be an aggregate term in
+respect to the other four causes. The data corresponding to each of
+these causes has been filtered into its own object/table using R
+(comments include Carto SQL queries to do the same).
 
     death_by_alcohol_data <- dod_covid_county_data[grepl("Alcohol", dod_covid_county_data[, 25]), ] #dod_covid_county_data %>% dplyr::filter(death_cause = "Alcohol")
     #data.frame(jsonlite::fromJSON("https://ruralinnovation-admin.carto.com/api/v2/sql?q=select%20cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,acp_name,cbsa_type,rin_flag,database,geo_level,geoid_cbsa,geoid_acp,co_name,cbsa_name,cdc_urbanization,time_interval,time_period,death_cause,age_group,gender,race,population,deaths_dod,age_adjusted_rate,age_adjusted_rate_se,age_adjusted_rate_lower_95_ci,age_adjusted_rate_upper_95_ci,crude_rate,crude_rate_se,crude_rate_lower_95_ci,crude_rate_upper_95_ci,acp_image,pop,confirmed,deaths_covid,confirmed_per_100k,deaths_per_100k,ST_AsText(the_geom)%20as%20geom%20from%20%22ruralinnovation-admin%22.dod_covid_county%20where%20death_cause%20ilike%20%27Alcohol%27", flatten = TRUE)$rows)
@@ -1948,7 +1951,7 @@ might approach the technical and economic factors. From that perspective
 it might be useful to view this effort as a critical health and safety
 issue. Can we find information and quantitative data about quality of
 life and disposition, not as an effect of using technology or high-speed
-internet, but as passive benefit for those who live in technological
+internet, but as a passive benefit for those who live in technological
 corridors when compared to those who do not. I know similar studies have
 been done around questions about the quality of life for those who have
 direct access to green spaces and open nature, but what about people who
