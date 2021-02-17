@@ -96,29 +96,20 @@
     let esRequestURI = "/search/death_by_*/_search"
 
     let esFeatureQuery = (bounds, query, agg) => {
-      const body = {
-        "query":{
-          "bool": {
-            "must": {
-              "match_all": {}
+      const body = {}
+      query["bool"]["filter"] = {
+        "shape": {
+          "geom_box": {
+            "shape": {
+              "type": "envelope",
+              "coordinates" : bounds
             },
-            "filter": {
-              "shape": {
-                "geom_box": {
-                  "shape": {
-                    "type": "envelope",
-                    "coordinates" : [
-                      [ -80.83415919532996, 39.98043619521454 ],
-                      [ -73.45134669532756, 35.74110771792324 ]
-                    ]
-                  },
-                  "relation": "intersects"
-                }
-              }
-            }
+            "relation": "intersects"
           }
         }
-      };
+      }
+
+      body['query'] = query;
 
       fetch(esRequestURI, {
         method: 'POST',
@@ -368,7 +359,17 @@
               state = feature.variables.state.value;
               pop = feature.variables.pop.value.toFixed(0);
               console.log(`You have clicked on ${name}, ${state} (${fips}) with a population of ${pop}`);
-              esFeatureQuery({}, {}, {});
+              esFeatureQuery(
+                  mapBounds,
+                  {
+                    "bool": {
+                      "must": {
+                        "match_all": {}
+                      }
+                    }
+                  },
+                  {}
+                );
             });
           }
 
