@@ -49,14 +49,14 @@
             apiKey: 'default_public'
         });
 
-        let layerA;
-        let removeDelayA = 0;
-        let layerB;
-        let removeDelayB = 0;
-        let currentLayer = 'A'; // 'B'
-        let data_source;
-
-        let init = false;
+        let layerA = {};
+        let layerB = {};
+        let removeDelayA = {};
+        let removeDelayB = {};
+        let currentLayer = {
+          'DoD': 'DoDA'
+        };
+        let init = {};
 
         let sinceLastRateChange = 0;
 
@@ -64,12 +64,12 @@
             const style_ramp = `ramp(linear($crude_rate,1,20), [gold,  ${color}])`;
 
             if (((new Date()).getTime() - sinceLastRateChange) < 533) {
-                if (!!init && dod_color === color && dod_rate === rate && group === time_period) {
+                if (!!init[cause] && dod_color === color && dod_rate === rate && group === time_period) {
                     setTimeout(async () => {
                         // If updates coming in fast, delay and check for value consistency
                         if (dod_color === color && dod_rate === rate && group === time_period) {
-                            clearTimeout(removeDelayA);
-                            clearTimeout(removeDelayB);
+                            clearTimeout(removeDelayA[cause]);
+                            clearTimeout(removeDelayB[cause]);
                         }
                     }, 333);
                 }
@@ -78,101 +78,100 @@
                 sinceLastRateChange = (new Date()).getTime();
             }
 
-            if (dod_color === color || dod_rate === rate || group === time_period) {
-                const sql_query = `select cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,time_interval,time_period,crude_rate,death_cause,population,deaths_dod,pop,the_geom_webmercator from "ruralinnovation-admin".dod_covid_county where death_cause ilike '${cause}' and time_period ilike '${time_period}' and crude_rate > ${rate}`;
-                console.log(sql_query);
+            const sql_query = `select cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,time_interval,time_period,crude_rate,death_cause,population,deaths_dod,pop,the_geom_webmercator from "ruralinnovation-admin".dod_covid_county where death_cause ilike '${cause}' and time_period ilike '${time_period}' and crude_rate > ${rate}`;
+            console.log(sql_query);
 
-                if (!!init) {
-                    const viz2 = new carto.Viz(`
-                      @style: opacity(${style_ramp}, 0.05)
-                      color: @style
-                      width: 1
-                    `);
+            if (!!init[cause]) {
+                const viz2 = new carto.Viz(`
+                  @style: opacity(${style_ramp}, 0.05)
+                  color: @style
+                  width: 1
+                `);
 
-                    if (currentLayer === 'A' && !!layerA && layerA.hasOwnProperty("id")) {
-                        // Fade out
-                        layerA.viz.color.blendTo(`opacity(${style_ramp}, 0.05)`)
-                        removeDelayA = setTimeout(() => {
-                            if (currentLayer !== 'A') {
-                                console.log("Removing layer A");
-                                layerA.remove();
-                            }
-                        }, 533);
-                        currentLayer = 'B';
+                if (currentLayer[cause] === cause + 'A' && !!layerA[cause] && layerA[cause].hasOwnProperty("id")) {
+                    // Fade out
+                    layerA[cause].viz.color.blendTo(`opacity(${style_ramp}, 0.05)`)
+                    removeDelayA[cause] = setTimeout(() => {
+                        if (currentLayer[cause] !== 'A') {
+                            console.log("Removing layer " + cause + "A");
+                            layerA[cause].remove();
+                        }
+                    }, 533);
+                    currentLayer[cause] = cause + 'B';
 
-                    } else if (!!layerB && layerB.hasOwnProperty("id")) {
-                        layerA.viz.color.blendTo(`opacity(${style_ramp}, 0.05)`)
-                        removeDelayB = setTimeout(() => {
-                            if (currentLayer !== 'B') {
-                                console.log("Removing layer B");
-                                layerB.remove();
-                            }
-                        }, 533);
-                        currentLayer = 'A';
-                    }
+                } else if (!!layerB[cause] && layerB[cause].hasOwnProperty("id")) {
+                    layerA[cause].viz.color.blendTo(`opacity(${style_ramp}, 0.05)`)
+                    removeDelayB[cause] = setTimeout(() => {
+                        if (currentLayer[cause] !== 'B') {
+                            console.log("Removing layer " + cause + "B");
+                            layerB[cause].remove();
+                        }
+                    }, 533);
+                    currentLayer[cause] = cause + 'A';
                 }
+            }
 
-                const viz1 = new carto.Viz(`
+            const viz1 = new carto.Viz(`
               @style: opacity(${style_ramp}, 0.05)
               color: @style
               strokeColor: @style
             `);
-                // filter: animation(linear($crude_rate,144.5, 1.5),5,fade(0,100))+0.1
+            // filter: animation(linear($crude_rate,144.5, 1.5),5,fade(0,100))+0.1
 
-                try {
-                    if (!!init) {
-                        if (currentLayer === 'A') {
-                            clearTimeout(removeDelayA);
-                        } else {
-                            clearTimeout(removeDelayB)
-                        }
-                        map.removeLayer(currentLayer); // immediately clear next layer
+            try {
+                if (!!init[cause]) {
+                    if (currentLayer[cause] === cause + 'A') {
+                        clearTimeout(removeDelayA[cause]);
+                    } else {
+                        clearTimeout(removeDelayB[cause])
                     }
-                } finally {
+                    map.removeLayer(currentLayer[cause]); // immediately clear next layer
+                }
+            } finally {
 
-                    const dod_covid_county_source = new carto.source.SQL(
-                        sql_query,
-                        {
-                            apiKey: 'default_public',
-                            username: 'dancingfrog'
-                        },
-                        {
-                            serverURL: 'https://ruralinnovation-admin.carto.com'
-                        }
-                    );
-
-                    console.log("Adding layer ", currentLayer);
-
-                    if (currentLayer === 'A') {
-                        layerA = new carto.Layer(currentLayer, dod_covid_county_source, viz1);
-                        layerA.addTo(map);
-                        window.layer = layerA;
-
-                        layerA.on('loaded', async () => {
-                            // Fade In
-                            layerA.viz.color.blendTo(`opacity(${style_ramp}, 0.75)`);
-                            document.getElementById('loader').style.opacity = '0';
-                            setTimeout(() => {
-                                init = true;
-                            }, 333);
-                        });
-
-                    } else if (currentLayer === 'B') {
-                        layerB = new carto.Layer(currentLayer, dod_covid_county_source, viz1);
-                        layerB.addTo(map);
-                        window.layer = layerB;
-
-                        layerB.on('loaded', async () => {
-                            // Fade In
-                            layerB.viz.color.blendTo(`opacity(${style_ramp}, 0.75)`);
-                            document.getElementById('loader').style.opacity = '0';
-                            setTimeout(() => {
-                                init = true;
-                            }, 333);
-                        });
+                const dod_covid_county_source = new carto.source.SQL(
+                    sql_query,
+                    {
+                        apiKey: 'default_public',
+                        username: 'dancingfrog'
+                    },
+                    {
+                        serverURL: 'https://ruralinnovation-admin.carto.com'
                     }
+                );
+
+                console.log("Adding layer ", currentLayer[cause]);
+
+                if (currentLayer[cause] === cause + 'A') {
+                    layerA[cause] = new carto.Layer(currentLayer[cause], dod_covid_county_source, viz1);
+                    layerA[cause].addTo(map);
+                    window.layers = layerA;
+
+                    layerA[cause].on('loaded', async () => {
+                        // Fade In
+                        layerA[cause].viz.color.blendTo(`opacity(${style_ramp}, 0.75)`);
+                        document.getElementById('loader').style.opacity = '0';
+                        setTimeout(() => {
+                            init[cause] = true;
+                        }, 333);
+                    });
+
+                } else if (currentLayer[cause] === cause + 'B') {
+                    layerB[cause] = new carto.Layer(currentLayer[cause], dod_covid_county_source, viz1);
+                    layerB[cause].addTo(map);
+                    window.layers = layerB[cause];
+
+                    layerB[cause].on('loaded', async () => {
+                        // Fade In
+                        layerB[cause].viz.color.blendTo(`opacity(${style_ramp}, 0.75)`);
+                        document.getElementById('loader').style.opacity = '0';
+                        setTimeout(() => {
+                            init[cause] = true;
+                        }, 333);
+                    });
                 }
             }
+
         }
 
         fetchDoD(dod_color, dod_rate, group, 'DoD');

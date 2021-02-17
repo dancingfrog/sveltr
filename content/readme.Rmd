@@ -379,30 +379,30 @@ index_by_rate <- function (rate_index, rate_data) {
 ```
 
 ```{r index_death_by_alcohol_data, cache = FALSE, echo = FALSE}
-#index_by_rate("death_by_alcohol_data", death_by_alcohol_data)
+index_by_rate("death_by_alcohol_data", death_by_alcohol_data)
 
 ```
 
 ```{r index_death_by_cirrhosis_data, cache = FALSE, echo = FALSE}
-#index_by_rate("death_by_cirrhosis_data", death_by_cirrhosis_data)
+index_by_rate("death_by_cirrhosis_data", death_by_cirrhosis_data)
 
 ```
 
 
 ```{r index_death_by_drug_data, cache = FALSE, echo = FALSE}
-#index_by_rate("death_by_drug_data", death_by_drug_data)
+index_by_rate("death_by_drug_data", death_by_drug_data)
 
 ```
 
 
 ```{r index_death_by_suicide_data, cache = FALSE, echo = FALSE}
-#index_by_rate("death_by_suicide_data", death_by_suicide_data)
+index_by_rate("death_by_suicide_data", death_by_suicide_data)
 
 ```
 
 
 ```{r index_death_by_dod_data, cache = FALSE, echo = FALSE}
-#index_by_rate("death_by_dod_data", death_by_dod_data)
+index_by_rate("death_by_dod_data", death_by_dod_data)
 
 ```
 
