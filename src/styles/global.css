@@ -1,9 +1,13 @@
 @import url("imports/reset.css");
 
 html {
-    font-family: -apple-system, BlinkMacSystemFont, 'Fira Sans', 'Cantarell', 'Droid Sans', 'Roboto', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, Arial, BlinkMacSystemFont, 'Fira Sans', 'Cantarell', 'Droid Sans', 'Roboto', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, label {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -61,8 +65,14 @@ input:disabled {
     color: #ccc;
 }
 
+input[type="radio"] {
+    float: left;
+    margin: 2px -55px 2px 55px;
+
+}
+
 input[type="range"] {
-    height: 0;
+    height: 18px;
 }
 
 button {

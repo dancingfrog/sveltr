@@ -6,8 +6,8 @@
 
     let map;
 
-    let dod_color = '#cb1c36';
-    let dod_rate = 0;
+    let dod_color = '#c80e38';
+    let dod_rate = 50;
     let group = '2014-2018';
 
     let changeDodColor = (color) => {
@@ -25,7 +25,8 @@
     };
     $: changeTimePeriod(group);
 
-    let alc_color = '#1b5ccb';
+
+    let alc_color = '#1b7ccb';
     let alc_rate = 0;
 
     let changeAlcColor = (color) => {
@@ -37,6 +38,47 @@
         console.log("Set minimum rate for Deaths by Alcohol ", rate)
     };
     $: changeAlcRate(alc_rate);
+
+
+    let crh_color = '#5b3ccb';
+    let crh_rate = 10;
+
+    let changeCrhColor = (color) => {
+        console.log("Set color for Deaths by Cirrhosis ", color)
+    };
+    $: changeCrhColor(crh_color);
+
+    let changeCrhRate = (rate) => {
+        console.log("Set minimum rate for Deaths by Cirrhosis ", rate)
+    };
+    $: changeCrhRate(crh_rate);
+
+    let drg_color = '#ff013c';
+    let drg_rate = 20;
+
+    let changeDrgColor = (color) => {
+        console.log("Set color for Deaths by Drug ", color)
+    };
+    $: changeDrgColor(drg_color);
+
+    let changeDrgRate = (rate) => {
+        console.log("Set minimum rate for Deaths by Drug ", rate)
+    };
+    $: changeDrgRate(drg_rate);
+
+
+    let sui_color = '#0aecd1';
+    let sui_rate = 25;
+
+    let changeSuiColor = (color) => {
+        console.log("Set color for Deaths by Suicide ", color)
+    };
+    $: changeSuiColor(sui_color);
+
+    let changeSuiRate = (rate) => {
+        console.log("Set minimum rate for Deaths by Suicide ", rate)
+    };
+    $: changeSuiRate(sui_rate);
 
     onMount(() => {
         let frame;
@@ -68,22 +110,25 @@
         let removeDelayB = {};
         let currentLayer = {
           'DoD': 'DoDA',
-          'Alcohol': 'AlcoholA'
+          'Alcohol': 'AlcoholA',
+          'Cirrhosis': 'CirrhosisA',
+          'Drug': 'DrugA',
+          'Suicide': 'SuicideA'
         };
         let init = {};
 
         let sinceLastRateChange = 0;
 
         const fetchDoD = (color, rate, time_period, cause) => {
-            const style_ramp = `ramp(linear($crude_rate,1,20), [gold,  ${color}])`;
+            const style_ramp = `ramp(linear($crude_rate,1,70), [${color}, gold])`;
 
             if (((new Date()).getTime() - sinceLastRateChange) < 533 && !!init[cause]) {
                 if (dod_color === color && dod_rate === rate && group === time_period) {
                     setTimeout(async () => {
                         // If updates coming in fast, delay and check for value consistency
                         if (
-                          (dod_color === color || alc_color === color) &&
-                          (dod_rate === rate || alc_rate === rate) &&
+                          (dod_color === color || alc_color === color || crh_color === color) &&
+                          (dod_rate === rate || alc_rate === rate || crh_rate === rate) &&
                           group === time_period
                         ) {
                             clearTimeout(removeDelayA[cause]);
@@ -196,31 +241,43 @@
 
         fetchDoD(dod_color, dod_rate, group, 'DoD');
 
-        changeDodColor = (color) => {
-            fetchDoD(color, dod_rate, group, 'DoD')
-        };
+        changeDodColor = (color) => fetchDoD(color, dod_rate, group, 'DoD');
 
-        changeDodRate = (rate) => {
-            fetchDoD(dod_color, rate, group, 'DoD')
-        };
+        changeDodRate = (rate) => fetchDoD(dod_color, rate, group, 'DoD');
 
-        changeTimePeriod = (time_period) => {
-            fetchDoD(dod_color, dod_rate, time_period, 'DoD')
-        };
+        changeTimePeriod = (time_period) => fetchDoD(dod_color, dod_rate, time_period, 'DoD');
 
         fetchDoD(alc_color, alc_rate, group, 'Alcohol');
 
-        changeAlcColor = (color) => {
-            fetchDoD(color, alc_rate, group, 'Alcohol')
-        };
+        changeAlcColor = (color) => fetchDoD(color, alc_rate, group, 'Alcohol');
 
-        changeAlcRate = (rate) => {
-            fetchDoD(alc_color, rate, group, 'Alcohol')
-        };
+        changeAlcRate = (rate) => fetchDoD(alc_color, rate, group, 'Alcohol');
 
-        changeTimePeriod = (time_period) => {
-          fetchDoD(alc_color, alc_rate, time_period, 'Alcohol')
-        };
+        changeTimePeriod = (time_period) => fetchDoD(alc_color, alc_rate, time_period, 'Alcohol');
+
+        fetchDoD(crh_color, crh_rate, group, 'Cirrhosis');
+
+        changeCrhColor = (color) => fetchDoD(color, crh_rate, group, 'Cirrhosis');
+
+        changeCrhRate = (rate) => fetchDoD(crh_color, rate, group, 'Cirrhosis');
+
+        changeTimePeriod = (time_period) => fetchDoD(crh_color, crh_rate, time_period, 'Cirrhosis');
+
+        fetchDoD(drg_color, drg_rate, group, 'Drug');
+
+        changeDrgColor = (color) => fetchDoD(color, drg_rate, group, 'Drug');
+
+        changeDrgRate = (rate) => fetchDoD(drg_color, rate, group, 'Drug');
+
+        changeTimePeriod = (time_period) => fetchDoD(drg_color, drg_rate, time_period, 'Drug');
+
+        fetchDoD(sui_color, sui_rate, group, 'Suicide');
+
+        changeSuiColor = (color) => fetchDoD(color, sui_rate, group, 'Suicide');
+
+        changeSuiRate = (rate) => fetchDoD(sui_color, rate, group, 'Suicide');
+
+        changeTimePeriod = (time_period) => fetchDoD(sui_color, sui_rate, time_period, 'Suicide');
 
         (function loop() {
             frame = requestAnimationFrame(loop);
@@ -261,6 +318,15 @@
         text-align: left;
         text-shadow: none;
     }
+    .controls .box label {
+        font-size: 1em;
+    }
+    .controls .box label input[type="color"] {
+      height: 18px;
+      width: 24px;
+      margin: 10px 2px 10px;
+      padding: 2px;
+    }
 </style>
 
 <div id="map"></div>
@@ -278,38 +344,49 @@
         </section>
         <hr/>
 
-        <h3>Time Period: {group}</h3>
+        <h4>Time Period: {group}</h4>
         <label>
-            <input type="radio" bind:group value={'1999-2003'} class="my-super-special-classname">
-            1999 - 2003
+            <input type="radio" bind:group value={'1999-2003'} class="my-super-special-classname">1999 - 2003
         </label>
         <label>
-            <input type="radio" bind:group value={'2004-2008'} class="my-super-special-classname">
-            2004 - 2008
+            <input type="radio" bind:group value={'2004-2008'} class="my-super-special-classname">2004 - 2008
         </label>
         <label>
-            <input type="radio" bind:group value={'2009-2013'} class="my-super-special-classname">
-            2009 - 2013
+            <input type="radio" bind:group value={'2009-2013'} class="my-super-special-classname">2009 - 2013
         </label>
         <label>
-            <input type="radio" bind:group value={'2014-2018'} class="my-super-special-classname">
-            2014 - 2018
+            <input type="radio" bind:group value={'2014-2018'} class="my-super-special-classname">2014 - 2018
         </label>
+        <br />
 
         <label>
-            <input type="color" style="height: 40px" bind:value={dod_color} onchange={changeDodColor}>
-        </label>
-        <label>
+            <input type="color" bind:value={dod_color} onchange={changeDodColor}>
             Deaths of Despair Rate <br/> {(dod_rate > 0) ? "(Minimum " + dod_rate + " per 100k ppl)" : ""}<br/>
-            <input type="range" bind:value={dod_rate} min={0.1} max={100} step={1} onchange={changeDodRate}>
+            <input type="range" bind:value={dod_rate} min={-0.1} max={200} step={1} onchange={changeDodRate}>
         </label>
 
         <label>
-            <input type="color" style="height: 40px" bind:value={alc_color} onchange={changeAlcColor}>
-        </label>
-        <label>
+            <input type="color" bind:value={alc_color} onchange={changeAlcColor}>
             Deaths by Alcohol Rate <br/> {(alc_rate > 0) ? "(Minimum " + alc_rate + " per 100k ppl)" : ""}<br/>
-            <input type="range" bind:value={alc_rate} min={0.1} max={100} step={1} onchange={changeAlcRate}>
+            <input type="range" bind:value={alc_rate} min={-0.1} max={200} step={1} onchange={changeAlcRate}>
+        </label>
+
+        <label>
+            <input type="color" bind:value={crh_color} onchange={changeCrhColor}>
+            Deaths by Cirrhosis Rate <br/> {(crh_rate > 0) ? "(Minimum " + crh_rate + " per 100k ppl)" : ""}<br/>
+            <input type="range" bind:value={crh_rate} min={-0.1} max={200} step={1} onchange={changeCrhRate}>
+        </label>
+
+        <label>
+            <input type="color" bind:value={drg_color} onchange={changeDrgColor}>
+            Deaths by Drug Rate <br/> {(drg_rate > 0) ? "(Minimum " + drg_rate + " per 100k ppl)" : ""}<br/>
+            <input type="range" bind:value={drg_rate} min={-0.1} max={200} step={1} onchange={changeDrgRate}>
+        </label>
+
+        <label>
+            <input type="color" bind:value={sui_color} onchange={changeSuiColor}>
+            Deaths by Suicide Rate <br/> {(sui_rate > 0) ? "(Minimum " + sui_rate + " per 100k ppl)" : ""}<br/>
+            <input type="range" bind:value={sui_rate} min={-0.1} max={200} step={1} onchange={changeSuiRate}>
         </label>
 
         <footer class="js-footer"></footer>
