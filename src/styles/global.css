@@ -285,13 +285,14 @@ table tbody * td[align="left"] {
 .charts.right {
     margin: 24px;
     max-height: 95vh;
+    right: 25%;
+    padding-left: 2px;
+    overflow-y: scroll;
+    transition: right 1.5s 0.25s ease-in-out;
 }
 
 .charts.right:hover {
     left: auto;
-}
-
-.charts.right:hover {
-    transition: right 1.5s 0.25s ease-in-out;
     right: 25%;
+    transition: right 1.5s 0.25s ease-in-out;
 }
