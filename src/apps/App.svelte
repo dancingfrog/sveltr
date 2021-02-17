@@ -561,8 +561,8 @@
                 One way to “drill down” into those relationships is to filter the Deaths of Despair
                 mortality data that is available per location (county or metropolitan area) by
                 modulating the minimal death rate that is displayed for each cause of death and
-                noting the communities that remain visible as the data reveals more intractable
-                circumstances.</p>
+                noting the communities that remain visible as the data reveals more desperate and
+                intractable circumstances.</p>
             <h5>County: {name}, {state}</h5>
             <h5>Population: {pop}</h5>
         </section>
