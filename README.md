@@ -1861,7 +1861,7 @@ respond to spatial queries for the features in this dataset:
 With the data successfully imported into Elasticsearch and previously
 available via Carto SQL, I have enough resources to build a preliminary
 mapping interface and visualization tool. Please return to the [landing
-page](/) to see the results.
+page](http://52.52.217.209/) to see the results.
 
 Scenarios
 =========
