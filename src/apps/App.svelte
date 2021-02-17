@@ -553,13 +553,16 @@
 <aside class="controls right toolbox">
     <div class="box">
         <header>
-            <h1>Deaths of Despair: Covid-19 and Historic Mortality Rates</h1>
+            <h1>Deaths of Despair</h1>
         </header>
         <section>
             <p class="description open-sans">Explore potential correlations between
-                historic mortality factors/rates and the rate of deaths due
-                to Covid-19 (in 2020), and to “drill down” on those relationships
-                within a given location (county or metropolitan area)</p>
+                historic mortality rates and the Covid-19 death rate in the U.S. in 2020.
+                One way to “drill down” into those relationships is to filter the Deaths of Despair
+                mortality data that is available per location (county or metropolitan area) by
+                modulating the minimal death rate that is displayed for each cause of death and
+                noting the communities that remain visible as the data reveals more intractable
+                circumstances.</p>
             <h5>County: {name}, {state}</h5>
             <h5>Population: {pop}</h5>
         </section>
