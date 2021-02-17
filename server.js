@@ -5,6 +5,7 @@ const port = process.env['PORT'] || 3000;
 const bodyParser = require('koa-body');
 const send = require('koa-send');
 const serve = require('koa-static');
+const fetch = require('node-fetch');
 
 // logger
 app.use(async (ctx, next) => {
@@ -31,7 +32,44 @@ app.use(bodyParser());
 app.use(async (ctx) => {
     console.log('Request: ', ctx.request);
 
-    switch (ctx.path) {
+    if (ctx.path.match(/\/search/) !== null) {
+
+      let esRequestURI = "http://52.52.217.209:9200" + ctx.path.replace("/search", "");
+
+      await (async function main (uri, query) {
+        console.log(uri, query);
+
+        return (new Promise(async resolve => {
+          try {
+            fetch(uri, {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json;utf-8'
+              },
+              body: JSON.stringify(query)
+            })
+              .then(res => res.json())
+              .then(json => {
+                console.log(json)
+                resolve({ result: json });
+              });
+
+          } catch (e) {
+            console.error(e);
+            resolve('{ "error": ' + JSON.stringify(e) +'}');
+          }
+        }));
+
+      })(esRequestURI, ctx.request.body)
+        .then(r => {
+          console.debug(JSON.stringify(r)); // debug
+          ctx.header['Content-Type'] = 'application/json';
+          ctx.body = r;
+        }, err => {
+          console.error(err);
+        });
+
+    } else switch (ctx.path) {
 
         case ('/log.json'):
             await send(ctx, '/static/log.json');
@@ -41,6 +79,7 @@ app.use(async (ctx) => {
             return ctx.body = 'Not Found';
     }
 });
+
 
 app.listen(port);
 
