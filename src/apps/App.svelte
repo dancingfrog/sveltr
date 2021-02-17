@@ -5,6 +5,10 @@
     import mapboxgl from 'mapbox-gl';
 
     let map;
+    let fips = "";
+    let name = "";
+    let state = "";
+    let pop = "";
 
     let dod_color = '#c80e38';
     let dod_rate = 50;
@@ -185,7 +189,9 @@
 
             const viz1 = new carto.Viz(`
               @currentFeatures: viewportCount()
+              @fips: $geoid_co
               @name: $name
+              @state: $st_name
               @pop: $pop
               @style: opacity(${style_ramp}, 0.05)
               color: @style
@@ -193,16 +199,33 @@
             `);
             // filter: animation(linear($crude_rate,144.5, 1.5),5,fade(0,100))+0.1
 
-          const featureInteraction =  featureEvent => {
+          const enterFeature =  featureEvent => {
+            featureEvent.features.forEach((feature) => {
+              feature.color.blendTo(`opacity(${style_ramp}, 1.0)`, 100);
+              feature.width.blendTo(20, 100);
+            });
+          };
+
+          const exitFeature = featureEvent => {
+            featureEvent.features.forEach((feature) => {
+              feature.color.reset();
+              feature.width.reset();
+            });
+          };
+
+          const clickFeature =  featureEvent => {
             featureEvent.features.forEach((feature) => {
               console.log(feature);
-              const name = feature.variables.name.value;
-              const pop = feature.variables.pop.value.toFixed(0);
-              console.log(`You have clicked on ${name} with a population of ${pop}`);
+              fips = feature.variables.fips.value;
+              name = feature.variables.name.value;
+              state = feature.variables.state.value;
+              pop = feature.variables.pop.value.toFixed(0);
+              console.log(`You have clicked on ${name}, ${state} (${fips}) with a population of ${pop}`);
             });
           }
 
-            try {
+
+          try {
                 if (!!init[cause] && !!layerA[cause] && !!layerA[cause]) {
                     if (currentLayer[cause] === cause + 'A') {
                         clearTimeout(removeDelayA[cause]);
@@ -240,7 +263,10 @@
                         }, 333);
 
                       const interactivity = new carto.Interactivity(layerA[cause]);
-                      interactivity.on('featureClick', featureInteraction);
+
+                      interactivity.on('featureEnter', enterFeature);
+                      interactivity.on('featureLeave', exitFeature);
+                      interactivity.on('featureClick', clickFeature);
                     });
 
                 } else if (currentLayer[cause] === cause + 'B') {
@@ -257,7 +283,10 @@
                         }, 333);
 
                       const interactivity = new carto.Interactivity(layerB[cause]);
-                      interactivity.on('featureClick', featureInteraction);
+
+                      interactivity.on('featureEnter', enterFeature);
+                      interactivity.on('featureLeave', exitFeature);
+                      interactivity.on('featureClick', clickFeature);
                     });
 
                 }
@@ -344,6 +373,12 @@
         text-shadow: none;
     }
 
+    .controls .box section h3,
+    .controls .box section h4,
+    .controls .box section h5 {
+        margin: 6px 0px;
+    }
+
     .controls .box label {
         font-size: 1em;
     }
@@ -367,15 +402,16 @@
             <h1>Deaths of Despair: Covid-19 and Historic Mortality Rates</h1>
         </header>
         <section>
-            <p class="description open-sans">This dataset allows one to explore
-                potential correlations between historic mortality factors/rates and the
-                total number of deaths due to Covid-19 (in 2020), and to “drill down” on
-                those relationships within a given location (county or metropolitan
-                area)</p>
+            <p class="description open-sans">Explore potential correlations between
+                historic mortality factors/rates and the rate of deaths due
+                to Covid-19 (in 2020), and to “drill down” on those relationships
+                within a given location (county or metropolitan area)</p>
+            <h5>County: {name}, {state}</h5>
+            <h5>Population: {pop}</h5>
         </section>
         <hr/>
 
-        <h4>Time Period: {group}</h4>
+        <h5>Time Period: {group}</h5>
         <label>
             <input type="radio" bind:group value={'1999-2003'} class="my-super-special-classname">1999 - 2003
         </label>
