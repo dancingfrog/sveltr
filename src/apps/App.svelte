@@ -14,119 +14,121 @@
     let state = "";
     let pop = "";
 
-    let chartData =  [
-      {
-        name: 'data1',
-        points: [
-          { x: 10, y: 8.04 },
-          { x: 8, y: 6.95 },
-          { x: 13, y: 7.58 },
-          { x: 9, y: 8.81 },
-          { x: 11, y: 8.33 },
-          { x: 14, y: 9.96 },
-          { x: 6, y: 7.24 },
-          { x: 4, y: 4.26 },
-          { x: 12, y: 10.84 },
-          { x: 7, y: 4.82 },
-          { x: 5, y: 5.68 }
-        ]
-      },{
-        name: 'data2',
-        points: [
-          { x: 10, y: 8.04 },
-          { x: 8, y: 6.95 },
-          { x: 13, y: 7.58 },
-          { x: 9, y: 8.81 },
-          { x: 11, y: 8.33 },
-          { x: 14, y: 9.96 },
-          { x: 6, y: 7.24 },
-          { x: 4, y: 4.26 },
-          { x: 12, y: 10.84 },
-          { x: 7, y: 4.82 },
-          { x: 5, y: 5.68 }
-        ]
-      },{
-        name: 'data3',
-        points: [
-          { x: 10, y: 8.04 },
-          { x: 8, y: 6.95 },
-          { x: 13, y: 7.58 },
-          { x: 9, y: 8.81 },
-          { x: 11, y: 8.33 },
-          { x: 14, y: 9.96 },
-          { x: 6, y: 7.24 },
-          { x: 4, y: 4.26 },
-          { x: 12, y: 10.84 },
-          { x: 7, y: 4.82 },
-          { x: 5, y: 5.68 }
-        ]
-      },{
-        name: 'data4',
-        points: [
-          { x: 10, y: 8.04 },
-          { x: 8, y: 6.95 },
-          { x: 13, y: 7.58 },
-          { x: 9, y: 8.81 },
-          { x: 11, y: 8.33 },
-          { x: 14, y: 9.96 },
-          { x: 6, y: 7.24 },
-          { x: 4, y: 4.26 },
-          { x: 12, y: 10.84 },
-          { x: 7, y: 4.82 },
-          { x: 5, y: 5.68 }
-        ]
-      },{
-        name: 'data5',
-        points: [
-          { x: 10, y: 8.04 },
-          { x: 8, y: 6.95 },
-          { x: 13, y: 7.58 },
-          { x: 9, y: 8.81 },
-          { x: 11, y: 8.33 },
-          { x: 14, y: 9.96 },
-          { x: 6, y: 7.24 },
-          { x: 4, y: 4.26 },
-          { x: 12, y: 10.84 },
-          { x: 7, y: 4.82 },
-          { x: 5, y: 5.68 }
-        ]
-      },
+    let chartData =  [];
+
+    let chartTitle = "Covid-19 Death Rates v.s DoD Rates"
+    let chartSubtitle = "Pan or Zoom Map to Refresh Charts"
+    let boundsTitle = ""
+
+    const cause_indices = [
+      'death_by_alcohol_data',
+      'death_by_cirrhosis_data',
+      'death_by_drug_data',
+      'death_by_suicide_data',
+      'death_by_dod_data'
     ];
 
-    let esRequestURI = "/search/death_by_*/_search"
+    let sinceLastSearchQuery = 0;
 
     let esFeatureQuery = (bounds, query, agg) => {
-      const body = {}
-      query["bool"]["filter"] = {
-        "shape": {
-          "geom_box": {
-            "shape": {
-              "type": "envelope",
-              "coordinates" : bounds
-            },
-            "relation": "intersects"
-          }
-        }
+
+      if (!!sinceLastSearchQuery && ((new Date()).getTime() - sinceLastSearchQuery) < 533) {
+        return;
+      } else {
+        sinceLastSearchQuery = (new Date()).getTime();
       }
 
-      body['query'] = query;
+      const newChartData = [];
 
-      fetch(esRequestURI, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json;utf-8'
-        },
-        body: JSON.stringify(body)
-      })
-      .then(res => res.json())
-      .then(json => console.log(json));
+      cause_indices.forEach(cause_index => {
+
+        let esRequestURI = `/search/${cause_index}/_search`
+        const body = {};
+
+        body['aggs'] = {
+          "avg_grade": {
+            "avg": {
+              "field": "deaths_per_100k"
+            }
+          }
+        };
+
+        body['fields'] = [ "cartodb_id", "fid", "geoid_co", "name", "st_name", "lon","lat", "time_period", "crude_rate", "death_cause", "population", "deaths_dod", "pop", "deaths_per_100k" ];
+
+        query["bool"]["filter"] = {
+          "shape": {
+            "geom_box": {
+              "shape": {
+                "type": "envelope",
+                "coordinates" : bounds
+              },
+              "relation": "intersects"
+            }
+          }
+        }
+
+        body['query'] = query;
+
+        body['size'] = 1000;
+
+        body['_source'] = false;
+
+        // console.log(body);
+
+        fetch(esRequestURI, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        })
+          .then(res => res.json())
+          .then(json => {
+            // console.log(json);
+            chartSubtitle = group + " records for counties within window bounds ";
+            boundsTitle = "(" + bounds[0][0].toFixed(3) + " " + bounds[0][1].toFixed(3) + ", " + bounds[1][0].toFixed(3) + " " + bounds[1][1].toFixed(3) + ")";
+            console.log(cause_index);
+            const newChart = {
+              name:
+                (cause_index === 'death_by_alcohol_data') ? "Alcohol Death Rate (per 100k)" :
+                  (cause_index === 'death_by_cirrhosis_data') ? "Cirrhosis Death Rate (per 100k)" :
+                    (cause_index === 'death_by_drug_data') ? "Drug Death Rate (per 100k)" :
+                      (cause_index === 'death_by_suicide_data') ? "Suicide Death Rate (per 100k)" :
+                        (cause_index === 'death_by_dod_data') ? "" : "Deaths of Despair Rate (per 100k)"
+            };
+            newChart['aggregations'] = json['result']['aggregations'];
+            newChart['points'] = json['result']['hits']['hits'].map(county => {
+              try {
+                county['x'] = county['fields']['crude_rate'][0];
+                county['y'] = county['fields']['deaths_per_100k'][0];
+              } catch (e) {
+                console.log("'crude_rate' missing from ", county['fields']);
+              }
+              return county;
+            });
+            newChartData.push(newChart);
+            chartData = newChartData;
+            // console.log(newChartData);
+          });
+      });
+
+
     };
 
     let handleFeatureSearch = (evt) => {
-      console.log(evt);
+      // console.log(evt);
       const data = evt['explicitOriginalTarget'].getAttribute('data');
       try {
-        console.log(JSON.parse(data));
+        // console.log(JSON.parse(data));
+        const county_source = JSON.parse(data)['fields'];
+        fips = county_source.geoid_co[0];
+        name = county_source.name[0];
+        state = county_source.st_name[0];
+        pop = county_source.pop[0].toFixed(0);
+        console.log(`You have clicked on ${name}, ${state} (${fips}) with a population of ${pop}`);
+        console.log(county_source['deaths_per_100k'])
+
       } catch (e) {
         console.error(data);
       }
@@ -244,6 +246,19 @@
           [  window.bounds['_ne']['lng'], window.bounds['_sw']['lat'] ]
         ];
         console.log('A move event occurred: ', mapBounds);
+        esFeatureQuery(
+          mapBounds,
+          {
+            "bool": {
+              // "must": {
+              //   "match_all": {}
+              // }
+              "should": [{
+                "term": { "time_period": group }
+              }]
+            }
+          }
+        );
       });
 
 
@@ -359,17 +374,6 @@
               state = feature.variables.state.value;
               pop = feature.variables.pop.value.toFixed(0);
               console.log(`You have clicked on ${name}, ${state} (${fips}) with a population of ${pop}`);
-              esFeatureQuery(
-                  mapBounds,
-                  {
-                    "bool": {
-                      "must": {
-                        "match_all": {}
-                      }
-                    }
-                  },
-                  {}
-                );
             });
           }
 
@@ -621,6 +625,6 @@
 </div>
 
 <div class="charts controls right">
-    <ChartPanel bind:value={chartData} on:submit={handleFeatureSearch}/>
+    <ChartPanel bind:values={chartData} bind:title={chartTitle} bind:subtitle={chartSubtitle} bind:bounds={boundsTitle} on:submit={handleFeatureSearch}/>
 </div>
 

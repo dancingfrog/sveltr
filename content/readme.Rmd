@@ -251,7 +251,7 @@ plot_population_vs_dod_rate <- function(population, dod_rate, covid_death_rate, 
     p <- ggplot(df, aes(x = dod_rate, y = covid_death_rate)) +
             geom_point(stroke = 1, shape = 23, aes(size = population, fill = dod_rate), alpha = 0.5) +
             scale_fill_gradient(low = "#56B4E9", high = "#E69F00") +
-            ggtitle(paste0("Covid Death Rate (2019) vs. Historic DoD Rate (", years, ") per 100k ppl"))
+            ggtitle(paste0("Covid Death Rate (2020) vs. Historic DoD Rate (", years, ") per 100k ppl"))
     print(p)
 }
 

@@ -261,7 +261,7 @@ table tbody * td[align="left"] {
         position: relative;
         float: none;
         left: auto;
-        right: 10%;
+        right: 5%;
     }
 
 }
@@ -284,16 +284,16 @@ table tbody * td[align="left"] {
 
 .charts.right {
     margin: 24px;
-    max-height: 95vh;
-    right: 25%;
-    width: 35%;
+    max-height: 95.1vh;
+    min-height: 95.1vh;
     padding-left: 2px;
     overflow-y: scroll;
-    transition: right 1.5s 0.25s ease-in-out;
+    transition: right 1s 1.5s ease-in-out, width 1s 1.5s ease-in-out;
 }
 
 .charts.right:hover {
     left: auto;
-    right: 25%;
-    transition: right 1.5s 0.25s ease-in-out;
+    right: 22.5%;
+    width: 27.5%;
+    transition: right 0.5s 0.25s ease-in-out, width 0.5s 0.25s ease-in-out;
 }

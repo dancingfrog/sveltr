@@ -2,7 +2,8 @@
 const Koa = require('koa');
 const app = new Koa();
 const port = process.env['PORT'] || 3000;
-const bodyParser = require('koa-body');
+// const bodyParser = require('koa-body');
+const bodyParser = require('koa-bodyparser');
 const send = require('koa-send');
 const serve = require('koa-static');
 const fetch = require('node-fetch');
@@ -50,7 +51,7 @@ app.use(async (ctx) => {
             })
               .then(res => res.json())
               .then(json => {
-                console.log(json)
+                // console.log(json);
                 resolve({ result: json });
               });
 
@@ -62,7 +63,7 @@ app.use(async (ctx) => {
 
       })(esRequestURI, ctx.request.body)
         .then(r => {
-          console.debug(JSON.stringify(r)); // debug
+          // console.debug(JSON.stringify(r)); // debug
           ctx.header['Content-Type'] = 'application/json';
           ctx.body = r;
         }, err => {
