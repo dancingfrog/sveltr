@@ -184,11 +184,23 @@
             console.log(sql_query);
 
             const viz1 = new carto.Viz(`
+              @currentFeatures: viewportCount()
+              @name: $name
+              @pop: $pop
               @style: opacity(${style_ramp}, 0.05)
               color: @style
               strokeColor: @style
             `);
             // filter: animation(linear($crude_rate,144.5, 1.5),5,fade(0,100))+0.1
+
+          const featureInteraction =  featureEvent => {
+            featureEvent.features.forEach((feature) => {
+              console.log(feature);
+              const name = feature.variables.name.value;
+              const pop = feature.variables.pop.value.toFixed(0);
+              console.log(`You have clicked on ${name} with a population of ${pop}`);
+            });
+          }
 
             try {
                 if (!!init[cause] && !!layerA[cause] && !!layerA[cause]) {
@@ -226,6 +238,9 @@
                         setTimeout(() => {
                             init[cause] = true;
                         }, 333);
+
+                      const interactivity = new carto.Interactivity(layerA[cause]);
+                      interactivity.on('featureClick', featureInteraction);
                     });
 
                 } else if (currentLayer[cause] === cause + 'B') {
@@ -240,7 +255,11 @@
                         setTimeout(() => {
                             init[cause] = true;
                         }, 333);
+
+                      const interactivity = new carto.Interactivity(layerB[cause]);
+                      interactivity.on('featureClick', featureInteraction);
                     });
+
                 }
             }
 
