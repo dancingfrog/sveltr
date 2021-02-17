@@ -10,20 +10,33 @@
     let dod_rate = 0;
     let group = '2014-2018';
 
-    let changeDodColor = (dod_color) => {
-        console.log("Set color for Deaths of Despair ", dod_color)
+    let changeDodColor = (color) => {
+      console.log("Set color for Deaths of Despair ", color)
     };
     $: changeDodColor(dod_color);
 
-    let changeDodRate = (dod_rate) => {
-        console.log("Set minimum rate for Deaths of Despair ", dod_rate)
+    let changeDodRate = (rate) => {
+      console.log("Set minimum rate for Deaths of Despair ", rate)
     };
     $: changeDodRate(dod_rate);
 
     let changeTimePeriod = (group) => {
-        console.log("Set time period of dataset", group)
+      console.log("Set time period of dataset", group)
     };
     $: changeTimePeriod(group);
+
+    let alc_color = '#1b5ccb';
+    let alc_rate = 0;
+
+    let changeAlcColor = (color) => {
+        console.log("Set color for Deaths by Alcohol ", color)
+    };
+    $: changeAlcColor(alc_color);
+
+    let changeAlcRate = (rate) => {
+        console.log("Set minimum rate for Deaths by Alcohol ", rate)
+    };
+    $: changeAlcRate(alc_rate);
 
     onMount(() => {
         let frame;
@@ -45,8 +58,8 @@
 
         // Define user
         carto.setDefaultAuth({
-            username: 'cartovl',
-            apiKey: 'default_public'
+          apiKey: 'default_public',
+          username: 'dancingfrog'
         });
 
         let layerA = {};
@@ -54,7 +67,8 @@
         let removeDelayA = {};
         let removeDelayB = {};
         let currentLayer = {
-          'DoD': 'DoDA'
+          'DoD': 'DoDA',
+          'Alcohol': 'AlcoholA'
         };
         let init = {};
 
@@ -63,53 +77,59 @@
         const fetchDoD = (color, rate, time_period, cause) => {
             const style_ramp = `ramp(linear($crude_rate,1,20), [gold,  ${color}])`;
 
-            if (((new Date()).getTime() - sinceLastRateChange) < 533) {
-                if (!!init[cause] && dod_color === color && dod_rate === rate && group === time_period) {
+            if (((new Date()).getTime() - sinceLastRateChange) < 533 && !!init[cause]) {
+                if (dod_color === color && dod_rate === rate && group === time_period) {
                     setTimeout(async () => {
                         // If updates coming in fast, delay and check for value consistency
-                        if (dod_color === color && dod_rate === rate && group === time_period) {
+                        if (
+                          (dod_color === color || alc_color === color) &&
+                          (dod_rate === rate || alc_rate === rate) &&
+                          group === time_period
+                        ) {
                             clearTimeout(removeDelayA[cause]);
                             clearTimeout(removeDelayB[cause]);
                         }
                     }, 333);
                 }
                 return;
-            } else {
-                sinceLastRateChange = (new Date()).getTime();
-            }
 
-            const sql_query = `select cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,time_interval,time_period,crude_rate,death_cause,population,deaths_dod,pop,the_geom_webmercator from "ruralinnovation-admin".dod_covid_county where death_cause ilike '${cause}' and time_period ilike '${time_period}' and crude_rate > ${rate}`;
-            console.log(sql_query);
-
-            if (!!init[cause]) {
-                const viz2 = new carto.Viz(`
+            } else if (!!init[cause]) {
+              const viz2 = new carto.Viz(`
                   @style: opacity(${style_ramp}, 0.05)
                   color: @style
                   width: 1
                 `);
 
-                if (currentLayer[cause] === cause + 'A' && !!layerA[cause] && layerA[cause].hasOwnProperty("id")) {
-                    // Fade out
-                    layerA[cause].viz.color.blendTo(`opacity(${style_ramp}, 0.05)`)
-                    removeDelayA[cause] = setTimeout(() => {
-                        if (currentLayer[cause] !== 'A') {
-                            console.log("Removing layer " + cause + "A");
-                            layerA[cause].remove();
-                        }
-                    }, 533);
-                    currentLayer[cause] = cause + 'B';
+              if (currentLayer[cause] === cause + 'A' && !!layerA[cause] && layerA[cause].hasOwnProperty("id")) {
+                // Fade out
+                layerA[cause].viz.color.blendTo(`opacity(${style_ramp}, 0.05)`)
+                removeDelayA[cause] = setTimeout(() => {
+                  if (currentLayer[cause] !== 'A') {
+                    console.log("Removing layer " + cause + "A");
+                    layerA[cause].remove();
+                  }
+                }, 533);
+                currentLayer[cause] = cause + 'B';
 
-                } else if (!!layerB[cause] && layerB[cause].hasOwnProperty("id")) {
-                    layerA[cause].viz.color.blendTo(`opacity(${style_ramp}, 0.05)`)
-                    removeDelayB[cause] = setTimeout(() => {
-                        if (currentLayer[cause] !== 'B') {
-                            console.log("Removing layer " + cause + "B");
-                            layerB[cause].remove();
-                        }
-                    }, 533);
-                    currentLayer[cause] = cause + 'A';
-                }
+              } else if (!!layerB[cause] && layerB[cause].hasOwnProperty("id")) {
+                layerA[cause].viz.color.blendTo(`opacity(${style_ramp}, 0.05)`)
+                removeDelayB[cause] = setTimeout(() => {
+                  if (currentLayer[cause] !== 'B') {
+                    console.log("Removing layer " + cause + "B");
+                    layerB[cause].remove();
+                  }
+                }, 533);
+                currentLayer[cause] = cause + 'A';
+              }
+              sinceLastRateChange = (new Date()).getTime();
+
+            } else {
+                init[cause] = true;
+                sinceLastRateChange = (new Date()).getTime();
             }
+
+            const sql_query = `select cartodb_id,fid,geoid_co,name,namelsad,st_stusps,geoid_st,st_name,land_sqmi,water_sqmi,lon,lat,time_interval,time_period,crude_rate,death_cause,population,deaths_dod,pop,the_geom_webmercator from "ruralinnovation-admin".dod_covid_county where death_cause ilike '${cause}' and time_period ilike '${time_period}' and crude_rate > ${rate}`;
+            console.log(sql_query);
 
             const viz1 = new carto.Viz(`
               @style: opacity(${style_ramp}, 0.05)
@@ -119,7 +139,7 @@
             // filter: animation(linear($crude_rate,144.5, 1.5),5,fade(0,100))+0.1
 
             try {
-                if (!!init[cause]) {
+                if (!!init[cause] && !!layerA[cause] && !!layerA[cause]) {
                     if (currentLayer[cause] === cause + 'A') {
                         clearTimeout(removeDelayA[cause]);
                     } else {
@@ -159,7 +179,7 @@
                 } else if (currentLayer[cause] === cause + 'B') {
                     layerB[cause] = new carto.Layer(currentLayer[cause], dod_covid_county_source, viz1);
                     layerB[cause].addTo(map);
-                    window.layers = layerB[cause];
+                    window.layers = layerB;
 
                     layerB[cause].on('loaded', async () => {
                         // Fade In
@@ -186,6 +206,20 @@
 
         changeTimePeriod = (time_period) => {
             fetchDoD(dod_color, dod_rate, time_period, 'DoD')
+        };
+
+        fetchDoD(alc_color, alc_rate, group, 'Alcohol');
+
+        changeAlcColor = (color) => {
+            fetchDoD(color, alc_rate, group, 'Alcohol')
+        };
+
+        changeAlcRate = (rate) => {
+            fetchDoD(alc_color, rate, group, 'Alcohol')
+        };
+
+        changeTimePeriod = (time_period) => {
+          fetchDoD(alc_color, alc_rate, time_period, 'Alcohol')
         };
 
         (function loop() {
@@ -268,6 +302,14 @@
         <label>
             Deaths of Despair Rate <br/> {(dod_rate > 0) ? "(Minimum " + dod_rate + " per 100k ppl)" : ""}<br/>
             <input type="range" bind:value={dod_rate} min={0.1} max={100} step={1} onchange={changeDodRate}>
+        </label>
+
+        <label>
+            <input type="color" style="height: 40px" bind:value={alc_color} onchange={changeAlcColor}>
+        </label>
+        <label>
+            Deaths by Alcohol Rate <br/> {(alc_rate > 0) ? "(Minimum " + alc_rate + " per 100k ppl)" : ""}<br/>
+            <input type="range" bind:value={alc_rate} min={0.1} max={100} step={1} onchange={changeAlcRate}>
         </label>
 
         <footer class="js-footer"></footer>
