@@ -1703,7 +1703,7 @@ visualizations for a given bucket (i.e. “DoD” in the examples below).
 5 years worth of population estimates, as compared to the single year
 (2019) estimate stored in `pop`.*
 
-![](/Users/jo088ha/Projects/Currents/blogdown/sveltr/README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-1.png)![](/Users/jo088ha/Projects/Currents/blogdown/sveltr/README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-2.png)![](/Users/jo088ha/Projects/Currents/blogdown/sveltr/README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-3.png)![](/Users/jo088ha/Projects/Currents/blogdown/sveltr/README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-4.png)
+![](README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-1.png)![](README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-2.png)![](README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-3.png)![](README_files/figure-markdown_strict/covid_deaths_vs_dod_rate-4.png)
 
 What’s really intresting to me is that the extreme outliers on these
 plots have relatively high rates of “Deaths of Despair” when compared to
