@@ -66,7 +66,21 @@
               "relation": "intersects"
             }
           }
-        }
+        };
+
+        query["bool"]["must"] = [{
+          "range": {
+            "crude_rate": {
+              "gte": (
+                (cause_index === 'death_by_alcohol_data') ? alc_rate :
+                  (cause_index === 'death_by_cirrhosis_data') ? crh_rate :
+                    (cause_index === 'death_by_drug_data') ? drg_rate:
+                      (cause_index === 'death_by_suicide_data') ? sui_rate :
+                        dod_rate
+              ) - 5 // small compensation
+            }
+          }
+        }];
 
         body['query'] = query;
 

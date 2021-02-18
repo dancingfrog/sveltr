@@ -25,7 +25,7 @@
 
 	let mean_line = 0;
 
-	const resize = () => ({ width, height } = svg.getBoundingClientRect());
+	const resize = () => ({ width, height } = (!!svg && typeof svg['getBoundingClientRect'] === 'function')? svg.getBoundingClientRect() : { width, height });
 
 	const submit = () => dispatch('submit');
 
@@ -136,7 +136,7 @@
 <svelte:window on:resize='{resize}'/>
 
 {#if (!!xTicks && xTicks.length > 0 && !!yTicks && yTicks.length > 0) }
-<div style="min-width: {width}px; min-height: {height}px; overflow-x: hidden;">
+<div style="min-width: {width}px; min-height: {height}px; overflow-x: hidden; margin-top: 8px; text-decoration: underline;">
 	&nbsp;{data['name']}&nbsp;
 	<svg bind:this={svg} style="min-width: {width}px; min-height: {height}px; width: 100%;">
 		<!-- y axis -->
@@ -165,10 +165,10 @@
 
 		<!-- data -->
 		<g class='graph-data'  transform='translate({padding.left},0)'>
-			<line x1="{xScale(0)}" y1="{mean_line}" x2="{xScale(xTicks[xTicks.length - 1])}" y2="{mean_line}" style="stroke:red" />
-			<text x="{width / 2 + 2 * padding.left}" y="{mean_line - padding.bottom}" style="text-shadow: none; font-weight: bolder;color: black;" text-anchor="middle">
+			<line x1="{xScale(0)}" y1="{mean_line}" x2="{xScale(max(data['points'], d => d['x']))}" y2="{mean_line - 4}" style="stroke:red" />
+			<text x="{width / 2 + 2 * padding.left}" y="{mean_line - (4 + padding.bottom)}" style="text-shadow: none; font-weight: bolder;color: black;" text-anchor="middle">
 				Covid 19 Mean Avg Death</text>
-			<text x="{width / 2 + 2 * padding.left}" y="{mean_line}" style="text-shadow: none; font-weight: bolder;color: black;" text-anchor="middle">
+			<text x="{width / 2 + 2 * padding.left}" y="{mean_line - 6}" style="text-shadow: none; font-weight: bolder;color: black;" text-anchor="middle">
 				Rate For This Sample</text>
 		{#each data['points'] as point}
 			<circle cx='{xScale(point.x)}' cy='{yScale(point.y)}' r='5' on:click="{(evt) => submit(evt)}" data="{JSON.stringify(point)}" />
