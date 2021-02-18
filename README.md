@@ -61,8 +61,8 @@ elements/features.
     original “Underlying Cause of Death 1999-2018” dataset in some
     unknown way, but presumably keyed on the location (by county FIPS)
     that each record represents. The values found in the cause of death
-    field (`death_cause`) do **not** correspond to the (Cause of Death
-    (ICD-10))\[<a href="https://wonder.cdc.gov/wonder/help/ucd.html#ICD-10%20Codes" class="uri">https://wonder.cdc.gov/wonder/help/ucd.html#ICD-10%20Codes</a>\]
+    field (`death_cause`) do **not** correspond to the 
+    <a href="https://wonder.cdc.gov/wonder/help/ucd.html#ICD-10%20Codes" class="uri">Cause of Death (ICD-10)</a>
     codes listed in the technical documentation, indicating that this
     dataset has already been transformed in some non-trivial way as
     compared to one of its source (i.e., “Underlying Cause of Death
@@ -1863,6 +1863,9 @@ available via Carto SQL, I have enough resources to build a preliminary
 mapping interface and visualization tool. Please return to the [landing
 page](http://52.52.217.209/) to see the results.
 
+![Screenshot of Deaths of Despairs](static/images/deaths_of_despair.png)
+
+
 Scenarios
 =========
 
@@ -1915,8 +1918,8 @@ This means considering the aesthetic, functional and “nitty-griity”
 package, keeping in mind that that is how users will perceive the
 experience. If the map is intended to collect or solicit information for
 users, it’s essential to consider how that is done within the greater
-context of the whole website. Even as one more of us being to code and
-to re-code, we will return to these kinds of questions repeatedly,
+context of the whole website. Even as one or more of us begin to code 
+and re-code, we will return to these kinds of questions repeatedly,
 because that level of decision-making is just as iterative as any other
 aspect of the work.
 
