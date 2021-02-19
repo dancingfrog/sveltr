@@ -21,17 +21,19 @@
     let chartSubtitle = "Pan or Zoom Map to Refresh Charts"
     let boundsTitle = ""
 
-    const cause_indices = [
-      'death_by_alcohol_data',
-      'death_by_cirrhosis_data',
-      'death_by_drug_data',
-      'death_by_suicide_data',
-      'death_by_dod_data'
-    ];
-
     let sinceLastSearchQuery = 0;
 
-    let esFeatureQuery = (bounds, query, agg) => {
+    let esFeatureQuery = (bounds, query, cause_index) => {
+
+      const cause_indices = (!!cause_index) ?
+          [ cause_index ] :
+          [
+            'death_by_alcohol_data',
+            'death_by_cirrhosis_data',
+            'death_by_drug_data',
+            'death_by_suicide_data',
+            'death_by_dod_data'
+          ];
 
       if (!!sinceLastSearchQuery && ((new Date()).getTime() - sinceLastSearchQuery) < 533) {
         return;
@@ -68,19 +70,24 @@
           }
         };
 
-        query["bool"]["must"] = [{
-          "range": {
-            "crude_rate": {
-              "gte": (
-                (cause_index === 'death_by_alcohol_data') ? alc_rate :
-                  (cause_index === 'death_by_cirrhosis_data') ? crh_rate :
-                    (cause_index === 'death_by_drug_data') ? drg_rate:
-                      (cause_index === 'death_by_suicide_data') ? sui_rate :
-                        dod_rate
-              ) - 5 // small compensation
+        query["bool"]["must"] = [
+            {
+              // {
+              //   "term": { "time_period": group }
+              // },
+              "range": {
+                "crude_rate": {
+                  "gte": (
+                    (cause_index === 'death_by_alcohol_data') ? alc_rate :
+                      (cause_index === 'death_by_cirrhosis_data') ? crh_rate :
+                        (cause_index === 'death_by_drug_data') ? drg_rate:
+                          (cause_index === 'death_by_suicide_data') ? sui_rate :
+                            dod_rate
+                  ) - 1 // small compensation
+                }
+              }
             }
-          }
-        }];
+        ];
 
         body['query'] = query;
 
@@ -100,10 +107,10 @@
         })
           .then(res => res.json())
           .then(json => {
-            // console.log(json);
+            console.log(json);
             chartSubtitle = group + " records for counties within window bounds ";
             boundsTitle = "(" + bounds[0][0].toFixed(3) + " " + bounds[0][1].toFixed(3) + ", " + bounds[1][0].toFixed(3) + " " + bounds[1][1].toFixed(3) + ")";
-            console.log(cause_index);
+            // console.log(cause_index);
             const newChart = {
               name:
                 (cause_index === 'death_by_alcohol_data') ? "Alcohol Death Rate (per 100k)" :
@@ -123,7 +130,13 @@
               return county;
             });
             newChartData.push(newChart);
-            chartData = newChartData;
+            chartData = newChartData.sort((a, b) => {
+                return (a['name'].match(/Despair/) !== null) ? 1 :
+                  (b['name'].match(/Despair/) !== null) ? -1 :
+                    (a['name'] > b['name']) ? 1 :
+                      0;
+              }
+            );
             // console.log(newChartData);
           });
       });
@@ -270,8 +283,14 @@
               //   "match_all": {}
               // }
               "should": [{
-                "term": { "time_period": group }
-              }]
+                "match": {
+                  "time_period": {
+                    "query": group,
+                    "auto_generate_synonyms_phrase_query" : true
+                  }
+                }
+              }],
+              "minimum_should_match": 1
             }
           }
         );
@@ -348,6 +367,29 @@
                 currentLayer[cause] = cause + 'A';
               }
               sinceLastRateChange[cause] = (new Date()).getTime();
+
+              esFeatureQuery(
+                mapBounds,
+                {
+                  "bool": {
+                    "should": [ {
+                      "match": {
+                        "time_period": {
+                          "query": group,
+                          "auto_generate_synonyms_phrase_query": true
+                        }
+                      }
+                    } ],
+                    "minimum_should_match": 1
+                  }
+                  // },
+                  // (cause === 'Alcohol') ? 'death_by_alcohol_data' :
+                  //   (cause=== 'Cirrhosis') ? 'death_by_cirrhosis_data' :
+                  //     (cause === 'Drug') ? 'death_by_drug_data' :
+                  //       (cause === 'Suicide') ? 'death_by_suicide_data' :
+                  //         'death_by_dod_data'
+                }
+              )
 
             } else {
                 sinceLastRateChange[cause] = (new Date()).getTime();
@@ -459,7 +501,6 @@
                       interactivity.on('featureLeave', exitFeature);
                       interactivity.on('featureClick', clickFeature);
                     });
-
                 }
             }
 
