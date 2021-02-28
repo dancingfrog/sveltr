@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hurricane Harvey | CARTO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <script src="https://libs.cartocdn.com/carto-vl/v1.4.4/carto-vl.min.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://carto.com/developers/carto-vl/v1.4.4/examples/maps/style.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="map"></div>
+<aside class="toolbox">
+    <div class="box">
+        <header>
+            <h1>Hurricane Harvey</h1>
+        </header>
+        <section>
+            <p class="description open-sans">Rainfall totals from Hurricane Harvey aggregated to counties. The animation is
+                based on total rainfall. Counties with more rain draw first to lower rainfall totals. The opacity is based off
+                population density (total pop / area). The brighter polygons have higher populations.</p>
+        </section>
+        <footer class="js-footer"></footer>
+    </div>
+</aside>
+<div id="loader">
+    <div class="CDB-LoaderIcon CDB-LoaderIcon--big">
+        <svg class="CDB-LoaderIcon-spinner" viewBox="0 0 50 50">
+            <circle class="CDB-LoaderIcon-path" cx="25" cy="25" r="20" fill="none"></circle>
+        </svg>
+    </div>
+</div>
+<script>
+    console.log(carto.basemaps.darkmatter);
+    const map = new mapboxgl.Map({
+        container: 'map',
+        // style: carto.basemaps.darkmatter,
+        style: {
+            version: 8,
+            sources: {},
+            layers: [
+                {
+                    id: 'background',
+                    type: 'background',
+                    paint: { 'background-color': 'gray' }
+                }
+            ]
+        },
+        center: [-96, 30],
+        zoom: 7,
+        scrollZoom: false
+    });
+
+    const nav = new mapboxgl.NavigationControl({
+        showCompass: false
+    });
+    map.addControl(nav, 'top-left');
+    map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
+
+    // Define user
+    carto.setDefaultAuth({
+        username: 'cartovl',
+        apiKey: 'default_public'
+    });
+
+    // Define layer
+    const source1 = new carto.source.Dataset('countries_110m_admin_0');
+    const viz1 = new carto.Viz(`
+      @country: ramp($mapcolor7,VIVID)
+    // BURG, BURGYL, REDOR, ORYEL, PEACH, PINKYL, MINT, BLUGRN, DARKMINT, EMRLD, AG_GRNYL, BLUYL, TEAL, TEALGRN,
+    //     PURP, PURPOR, SUNSET, MAGENTA, SUNSETDARK, AG_SUNSET, BRWNYL, ARMYROSE, FALL, GEYSER, TEMPS, TEALROSE, TROPIC,
+    //     EARTH, ANTIQUE, BOLD, PASTEL, PRISM, SAFE, VIVID, CB_YLGN, CB_YLGNBU, CB_GNBU, CB_BUGN, CB_PUBUGN, CB_PUBU,
+    //     CB_BUPU, CB_RDPU, CB_PURD, CB_ORRD, CB_YLORRD, CB_YLORBR, CB_PURPLES, CB_BLUES, CB_GREENS, CB_ORANGES, CB_REDS,
+    //     CB_GREYS, CB_PUOR, CB_BRBG, CB_PRGN, CB_PIYG, CB_RDBU, CB_RDGY, CB_RDYLBU, CB_SPECTRAL, CB_RDYLGN, CB_ACCENT,
+    //     CB_DARK2, CB_PAIRED, CB_PASTEL1, CB_PASTEL2, CB_SET1, CB_SET2, CB_SET3
+
+      color: black
+      strokeColor: opacity(@country,0.8)
+      strokeWidth: 2
+    `);
+    const layer1 = new carto.Layer('layer', source1, viz1);
+
+    // Add layer to map
+    layer1.addTo(map);
+
+    const source2 = new carto.source.Dataset('table_30');
+    const viz2 = new carto.Viz(`
+      @style: opacity(ramp(linear($sum_qpf,1,120),temps),($e_totpop/$area_sqmi)/500)
+      color: @style
+      strokeColor: @style
+      filter: animation(linear($sum_qpf,144.5, 1.5),5,fade(0,100))+0.1
+    `);
+    const layer2 = new carto.Layer('sim', source2, viz2);
+
+    layer2.addTo(map);
+
+    layer1.on('loaded', hideLoader);
+
+    function hideLoader() {
+        document.getElementById('loader').style.opacity = '0';
+    }
+</script>
+</body>
+
+</html>
