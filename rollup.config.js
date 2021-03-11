@@ -1,95 +1,104 @@
-import svelte from 'rollup-plugin-svelte';
+import browsersync from 'rollup-plugin-browsersync';
 import commonjs from 'rollup-plugin-commonjs';
-import copy from 'rollup-plugin-copy'
-import livereload from 'rollup-plugin-livereload';
+import copy from 'rollup-plugin-copy';
+import dist from 'rollup-plugin-copy2';
+import del from 'rollup-plugin-delete';
+import nested from 'postcss-nested';
+import postcss from 'rollup-plugin-postcss';
 import resolve from 'rollup-plugin-node-resolve';
-import postcss from "rollup-plugin-postcss";
-import shader from 'rollup-plugin-shader';
+import { terser } from 'rollup-plugin-terser';
+// import zip from 'rollup-plugin-zip';
 
 const production = !process.env.ROLLUP_WATCH;
 
-export default {
-	input: 'src/main.js',
-	output: {
-		sourcemap: true,
-		format: 'iife',
-		name: 'app',
-		exports: 'named',
-		file: 'public/main.js'
-	},
-	plugins: [
-		svelte({
-			// enable run-time checks when not in production
-			dev: !production,
-			// we'll extract any component CSS out into
-			// a separate file - better for performance
-			css: css => {
-				css.write('public/main.css');
-			}
-		}),
+export default [
 
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration -
-		// consult the documentation for details:
-		// https://github.com/rollup/plugins/tree/master/packages/commonjs
-		resolve({
-			browser: true,
-			dedupe: ['svelte']
-		}),
+	{
+		input: 'src/main.scss',
+		output: {
+			file: 'public/main.css',
+			format: 'es',
 
-		postcss({
-			extract: 'public/global.css',
-			plugins: []
-		}),
+			sourcemap: true,
+		},
+		plugins: [
+			commonjs(),
 
-		commonjs(),
+			del({
+				targets: [
+					'public/data',
+					'public/fonts',
+					'public/imports'
+				],
+				verbose: true
+			}),
 
-		copy({
-			targets: [
-				{ src: 'src/images', dest: 'public/' },
-				{ src: 'src/styles/imports', dest: 'public/' }
-			]
-		}),
+			copy({
+				targets: [
+					{ src: 'src/data', dest: 'public/' },
+					{ src: 'src/fonts/*.eot', dest: 'public/fonts/' },
+					{ src: 'src/fonts/*.svg', dest: 'public/fonts/' },
+					{ src: 'src/fonts/*.ttf', dest: 'public/fonts/' },
+					{ src: 'src/fonts/*.woff', dest: 'public/fonts/' },
+					{ src: 'src/fonts/*.woff2', dest: 'public/fonts/' },
+					{ src: 'src/images', dest: 'public/' },
+					{ src: 'src/styles/imports', dest: 'public/' },
+					{ src: 'static/*', dest: 'public/' }
+				]
+			}),
 
-		shader( {
-			// All match files will be parsed by default,
-			// but you can also specifically include/exclude files
-			include: [
-				'../@sveltejs/gl/**/*.glsl',
-				'**/*.glsl',
-				'**/*.vs',
-				'**/*.fs' ],
-			// specify whether to remove comments
-			removeComments: true,   // default: true
-		} ),
+			postcss({
+				modules: true,
+				extract: true,
+				// extract: 'public/global.css',
+				plugins: [
+				 nested(),
+				 // cssnext({ warnForDuplicates: false, }),
+				 // cssnano(),
+			   ],
+			}),
 
-		// In dev mode, call `npm run start` once
-		// the bundle has been generated
-		!production && serve(),
+			// Watch the `public` directory and refresh the
+			// browser on changes when not in production
+			!production && browsersync({ server: 'dist', startPath: '/InProcess/ReleaseStatistics/' }),
 
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
-		!production && livereload('public')
-	],
-	watch: {
-		clearScreen: false
-	}
-};
+			// In dev mode, call `npm run start` once
+			// the bundle has been generated
+			// !production && serve('public'),
 
-function serve() {
-	let started = false;
-
-	return {
-		writeBundle() {
-			if (!started) {
-				started = true;
-
-				require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-					stdio: ['ignore', 'inherit', 'inherit'],
-					shell: true
-				});
-			}
+			// If we're building for production (npm run build
+			// instead of npm run dev), minify
+			production && terser()
+		],
+		watch: {
+			clearScreen: false
 		}
-	};
-}
+	},
+	{
+		input: 'src/lambda/main.js',
+		output: {
+			dir: 'dist/lambda',
+			format: 'commonjs', //'umd',
+			name: 'self',
+			extend: true,
+			export: 'named',
+		},
+		plugins: [
+			commonjs(),
+			dist({
+				assets: [
+					['src/lambda/index.js', 'index.js'],
+				]
+			}),
+			resolve({
+				browser: false
+			}),
+			// zip({
+			// 	dir: 'dist'
+			// })
+		],
+		watch: {
+			clearScreen: false
+		}
+	}
+];
