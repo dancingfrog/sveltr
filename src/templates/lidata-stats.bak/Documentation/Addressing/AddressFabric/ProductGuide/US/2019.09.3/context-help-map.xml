@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="LandingPage_CommunicationsSuite"
+               path="GeoEnrichmentDatabases/source/LandingPage/LandingPage_USAddressFabric.html"/>
+   <appContext helpID="risk_data_suite"
+               path="GeoEnrichmentDatabases/source/Introduction/US_Address_Fabric_ProductZip.html"/>
+   <appContext helpID="VersionCompatibility_RiskData"
+               path="GeoEnrichmentDatabases/source/Introduction/DataSpec_USAddressFabric.html"/>
+   <appContext helpID="risk_data_suite"
+               path="GeoEnrichmentDatabases/source/Introduction/US_Address_Fabric_Introduction.html"/>
+   <appContext helpID="risk_data_suite"
+               path="GeoEnrichmentDatabases/source/Introduction/US_Address_Fabric_PBKey.html"/>
+   <appContext helpID="Tables_Schema"
+               path="GeoEnrichmentDatabases/source/AddressFabric/Product%20Guide/Tables_Schema.html"/>
+   <appContext helpID="Tables_Schema"
+               path="GeoEnrichmentDatabases/source/AddressFabric/Product%20Guide/Tables_ChangeLog.html"/>
+   <appContext helpID="Tables_Schema"
+               path="GeoEnrichmentDatabases/source/AddressFabric/Product%20Guide/AF_LOC_Type.html"/>
+   <appContext helpID="GettingStarted_ImportingStreetProTrafficData_Tab-Files_in-MIPro"
+               path="GeoEnrichmentDatabases/source/AddressFabric/Product%20Guide/AF_FAQ.html"/>
+   <appContext helpID="copyright"
+               path="Shared/source/legalstuff/copyright_AddressFabricUS.html"/>
+   <appContext helpID="copyright"
+               path="Shared/source/legalstuff/getting_support_traffic.html"/>
+</map>

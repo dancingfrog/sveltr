@@ -1,0 +1,7 @@
+md5: fb887a9c9ede2be335c69f6749873b7b
+outs:
+- md5: 3fc74b8cc05d5f7b16836bfb68e47146.dir
+  path: JPN
+  cache: true
+  metric: false
+  persist: false

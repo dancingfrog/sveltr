@@ -1,0 +1,7 @@
+md5: 18ae2e2c56294bffa92fa554d48c71d2
+outs:
+- md5: 71e67967f77fe4c3d04e4937c6a1f37d.dir
+  path: CYM
+  cache: true
+  metric: false
+  persist: false

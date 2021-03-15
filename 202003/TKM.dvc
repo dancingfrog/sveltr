@@ -1,0 +1,7 @@
+md5: 388615d89282e917ed4c5fed467fbee3
+outs:
+- md5: 3a26294e1d12fdf091e75ffe9a0049d4.dir
+  path: TKM
+  cache: true
+  metric: false
+  persist: false

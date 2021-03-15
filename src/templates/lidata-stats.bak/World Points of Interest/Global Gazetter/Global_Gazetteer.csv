@@ -1,0 +1,1017 @@
+ISO3,Country,MiCode,Micode Description,Count
+ABW,Aruba,80010200,Capital City,1
+ABW,Aruba,80020105,Settlement or equivalent,11
+AFG,Afghanistan,80010200,Capital City,1
+AFG,Afghanistan,80020101,Major City or equivalent,28
+AFG,Afghanistan,80020104,Small Town or equivalent,369
+AGO,Angola,80010200,Capital City,1
+AGO,Angola,80020101,Major City or equivalent,24
+AGO,Angola,80020102,City or equivalent,135
+AGO,Angola,80020103,Major Town or equivalent,88
+AGO,Angola,80020104,Small Town or equivalent,3882
+AGO,Angola,80020105,Settlement or equivalent,129
+AIA,Anguilla,80010200,Capital City,1
+AIA,Anguilla,80020105,Settlement or equivalent,19
+ALB,Albania,80010200,Capital City,1
+ALB,Albania,80020101,Major City or equivalent,11
+ALB,Albania,80020103,Major Town or equivalent,46
+ALB,Albania,80020104,Small Town or equivalent,315
+ALB,Albania,80020105,Settlement or equivalent,2718
+AND,Andorra,80010200,Capital City,1
+AND,Andorra,80020103,Major Town or equivalent,4
+AND,Andorra,80020104,Small Town or equivalent,2
+AND,Andorra,80020105,Settlement or equivalent,51
+ARE,United Arab Emirates,80010200,Capital City,1
+ARE,United Arab Emirates,80020101,Major City or equivalent,9
+ARE,United Arab Emirates,80020103,Major Town or equivalent,13
+ARE,United Arab Emirates,80020104,Small Town or equivalent,887
+ARE,United Arab Emirates,80020105,Settlement or equivalent,34
+ARG,Argentina,80010200,Capital City,1
+ARG,Argentina,80020101,Major City or equivalent,30
+ARG,Argentina,80020103,Major Town or equivalent,424
+ARG,Argentina,80020104,Small Town or equivalent,1361
+ARG,Argentina,80020105,Settlement or equivalent,2789
+ARM,Armenia,80010200,Capital City,1
+ARM,Armenia,80020102,City or equivalent,10
+ARM,Armenia,80020104,Small Town or equivalent,102
+ASM,American Samoa,80010200,Capital City,1
+ASM,American Samoa,80020104,Small Town or equivalent,4
+ATF,French Southern Territories,80020103,Major Town or equivalent,1
+ATF,French Southern Territories,80020104,Small Town or equivalent,2
+ATG,Antigua And Barbuda,80010200,Capital City,1
+ATG,Antigua And Barbuda,80020101,Major City or equivalent,2
+ATG,Antigua And Barbuda,80020103,Major Town or equivalent,4
+ATG,Antigua And Barbuda,80020104,Small Town or equivalent,1
+ATG,Antigua And Barbuda,80020105,Settlement or equivalent,2
+AUS,Australia,80010200,Capital City,2
+AUS,Australia,80020101,Major City or equivalent,14
+AUS,Australia,80020102,City or equivalent,16
+AUS,Australia,80020103,Major Town or equivalent,174
+AUS,Australia,80020104,Small Town or equivalent,20297
+AUS,Australia,80020105,Settlement or equivalent,1736
+AUT,Austria,80010200,Capital City,1
+AUT,Austria,80020101,Major City or equivalent,8
+AUT,Austria,80020102,City or equivalent,72
+AUT,Austria,80020103,Major Town or equivalent,170
+AUT,Austria,80020104,Small Town or equivalent,1872
+AUT,Austria,80020105,Settlement or equivalent,12786
+AZE,Azerbaijan,80010200,Capital City,1
+AZE,Azerbaijan,80020104,Small Town or equivalent,234
+BDI,Burundi,80010200,Capital City,1
+BDI,Burundi,80020101,Major City or equivalent,16
+BDI,Burundi,80020102,City or equivalent,100
+BDI,Burundi,80020103,Major Town or equivalent,11
+BDI,Burundi,80020104,Small Town or equivalent,4647
+BDI,Burundi,80020105,Settlement or equivalent,58
+BEL,Belgium,80010200,Capital City,1
+BEL,Belgium,80020101,Major City or equivalent,2
+BEL,Belgium,80020102,City or equivalent,40
+BEL,Belgium,80020103,Major Town or equivalent,475
+BEL,Belgium,80020104,Small Town or equivalent,2187
+BEL,Belgium,80020105,Settlement or equivalent,1408
+BEN,Benin,80010200,Capital City,1
+BEN,Benin,80020101,Major City or equivalent,12
+BEN,Benin,80020102,City or equivalent,64
+BEN,Benin,80020103,Major Town or equivalent,8
+BEN,Benin,80020104,Small Town or equivalent,606
+BEN,Benin,80020105,Settlement or equivalent,3872
+BES,"Bonaire, Sint Eustatius And Saba",80010200,Capital City,1
+BES,"Bonaire, Sint Eustatius And Saba",80020104,Small Town or equivalent,2
+BES,"Bonaire, Sint Eustatius And Saba",80020105,Settlement or equivalent,6
+BFA,Burkina Faso,80010200,Capital City,1
+BFA,Burkina Faso,80020101,Major City or equivalent,17
+BFA,Burkina Faso,80020102,City or equivalent,32
+BFA,Burkina Faso,80020103,Major Town or equivalent,4
+BFA,Burkina Faso,80020104,Small Town or equivalent,1225
+BFA,Burkina Faso,80020105,Settlement or equivalent,83
+BGD,Bangladesh,80010200,Capital City,1
+BGD,Bangladesh,80020101,Major City or equivalent,4
+BGD,Bangladesh,80020104,Small Town or equivalent,151
+BGR,Bulgaria,80010200,Capital City,1
+BGR,Bulgaria,80020102,City or equivalent,26
+BGR,Bulgaria,80020103,Major Town or equivalent,197
+BGR,Bulgaria,80020104,Small Town or equivalent,63
+BGR,Bulgaria,80020105,Settlement or equivalent,4831
+BHR,Bahrain,80010200,Capital City,1
+BHR,Bahrain,80020102,City or equivalent,4
+BHR,Bahrain,80020104,Small Town or equivalent,149
+BHS,Bahamas,80010200,Capital City,1
+BHS,Bahamas,80020103,Major Town or equivalent,5
+BHS,Bahamas,80020104,Small Town or equivalent,13
+BHS,Bahamas,80020105,Settlement or equivalent,41
+BIH,BosniaAnd Herzegowina,80010200,Capital City,1
+BIH,BosniaAnd Herzegowina,80020101,Major City or equivalent,2
+BIH,BosniaAnd Herzegowina,80020102,City or equivalent,9
+BIH,BosniaAnd Herzegowina,80020103,Major Town or equivalent,103
+BIH,BosniaAnd Herzegowina,80020104,Small Town or equivalent,27
+BIH,BosniaAnd Herzegowina,80020105,Settlement or equivalent,3730
+BLM,Saint Barthélemy,80010200,Capital City,1
+BLM,Saint Barthélemy,80020105,Settlement or equivalent,26
+BLR,Belarus,80010200,Capital City,1
+BLR,Belarus,80020101,Major City or equivalent,5
+BLR,Belarus,80020102,City or equivalent,112
+BLR,Belarus,80020103,Major Town or equivalent,1
+BLR,Belarus,80020105,Settlement or equivalent,60
+BLZ,Belize,80010200,Capital City,1
+BLZ,Belize,80020101,Major City or equivalent,5
+BLZ,Belize,80020104,Small Town or equivalent,42
+BMU,Bermuda,80010200,Capital City,1
+BMU,Bermuda,80020103,Major Town or equivalent,10
+BMU,Bermuda,80020104,Small Town or equivalent,1
+BOL,Bolivia,80010200,Capital City,1
+BOL,Bolivia,80020101,Major City or equivalent,8
+BOL,Bolivia,80020104,Small Town or equivalent,715
+BRA,Brazil,80010200,Capital City,1
+BRA,Brazil,80020101,Major City or equivalent,44
+BRA,Brazil,80020103,Major Town or equivalent,4222
+BRA,Brazil,80020104,Small Town or equivalent,14487
+BRA,Brazil,80020105,Settlement or equivalent,11107
+BRB,Barbados,80010200,Capital City,1
+BRB,Barbados,80020103,Major Town or equivalent,10
+BRB,Barbados,80020105,Settlement or equivalent,2
+BRN,BruneiDarussalam,80010200,Capital City,1
+BRN,BruneiDarussalam,80020102,City or equivalent,3
+BRN,BruneiDarussalam,80020103,Major Town or equivalent,17
+BRN,BruneiDarussalam,80020104,Small Town or equivalent,406
+BRN,BruneiDarussalam,80020105,Settlement or equivalent,42
+BTN,Bhutan,80010200,Capital City,1
+BTN,Bhutan,80020102,City or equivalent,17
+BTN,Bhutan,80020104,Small Town or equivalent,23
+BWA,Botswana,80010200,Capital City,1
+BWA,Botswana,80020101,Major City or equivalent,8
+BWA,Botswana,80020102,City or equivalent,17
+BWA,Botswana,80020103,Major Town or equivalent,28
+BWA,Botswana,80020104,Small Town or equivalent,698
+BWA,Botswana,80020105,Settlement or equivalent,111
+CAF,CentralAfricanRepublic,80010200,Capital City,1
+CAF,CentralAfricanRepublic,80020101,Major City or equivalent,16
+CAF,CentralAfricanRepublic,80020103,Major Town or equivalent,2
+CAF,CentralAfricanRepublic,80020104,Small Town or equivalent,3510
+CAF,CentralAfricanRepublic,80020105,Settlement or equivalent,26
+CAN,Canada,80010200,Capital City,1
+CAN,Canada,80020101,Major City or equivalent,22
+CAN,Canada,80020103,Major Town or equivalent,264
+CAN,Canada,80020104,Small Town or equivalent,4442
+CAN,Canada,80020105,Settlement or equivalent,17431
+CCK,Cocos (Keeling)Islands,80010200,Capital City,1
+CHE,Switzerland,80010200,Capital City,1
+CHE,Switzerland,80020101,Major City or equivalent,25
+CHE,Switzerland,80020102,City or equivalent,122
+CHE,Switzerland,80020103,Major Town or equivalent,217
+CHE,Switzerland,80020104,Small Town or equivalent,1923
+CHE,Switzerland,80020105,Settlement or equivalent,6681
+CHL,Chile,80010200,Capital City,1
+CHL,Chile,80020101,Major City or equivalent,14
+CHL,Chile,80020102,City or equivalent,39
+CHL,Chile,80020103,Major Town or equivalent,252
+CHL,Chile,80020104,Small Town or equivalent,39
+CHL,Chile,80020105,Settlement or equivalent,4204
+CHN,China,80010200,Capital City,1
+CHN,China,80020101,Major City or equivalent,30
+CHN,China,80020104,Small Town or equivalent,5167
+CIV,CoteD'Ivoire,80010200,Capital City,1
+CIV,CoteD'Ivoire,80020101,Major City or equivalent,17
+CIV,CoteD'Ivoire,80020103,Major Town or equivalent,6
+CIV,CoteD'Ivoire,80020104,Small Town or equivalent,3677
+CIV,CoteD'Ivoire,80020105,Settlement or equivalent,46
+CMR,Cameroon,80010200,Capital City,1
+CMR,Cameroon,80020101,Major City or equivalent,16
+CMR,Cameroon,80020102,City or equivalent,45
+CMR,Cameroon,80020103,Major Town or equivalent,2
+CMR,Cameroon,80020104,Small Town or equivalent,469
+CMR,Cameroon,80020105,Settlement or equivalent,12446
+COD,"Congo, The Democratic Republic Of The",80010200,Capital City,1
+COD,"Congo, The Democratic Republic Of The",80020101,Major City or equivalent,50
+COD,"Congo, The Democratic Republic Of The",80020102,City or equivalent,121
+COD,"Congo, The Democratic Republic Of The",80020103,Major Town or equivalent,76
+COD,"Congo, The Democratic Republic Of The",80020104,Small Town or equivalent,13253
+COD,"Congo, The Democratic Republic Of The",80020105,Settlement or equivalent,97
+COG,Congo,80010200,Capital City,1
+COG,Congo,80020101,Major City or equivalent,12
+COG,Congo,80020102,City or equivalent,35
+COG,Congo,80020104,Small Town or equivalent,597
+COG,Congo,80020105,Settlement or equivalent,3631
+COK,CookIslands,80010200,Capital City,1
+COK,CookIslands,80020104,Small Town or equivalent,7
+COL,Colombia,80010200,Capital City,1
+COL,Colombia,80020101,Major City or equivalent,33
+COL,Colombia,80020103,Major Town or equivalent,907
+COL,Colombia,80020104,Small Town or equivalent,5455
+COL,Colombia,80020105,Settlement or equivalent,43522
+COM,Comoros,80010200,Capital City,1
+COM,Comoros,80020101,Major City or equivalent,2
+COM,Comoros,80020103,Major Town or equivalent,2
+COM,Comoros,80020104,Small Town or equivalent,345
+COM,Comoros,80020105,Settlement or equivalent,5
+CPV,Cape Verde,80010200,Capital City,1
+CPV,Cape Verde,80020103,Major Town or equivalent,21
+CPV,Cape Verde,80020104,Small Town or equivalent,13
+CPV,Cape Verde,80020105,Settlement or equivalent,1338
+CRI,Costa Rica,80010200,Capital City,1
+CRI,Costa Rica,80020101,Major City or equivalent,6
+CRI,Costa Rica,80020102,City or equivalent,74
+CRI,Costa Rica,80020103,Major Town or equivalent,192
+CRI,Costa Rica,80020104,Small Town or equivalent,205
+CRI,Costa Rica,80020105,Settlement or equivalent,5940
+CUB,Cuba,80010200,Capital City,1
+CUB,Cuba,80020101,Major City or equivalent,15
+CUB,Cuba,80020103,Major Town or equivalent,152
+CUB,Cuba,80020105,Settlement or equivalent,152
+CUW,Curacao,80010200,Capital City,1
+CUW,Curacao,80020105,Settlement or equivalent,2
+CXR,Christmas Island,80010200,Capital City,1
+CXR,Christmas Island,80020104,Small Town or equivalent,1
+CYM,Cayman Islands,80010200,Capital City,1
+CYM,Cayman Islands,80020103,Major Town or equivalent,2
+CYM,Cayman Islands,80020104,Small Town or equivalent,3
+CYM,Cayman Islands,80020105,Settlement or equivalent,13
+CYP,Cyprus,80010200,Capital City,1
+CYP,Cyprus,80020102,City or equivalent,5
+CYP,Cyprus,80020103,Major Town or equivalent,43
+CYP,Cyprus,80020104,Small Town or equivalent,693
+CYP,Cyprus,80020105,Settlement or equivalent,12
+CZE,Czech Republic,80010200,Capital City,1
+CZE,Czech Republic,80020101,Major City or equivalent,12
+CZE,Czech Republic,80020102,City or equivalent,59
+CZE,Czech Republic,80020103,Major Town or equivalent,198
+CZE,Czech Republic,80020104,Small Town or equivalent,6120
+CZE,Czech Republic,80020105,Settlement or equivalent,10013
+DEU,Germany,80010200,Capital City,1
+DEU,Germany,80020101,Major City or equivalent,21
+DEU,Germany,80020102,City or equivalent,347
+DEU,Germany,80020103,Major Town or equivalent,2597
+DEU,Germany,80020104,Small Town or equivalent,9536
+DEU,Germany,80020105,Settlement or equivalent,77752
+DJI,Djibouti,80010200,Capital City,1
+DJI,Djibouti,80020101,Major City or equivalent,5
+DJI,Djibouti,80020104,Small Town or equivalent,32
+DJI,Djibouti,80020105,Settlement or equivalent,4
+DMA,Dominica,80010200,Capital City,1
+DMA,Dominica,80020103,Major Town or equivalent,6
+DMA,Dominica,80020104,Small Town or equivalent,3
+DMA,Dominica,80020105,Settlement or equivalent,3
+DNK,Denmark,80010200,Capital City,1
+DNK,Denmark,80020102,City or equivalent,4
+DNK,Denmark,80020103,Major Town or equivalent,90
+DNK,Denmark,80020104,Small Town or equivalent,4
+DNK,Denmark,80020105,Settlement or equivalent,11785
+DOM,Dominican Republic,80010200,Capital City,1
+DOM,Dominican Republic,80020101,Major City or equivalent,32
+DOM,Dominican Republic,80020103,Major Town or equivalent,117
+DOM,Dominican Republic,80020104,Small Town or equivalent,74
+DOM,Dominican Republic,80020105,Settlement or equivalent,181
+DZA,Algeria,80010200,Capital City,1
+DZA,Algeria,80020101,Major City or equivalent,47
+DZA,Algeria,80020102,City or equivalent,500
+DZA,Algeria,80020103,Major Town or equivalent,792
+DZA,Algeria,80020104,Small Town or equivalent,201
+ECU,Ecuador,80010200,Capital City,1
+ECU,Ecuador,80020101,Major City or equivalent,20
+ECU,Ecuador,80020104,Small Town or equivalent,240
+EGY,Egypt,80010200,Capital City,1
+EGY,Egypt,80020101,Major City or equivalent,53
+EGY,Egypt,80020102,City or equivalent,191
+EGY,Egypt,80020103,Major Town or equivalent,181
+EGY,Egypt,80020104,Small Town or equivalent,5282
+EGY,Egypt,80020105,Settlement or equivalent,8583
+ERI,Eritrea,80010200,Capital City,1
+ERI,Eritrea,80020101,Major City or equivalent,5
+ERI,Eritrea,80020103,Major Town or equivalent,1
+ERI,Eritrea,80020104,Small Town or equivalent,802
+ERI,Eritrea,80020105,Settlement or equivalent,1
+ESP,Spain,80010200,Capital City,1
+ESP,Spain,80020101,Major City or equivalent,19
+ESP,Spain,80020102,City or equivalent,34
+ESP,Spain,80020103,Major Town or equivalent,1263
+ESP,Spain,80020104,Small Town or equivalent,6803
+ESP,Spain,80020105,Settlement or equivalent,57014
+EST,Estonia,80010200,Capital City,1
+EST,Estonia,80020102,City or equivalent,14
+EST,Estonia,80020103,Major Town or equivalent,34
+EST,Estonia,80020104,Small Town or equivalent,4663
+EST,Estonia,80020105,Settlement or equivalent,201
+ETH,Ethiopia,80010200,Capital City,1
+ETH,Ethiopia,80020101,Major City or equivalent,10
+ETH,Ethiopia,80020103,Major Town or equivalent,3
+ETH,Ethiopia,80020104,Small Town or equivalent,6420
+ETH,Ethiopia,80020105,Settlement or equivalent,208
+FIN,Finland,80010200,Capital City,1
+FIN,Finland,80020102,City or equivalent,17
+FIN,Finland,80020103,Major Town or equivalent,161
+FIN,Finland,80020104,Small Town or equivalent,134
+FIN,Finland,80020105,Settlement or equivalent,132484
+FJI,Fiji,80010200,Capital City,1
+FJI,Fiji,80020103,Major Town or equivalent,1
+FJI,Fiji,80020104,Small Town or equivalent,87
+FLK,Falkland Islands(Malvinas),80010200,Capital City,1
+FLK,Falkland Islands(Malvinas),80020104,Small Town or equivalent,15
+FRA,France,80010200,Capital City,1
+FRA,France,80020101,Major City or equivalent,21
+FRA,France,80020102,City or equivalent,74
+FRA,France,80020103,Major Town or equivalent,1967
+FRA,France,80020104,Small Town or equivalent,34511
+FRA,France,80020105,Settlement or equivalent,81187
+FRO,Faroe Islands,80010200,Capital City,1
+FRO,Faroe Islands,80020104,Small Town or equivalent,1
+FSM,"Micronesia, Federated States Of",80010200,Capital City,1
+FSM,"Micronesia, Federated States Of",80020104,Small Town or equivalent,2
+GAB,Gabon,80010200,Capital City,1
+GAB,Gabon,80020101,Major City or equivalent,8
+GAB,Gabon,80020102,City or equivalent,38
+GAB,Gabon,80020103,Major Town or equivalent,1
+GAB,Gabon,80020104,Small Town or equivalent,609
+GAB,Gabon,80020105,Settlement or equivalent,3010
+GBR,United Kingdom,80010200,Capital City,1
+GBR,United Kingdom,80020101,Major City or equivalent,10
+GBR,United Kingdom,80020102,City or equivalent,214
+GBR,United Kingdom,80020103,Major Town or equivalent,210
+GBR,United Kingdom,80020104,Small Town or equivalent,11064
+GBR,United Kingdom,80020105,Settlement or equivalent,21240
+GEO,Georgia,80010200,Capital City,1
+GEO,Georgia,80020102,City or equivalent,11
+GEO,Georgia,80020104,Small Town or equivalent,142
+GHA,Ghana,80010200,Capital City,1
+GHA,Ghana,80020101,Major City or equivalent,11
+GHA,Ghana,80020102,City or equivalent,103
+GHA,Ghana,80020103,Major Town or equivalent,6
+GHA,Ghana,80020104,Small Town or equivalent,1670
+GHA,Ghana,80020105,Settlement or equivalent,49
+GIB,Gibraltar,80010200,Capital City,1
+GIB,Gibraltar,80020105,Settlement or equivalent,2
+GIN,Guinea,80010200,Capital City,1
+GIN,Guinea,80020101,Major City or equivalent,7
+GIN,Guinea,80020103,Major Town or equivalent,1
+GIN,Guinea,80020104,Small Town or equivalent,6259
+GIN,Guinea,80020105,Settlement or equivalent,26
+GLP,Guadeloupe,80010200,Capital City,1
+GLP,Guadeloupe,80020103,Major Town or equivalent,24
+GLP,Guadeloupe,80020104,Small Town or equivalent,7
+GLP,Guadeloupe,80020105,Settlement or equivalent,1085
+GMB,Gambia,80010200,Capital City,1
+GMB,Gambia,80020101,Major City or equivalent,5
+GMB,Gambia,80020103,Major Town or equivalent,8
+GMB,Gambia,80020104,Small Town or equivalent,1133
+GMB,Gambia,80020105,Settlement or equivalent,51
+GNB,Guinea-Bissau,80010200,Capital City,1
+GNB,Guinea-Bissau,80020102,City or equivalent,8
+GNB,Guinea-Bissau,80020103,Major Town or equivalent,1
+GNB,Guinea-Bissau,80020104,Small Town or equivalent,2220
+GNB,Guinea-Bissau,80020105,Settlement or equivalent,17
+GNQ,EquatorialGuinea,80010200,Capital City,1
+GNQ,EquatorialGuinea,80020101,Major City or equivalent,6
+GNQ,EquatorialGuinea,80020103,Major Town or equivalent,1
+GNQ,EquatorialGuinea,80020104,Small Town or equivalent,826
+GNQ,EquatorialGuinea,80020105,Settlement or equivalent,7
+GRC,Greece,80010200,Capital City,1
+GRC,Greece,80020101,Major City or equivalent,12
+GRC,Greece,80020102,City or equivalent,62
+GRC,Greece,80020103,Major Town or equivalent,205
+GRC,Greece,80020104,Small Town or equivalent,752
+GRC,Greece,80020105,Settlement or equivalent,12144
+GRD,Grenada,80010200,Capital City,1
+GRD,Grenada,80020101,Major City or equivalent,2
+GRD,Grenada,80020103,Major Town or equivalent,4
+GRD,Grenada,80020104,Small Town or equivalent,1
+GRD,Grenada,80020105,Settlement or equivalent,2
+GRL,Greenland,80010200,Capital City,1
+GRL,Greenland,80020104,Small Town or equivalent,131
+GTM,Guatemala,80010200,Capital City,1
+GTM,Guatemala,80020101,Major City or equivalent,22
+GTM,Guatemala,80020103,Major Town or equivalent,304
+GTM,Guatemala,80020104,Small Town or equivalent,4
+GTM,Guatemala,80020105,Settlement or equivalent,4442
+GUF,French Guiana,80010200,Capital City,1
+GUF,French Guiana,80020103,Major Town or equivalent,7
+GUF,French Guiana,80020104,Small Town or equivalent,14
+GUF,French Guiana,80020105,Settlement or equivalent,171
+GUY,Guyana,80010200,Capital City,1
+GUY,Guyana,80020101,Major City or equivalent,9
+GUY,Guyana,80020104,Small Town or equivalent,68
+HKG,Hong Kong,80020101,Major City or equivalent,1
+HKG,Hong Kong,80020104,Small Town or equivalent,17
+HKG,Hong Kong,80020105,Settlement or equivalent,323
+HND,Honduras,80010200,Capital City,1
+HND,Honduras,80020101,Major City or equivalent,18
+HND,Honduras,80020103,Major Town or equivalent,236
+HND,Honduras,80020104,Small Town or equivalent,44
+HND,Honduras,80020105,Settlement or equivalent,270
+HRV,Croatia(Local Name,80010200,Capital City,1
+HRV,Croatia(Local Name,80020102,City or equivalent,19
+HRV,Croatia(Local Name,80020103,Major Town or equivalent,142
+HRV,Croatia(Local Name,80020104,Small Town or equivalent,410
+HRV,Croatia(Local Name,80020105,Settlement or equivalent,7164
+HTI,Haiti,80010200,Capital City,1
+HTI,Haiti,80020101,Major City or equivalent,9
+HTI,Haiti,80020102,City or equivalent,32
+HTI,Haiti,80020103,Major Town or equivalent,98
+HTI,Haiti,80020105,Settlement or equivalent,36
+HUN,Hungary,80010200,Capital City,1
+HUN,Hungary,80020101,Major City or equivalent,18
+HUN,Hungary,80020103,Major Town or equivalent,259
+HUN,Hungary,80020104,Small Town or equivalent,2899
+HUN,Hungary,80020105,Settlement or equivalent,2491
+IDN,Indonesia,80010200,Capital City,1
+IDN,Indonesia,80020101,Major City or equivalent,39
+IDN,Indonesia,80020102,City or equivalent,382
+IDN,Indonesia,80020103,Major Town or equivalent,3935
+IDN,Indonesia,80020104,Small Town or equivalent,35851
+IDN,Indonesia,80020105,Settlement or equivalent,1912
+IND,India,80010200,Capital City,1
+IND,India,80020101,Major City or equivalent,33
+IND,India,80020103,Major Town or equivalent,2
+IND,India,80020104,Small Town or equivalent,4702
+IND,India,80020105,Settlement or equivalent,4
+IOT,British Indian Ocean Territory,80020103,Major Town or equivalent,1
+IOT,British Indian Ocean Territory,80020104,Small Town or equivalent,1
+IRL,Ireland,80010200,Capital City,1
+IRL,Ireland,80020101,Major City or equivalent,1
+IRL,Ireland,80020102,City or equivalent,24
+IRL,Ireland,80020103,Major Town or equivalent,3
+IRL,Ireland,80020105,Settlement or equivalent,7090
+IRN,Iran(Islamic Republic Of),80010200,Capital City,1
+IRN,Iran(Islamic Republic Of),80020102,City or equivalent,23
+IRN,Iran(Islamic Republic Of),80020104,Small Town or equivalent,1000
+IRQ,Iraq,80010200,Capital City,1
+IRQ,Iraq,80020101,Major City or equivalent,20
+IRQ,Iraq,80020102,City or equivalent,96
+IRQ,Iraq,80020103,Major Town or equivalent,7
+IRQ,Iraq,80020104,Small Town or equivalent,85
+ISL,Iceland,80010200,Capital City,1
+ISL,Iceland,80020103,Major Town or equivalent,8
+ISL,Iceland,80020104,Small Town or equivalent,65
+ISL,Iceland,80020105,Settlement or equivalent,4874
+ISR,Israel,80010200,Capital City,1
+ISR,Israel,80020102,City or equivalent,5
+ISR,Israel,80020104,Small Town or equivalent,47
+ITA,Italy,80010200,Capital City,1
+ITA,Italy,80020101,Major City or equivalent,19
+ITA,Italy,80020102,City or equivalent,90
+ITA,Italy,80020103,Major Town or equivalent,2304
+ITA,Italy,80020104,Small Town or equivalent,5584
+ITA,Italy,80020105,Settlement or equivalent,60579
+JAM,Jamaica,80010200,Capital City,1
+JAM,Jamaica,80020101,Major City or equivalent,2
+JAM,Jamaica,80020103,Major Town or equivalent,11
+JAM,Jamaica,80020105,Settlement or equivalent,1667
+JOR,Jordan,80010200,Capital City,1
+JOR,Jordan,80020101,Major City or equivalent,11
+JOR,Jordan,80020102,City or equivalent,81
+JOR,Jordan,80020103,Major Town or equivalent,7
+JOR,Jordan,80020104,Small Town or equivalent,63
+JOR,Jordan,80020105,Settlement or equivalent,284
+JPN,Japan,80010200,Capital City,1
+JPN,Japan,80020102,City or equivalent,8
+JPN,Japan,80020104,Small Town or equivalent,1472
+JPN,Japan,80020105,Settlement or equivalent,2
+KAZ,Kazakhstan,80010200,Capital City,1
+KAZ,Kazakhstan,80020101,Major City or equivalent,13
+KAZ,Kazakhstan,80020104,Small Town or equivalent,1481
+KAZ,Kazakhstan,80020105,Settlement or equivalent,8
+KEN,Kenya,80010200,Capital City,1
+KEN,Kenya,80020101,Major City or equivalent,39
+KEN,Kenya,80020102,City or equivalent,41
+KEN,Kenya,80020103,Major Town or equivalent,48
+KEN,Kenya,80020104,Small Town or equivalent,710
+KEN,Kenya,80020105,Settlement or equivalent,4782
+KGZ,Kyrgyzstan,80010200,Capital City,1
+KGZ,Kyrgyzstan,80020102,City or equivalent,6
+KGZ,Kyrgyzstan,80020104,Small Town or equivalent,162
+KHM,Cambodia,80010200,Capital City,1
+KHM,Cambodia,80020101,Major City or equivalent,18
+KHM,Cambodia,80020104,Small Town or equivalent,177
+KIR,Kiribati,80010200,Capital City,1
+KIR,Kiribati,80020103,Major Town or equivalent,1
+KIR,Kiribati,80020104,Small Town or equivalent,7
+KNA,Saint Kitts And Nevis,80010200,Capital City,1
+KNA,Saint Kitts And Nevis,80020101,Major City or equivalent,1
+KNA,Saint Kitts And Nevis,80020104,Small Town or equivalent,12
+KOR,"Korea,RepublicOf",80010200,Capital City,1
+KOR,"Korea,RepublicOf",80020102,City or equivalent,14
+KOR,"Korea,RepublicOf",80020104,Small Town or equivalent,193
+KWT,Kuwait,80010200,Capital City,1
+KWT,Kuwait,80020102,City or equivalent,5
+KWT,Kuwait,80020103,Major Town or equivalent,80
+KWT,Kuwait,80020104,Small Town or equivalent,592
+KWT,Kuwait,80020105,Settlement or equivalent,119
+LAO,Lao People'S Democratic Republic,80010200,Capital City,1
+LAO,Lao People'S Democratic Republic,80020101,Major City or equivalent,16
+LAO,Lao People'S Democratic Republic,80020104,Small Town or equivalent,222
+LBN,Lebanon,80010200,Capital City,1
+LBN,Lebanon,80020101,Major City or equivalent,5
+LBN,Lebanon,80020103,Major Town or equivalent,21
+LBN,Lebanon,80020104,Small Town or equivalent,1600
+LBN,Lebanon,80020105,Settlement or equivalent,991
+LBR,Liberia,80010200,Capital City,1
+LBR,Liberia,80020102,City or equivalent,13
+LBR,Liberia,80020103,Major Town or equivalent,2
+LBR,Liberia,80020104,Small Town or equivalent,133
+LBR,Liberia,80020105,Settlement or equivalent,22
+LBY,Libyan Arab Jamahiriya,80010200,Capital City,1
+LBY,Libyan Arab Jamahiriya,80020101,Major City or equivalent,21
+LBY,Libyan Arab Jamahiriya,80020103,Major Town or equivalent,2
+LBY,Libyan Arab Jamahiriya,80020104,Small Town or equivalent,660
+LBY,Libyan Arab Jamahiriya,80020105,Settlement or equivalent,45
+LCA,Saint Lucia,80010200,Capital City,1
+LCA,Saint Lucia,80020103,Major Town or equivalent,8
+LCA,Saint Lucia,80020104,Small Town or equivalent,1
+LCA,Saint Lucia,80020105,Settlement or equivalent,1
+LIE,Liechtenstein,80010200,Capital City,1
+LIE,Liechtenstein,80020102,City or equivalent,1
+LIE,Liechtenstein,80020103,Major Town or equivalent,1
+LIE,Liechtenstein,80020104,Small Town or equivalent,8
+LIE,Liechtenstein,80020105,Settlement or equivalent,16
+LKA,Sri Lanka,80010200,Capital City,1
+LKA,Sri Lanka,80020101,Major City or equivalent,8
+LKA,Sri Lanka,80020104,Small Town or equivalent,132
+LKA,Sri Lanka,80020105,Settlement or equivalent,1
+LSO,Lesotho,80010200,Capital City,1
+LSO,Lesotho,80020102,City or equivalent,9
+LSO,Lesotho,80020103,Major Town or equivalent,15
+LSO,Lesotho,80020104,Small Town or equivalent,146
+LSO,Lesotho,80020105,Settlement or equivalent,2846
+LTU,Lithuania,80010200,Capital City,1
+LTU,Lithuania,80020102,City or equivalent,9
+LTU,Lithuania,80020103,Major Town or equivalent,48
+LTU,Lithuania,80020104,Small Town or equivalent,174
+LTU,Lithuania,80020105,Settlement or equivalent,15654
+LUX,Luxembourg,80010200,Capital City,1
+LUX,Luxembourg,80020101,Major City or equivalent,2
+LUX,Luxembourg,80020102,City or equivalent,9
+LUX,Luxembourg,80020103,Major Town or equivalent,20
+LUX,Luxembourg,80020104,Small Town or equivalent,490
+LUX,Luxembourg,80020105,Settlement or equivalent,188
+LVA,Latvia,80010200,Capital City,1
+LVA,Latvia,80020102,City or equivalent,112
+LVA,Latvia,80020103,Major Town or equivalent,4
+LVA,Latvia,80020104,Small Town or equivalent,437
+LVA,Latvia,80020105,Settlement or equivalent,4712
+MAC,Macau,80020101,Major City or equivalent,1
+MAC,Macau,80020104,Small Town or equivalent,7
+MAC,Macau,80020105,Settlement or equivalent,1
+MAF,Saint Martin,80010200,Capital City,1
+MAF,Saint Martin,80020105,Settlement or equivalent,20
+MAR,Morocco,80010200,Capital City,1
+MAR,Morocco,80020101,Major City or equivalent,15
+MAR,Morocco,80020102,City or equivalent,45
+MAR,Morocco,80020103,Major Town or equivalent,1250
+MAR,Morocco,80020104,Small Town or equivalent,228
+MAR,Morocco,80020105,Settlement or equivalent,94
+MCO,Monaco,80010200,Capital City,1
+MDA,"Moldova,RepublicOf",80010200,Capital City,1
+MDA,"Moldova,RepublicOf",80020102,City or equivalent,36
+MDA,"Moldova,RepublicOf",80020103,Major Town or equivalent,87
+MDA,"Moldova,RepublicOf",80020104,Small Town or equivalent,858
+MDA,"Moldova,RepublicOf",80020105,Settlement or equivalent,692
+MDG,Madagascar,80010200,Capital City,1
+MDG,Madagascar,80020101,Major City or equivalent,21
+MDG,Madagascar,80020104,Small Town or equivalent,973
+MDG,Madagascar,80020105,Settlement or equivalent,27
+MDV,Maldives,80010200,Capital City,1
+MDV,Maldives,80020102,City or equivalent,17
+MDV,Maldives,80020104,Small Town or equivalent,8
+MEX,Mexico,80010200,Capital City,1
+MEX,Mexico,80020101,Major City or equivalent,56
+MEX,Mexico,80020103,Major Town or equivalent,1712
+MEX,Mexico,80020104,Small Town or equivalent,9211
+MEX,Mexico,80020105,Settlement or equivalent,48410
+MHL,Marshall Islands,80010200,Capital City,1
+MKD,"Macedonia, TheFormerYugoslavRepublicOf",80010200,Capital City,1
+MKD,"Macedonia, TheFormerYugoslavRepublicOf",80020102,City or equivalent,7
+MKD,"Macedonia, TheFormerYugoslavRepublicOf",80020103,Major Town or equivalent,49
+MKD,"Macedonia, TheFormerYugoslavRepublicOf",80020104,Small Town or equivalent,23
+MKD,"Macedonia, TheFormerYugoslavRepublicOf",80020105,Settlement or equivalent,2382
+MLI,Mali,80010200,Capital City,1
+MLI,Mali,80020101,Major City or equivalent,7
+MLI,Mali,80020102,City or equivalent,1
+MLI,Mali,80020104,Small Town or equivalent,606
+MLI,Mali,80020105,Settlement or equivalent,12271
+MLT,Malta,80010200,Capital City,1
+MLT,Malta,80020103,Major Town or equivalent,29
+MLT,Malta,80020104,Small Town or equivalent,38
+MLT,Malta,80020105,Settlement or equivalent,53
+MMR,Myanmar,80010200,Capital City,1
+MMR,Myanmar,80020101,Major City or equivalent,13
+MMR,Myanmar,80020104,Small Town or equivalent,711
+MNE,Montenegro,80010200,Capital City,1
+MNE,Montenegro,80020103,Major Town or equivalent,17
+MNE,Montenegro,80020104,Small Town or equivalent,3
+MNE,Montenegro,80020105,Settlement or equivalent,1389
+MNG,Mongolia,80010200,Capital City,1
+MNG,Mongolia,80020102,City or equivalent,19
+MNG,Mongolia,80020104,Small Town or equivalent,282
+MNP,Northern Mariana Islands,80010200,Capital City,1
+MNP,Northern Mariana Islands,80020104,Small Town or equivalent,7
+MOZ,Mozambique,80010200,Capital City,1
+MOZ,Mozambique,80020101,Major City or equivalent,10
+MOZ,Mozambique,80020102,City or equivalent,127
+MOZ,Mozambique,80020103,Major Town or equivalent,42
+MOZ,Mozambique,80020104,Small Town or equivalent,5749
+MOZ,Mozambique,80020105,Settlement or equivalent,61
+MRT,Mauritania,80010200,Capital City,1
+MRT,Mauritania,80020101,Major City or equivalent,13
+MRT,Mauritania,80020102,City or equivalent,28
+MRT,Mauritania,80020103,Major Town or equivalent,9
+MRT,Mauritania,80020104,Small Town or equivalent,110
+MRT,Mauritania,80020105,Settlement or equivalent,706
+MSR,Montserrat,80010200,Capital City,1
+MSR,Montserrat,80020103,Major Town or equivalent,1
+MSR,Montserrat,80020104,Small Town or equivalent,1
+MSR,Montserrat,80020105,Settlement or equivalent,1
+MTQ,Martinique,80010200,Capital City,1
+MTQ,Martinique,80020103,Major Town or equivalent,18
+MTQ,Martinique,80020104,Small Town or equivalent,15
+MTQ,Martinique,80020105,Settlement or equivalent,938
+MUS,Mauritius,80010200,Capital City,1
+MUS,Mauritius,80020102,City or equivalent,12
+MUS,Mauritius,80020103,Major Town or equivalent,42
+MUS,Mauritius,80020104,Small Town or equivalent,93
+MUS,Mauritius,80020105,Settlement or equivalent,741
+MWI,Malawi,80010200,Capital City,1
+MWI,Malawi,80020101,Major City or equivalent,17
+MWI,Malawi,80020102,City or equivalent,15
+MWI,Malawi,80020103,Major Town or equivalent,6
+MWI,Malawi,80020104,Small Town or equivalent,3655
+MWI,Malawi,80020105,Settlement or equivalent,548
+MYS,Malaysia,80010200,Capital City,1
+MYS,Malaysia,80020101,Major City or equivalent,18
+MYS,Malaysia,80020102,City or equivalent,87
+MYS,Malaysia,80020103,Major Town or equivalent,567
+MYS,Malaysia,80020104,Small Town or equivalent,241
+MYS,Malaysia,80020105,Settlement or equivalent,21433
+MYT,Mayotte,80010200,Capital City,1
+MYT,Mayotte,80020103,Major Town or equivalent,15
+MYT,Mayotte,80020104,Small Town or equivalent,1
+MYT,Mayotte,80020105,Settlement or equivalent,99
+NAM,Namibia,80010200,Capital City,1
+NAM,Namibia,80020101,Major City or equivalent,13
+NAM,Namibia,80020102,City or equivalent,76
+NAM,Namibia,80020103,Major Town or equivalent,35
+NAM,Namibia,80020104,Small Town or equivalent,351
+NAM,Namibia,80020105,Settlement or equivalent,142
+NCL,New Caledonia,80010200,Capital City,1
+NCL,New Caledonia,80020104,Small Town or equivalent,103
+NER,Niger,80010200,Capital City,1
+NER,Niger,80020101,Major City or equivalent,8
+NER,Niger,80020102,City or equivalent,5
+NER,Niger,80020103,Major Town or equivalent,4
+NER,Niger,80020104,Small Town or equivalent,2378
+NER,Niger,80020105,Settlement or equivalent,9454
+NFK,Norfolk Island,80010200,Capital City,1
+NGA,Nigeria,80010200,Capital City,1
+NGA,Nigeria,80020101,Major City or equivalent,54
+NGA,Nigeria,80020102,City or equivalent,26
+NGA,Nigeria,80020103,Major Town or equivalent,207
+NGA,Nigeria,80020104,Small Town or equivalent,10871
+NGA,Nigeria,80020105,Settlement or equivalent,36493
+NIC,Nicaragua,80010200,Capital City,1
+NIC,Nicaragua,80020101,Major City or equivalent,15
+NIC,Nicaragua,80020103,Major Town or equivalent,130
+NIC,Nicaragua,80020104,Small Town or equivalent,5
+NIC,Nicaragua,80020105,Settlement or equivalent,7211
+NIU,Niue,80010200,Capital City,1
+NIU,Niue,80020104,Small Town or equivalent,5
+NLD,Netherlands,80010200,Capital City,1
+NLD,Netherlands,80020101,Major City or equivalent,2
+NLD,Netherlands,80020102,City or equivalent,11
+NLD,Netherlands,80020103,Major Town or equivalent,369
+NLD,Netherlands,80020104,Small Town or equivalent,2083
+NLD,Netherlands,80020105,Settlement or equivalent,1820
+NOR,Norway,80010200,Capital City,1
+NOR,Norway,80020102,City or equivalent,19
+NOR,Norway,80020103,Major Town or equivalent,185
+NOR,Norway,80020104,Small Town or equivalent,225
+NOR,Norway,80020105,Settlement or equivalent,83923
+NPL,Nepal,80010200,Capital City,1
+NPL,Nepal,80020102,City or equivalent,13
+NPL,Nepal,80020104,Small Town or equivalent,110
+NZL,New Zealand,80010200,Capital City,1
+NZL,New Zealand,80020101,Major City or equivalent,3
+NZL,New Zealand,80020102,City or equivalent,61
+NZL,New Zealand,80020103,Major Town or equivalent,29
+NZL,New Zealand,80020104,Small Town or equivalent,3239
+NZL,New Zealand,80020105,Settlement or equivalent,1807
+OMN,Oman,80010200,Capital City,1
+OMN,Oman,80020102,City or equivalent,8
+OMN,Oman,80020103,Major Town or equivalent,42
+OMN,Oman,80020104,Small Town or equivalent,71
+OMN,Oman,80020105,Settlement or equivalent,13
+PAK,Pakistan,80010200,Capital City,1
+PAK,Pakistan,80020102,City or equivalent,5
+PAK,Pakistan,80020103,Major Town or equivalent,1
+PAK,Pakistan,80020104,Small Town or equivalent,775
+PAN,Panama,80010200,Capital City,1
+PAN,Panama,80020101,Major City or equivalent,11
+PAN,Panama,80020102,City or equivalent,64
+PAN,Panama,80020103,Major Town or equivalent,123
+PAN,Panama,80020104,Small Town or equivalent,395
+PAN,Panama,80020105,Settlement or equivalent,2081
+PCN,Pitcairn,80010200,Capital City,1
+PER,Peru,80010200,Capital City,1
+PER,Peru,80020101,Major City or equivalent,28
+PER,Peru,80020102,City or equivalent,170
+PER,Peru,80020103,Major Town or equivalent,700
+PER,Peru,80020104,Small Town or equivalent,935
+PER,Peru,80020105,Settlement or equivalent,519
+PHL,Philippines,80010200,Capital City,1
+PHL,Philippines,80020101,Major City or equivalent,29
+PHL,Philippines,80020102,City or equivalent,63
+PHL,Philippines,80020103,Major Town or equivalent,1509
+PHL,Philippines,80020104,Small Town or equivalent,40373
+PHL,Philippines,80020105,Settlement or equivalent,1726
+PLW,Palau,80010200,Capital City,1
+PLW,Palau,80020104,Small Town or equivalent,9
+PNG,Papua NewGuinea,80010200,Capital City,1
+PNG,Papua NewGuinea,80020102,City or equivalent,18
+PNG,Papua NewGuinea,80020103,Major Town or equivalent,1
+PNG,Papua NewGuinea,80020104,Small Town or equivalent,907
+POL,Poland,80010200,Capital City,1
+POL,Poland,80020101,Major City or equivalent,15
+POL,Poland,80020102,City or equivalent,319
+POL,Poland,80020103,Major Town or equivalent,1649
+POL,Poland,80020104,Small Town or equivalent,899
+POL,Poland,80020105,Settlement or equivalent,60120
+PRI,Puerto Rico,80020101,Major City or equivalent,1
+PRI,Puerto Rico,80020103,Major Town or equivalent,76
+PRI,Puerto Rico,80020104,Small Town or equivalent,725
+PRI,Puerto Rico,80020105,Settlement or equivalent,795
+PRK,"Korea, Democratic People'SRepublicOf",80010200,Capital City,1
+PRK,"Korea, Democratic People'SRepublicOf",80020102,City or equivalent,10
+PRK,"Korea, Democratic People'SRepublicOf",80020104,Small Town or equivalent,182
+PRT,Portugal,80010200,Capital City,1
+PRT,Portugal,80020102,City or equivalent,17
+PRT,Portugal,80020103,Major Town or equivalent,258
+PRT,Portugal,80020104,Small Town or equivalent,4078
+PRT,Portugal,80020105,Settlement or equivalent,14539
+PRY,Paraguay,80010200,Capital City,1
+PRY,Paraguay,80020102,City or equivalent,18
+PRY,Paraguay,80020104,Small Town or equivalent,121
+PSE,"Palestine, State Of. Pyf, French Polynesia",80020101,Major City or equivalent,1
+PSE,"Palestine, State Of. Pyf, French Polynesia",80020102,City or equivalent,1
+PSE,"Palestine, State Of. Pyf, French Polynesia",80020104,Small Town or equivalent,9
+PSE,"Palestine, State Of. Pyf, French Polynesia",80020105,Settlement or equivalent,1
+PYF,French Polynesia,80010200,Capital City,1
+PYF,French Polynesia,80020104,Small Town or equivalent,37
+QAT,Qatar,80010200,Capital City,1
+QAT,Qatar,80020103,Major Town or equivalent,6
+QAT,Qatar,80020104,Small Town or equivalent,84
+QAT,Qatar,80020105,Settlement or equivalent,154
+REU,Reunion,80010200,Capital City,1
+REU,Reunion,80020103,Major Town or equivalent,23
+REU,Reunion,80020105,Settlement or equivalent,798
+ROU,Romania,80010200,Capital City,1
+ROU,Romania,80020102,City or equivalent,40
+ROU,Romania,80020103,Major Town or equivalent,663
+ROU,Romania,80020104,Small Town or equivalent,2483
+ROU,Romania,80020105,Settlement or equivalent,10571
+RUS,Russian Federation,80010200,Capital City,1
+RUS,Russian Federation,80020101,Major City or equivalent,36
+RUS,Russian Federation,80020102,City or equivalent,2110
+RUS,Russian Federation,80020103,Major Town or equivalent,1101
+RUS,Russian Federation,80020104,Small Town or equivalent,5309
+RUS,Russian Federation,80020105,Settlement or equivalent,96132
+RWA,Rwanda,80010200,Capital City,1
+RWA,Rwanda,80020101,Major City or equivalent,5
+RWA,Rwanda,80020102,City or equivalent,23
+RWA,Rwanda,80020103,Major Town or equivalent,11
+RWA,Rwanda,80020104,Small Town or equivalent,7672
+RWA,Rwanda,80020105,Settlement or equivalent,98
+SAU,Saudi Arabia,80010200,Capital City,1
+SAU,Saudi Arabia,80020101,Major City or equivalent,23
+SAU,Saudi Arabia,80020103,Major Town or equivalent,105
+SAU,Saudi Arabia,80020104,Small Town or equivalent,2031
+SAU,Saudi Arabia,80020105,Settlement or equivalent,504
+SDN,Sudan,80010200,Capital City,1
+SDN,Sudan,80020102,City or equivalent,14
+SDN,Sudan,80020103,Major Town or equivalent,9
+SDN,Sudan,80020104,Small Town or equivalent,1543
+SDN,Sudan,80020105,Settlement or equivalent,70
+SEN,Senegal,80010200,Capital City,1
+SEN,Senegal,80020101,Major City or equivalent,7
+SEN,Senegal,80020102,City or equivalent,12
+SEN,Senegal,80020103,Major Town or equivalent,4
+SEN,Senegal,80020104,Small Town or equivalent,362
+SEN,Senegal,80020105,Settlement or equivalent,3836
+SGP,Singapore,80010200,Capital City,1
+SGP,Singapore,80020104,Small Town or equivalent,53
+SGP,Singapore,80020105,Settlement or equivalent,28
+SGS,South GeorgiaAnd TheSouth Sandwich Islands,80010200,Capital City,1
+SGS,South GeorgiaAnd TheSouth Sandwich Islands,80020104,Small Town or equivalent,3
+SHN,St. Helena,80010200,Capital City,1
+SHN,St. Helena,80020104,Small Town or equivalent,1
+SLB,Solomon Islands,80010200,Capital City,1
+SLB,Solomon Islands,80020104,Small Town or equivalent,93
+SLE,Sierra Leone,80010200,Capital City,1
+SLE,Sierra Leone,80020101,Major City or equivalent,3
+SLE,Sierra Leone,80020103,Major Town or equivalent,4
+SLE,Sierra Leone,80020104,Small Town or equivalent,588
+SLE,Sierra Leone,80020105,Settlement or equivalent,26
+SLV,El Salvador,80010200,Capital City,1
+SLV,El Salvador,80020101,Major City or equivalent,13
+SLV,El Salvador,80020103,Major Town or equivalent,188
+SLV,El Salvador,80020104,Small Town or equivalent,60
+SLV,El Salvador,80020105,Settlement or equivalent,467
+SMR,San Marino,80010200,Capital City,1
+SMR,San Marino,80020103,Major Town or equivalent,2
+SMR,San Marino,80020104,Small Town or equivalent,6
+SMR,San Marino,80020105,Settlement or equivalent,10
+SOM,Somalia,80010200,Capital City,1
+SOM,Somalia,80020101,Major City or equivalent,17
+SOM,Somalia,80020103,Major Town or equivalent,12
+SOM,Somalia,80020104,Small Town or equivalent,1034
+SOM,Somalia,80020105,Settlement or equivalent,3
+SPM,St. Pierre And Miquelon,80010200,Capital City,1
+SPM,St. Pierre And Miquelon,80020104,Small Town or equivalent,1
+SRB,Serbia,80010200,Capital City,1
+SRB,Serbia,80020101,Major City or equivalent,1
+SRB,Serbia,80020102,City or equivalent,23
+SRB,Serbia,80020103,Major Town or equivalent,128
+SRB,Serbia,80020104,Small Town or equivalent,15
+SRB,Serbia,80020105,Settlement or equivalent,4555
+SSD,South Sudan,80010200,Capital City,1
+SSD,South Sudan,80020102,City or equivalent,9
+SSD,South Sudan,80020103,Major Town or equivalent,1
+SSD,South Sudan,80020104,Small Town or equivalent,369
+STP,Sao Tome And Principe,80010200,Capital City,1
+STP,Sao Tome And Principe,80020101,Major City or equivalent,1
+STP,Sao Tome And Principe,80020103,Major Town or equivalent,1
+STP,Sao Tome And Principe,80020104,Small Town or equivalent,414
+STP,Sao Tome And Principe,80020105,Settlement or equivalent,12
+SUR,Suriname,80010200,Capital City,1
+SUR,Suriname,80020102,City or equivalent,8
+SUR,Suriname,80020103,Major Town or equivalent,1
+SUR,Suriname,80020104,Small Town or equivalent,31
+SVK,Slovakia(SlovakRepublic),80010200,Capital City,1
+SVK,Slovakia(SlovakRepublic),80020101,Major City or equivalent,7
+SVK,Slovakia(SlovakRepublic),80020102,City or equivalent,63
+SVK,Slovakia(SlovakRepublic),80020103,Major Town or equivalent,62
+SVK,Slovakia(SlovakRepublic),80020104,Small Town or equivalent,2795
+SVK,Slovakia(SlovakRepublic),80020105,Settlement or equivalent,2517
+SVN,Slovenia,80010200,Capital City,1
+SVN,Slovenia,80020103,Major Town or equivalent,100
+SVN,Slovenia,80020104,Small Town or equivalent,111
+SVN,Slovenia,80020105,Settlement or equivalent,5770
+SWE,Sweden,80010200,Capital City,1
+SWE,Sweden,80020101,Major City or equivalent,1
+SWE,Sweden,80020102,City or equivalent,19
+SWE,Sweden,80020103,Major Town or equivalent,254
+SWE,Sweden,80020104,Small Town or equivalent,15
+SWE,Sweden,80020105,Settlement or equivalent,120888
+SWZ,Swaziland,80010200,Capital City,1
+SWZ,Swaziland,80020102,City or equivalent,3
+SWZ,Swaziland,80020103,Major Town or equivalent,6
+SWZ,Swaziland,80020104,Small Town or equivalent,98
+SWZ,Swaziland,80020105,Settlement or equivalent,284
+SXM,Sint Maarten(Dutch Part),80010200,Capital City,1
+SYC,Seychelles,80010200,Capital City,1
+SYC,Seychelles,80020104,Small Town or equivalent,25
+SYC,Seychelles,80020105,Settlement or equivalent,64
+SYR,SyrianArabRepublic,80010200,Capital City,1
+SYR,SyrianArabRepublic,80020102,City or equivalent,12
+SYR,SyrianArabRepublic,80020104,Small Town or equivalent,107
+TCA,Turks And Caicos Islands,80010200,Capital City,1
+TCA,Turks And Caicos Islands,80020101,Major City or equivalent,1
+TCA,Turks And Caicos Islands,80020103,Major Town or equivalent,4
+TCA,Turks And Caicos Islands,80020104,Small Town or equivalent,37
+TCA,Turks And Caicos Islands,80020105,Settlement or equivalent,11
+TCD,Chad,80010200,Capital City,1
+TCD,Chad,80020102,City or equivalent,21
+TCD,Chad,80020103,Major Town or equivalent,1
+TCD,Chad,80020104,Small Town or equivalent,5875
+TCD,Chad,80020105,Settlement or equivalent,10
+TGO,Togo,80010200,Capital City,1
+TGO,Togo,80020101,Major City or equivalent,5
+TGO,Togo,80020102,City or equivalent,25
+TGO,Togo,80020103,Major Town or equivalent,9
+TGO,Togo,80020104,Small Town or equivalent,201
+TGO,Togo,80020105,Settlement or equivalent,3295
+THA,Thailand,80010200,Capital City,1
+THA,Thailand,80020101,Major City or equivalent,76
+THA,Thailand,80020102,City or equivalent,851
+THA,Thailand,80020103,Major Town or equivalent,4328
+THA,Thailand,80020104,Small Town or equivalent,2169
+THA,Thailand,80020105,Settlement or equivalent,74845
+TJK,Tajikistan,80010200,Capital City,1
+TJK,Tajikistan,80020101,Major City or equivalent,3
+TJK,Tajikistan,80020104,Small Town or equivalent,169
+TKM,Turkmenistan,80010200,Capital City,1
+TKM,Turkmenistan,80020102,City or equivalent,4
+TKM,Turkmenistan,80020104,Small Town or equivalent,228
+TLS,Timor-Leste,80010200,Capital City,1
+TLS,Timor-Leste,80020102,City or equivalent,12
+TLS,Timor-Leste,80020104,Small Town or equivalent,43
+TON,Tonga,80010200,Capital City,1
+TON,Tonga,80020104,Small Town or equivalent,9
+TTO,Trinidad And Tobago,80010200,Capital City,1
+TTO,Trinidad And Tobago,80020103,Major Town or equivalent,14
+TTO,Trinidad And Tobago,80020104,Small Town or equivalent,6
+TTO,Trinidad And Tobago,80020105,Settlement or equivalent,16
+TUN,Tunisia,80010200,Capital City,1
+TUN,Tunisia,80020102,City or equivalent,23
+TUN,Tunisia,80020103,Major Town or equivalent,199
+TUN,Tunisia,80020104,Small Town or equivalent,54
+TUN,Tunisia,80020105,Settlement or equivalent,1381
+TUR,Turkey,80010200,Capital City,1
+TUR,Turkey,80020101,Major City or equivalent,96
+TUR,Turkey,80020102,City or equivalent,902
+TUR,Turkey,80020103,Major Town or equivalent,36
+TUR,Turkey,80020104,Small Town or equivalent,24896
+TUR,Turkey,80020105,Settlement or equivalent,31702
+TUV,Tuvalu,80010200,Capital City,1
+TUV,Tuvalu,80020104,Small Town or equivalent,9
+TWN,"Taiwan,ProvinceOfChina",80010200,Capital City,1
+TWN,"Taiwan,ProvinceOfChina",80020101,Major City or equivalent,12
+TWN,"Taiwan,ProvinceOfChina",80020103,Major Town or equivalent,9
+TWN,"Taiwan,ProvinceOfChina",80020104,Small Town or equivalent,346
+TWN,"Taiwan,ProvinceOfChina",80020105,Settlement or equivalent,14168
+TZA,"Tanzania, UnitedRepublicOf",80010200,Capital City,1
+TZA,"Tanzania, UnitedRepublicOf",80020101,Major City or equivalent,58
+TZA,"Tanzania, UnitedRepublicOf",80020102,City or equivalent,45
+TZA,"Tanzania, UnitedRepublicOf",80020103,Major Town or equivalent,33
+TZA,"Tanzania, UnitedRepublicOf",80020104,Small Town or equivalent,1571
+TZA,"Tanzania, UnitedRepublicOf",80020105,Settlement or equivalent,1234
+UGA,Uganda,80010200,Capital City,1
+UGA,Uganda,80020101,Major City or equivalent,81
+UGA,Uganda,80020102,City or equivalent,79
+UGA,Uganda,80020103,Major Town or equivalent,15
+UGA,Uganda,80020104,Small Town or equivalent,784
+UGA,Uganda,80020105,Settlement or equivalent,245
+UKR,Ukraine,80010200,Capital City,1
+UKR,Ukraine,80020101,Major City or equivalent,26
+UKR,Ukraine,80020102,City or equivalent,532
+UKR,Ukraine,80020103,Major Town or equivalent,108
+UKR,Ukraine,80020104,Small Town or equivalent,10035
+UKR,Ukraine,80020105,Settlement or equivalent,19035
+URY,Uruguay,80010200,Capital City,1
+URY,Uruguay,80020101,Major City or equivalent,18
+URY,Uruguay,80020103,Major Town or equivalent,55
+URY,Uruguay,80020104,Small Town or equivalent,226
+URY,Uruguay,80020105,Settlement or equivalent,202
+USA,United States,80010200,Capital City,1
+USA,United States,80020101,Major City or equivalent,161
+USA,United States,80020103,Major Town or equivalent,2678
+USA,United States,80020104,Small Town or equivalent,30135
+USA,United States,80020105,Settlement or equivalent,66671
+UZB,Uzbekistan,80010200,Capital City,1
+UZB,Uzbekistan,80020102,City or equivalent,12
+UZB,Uzbekistan,80020104,Small Town or equivalent,409
+UZB,Uzbekistan,80020105,Settlement or equivalent,8
+VAT,Holy See (Vatican CityState),80010200,Capital City,1
+VAT,Holy See (Vatican CityState),80020105,Settlement or equivalent,1
+VCT,Saint VincentAnd TheGrenadines,80010200,Capital City,1
+VCT,Saint VincentAnd TheGrenadines,80020101,Major City or equivalent,5
+VCT,Saint VincentAnd TheGrenadines,80020103,Major Town or equivalent,4
+VCT,Saint VincentAnd TheGrenadines,80020104,Small Town or equivalent,2
+VCT,Saint VincentAnd TheGrenadines,80020105,Settlement or equivalent,5
+VEN,Venezuela,80010200,Capital City,1
+VEN,Venezuela,80020101,Major City or equivalent,5
+VEN,Venezuela,80020102,City or equivalent,20
+VEN,Venezuela,80020103,Major Town or equivalent,299
+VEN,Venezuela,80020104,Small Town or equivalent,10
+VEN,Venezuela,80020105,Settlement or equivalent,576
+VGB,VirginIslands(British),80010200,Capital City,1
+VGB,VirginIslands(British),80020104,Small Town or equivalent,4
+VGB,VirginIslands(British),80020105,Settlement or equivalent,1
+VIR,VirginIslands(U.S.),80020101,Major City or equivalent,1
+VIR,VirginIslands(U.S.),80020103,Major Town or equivalent,1
+VIR,VirginIslands(U.S.),80020104,Small Town or equivalent,4
+VIR,VirginIslands(U.S.),80020105,Settlement or equivalent,7
+VNM,Vietnam,80010200,Capital City,1
+VNM,Vietnam,80020101,Major City or equivalent,61
+VNM,Vietnam,80020102,City or equivalent,633
+VNM,Vietnam,80020103,Major Town or equivalent,6535
+VNM,Vietnam,80020104,Small Town or equivalent,3880
+VNM,Vietnam,80020105,Settlement or equivalent,7
+VUT,Vanuatu,80010200,Capital City,1
+VUT,Vanuatu,80020104,Small Town or equivalent,112
+WLF,Wallis And Futuna Islands,80010200,Capital City,1
+WLF,Wallis And Futuna Islands,80020104,Small Town or equivalent,4
+WSM,Samoa,80010200,Capital City,1
+WSM,Samoa,80020104,Small Town or equivalent,18
+XKS,Kosovo,80010200,Capital City,1
+XKS,Kosovo,80020103,Major Town or equivalent,34
+XKS,Kosovo,80020104,Small Town or equivalent,3
+XKS,Kosovo,80020105,Settlement or equivalent,1309
+YEM,Yemen,80010200,Capital City,1
+YEM,Yemen,80020101,Major City or equivalent,22
+YEM,Yemen,80020103,Major Town or equivalent,301
+YEM,Yemen,80020104,Small Town or equivalent,29
+YEM,Yemen,80020105,Settlement or equivalent,9
+ZAF,South Africa,80010200,Capital City,1
+ZAF,South Africa,80020101,Major City or equivalent,12
+ZAF,South Africa,80020102,City or equivalent,220
+ZAF,South Africa,80020103,Major Town or equivalent,779
+ZAF,South Africa,80020104,Small Town or equivalent,23521
+ZAF,South Africa,80020105,Settlement or equivalent,457
+ZMB,Zambia,80010200,Capital City,1
+ZMB,Zambia,80020101,Major City or equivalent,8
+ZMB,Zambia,80020102,City or equivalent,63
+ZMB,Zambia,80020103,Major Town or equivalent,14
+ZMB,Zambia,80020104,Small Town or equivalent,3976
+ZMB,Zambia,80020105,Settlement or equivalent,311
+ZWE,Zimbabwe,80010200,Capital City,1
+ZWE,Zimbabwe,80020101,Major City or equivalent,10
+ZWE,Zimbabwe,80020102,City or equivalent,48
+ZWE,Zimbabwe,80020103,Major Town or equivalent,36
+ZWE,Zimbabwe,80020104,Small Town or equivalent,7487
+ZWE,Zimbabwe,80020105,Settlement or equivalent,176
+Total,Total,Total,Total,2003463

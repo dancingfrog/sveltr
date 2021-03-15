@@ -1,0 +1,606 @@
+{
+    "USA": {
+        "code3": "usa",
+        "code4": null,
+        "state_codes": [
+            "AL", "AK", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL",
+            "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA",
+            "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE",
+            "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "PR",
+            "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI",
+            "WV", "WY", "AS", "GU", "MP", "VI"
+        ]
+    },
+    "CAN": {
+        "code3": "can",
+        "code4": null,
+        "state_codes": [
+            "AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE",
+            "QC", "SK", "YT"
+        ]
+    },
+    "ABW": {
+        "code3": "abw",
+        "code4": "abwx"
+    },
+    "AGO": {
+        "code3": "ago",
+        "code4": "ango"
+    },
+    "AIA": {
+        "code3": "aia",
+        "code4": "aiax"
+    },
+    "ALB": {
+        "code3": "alb",
+        "code4": "alba"
+    },
+    "ARE": {
+        "code3": "are",
+        "code4": "arem"
+    },
+    "ARG": {
+        "code3": "arg",
+        "code4": "argn"
+    },
+    "ARM": {
+        "code3": "arm",
+        "code4": "arme"
+    },
+    "ATG": {
+        "code3": "atg",
+        "code4": "atgx"
+    },
+    "AUT": {
+        "code3": "aut",
+        "code4": "aust"
+    },
+    "AZE": {
+        "code3": "aze",
+        "code4": "azex"
+    },
+    "BDI": {
+        "code3": "bdi",
+        "code4": "buru"
+    },
+    "BEL": {
+        "code3": "bel",
+        "code4": "belg"
+    },
+    "BES": {
+        "code3": "bes",
+        "code4": "besx"
+    },
+    "BGR": {
+        "code3": "bgr",
+        "code4": "blgr"
+    },
+    "BHR": {
+        "code3": "bhr",
+        "code4": "bahr"
+    },
+    "BHS": {
+        "code3": "bhs",
+        "code4": "bhsx"
+    },
+    "BIH": {
+        "code3": "bih",
+        "code4": "bihe"
+    },
+    "BLM": {
+        "code3": "blm",
+        "code4": "blmx"
+    },
+    "BLR": {
+        "code3": "blr",
+        "code4": "bela"
+    },
+    "BLZ": {
+        "code3": "blz",
+        "code4": "blzx"
+    },
+    "BMU": {
+        "code3": "bmu",
+        "code4": "bmux"
+    },
+    "BOL": {
+        "code3": "bol",
+        "code4": "bolx"
+    },
+    "BRA": {
+        "code3": "bra",
+        "code4": "braz"
+    },
+    "BRB": {
+        "code3": "brb",
+        "code4": "brbx"
+    },
+    "BWA": {
+        "code3": "bwa",
+        "code4": "bots"
+    },
+    "CHE": {
+        "code3": "che",
+        "code4": "swis"
+    },
+    "CHL": {
+        "code3": "chl",
+        "code4": "chil"
+    },
+    "COL": {
+        "code3": "col",
+        "code4": "colo"
+    },
+    "CPV": {
+        "code3": "cpv",
+        "code4": "cpvx"
+    },
+    "CRI": {
+        "code3": "cri",
+        "code4": "crix"
+    },
+    "CUB": {
+        "code3": "cub",
+        "code4": "cubx"
+    },
+    "CUW": {
+        "code3": "cuw",
+        "code4": "cuwx"
+    },
+    "CYM": {
+        "code3": "cym",
+        "code4": "cymx"
+    },
+    "CYP": {
+        "code3": "cyp",
+        "code4": "cypr"
+    },
+    "CZE": {
+        "code3": "cze",
+        "code4": "czec"
+    },
+    "DEU": {
+        "code3": "deu",
+        "code4": "deut"
+    },
+    "DMA": {
+        "code3": "dma",
+        "code4": "dmax"
+    },
+    "DNK": {
+        "code3": "dnk",
+        "code4": "dnmk"
+    },
+    "DOM": {
+        "code3": "dom",
+        "code4": "dore"
+    },
+    "DZA": {
+        "code3": "dza",
+        "code4": "alge"
+    },
+    "ECU": {
+        "code3": "ecu",
+        "code4": "ecua"
+    },
+    "ESP": {
+        "code3": "esp",
+        "code4": "espa"
+    },
+    "EST": {
+        "code3": "est",
+        "code4": "esti"
+    },
+    "EGY": {
+        "code3": "egy",
+        "code4": "egyp"
+    },
+    "FIN": {
+        "code3": "fin",
+        "code4": "finl"
+    },
+    "FJI": {
+        "code3": "fji",
+        "code4": "fjix"
+    },
+    "FRA": {
+        "code3": "fra",
+        "code4": "fran"
+    },
+    "GBR": {
+        "code3": "gbr",
+        "code4": "gbri"
+    },
+    "GEO": {
+        "code3": "geo",
+        "code4": "geor"
+    },
+    "GHA": {
+        "code3": "gha",
+        "code4": "ghan"
+    },
+    "GLP": {
+        "code3": "glp",
+        "code4": "glpx"
+    },
+    "GRC": {
+        "code3": "grc",
+        "code4": "grce"
+    },
+    "GRD": {
+        "code3": "grd",
+        "code4": "grdx"
+    },
+    "GTM": {
+        "code3": "gtm",
+        "code4": "gtmx"
+    },
+    "GUY": {
+        "code3": "guy",
+        "code4": "guyx"
+    },
+    "HKG": {
+        "code3": "hkg",
+        "code4": "hoko"
+    },
+    "HND": {
+        "code3": "hnd",
+        "code4": "hndx"
+    },
+    "HRV": {
+        "code3": "hrv",
+        "code4": "croa"
+    },
+    "HTI": {
+        "code3": "hti",
+        "code4": "htix"
+    },
+    "HUN": {
+        "code3": "hun",
+        "code4": "hung"
+    },
+    "IDN": {
+        "code3": "idn",
+        "code4": "indo"
+    },
+    "IND": {
+        "code3": "ind",
+        "code4": "indn"
+    },
+    "INI": {
+        "code3": "ini",
+        "code4": "indi"
+    },
+    "IRL": {
+        "code3": "irl",
+        "code4": "irel"
+    },
+    "IRQ": {
+        "code3": "irq",
+        "code4": "iraq"
+    },
+    "ISL": {
+        "code3": "isl",
+        "code4": "icel"
+    },
+    "ISR": {
+        "code3": "isr",
+        "code4": "isre"
+    },
+    "ITA": {
+        "code3": "ita",
+        "code4": "ital"
+    },
+    "JAM": {
+        "code3": "jam",
+        "code4": "jamx"
+    },
+    "JOR": {
+        "code3": "jor",
+        "code4": "jord"
+    },
+    "KAZ": {
+        "code3": "kaz",
+        "code4": "kazx"
+    },
+    "KEN": {
+        "code3": "ken",
+        "code4": "keny"
+    },
+    "KHM": {
+        "code3": "khm",
+        "code4": "khmx"
+    },
+    "KNA": {
+        "code3": "kna",
+        "code4": "knax"
+    },
+    "KOR": {
+        "code3": "kor",
+        "code4": "kore"
+    },
+    "KWT": {
+        "code3": "kwt",
+        "code4": "kuwa"
+    },
+    "LAO": {
+        "code3": "lao",
+        "code4": "laox"
+    },
+    "LBN": {
+        "code3": "lbn",
+        "code4": "leba"
+    },
+    "LCA": {
+        "code3": "lca",
+        "code4": "lcax"
+    },
+    "LVA": {
+        "code3": "lva",
+        "code4": "latv"
+    },
+    "LTU": {
+        "code3": "ltu",
+        "code4": "litu"
+    },
+    "MAC": {
+        "code3": "mac",
+        "code4": "maca"
+    },
+    "MAF": {
+        "code3": "maf",
+        "code4": "mafx"
+    },
+    "MAR": {
+        "code3": "mar",
+        "code4": "moro"
+    },
+    "MCO": {
+        "code3": "mco",
+        "code4": "moro"
+    },
+    "MDA": {
+        "code3": "mda",
+        "code4": "mold"
+    },
+    "MKD": {
+        "code3": "mkd",
+        "code4": "mace"
+    },
+    "MEX": {
+        "code3": "mex",
+        "code4": "mexi"
+    },
+    "MLT": {
+        "code3": "mlt",
+        "code4": "mlta"
+    },
+    "MMR": {
+        "code3": "mmr",
+        "code4": "mmrx"
+    },
+    "MNE": {
+        "code3": "mne",
+        "code4": "mont"
+    },
+    "MOZ": {
+        "code3": "moz",
+        "code4": "moza"
+    },
+    "MSR": {
+        "code3": "msr",
+        "code4": "msrx"
+    },
+    "MTQ": {
+        "code3": "mtq",
+        "code4": "mtqx"
+    },
+    "MUS": {
+        "code3": "mus",
+        "code4": "maur"
+    },
+    "MWI": {
+        "code3": "mwi",
+        "code4": "mwix"
+    },
+    "MYS": {
+        "code3": "mys",
+        "code4": "mala"
+    },
+    "NAM": {
+        "code3": "nam",
+        "code4": "nami"
+    },
+    "NGA": {
+        "code3": "nga",
+        "code4": "nigr"
+    },
+    "NIC": {
+        "code3": "nic",
+        "code4": "nicx"
+    },
+    "NLD": {
+        "code3": "nld",
+        "code4": "neth"
+    },
+    "NOR": {
+        "code3": "nor",
+        "code4": "norw"
+    },
+    "NZL": {
+        "code3": "nzl",
+        "code4": "nzea"
+    },
+    "OMN": {
+        "code3": "omn",
+        "code4": "oman"
+    },
+    "PAN": {
+        "code3": "pan",
+        "code4": "panx"
+    },
+    "PER": {
+        "code3": "per",
+        "code4": "peru"
+    },
+    "PHL": {
+        "code3": "phl",
+        "code4": "phil"
+    },
+    "POL": {
+        "code3": "pol",
+        "code4": "plnd"
+    },
+    "PRK": {
+        "code3": "prk",
+        "code4": "prkx"
+    },
+    "PRT": {
+        "code3": "prt",
+        "code4": "port"
+    },
+    "PRY": {
+        "code3": "pry",
+        "code4": "pryx"
+    },
+    "QAT": {
+        "code3": "qat",
+        "code4": "qata"
+    },
+    "RWA": {
+        "code3": "rwa",
+        "code4": "rwan"
+    },
+    "ROU": {
+        "code3": "rou",
+        "code4": "roma"
+    },
+    "RUS": {
+        "code3": "rus",
+        "code4": "russ"
+    },
+    "SAU": {
+        "code3": "sau",
+        "code4": "saud"
+    },
+    "SEN": {
+        "code3": "sen",
+        "code4": "sene"
+    },
+    "SGP": {
+        "code3": "sgp",
+        "code4": "sing"
+    },
+    "SGS": {
+        "code3": "sgs",
+        "code4": "sgsx"
+    },
+    "SLV": {
+        "code3": "slv",
+        "code4": "elsa"
+    },
+    "SRB": {
+        "code3": "srb",
+        "code4": "serb"
+    },
+    "SUR": {
+        "code3": "sur",
+        "code4": "surx"
+    },
+    "SVK": {
+        "code3": "svk",
+        "code4": "slvk"
+    },
+    "SVN": {
+        "code3": "svn",
+        "code4": "slvn"
+    },
+    "SWE": {
+        "code3": "swe",
+        "code4": "swed"
+    },
+    "SXM": {
+        "code3": "sxm",
+        "code4": "sxmx"
+    },
+    "SYC": {
+        "code3": "syc",
+        "code4": "sycx"
+    },
+    "TCA": {
+        "code3": "tca",
+        "code4": "tcax"
+    },
+    "TTO": {
+        "code3": "tto",
+        "code4": "ttox"
+    },
+    "TUN": {
+        "code3": "tun",
+        "code4": "tuni"
+    },
+    "TUR": {
+        "code3": "tur",
+        "code4": "turk"
+    },
+    "TWN": {
+        "code3": "twn",
+        "code4": "taiw"
+    },
+    "TZA": {
+        "code3": "tza",
+        "code4": "tanz"
+    },
+    "THA": {
+        "code3": "tha",
+        "code4": "thai"
+    },
+    "UGA": {
+        "code3": "uga",
+        "code4": "ugan"
+    },
+    "UKR": {
+        "code3": "ukr",
+        "code4": "ukra"
+    },
+    "URY": {
+        "code3": "ury",
+        "code4": "urug"
+    },
+    "VCT": {
+        "code3": "vct",
+        "code4": "vctx"
+    },
+    "VEN": {
+        "code3": "ven",
+        "code4": "vnza"
+    },
+    "VGB": {
+        "code3": "vgb",
+        "code4": "vgbx"
+    },
+    "VNM": {
+        "code3": "vnm",
+        "code4": "viet"
+    },
+    "YEM": {
+        "code3": "yem",
+        "code4": "yeme"
+    },
+    "XKS": {
+        "code3": "xks",
+        "code4": "koso"
+    },
+    "ZAF": {
+        "code3": "zaf",
+        "code4": "soaf"
+    },
+    "ZMB": {
+        "code3": "zmb",
+        "code4": "zamb"
+    },
+    "ZWE": {
+        "code3": "zwe",
+        "code4": "zimb"
+    }
+}

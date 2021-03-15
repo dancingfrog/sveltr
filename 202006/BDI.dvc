@@ -1,0 +1,7 @@
+md5: 7c86fa02d67039799c41db791069825a
+outs:
+- md5: af601d68c81c87478339c4c383653270.dir
+  path: BDI
+  cache: true
+  metric: false
+  persist: false

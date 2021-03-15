@@ -1,0 +1,7 @@
+md5: 4dab47ef09815985c851110a94fd02cb
+outs:
+- md5: b9bf2d2695e239bafe8d6b4082e2708d.dir
+  path: IOT
+  cache: true
+  metric: false
+  persist: false

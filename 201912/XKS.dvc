@@ -1,0 +1,7 @@
+md5: f9bb005adc09e9c8207324bed0beb037
+outs:
+- md5: 56c606d2cbde0e8f32d2197147eca879.dir
+  path: XKS
+  cache: true
+  metric: false
+  persist: false

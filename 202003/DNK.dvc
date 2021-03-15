@@ -1,0 +1,7 @@
+md5: 76bf90c46520a45958fdfcd90d4f8121
+outs:
+- md5: 6eeaa01dcc63e78985c9f35de52ed992.dir
+  path: DNK
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: e5d00359aabbb2ebdee537eae4bfc963
+outs:
+- md5: c783f8d9b4d7fe7df03e6c2ce997594c
+  path: 202006-sp-nav_streets.csv
+  cache: true
+  metric: false
+  persist: false

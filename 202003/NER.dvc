@@ -1,0 +1,7 @@
+md5: c42c27797a3b01a882d957a8d379ab2c
+outs:
+- md5: fd3228fd5efbef1057ab097d72a22dca.dir
+  path: NER
+  cache: true
+  metric: false
+  persist: false

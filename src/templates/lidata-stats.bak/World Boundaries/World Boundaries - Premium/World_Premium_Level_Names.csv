@@ -1,0 +1,962 @@
+Country Name,ISO 3661 Alpha-3 Country Code,Lv1Name,Lv2Name,Lv3Name,Lv4Name,Lv5Name,Lv6Name,Version
+Afghanistan,AFG,Country,Wilayat,Wuleswali,,Localities/Urban Areas,,2020.12
+Albania,ALB,Country,Qarqe/Qark,Communes/Bashki,Nj�si,Localities/Urban Areas,,2020.12
+Algeria,DZA,Country,Provinces/Wilayas,Districts,Municipalities/Baladiyas,Localities/Urban Areas,Villages,2020.12
+American Samoa,ASM,Country,Districts,Counties,Villages,,,2020.12
+Andorra,AND,Country,Parishes/Parr�quies,Localities/Urban Areas,,,,2020.12
+Angola,AGO,Country,Provinces/Prov�ncias,Municipios,,Local/Neighborhoods,Neighborhoods,2020.12
+Anguilla,AIA,Country,Parishes,,,,,2020.12
+Antarctica,ATA,Country,,,,,,2020.12
+Antigua and Barbuda,ATG,Country,Parishes,,,Localities/Urban Areas,,2020.12
+Argentina,ARG,Country,Provincias/Provinces,Departamentos/Departments,Localities/Urban Areas,Comunas/Barrios,Neighborhoods,2020.12
+Armenia,ARM,Country,Provinces/Marzpet,,Localities/Urban Areas,,,2020.12
+Aruba,ABW,Country,Regions,Zones,,,,2020.12
+Australia,AUS,Country,States,Local Government Areas,Suburbs,Urban Centers,,2020.12
+Austria,AUT,Country,States/Bundesl�nder,Districts/Bezirke,Municipalities/Gemeinden,Urban Areas/Stadtteil,Neighborhoods,2020.12
+Azerbaijan,AZE,Country,Regions/Iqtisadi Rayonlar,Districts/Rayonlar,Localities/Urban Areas,,,2020.12
+Bahamas,BHS,Country,Island Groups,Districts,Towns,,,2020.12
+Bahrain,BHR,Country,Governorates,Constituencies,Localities,,,2020.12
+Bangladesh,BGD,Country,Divisions/Bibhag,Districts/Zila,Subdistricts/Upzila,Localities/Urban Areas,,2020.12
+Barbados,BRB,Country,Parishes,,,Localities/Urban Areas,,2020.12
+Belarus,BLR,Country,Voblasts�,Rayon,Selsoviet,Localities/Urban Areas,,2020.12
+Belgium,BEL,Country,Regions/Gewest,Provinces/Provincie,Districts/Arrondissements,Municipalities/Communes,Localities/Gemeente,2020.12
+Belize,BLZ,Country,Districts,Constituencies,Localities/Urban Areas,,,2020.12
+Benin,BEN,Country,Departments,Communes,,Localities/Urban Areas,Neighborhoods,2020.12
+Bermuda,BMU,Country,Parishes,,,,,2020.12
+Bhutan,BTN,Country,Districts/Dzongkhag,,Localities/Urban Areas,,,2020.12
+Bolivia,BOL,Country,Provincias/Provinces,Departamentos/Departments,Municipios/Municipalities,Localities/Urban Areas,Neighborhoods,2020.12
+Bonaire Sint Eustasius and Saba,BES,Country,Municipalities,,,Localities/Urban Areas,,2020.12
+Bosnia and Herzegovina,BIH,Country,Federation/Republika,Kanton,Op�tina,Localities/Urban Areas,Neighborhoods,2020.12
+Botswana,BWA,Country,Districts ,Sub-Districts,,Localities/Urban Areas,Neighborhoods,2020.12
+Bouvet Island,BVT,Country,,,,,,2020.12
+Brazil,BRA,Country,Provinces/States/Unidades,Municipalities/Municipios,Cities/Towns,Localities/Urban Areas,Neighborhoods/Bairros,2020.12
+British Indian Ocean Territory,IOT,Country,,,,,,2020.12
+British Virgin Islands,VGB,Country,Districts,,,,,2020.12
+Brunei,BRN,Country,Districts/Dawa�r,Subdistricts/Mukim,Villages/Kampung,Localities/Urban Areas,,2020.12
+Bulgaria,BGR,Country,Oblasts,Obshtina,Cities,Localities,,2020.12
+Burkina Faso,BFA,Country,Regions,Provinces,Communes,Localities/Urban Areas,Neighborhoods,2020.12
+Burundi,BDI,Country,Provinces,Communes,,Localities/Urban Areas,Neighborhoods,2020.12
+Cambodia,KHM,Country,Provinces/Khaet,Districts/Sr?k,Communes/Khum,Localities/Urban Areas,,2020.12
+Cameroon,CMR,Country,Provinces/Regions,Departments,Municipalit�s/Cities/Communes,City Districts/Arrondissements,,2020.12
+Canada,CAN,Country,Provinces/Territories,Census Divisions,Census Subdivisions,Localities/Urban Areas,Neighborhoods,2020.12
+Cape Verde,CPV,Country,Ilhas,Concelhos,Freguesias,Localities/Urban Areas,,2020.12
+Cayman Islands,CYM,Country,Districts,,,,,2020.12
+Central African Republic,CAF,Country,Prefectures,Sub Prefectures,Communes,Localities/Urban Areas,,2020.12
+Chad,TCD,Country,Regions,Departements,Arrondissements,Localities/Urban Areas,,2020.12
+Chile,CHL,Country,Regions/Regiones,Province/Provincias,Communes/Comunas,Localities/Urban Areas,Neighborhoods,2020.12
+China People�s Republic of,CHN,Country,Provinces,Prefectures,Cities/Counties,,Neighborhoods,2020.12
+Colombia,COL,Country,Departmentos,Municipios,Urban Areas,Localities,,2020.12
+Comoros,COM,Country,Autonomous Islands/�les Autonomes,,,Villes/Villages,,2020.12
+Congo Democratic Republic of,COD,Country,Provinces,Districts,Territories,Localities/Urban Areas,Villages,2020.12
+Congo Republic of,COG,Country,,Regions,Communes,Arrondissements,,2020.12
+Cook Islands,COK,Country,Island Councils,,,,,2020.12
+Costa Rica,CRI,Country,Provincias,Cantons,Distritos,Localities/Urban Areas,Neighborhoods,2020.12
+Cote d�Ivoire,CIV,Country,Districts,Regions,Departments,Sub Prefectures,Villages,2020.12
+Croatia,HRV,Country,Counties/�upanija,Municipalities/Op?ine,Cities,Gradska ?etvrt,,2020.12
+Cuba,CUB,Country,Provinces/Provincias,Municipalities/Municipios,Distritos Municipales,,,2020.12
+Cura�oa,CUW,Country,,,,Localities/Urban Areas,,2020.12
+Cyprus,CYP,Country,Districts/Eparchies,Municipalities/Dimos,Localities/Urban Area,Sinikia,,2020.12
+Czech Republic,CZE,Country,Regions/Kraj,Municipalities/Orp,Obec,Mesto,Neighborhoods,2020.12
+Denmark,DNK,Country,Regions,Municipalities,,Localities/Urban Areas,Neighborhoods,2020.12
+Djibouti,DJI,Country,Regions,,,Localities,,2020.12
+Dominica,DMA,Country,Parishes,,,Localities/Urban Areas,,2020.12
+Dominican Republic,DOM,Country,Provinces/Provincias,Municipalities/Municipios,Localities/Urban Areas,Neighborhoods,,2020.12
+East Timor (Timor-Leste),TLS,Country,Municipalities,Administrative Post,,Localities/Urban Areas,,2020.12
+Ecuador,ECU,Country,Provinces,Cantones,Parishes,Urban Areas,,2020.12
+Egypt,EGY,Country,Governorates/Muhafazat,Municipal Divisions/Markaz,Towns/Cities,Sub Municipal Divisions,Villages/Neighborhoods,2020.12
+El Salvador,SLV,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.12
+Equatorial Guinea,GNQ,Country,Regions,Provincias,Distritos�,Localities/Urban Areas,,2020.12
+Eritrea,ERI,Country,Regions/Zoba,Districts/Subzobas,,Localities/Urban Areas,,2020.12
+Estonia,EST,Country,Maakond,Omavalitsus/Linn/Vald,K�la,Localities/Urban Areas,,2020.12
+Eswatini,SWZ,Country,Regions,Tinkhundla,Towns,Suburbs/Localities,,2020.12
+Ethiopia,ETH,Country,Regions/Kililoch,Zones/Zonouch,,Localities/Urban Areas,,2020.12
+Falkland Islands,FLK,Country,,,,,,2020.12
+Faroe Islands,FRO,Country,Regions/Syslur,Municipalities/Kommunur,Localities/Urban Areas,,,2020.12
+Fiji,FJI,Country,Divisions,Provinces,Districts,Villages,,2020.12
+Finland,FIN,Country,Regions/Maakunta,Sub-Regions/Seutukunta,Municipalities/Kunta,Localities/Urban Areas,Neighborhoods,2020.12
+France,FRA,Country,Regions,D�partements,Arrondissements,Cantons,Communes,2020.12
+French Guiana,GUF,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.12
+French Polynesia,PYF,Country,Subdivisions/Iles,Communes,,,,2020.12
+French Southern Territories,ATF,Country,,,,,,2020.12
+Gabon,GAB,Country,Provinces,Departments,Urban Areas/Cities,Arrondissements/Communes,,2020.12
+Gambia,GMB,Country,Regions,Districts,,Localities/Urban Areas,,2020.12
+Georgia,GEO,Country,Regions/Mkhare,Municipalities/Munitsipaliteti,Localities/Urban Areas,,,2020.12
+Germany,DEU,Country,Bundesland/States,Kreis/Districts,Gemeinde/Municipalities,Stadtteil/Localities/Urban Areas,Neighborhoods,2020.12
+Ghana,GHA,Country,Regions,Districts,,Localities/Urban Areas,Neighborhoods,2020.12
+Gibraltar,GIB,Country,,,Towns,Localities/Urban Areas,,2020.12
+Greece,GRC,Country,Regions/Periphenies,Regional Units Peri Enotities,Municipalities/Domoi,Localities/Urban Areas,Neighborhoods,2020.12
+Greenland,GRL,Country,Municipalities/Kommunia,,,,,2020.12
+Grenada,GRD,Country,States,Parishes/Dependencies,Localities/Urban Areas,,,2020.12
+Guadeloupe,GLP,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.12
+Guam,GUM,,States,Districts,Towns,,,2020.12
+Guatemala,GTM,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.12
+Guinea,GIN,Country,Regions,Prefectures,Sub Prefectures,neighborhoods,Localities,2020.12
+Guinea Bissau,GNB,Country,Regions,Sectors,,Localities/Urban Areas,,2020.12
+Guyana,GUY,Country,Regions,,Towns,Localities,,2020.12
+Haiti,HTI,Country,Departments/D�partements,Districts/Arrondissements,Communes,Localities/Urban Areas,,2020.12
+Heard and McDonald Islands,HMD,Country,,,,,,2020.12
+Honduras,HND,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.12
+Hong Kong,HKG,Country,Districts,Subdistricts,,Localities/Urban Areas,,2020.12
+Hungary,HUN,Country,Megy�k,J�r�sok,V�rosok,Ker?let,,2020.12
+Iceland,ISL,Country,Regions/Landsvaedi,Municipalities/Sveitarfelog,Localities/Urban Areas,,,2020.12
+India,IND,Country,States/Territories,Districts,Sub-districts/Towns,Localities/Urban Areas,Neighborhoods,2020.12
+Indonesia,IDN,Country,Provinces/Provinsi,Regency/Kabupaten,Districts/Kecamatan,Localities/Urban Areas,Subdistricts/Kelurahan ,2020.12
+Iran,IRN,Country,Provinces/Ostanha,Counties/Shahrestan,Urban Areas/�ahr,Localities/Dehest�n,,2020.12
+Iraq,IRQ,Country,Governorates/Muhafazat,Districts/Qadaa/Kaza,Urban Areas,Localities,,2020.12
+Ireland,IRL,Country,Counties,,Electoral Divisions,Localities/Urban Areas,Neighborhoods,2020.12
+Israel,ISR,Country,Districts,,Local Councils,,Neighborhoods,2020.12
+Italy,ITA,Country,Regiones,Provincias,Communes,Localities/Urban Areas,Neighborhoods,2020.12
+Jamaica,JAM,Country,Counties,Parishes,Constituencies,Localities/Urban Areas,,2020.12
+Japan,JPN,Country,Prefectures,Cities/Districts,Municipalities,Machi-Oaza,,2020.12
+Jordan,JOR,Country,Governorates,Districts,Subdistricts,Cities,Communities,2020.12
+Kazakhstan,KAZ,Country,Regions/Oblystar,Districts/Audandar,Towns/Kent,Localities/Urban Areas,,2020.12
+Kenya,KEN,Country,Counties,Constituencies,Localities/Urban Areas,Suburbs,Neighborhoods,2020.12
+Kiribati,KIR,Country,Island Councils,,,,,2020.12
+Korea (North),PRK,Country,Provinces,,,Localities/Urban Areas,,2020.12
+Korea (South),KOR,Country,Provinces/Do,Districts/Si/Gun,,Localities/Urban Areas,Neighborhoods/Dong,2020.12
+Kosovo,XKS,Country,Districts,Municipalities,,Localities/Urban Areas,,2020.12
+Kuwait,KWT,Country,Governorates,Cities,Areas/Mintaqah,Communities,,2020.12
+Kyrgyzstan,KGZ,Country,Regions/Oblasttar,Districts/Raions,,Localities/Urban Areas,,2020.12
+Laos,LAO,Country,Provinces/Khoueng,Districts/Muang,Localities/Urban Areas,,,2020.12
+Latvia,LVA,Country,Regions,Municipalities/Novadi,Pils?tas/Pagasti,Localities/Urban Areas,,2020.12
+Lebanon,LBN,Country,Governorates/Muhafazat,Districts/Qadaa,Municipalities,Localities/Urban Areas,,2020.12
+Lesotho,LSO,Country,Districts,Constituencies,Community Councils,Local Neighborhoods,,2020.12
+Liberia,LBR,Country,Counties,Districts,Clans,Localities/Urban Areas,,2020.12
+Libya,LBY,Country,Districts/Shabiya,,Cities,Localities,,2020.12
+Liechtenstein,LIE,Country,Districts/Bezirk,Municipalities/Gemeinden,Localities/Urban Areas,,,2020.12
+Lithuania,LTU,Country,Apskritis,Savivaldyb�,,Seni?nija,,2020.12
+Luxembourg,LUX,Country,Cantons/Kantounen/Kantone,Communes/Gemengen/Gemeinden,Localities/Ortschaft/Uertschaft,Urban Areas,Neighborhoods,2020.12
+Macao,MAC,Country,Parishes,Districts,,,,2020.12
+Macedonia,MKD,Country,Statistical Regions,Opstina,,Localities/Urban Areas,,2020.12
+Madagascar,MDG,Country,Regions/Faritra,Districts,Communes,Localities/Urban Areas,,2020.12
+Malawi,MWI,Country,Regions,Districts,Localities/Urban Areas,Suburbs,,2020.12
+Malaysia,MYS,Country,States/Negeri,Districts/Da�ra/Daerah,Subdistricts/Mukim,Localities/Urban Area/Bahagian Kecil,Neighborhoods,2020.12
+Maldives,MDV,Country,Atolls/Cities,Islands,,,,2020.12
+Mali,MLI,Country,Regions,Communes,Arrondissements,Localities/Urban Areas,,2020.12
+Malta,MLT,Country,Districts,Local Councils/Kunsilli Lokali,Localities/Urban Areas,,,2020.12
+Marshall Islands,MHL,Country,Municipalities,,,,,2020.12
+Martinique,MTQ,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.12
+Mauritania,MRT,Country,Regions,Departements,,Localities/Urban Areas,Neighborhoods,2020.12
+Mauritius,MUS,Country,Islands,Districts,Wards,Localities,,2020.12
+Mayotte,MYT,Country,Communes,,,Villages,,2020.12
+Mexico,MEX,Country,Estados,Municipios/Delegaciones,Colonias,Localities/Urban Areas,Neighborhoods,2020.12
+Micronesia Federated States of,FSM,Country,States,,,,,2020.12
+Moldova,MDA,Country,Raion,Comuna,,Localities/Urban Areas,,2020.12
+Monaco,MCO,Country,Communes,Wards/Quartiers,,,,2020.12
+Mongolia,MNG,Country,Provinces/Aimags,Districts/Sums,Localities/Urban Areas,,,2020.12
+Montenegro,MNE,Country,Op�tine/Municipalities,,,Localities/Urban Areas,,2020.12
+Montserrat,MSR,Country,Parishes,,,Localities/Urban Areas,,2020.12
+Morocco,MAR,Country,Regions,Provinces/Prefectures,Communes,Localities/Urban Areas,,2020.12
+Mozambique,MOZ,Country,Provinces,Districts/Distritos,Localities/Urban Areas,Suburbs/Freguesias,,2020.12
+Myanmar,MMR,Country,States/Regions/Union Territories,Districts,Townships,Localities/Urban Areas,,2020.12
+Namibia,NAM,Country,Provinces,Constituencies,Towns,Suburbs/Localities,,2020.12
+Nauru,NRU,Country,Districts,,,,,2020.12
+Nepal,NPL,Country,Provinces/Pradeshaharu,Districts/Jilla,Localities/Urban Areas,,,2020.12
+Netherlands,NLD,Country,Counties/Fylker,Districts/Okonomisk,Municipalities/Kommuner,Localities/Urban Areas,Neighborhoods,2020.12
+New Caledonia,NCL,Country,Provinces,Communes,,,,2020.12
+New Zealand,NZL,Country,Regions,Territorial Authorities,Statistical Areas,Localities/Urban Areas,Neighborhoods,2020.12
+Nicaragua,NIC,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.12
+Niger,NER,Country,Regions,,Cities/Urban Areas,Towns/Communes,,2020.12
+Nigeria,NGA,Country,States,Local Government Areas,,Towns/Cities,Suburbs/Neighborhoods,2020.12
+Niue,NIU,Country,Villages,Towns,,,,2020.12
+Northern Mariana Islands,MNP,Country,Municipalities,,,,,2020.12
+Norway,NOR,Country,Counties/Fylker,Districts/Okonomisk,Municipalities/Kommuner,Localities/Urban Areas,Neighborhoods,2020.12
+Oman,OMN,Country,Governorates/Muhafazah,Provinces/Wilayat,Cities/Urban Areas,Communities,,2020.12
+Pakistan,PAK,Country,Provinces,Districts,Cities/Urban Areas,Localities/Tehsils,,2020.12
+Palau,PLW,Country,States,,,,,2020.12
+Palestine,PSE,Country,Territories,Governorates/Muhafazat,Urban Areas,,,2020.12
+Panama,PAN,Country,Provinces/Provincias,Districts/Distrito,Corregimientos,Localities/Urban Areas,,2020.12
+Papua New Guinea,PNG,Country,Regions,Provinces,Districts,Localities/Urban Areas,,2020.12
+Paraguay,PRY,Country,Departments,Distritos,,Localities/Urban Areas,Neighborhoods,2020.12
+Peru,PER,Country,Regions,Districts,Distritos,Urban Areas,,2020.12
+Philippines,PHL,Country,Regions/Rehiyon,Provinces/Lalawigan,Municipalities/Munisipiyos,Cities/Lungsod,Barangays/Villages,2020.12
+Pitcairn Islands,PCN,Country,Islands,,,,,2020.12
+Poland,POL,Country,Provinces/Voivodeships,Counties/Powiats,Communes/Gminas,Towns/Dzielnicas,Neighborhoods,2020.12
+Portugal,PRT,Country,Districts/Distritos,Municipalities/Concelhos,Civil Parish/Freguesias,Localities/Urban Areas,Neighborhoods,2020.12
+Puerto Rico,PRI,,Territories,State,Municipality,Towns,,2020.12
+Qatar,QAT,Country,Municipalities/Baladiyat,Zones,Localities/Urban Areas,,,2020.12
+R�union�,REU,Country,Arrondissements,Communes,,Localities/Urban Areas,,2020.12
+Romania,ROU,Country,Regions/Judete,Communes,Cities/Municipiu,Towns/Ora?,,2020.12
+Russia,RUS,Country,Federal District/Federal�nyy Okrug,Oblast�,Rayon/Raion,Urban Area/Gorod,Neighborhoods,2020.12
+Rwanda,RWA,Country,Provinces,Districts,Sectors/Secteurs,Localities/Urban Areas,Cellule Suburb,2020.12
+Saint Barth�lemy,BLM,Country,,,,Localities/Urban Areas,,2020.12
+Saint Helena,SHN,Country,Islands,Districts,,,,2020.12
+Saint Kitts and Nevis,KNA,Country,States,Parishes,,Localities/Urban Areas,,2020.12
+Saint Lucia,LCA,Country,Districts/Quarters,,,Localities/Urban Areas,,2020.12
+Saint Martin,MAF,Country,,,,Localities/Urban Areas,,2020.12
+Saint Pierre and Miquelon,SPM,Country,,,,,,2020.12
+Saint Vincent and the Grenadines,VCT,Country,Parishes,Divisions,Localities/Urban Areas,,,2020.12
+Samoa,WSM,Country,Districts/It?m?l?,Towns,Localities/Urban Areas,,,2020.12
+San Marino,SMR,Country,Municipalities/Castelli,Localities/Urban Areas,,,,2020.12
+S�o Tom� and Pr�ncipe,STP,Country,Provinces,Districts,,Localities/Urban Areas,,2020.12
+Saudi Arabia,SAU,Country,Regions/Manatiq,Governorates/Muhafazat,Municipalities/Amanah,Localities/Urban Areas,,2020.12
+Senegal,SEN,Country,Regions,Departments,Arrondissements,Localities/Urban Areas,Neighborhoods,2020.12
+Serbia,SRB,Country,Autonomna Pokrajina/Regions,Okrug/Districts,Opstina/Municipalities,Localities/Urban Areas,,2020.12
+Seychelles,SYC,Country,Districts,,,Localities/Urban Areas,,2020.12
+Sierra Leone,SLE,Country,Provinces,Districts,Chiefdoms,Localities/Urban Areas,,2020.12
+Singapore,SGP,Country,Community Governoring Council,Planning Areas,,,,2020.12
+Sint Maarten,SXM,Country,,,,,,2020.12
+Slovakia,SVK,Country,Regions/Kraje,Districts/Okresy,Municipalities/Obec,Mestsk� cast,,2020.12
+Slovenia,SVN,Country,Regions/Regi,n /b / / n/ /,Municipalities/Obcine,Localities/Urban Areas,,2020.12
+Solomon Islands,SLB,Country,Provinces,Constituencies,Wards,,,2020.12
+Somalia,SOM,Country,Regions/Gobolada,,,Localities/Urban Areas,,2020.12
+South Africa,ZAF,Country,Provinces,Districts,Municipalities,Wards,Neighborhoods,2020.12
+South Georgia and the South Sandwich Islands,SGS,Country,,,,,,2020.12
+South Sudan,SSD,Country,States/Wilayat,Counties,,Localities/Urban Areas,,2020.12
+Spain,ESP,Country,Autonomous Communities/Comunidados Autonomas,Provincias,Municipios,Localities/Urban Areas,Neighborhoods,2020.12
+Sri Lanka,LKA,Country,Provinces,Districts,Divisional Secretariats,Localities/Urban Areas,Neighborhoods,2020.12
+Sudan,SDN,Country,States/Wilaya'at,,,Localities/Urban Areas,,2020.12
+Suriname,SUR,Country,Districts/Distrikt,Resorts,Localities/Urban Areas,,,2020.12
+Sweden,SWE,Country,Counties,Municipalities,,Localities/Urban Areas,Neighborhoods,2020.12
+Switzerland,CHE,Country,Cantons/Kanton/Cantone/Chantun,District/Bezirk/Distretto/Circul,"Commune/Gemeinde/Comune/
+Cum�n",Localities/Urban Areas,,2020.12
+Syria,SYR,Country,Governorates,Districts/Muhafazah,Cities,Localities,,2020.12
+Taiwan,TWN,Country,Provinces,Counties,Townships,Local Neighborhoods,,2020.12
+Tajikistan,TJK,Country,Provinces/Regions,Districts/Raion/Rayon,,Localities/Urban Areas,,2020.12
+Tanzania,TZA,Country,Provinces/Mkoa,Districts/Wilaya,Towns,Localities/Urban Areas,Neighborhoods,2020.12
+Thailand,THA,Country,Provinces/Changwat,Districts/Amphoe,Subdistricts/Tambon,Localities/Urban Areas,,2020.12
+Togo,TGO,Country,Regions/Provinces,Prefectures,Towns,Localities/Urban Areas,,2020.12
+Tokelau,TKL,Country,Atolls,,,,,2020.12
+Tonga,TON,Country,Subdivisions,,,,,2020.12
+Trinidad and Tobago,TTO,Country,Municipalities,,,Localities/Urban Areas,,2020.12
+Tunisia,TUN,Country,Governates/Wilayahs,Delegations/Mutamadiyats,Municipality/Shaykhats,Localities,,2020.12
+Turkey,TUR,Country,Provinces/Il,Districts/Ilce,Urban Areas/Belde,Subdistricts/Bucak/Neighborhoods/Mahalle,Villages/Koy,2020.12
+Turkmenistan,TKM,Country,Provinces/Welayat,Districts/Etraplar,,Towns,,2020.12
+Turks and Caicos Islands,TCA,Country,Districts,Localities,,,,2020.12
+Tuvalu,TUV,Country,Islands,,,,,2020.12
+Uganda,UGA,Country,Regions,Districts,Counties,Localities/Urban Areas,Neighborhoods,2020.12
+Ukraine,UKR,Country,Oblast/Mista/Avtonomna Respublika,Raions,Settlement Councils/Rural Councils,Localities/Urban Areas,Neighborhoods,2020.12
+United Arab Emirates,ARE,Country,Emirates,Municipalities,Cities,Localities,,2020.12
+United Kingdom,GBR,Country,Nations,Counties,Districts,Localities/Urban Areas,Parishes/Neighbourhoods,2020.12
+United States Minor Outlying Islands,UMI,Country,Islands/Atolls,,,,,2020.12
+United States of America,USA,Country,States/Territories,Counties,MCD/CCD/Post Localities,Municipalities,Neighborhoods,2020.12
+Uruguay,URY,Country,Departamentos/Departments,Municipios/Municipalities,,Localities/Urban Areas,Neighborhoods,2020.12
+Uzbekistan,UZB,Country,Regions/Viloyatlar,Districts/Tumanlar,Cities,Localities/Urban Areas,,2020.12
+Vanuatu,VUT,Country,Provinces,,,,,2020.12
+Vatican City,VAT,Country,,,,Localities/Urban Areas,,2020.12
+Venezuela,VEN,Country,States/Estados,Municipalities/Municipios,Localities/Urban Areas,Parish/Parroquias,Neighborhoods,2020.12
+Vietnam,VNM,Country,Provinces Cities,Districts,Wards,Localities/Urban Areas,,2020.12
+Wallis and Futuna Islands,WLF,Country,Districts/Rayaumes,,,,,2020.12
+Yemen,YEM,Country,Governorates/Muhafazat,Districts/Muderiah,,Localities/Urban Areas,,2020.12
+Zambia,ZMB,Country,Provinces,Districts,Towns,Suburbs/Localities,,2020.12
+Zimbabwe,ZWE,Country,Provinces,Districts/Muderiah,Localities/Urban Areas,Suburbs,,2020.12
+Aruba,ABW,Country,Regions,Zones,,,,2020.09
+Afghanistan,AFG,Country,Wilayat,Wuleswali,,Localities/Urban Areas,,2020.09
+Angola,AGO,Country,Provinces/Províncias,Municipios,,Local/Neighborhoods,Neighborhoods,2020.09
+Anguilla,AIA,Country,Parishes,,,,,2020.09
+Albania,ALB,Country,Qarqe/Qark,Communes/Bashki,Njësi,Localities/Urban Areas,,2020.09
+Andorra,AND,Country,Parishes/Parròquies,Localities/Urban Areas,,,,2020.09
+United Arab Emirates,ARE,Country,Emirates,Municipalities,Cities,Localities,,2020.09
+Argentina,ARG,Country,Provincias/Provinces,Departamentos/Departments,Localities/Urban Areas,Comunas/Barrios,Neighborhoods,2020.09
+Armenia,ARM,Country,Provinces/Marzpet,,Localities/Urban Areas,,,2020.09
+American Samoa,ASM,Country,Districts,Counties,Villages,,,2020.09
+Antarctica,ATA,Country,,,,,,2020.09
+French Southern Territories,ATF,Country,,,,,,2020.09
+Antigua and Barbuda,ATG,Country,Parishes,,,Localities/Urban Areas,,2020.09
+Australia,AUS,Country,States,Local Government Areas,Suburbs,Urban Centers,,2020.09
+Austria,AUT,Country,States/Bundesländer,Districts/Bezirke,Municipalities/Gemeinden,Urban Areas/Stadtteil,Neighborhoods,2020.09
+Azerbaijan,AZE,Country,Regions/Iqtisadi Rayonlar,Districts/Rayonlar,Localities/Urban Areas,,,2020.09
+Burundi,BDI,Country,Provinces,Communes,,Localities/Urban Areas,Neighborhoods,2020.09
+Belgium,BEL,Country,Regions/Gewest,Provinces/Provincie,Districts/Arrondissements,Municipalities/Communes,Localities/Gemeente,2020.09
+Benin,BEN,Country,Departments,Communes,Arrondisements,Neighborhoods,,2020.09
+Bonaire Sint Eustasius and Saba,BES,Country,Municipalities,,,Localities/Urban Areas,,2020.09
+Burkina Faso,BFA,Country,Regions,Provinces,Communes,Localities/Urban Areas,Neighborhoods,2020.09
+Bangladesh,BGD,Country,Divisions/Bibhag,Districts/Zila,Subdistricts/Upzila,Localities/Urban Areas,,2020.09
+Bulgaria,BGR,Country,Oblasts,Obshtina,Localities/Urban Areas,Suburbs,,2020.09
+Bahrain,BHR,Country,Governorates,Constituencies,Localities,,,2020.09
+Bahamas,BHS,Country,Island Groups,Districts,Towns,,,2020.09
+Bosnia and Herzegovina,BIH,Country,Federation/Republika,Kanton,Opština,Localities/Urban Areas,Neighborhoods,2020.09
+Saint Barthélemy,BLM,Country,,,,Localities/Urban Areas,,2020.09
+Belarus,BLR,Country,Voblasts’,Rayon,Selsoviet,Localities/Urban Areas,,2020.09
+Belize,BLZ,Country,Districts,Constituencies,Localities/Urban Areas,,,2020.09
+Bermuda,BMU,Country,Parishes,,,,,2020.09
+Bolivia,BOL,Country,Provincias/Provinces,Departamentos/Departments,Municipios/Municipalities,Localities/Urban Areas,Neighborhoods,2020.09
+Brazil,BRA,Country,Provinces/States/Unidades,Municipalities/Municipios,Towns,Urban Areas,Neighborhoods/Bairros,2020.09
+Barbados,BRB,Country,Parishes,,,Localities/Urban Areas,,2020.09
+Brunei,BRN,Country,Districts/Dawaïr,Subdistricts/Mukim,Villages/Kampung,Localities/Urban Areas,,2020.09
+Bhutan,BTN,Country,Districts/Dzongkhag,,Localities/Urban Areas,,,2020.09
+Bouvet Island,BVT,Country,,,,,,2020.09
+Botswana,BWA,Country,Districts ,Sub-Districts,,Localities/Urban Areas,Neighborhoods,2020.09
+Central African Republic,CAF,Country,Prefectures,Sub Prefectures,Communes,Localities/Urban Areas,,2020.09
+Canada,CAN,Country,Provinces/Territories,Census Divisions,Census Subdivisions,Localities/Urban Areas,Neighborhoods,2020.09
+Switzerland,CHE,Country,Cantons/Kanton/Cantone/Chantun,District/Bezirk/Distretto/Circul,Commune/Gemeinde/Comune/Cumün,Localities/Urban Areas,,2020.09
+Chile,CHL,Country,Regions/Regiones,Province/Provincias,Communes/Comunas,Localities/Urban Areas,Neighborhoods,2020.09
+People’s Republic of China,CHN,Country,Provinces,Prefectures,Cities/Counties,,Neighborhoods,2020.09
+Cote d’Ivoire,CIV,Country,Districts,Regions,Departments,Sub Prefectures,Villages,2020.09
+Cameroon,CMR,Country,Provinces/Regions,Departments,Municipalités/Cities/Communes,City Districts/Arrondissements,,2020.09
+Congo Democratic Republic of,COD,Country,Provinces,Districts,Territories,Localities/Urban Areas,Villages,2020.09
+Congo Republic of,COG,Country,,Regions,Communes,Arrondissements,,2020.09
+Cook Islands,COK,Country,Island Councils,,,,,2020.09
+Colombia,COL,Country,Departmentos,Municipios,Urban Areas,Localities,,2020.09
+Comoros,COM,Country,Autonomous Islands/îles Autonomes,,,Villes/Villages,,2020.09
+Cape Verde,CPV,Country,Ilhas,Concelhos,Freguesias,Localities/Urban Areas,,2020.09
+Costa Rica,CRI,Country,Provincias,Cantons,Distritos,Localities/Urban Areas,Neighborhoods,2020.09
+Cuba,CUB,Country,Provinces/Provincias,Municipalities/Municipios,Distritos Municipales,,,2020.09
+Curaçoa,CUW,Country,,,,Localities/Urban Areas,,2020.09
+Cayman Islands,CYM,Country,Districts,,,,,2020.09
+Cyprus,CYP,Country,Districts/Eparchies,Municipalities/Dimos,Localities/Urban Area,Districts/Sinikia,,2020.09
+Czech Republic,CZE,Country,Regions/Kraj,Municipalities/Orp,Obec,Mesto,,2020.09
+Germany,DEU,Country,Bundesland/States,Kreis/Districts,Gemeinde/Municipalities,Stadtteil/Localities/Urban Areas,Neighborhoods,2020.09
+Djibouti,DJI,Country,Regions,,,Localities,,2020.09
+Dominica,DMA,Country,Parishes,,,Localities/Urban Areas,,2020.09
+Denmark,DNK,Country,Regions,Municipalities,,Localities/Urban Areas,Neighborhoods,2020.09
+Dominican Republic,DOM,Country,Provinces/Provincias,Municipalities/Municipios,Localities/Urban Areas,Neighborhoods,,2020.09
+Algeria,DZA,Country,Provinces/Wilayas,Districts,Municipalities/Baladiyas,Localities/Urban Areas,Villages,2020.09
+Ecuador,ECU,Country,Provinces,Cantones,,Urban Areas,,2020.09
+Egypt,EGY,Country,Governorates/Muhafazat,Municipal Divisions/Markaz,Towns/Cities,Sub Municipal Divisions,Villages/Neighborhoods,2020.09
+Eritrea,ERI,Country,Regions/Zoba,Districts/Subzobas,,Localities/Urban Areas,,2020.09
+Spain,ESP,Country,Autonomous Communities/Comunidados Autonomas,Provincias,Municipios,Localities/Urban Areas,Neighborhoods,2020.09
+Estonia,EST,Country,Maakond,Omavalitsus/Linn/Vald,Küla,Localities/Urban Areas,,2020.09
+Ethiopia,ETH,Country,Regions/Kililoch,Zones/Zonouch,,Localities/Urban Areas,,2020.09
+Finland,FIN,Country,Regions/Maakunta,Sub-Regions/Seutukunta,Municipalities/Kunta,Localities/Urban Areas,Neighborhoods,2020.09
+Fiji,FJI,Country,Divisions,Provinces,Districts,Villages,,2020.09
+Falkland Islands,FLK,Country,,,,,,2020.09
+France,FRA,Country,Regions,Départements,Arrondissements,Cantons,Communes,2020.09
+Faroe Islands,FRO,Country,Regions/Syslur,Municipalities/Kommunur,Localities/Urban Areas,,,2020.09
+Micronesia Federated States of,FSM,Country,States,,,,,2020.09
+Gabon,GAB,Country,Provinces,Departments,Urban Areas/Cities,Arrondissements/Communes,,2020.09
+United Kingdom,GBR,Country,Nations,Counties,Districts,Localities/Urban Areas,Parishes/Neighbourhoods,2020.09
+Georgia,GEO,Country,Regions/Mkhare,Municipalities/Munitsipaliteti,Localities/Urban Areas,,,2020.09
+Ghana,GHA,Country,Regions,Districts,Localities/Urban Areas,Neighborhoods,,2020.09
+Gibraltar,GIB,Country,,,Towns,Localities/Urban Areas,,2020.09
+Guinea,GIN,Country,Regions,Prefectures,Sub Prefectures,neighborhoods,Localities,2020.09
+Guadeloupe,GLP,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.09
+Gambia,GMB,Country,Regions,Districts,,Localities/Urban Areas,,2020.09
+Guinea Bissau,GNB,Country,Regions,Sectors,Localities/Urban Areas,,,2020.09
+Equatorial Guinea,GNQ,Country,Regions,Provincias,Distritos ,Localities/Urban Areas,,2020.09
+Greece,GRC,Country,Regions/Periphenies,Regional Units Peri Enotities,Municipalities/Domoi,Localities/Urban Areas,Neighborhoods,2020.09
+Grenada,GRD,Country,States,Parishes/Dependencies,Localities/Urban Areas,,,2020.09
+Greenland,GRL,Country,Municipalities/Kommunia,,,,,2020.09
+Guatemala,GTM,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.09
+French Guiana,GUF,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.09
+Guam,GUM,,States,Districts,Towns,,,2020.09
+Guyana,GUY,Country,Regions,,Towns,Localities,,2020.09
+Hong Kong,HKG,Country,Districts,Subdistricts,,Localities/Urban Areas,,2020.09
+Heard and McDonald Islands,HMD,Country,,,,,,2020.09
+Honduras,HND,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.09
+Croatia,HRV,Country,Counties/Županija,Municipalities/Općine,,Gradska četvrt,Neighborhoods,2020.09
+Haiti,HTI,Country,Departments/Départements,Districts/Arrondissements,Communes,Localities/Urban Areas,,2020.09
+Hungary,HUN,Country,Megyék,Járások,Városok,Kerűlet,,2020.09
+Indonesia,IDN,Country,Provinces/Provinsi,Regency/Kabupaten,Districts/Kecamatan,Localities/Urban Areas,Subdistricts/Kelurahan ,2020.09
+India,IND,Country,States/Territories,Districts,Sub-districts/Towns,Localities/Urban Areas,Neighborhoods,2020.09
+British Indian Ocean Territory,IOT,Country,,,,,,2020.09
+Ireland,IRL,Country,Counties,,Electoral Divisions,Localities/Urban Areas,Neighborhoods,2020.09
+Iran,IRN,Country,Provinces/Ostanha,Counties/Shahrestan,Urban Areas/šahr,Localities/Dehestân,,2020.09
+Iraq,IRQ,Country,Governorates/Muhafazat,Districts/Qadaa/Kaza,Urban Areas,Localities,,2020.09
+Iceland,ISL,Country,Regions/Landsvaedi,Municipalities/Sveitarfelog,Localities/Urban Areas,,,2020.09
+Israel,ISR,Country,Districts,,Local Councils,,Neighborhoods,2020.09
+Italy,ITA,Country,Regiones,Provincias,Communes,Localities/Urban Areas,Neighborhoods,2020.09
+Jamaica,JAM,Country,Counties,Parishes,Constituencies,Localities/Urban Areas,,2020.09
+Jordan,JOR,Country,Governorates,Districts,Subdistricts,Cities,Communities,2020.09
+Japan,JPN,Country,Prefectures,Cities/Districts,Municipalities,Machi-Oaza,,2020.09
+Kazakhstan,KAZ,Country,Regions/Oblystar,Districts/Audandar,Towns/Kent,Localities/Urban Areas,,2020.09
+Kenya,KEN,Country,Counties,Constituencies,Localities/Urban Areas,Suburbs,Neighborhoods,2020.09
+Kyrgyzstan,KGZ,Country,Regions/Oblasttar,Districts/Raions,,Localities/Urban Areas,,2020.09
+Cambodia,KHM,Country,Provinces/Khaet,Districts/Srŏk,Communes/Khum,Localities/Urban Areas,,2020.09
+Kiribati,KIR,Country,Island Councils,,,,,2020.09
+Saint Kitts and Nevis,KNA,Country,States,Parishes,,Localities/Urban Areas,,2020.09
+Korea (South),KOR,Country,Provinces/Do,Districts/Si/Gun,,Localities/Urban Areas,Neighborhoods/Dong,2020.09
+Kuwait,KWT,Country,Governorates,Cities,Areas/Mintaqah,Communities,,2020.09
+Laos,LAO,Country,Provinces/Khoueng,Districts/Muang,Localities/Urban Areas,,,2020.09
+Lebanon,LBN,Country,Governorates/Muhafazat,Districts/Qadaa,Municipalities,Localities/Urban Areas,,2020.09
+Liberia,LBR,Country,Counties,Districts,Clans,Localities/Urban Areas,,2020.09
+Libya,LBY,Country,Districts/Shabiya,,Cities/Urban Areas,Localities,,2020.09
+Saint Lucia,LCA,Country,Districts/Quarters,,,Localities/Urban Areas,,2020.09
+Liechtenstein,LIE,Country,Districts/Bezirk,Municipalities/Gemeinden,Localities/Urban Areas,,,2020.09
+Sri Lanka,LKA,Country,Provinces,Districts,Divisional Secretariats,Localities/Urban Areas,Neighborhoods,2020.09
+Lesotho,LSO,Country,Districts,Constituencies,Community Councils,Local Neighborhoods,,2020.09
+Lithuania,LTU,Country,Apskritis,Savivaldybé,,Seniūnija,,2020.09
+Luxembourg,LUX,Country,Cantons/Kantounen/Kantone,Communes/Gemengen/Gemeinden,Localities/Ortschaft/Uertschaft,Urban Areas,Neighborhoods,2020.09
+Latvia,LVA,Country,Regions,Municipalities/Novadi,Pilsētas/Pagasti,Localities/Urban Areas,,2020.09
+Macao,MAC,Country,Parishes,Districts,,,,2020.09
+Saint Martin,MAF,Country,,,,Localities/Urban Areas,,2020.09
+Morocco,MAR,Country,Regions,Provinces/Prefectures,Communes,Localities/Urban Areas,,2020.09
+Monaco,MCO,Country,Communes,Wards/Quartiers,,,,2020.09
+Moldova,MDA,Country,Raion,Comuna,,Localities/Urban Areas,,2020.09
+Madagascar,MDG,Country,Regions/Faritra,Districts,Communes,Localities/Urban Areas,,2020.09
+Maldives,MDV,Country,Atolls/Cities,Islands,,,,2020.09
+Mexico,MEX,Country,Estados,Municipios/Delegaciones,Colonias,Localities/Urban Areas,Neighborhoods,2020.09
+Marshall Islands,MHL,Country,Municipalities,,,,,2020.09
+Macedonia,MKD,Country,Statistical Regions,Opstina,,Localities/Urban Areas,,2020.09
+Mali,MLI,Country,Regions,Communes,Arrondissements,Localities/Urban Areas,,2020.09
+Malta,MLT,Country,Districts,Local Councils/Kunsilli Lokali,Localities/Urban Areas,,,2020.09
+Myanmar,MMR,Country,States/Regions/Union Territories,Districts,Townships,Localities/Urban Areas,,2020.09
+Montenegro,MNE,Country,Opštine,Gradska Opština,,Localities/Urban Areas,,2020.09
+Mongolia,MNG,Country,Provinces/Aimags,Districts/Sums,Localities/Urban Areas,,,2020.09
+Northern Mariana Islands,MNP,Country,Municipalities,,,,,2020.09
+Mozambique,MOZ,Country,Provinces,Districts/Distritos,Localities/Urban Areas,Suburbs/Freguesias,,2020.09
+Mauritania,MRT,Country,Regions,Departements,,Localities/Urban Areas,Neighborhoods,2020.09
+Montserrat,MSR,Country,Parishes,,,Localities/Urban Areas,,2020.09
+Martinique,MTQ,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.09
+Mauritius,MUS,Country,Islands,Districts,Wards,Localities,,2020.09
+Malawi,MWI,Country,Regions,Districts,Localities/Urban Areas,Suburbs,,2020.09
+Malaysia,MYS,Country,States/Negeri,Districts/Daïra/Daerah,Subdistricts/Mukim,Localities/Urban Area/Bahagian Kecil,Neighborhoods,2020.09
+Mayotte,MYT,Country,Communes,,,Villages,,2020.09
+Namibia,NAM,Country,Provinces,Constituencies,Towns,Suburbs/Localities,,2020.09
+New Caledonia,NCL,Country,Provinces,Communes,,,,2020.09
+Niger,NER,Country,Regions,,Cities/Urban Areas,Towns/Communes,,2020.09
+Nigeria,NGA,Country,States,Local Government Areas,Towns/Cities,Suburbs,,2020.09
+Nicaragua,NIC,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.09
+Niue,NIU,Country,Villages,Towns,,,,2020.09
+Netherlands,NLD,Country,Counties/Fylker,Districts/Okonomisk,Municipalities/Kommuner,Localities/Urban Areas,Neighborhoods,2020.09
+Norway,NOR,Country,Counties/Fylker,Districts/Okonomisk,Municipalities/Kommuner,Localities/Urban Areas,Neighborhoods,2020.09
+Nepal,NPL,Country,Provinces/Pradeshaharu,Districts/Jilla,Localities/Urban Areas,,,2020.09
+Nauru,NRU,Country,Districts,,,,,2020.09
+New Zealand,NZL,Country,Regions,Territorial Authorities,Statistical Areas,Localities/Urban Areas,Neighborhoods,2020.09
+Oman,OMN,Country,Governorates/Muhafazah,Provinces/Wilayat,Cities/Urban Areas,Communities,,2020.09
+Pakistan,PAK,Country,Provinces,Districts,Cities/Urban Areas,Localities/Tehsils,,2020.09
+Panama,PAN,Country,Provinces/Provincias,Districts/Distrito,Corregimientos,Localities/Urban Areas,,2020.09
+Pitcairn Islands,PCN,Country,Islands,,,,,2020.09
+Peru,PER,Country,Regions,Districts,Distritos,Urban Areas,,2020.09
+Philippines,PHL,Country,Regions/Rehiyon,Provinces/Lalawigan,Municipalities/Munisipiyos,Cities/Lungsod,Barangays/Villages,2020.09
+Palau,PLW,Country,States,,,,,2020.09
+Papua New Guinea,PNG,Country,Regions,Provinces,Districts,Localities/Urban Areas,,2020.09
+Poland,POL,Country,Provinces/Voivodeships,Counties/Powiats,Communes/Gminas,Towns/Dzielnicas,Neighborhoods,2020.09
+Puerto Rico,PRI,,Territories,State,Municipality,Towns,,2020.09
+Korea (North),PRK,Country,Provinces,,,Localities/Urban Areas,,2020.09
+Portugal,PRT,Country,Districts/Distritos,Municipalities/Concelhos,Civil Parish/Freguesias,Localities/Urban Areas,Neighborhoods,2020.09
+Paraguay,PRY,Country,Departments,Distritos,,Localities/Urban Areas,Neighborhoods,2020.09
+Palestine,PSE,Country,Territories,Governorates/Muhafazat,Urban Areas,,,2020.09
+French Polynesia,PYF,Country,Subdivisions/Iles,Communes,,,,2020.09
+Qatar,QAT,Country,Municipalities/Baladiyat,Zones,Localities/Urban Areas,,,2020.09
+Réunion ,REU,Country,Arrondissements,Communes,,Localities/Urban Areas,,2020.09
+Romania,ROU,Country,Regions/Judete,Communes,Cities/Municipiu,Towns/Oraș,,2020.09
+Russia,RUS,Country,Federal District/Federal’nyy Okrug,Oblast’,Rayon/Raion,Urban Area/Gorod,Neighborhoods,2020.09
+Rwanda,RWA,Country,Provinces,Districts,Sectors/Secteurs,Localities/Urban Areas,Cellule Suburb,2020.09
+Saudi Arabia,SAU,Country,Regions/Manatiq,Governorates/Muhafazat,Municipalities/Amanah,Localities/Urban Areas,,2020.09
+Sudan,SDN,Country,States/Wilaya'at,,,Localities/Urban Areas,,2020.09
+Senegal,SEN,Country,Regions,Departments,Arrondissements,Localities/Urban Areas,Neighborhoods,2020.09
+Singapore,SGP,Country,Community Governoring Council,Planning Areas,,,,2020.09
+South Georgia and the South Sandwich Islands,SGS,Country,,,,,,2020.09
+Saint Helena,SHN,Country,Islands,Districts,,,,2020.09
+Solomon Islands,SLB,Country,Provinces,Constituencies,Wards,,,2020.09
+Sierra Leone,SLE,Country,Provinces,Districts,Chiefdoms,Localities/Urban Areas,,2020.09
+El Salvador,SLV,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.09
+San Marino,SMR,Country,Municipalities/Castelli,Localities/Urban Areas,,,,2020.09
+Somalia,SOM,Country,Regions/Gobolada,,,Localities/Urban Areas,,2020.09
+Saint Pierre and Miquelon,SPM,Country,,,,,,2020.09
+Serbia,SRB,Country,Autonomna Pokrajina,Okrug/Grad,Opstina,Localities/Urban Areas,,2020.09
+South Sudan,SSD,Country,States/Wilayat,Counties,,Localities/Urban Areas,,2020.09
+São Tomé and Príncipe,STP,Country,Provinces,Districts,,Localities/Urban Areas,,2020.09
+Suriname,SUR,Country,Districts/Distrikt,Resorts,Localities/Urban Areas,,,2020.09
+Slovakia,SVK,Country,Regions/Kraje,Districts/Okresy,Municipalities/Obec,Mestská cast,,2020.09
+Slovenia,SVN,Country,Regions/Regi,,Municipalities/Obcine,Localities/Urban Areas,,2020.09
+Sweden,SWE,Country,Counties,Municipalities,,Localities/Urban Areas,Neighborhoods,2020.09
+Eswatini,SWZ,Country,Regions,Tinkhundla,Towns,Suburbs/Localities,,2020.09
+Sint Maarten,SXM,Country,,,,,,2020.09
+Seychelles,SYC,Country,Districts,,,Localities/Urban Areas,,2020.09
+Syria,SYR,Country,Governorates,Districts/Muhafazah,Cities,Localities,,2020.09
+Turks and Caicos Islands,TCA,Country,Districts,Localities,,,,2020.09
+Chad,TCD,Country,Regions,Departements,Arrondissements,Localities/Urban Areas,,2020.09
+Togo,TGO,Country,Regions/Provinces,Prefectures,Towns,Localities/Urban Areas,,2020.09
+Thailand,THA,Country,Provinces/Changwat,Districts/Amphoe,Subdistricts/Tambon,Localities/Urban Areas,,2020.09
+Tajikistan,TJK,Country,Provinces/Regions,Districts/Raion/Rayon,,Localities/Urban Areas,,2020.09
+Tokelau,TKL,Country,Atolls,,,,,2020.09
+Turkmenistan,TKM,Country,Provinces/Welayat,Districts/Etraplar,,Towns,,2020.09
+East Timor (Timor-Leste),TLS,Country,Municipalities,Administrative Post,,Localities/Urban Areas,,2020.09
+Tonga,TON,Country,Subdivisions,,,,,2020.09
+Trinidad and Tobago,TTO,Country,Municipalities,,,Localities/Urban Areas,,2020.09
+Tunisia,TUN,Country,Governates/Wilayahs,Delegations/Mutamadiyats,Municipality/Shaykhats,Localities,,2020.09
+Turkey,TUR,Country,Provinces/Il,Districts/Ilce,Urban Areas/Belde,Subdistricts/Bucak/Neighborhoods/Mahalle,Villages/Koy,2020.09
+Tuvalu,TUV,Country,Islands,,,,,2020.09
+Taiwan,TWN,Country,Provinces,Counties,Townships,Local Neighborhoods,,2020.09
+Tanzania,TZA,Country,Provinces/Mkoa,Districts/Wilaya,Towns,Localities/Urban Areas,Neighborhoods,2020.09
+Uganda,UGA,Country,Regions,Districts,Counties,Localities/Urban Areas,Neighborhoods,2020.09
+Ukraine,UKR,Country,Oblast/Mista/Avtonomna Respublika,Raions,Settlement Councils/Rural Councils,Localities/Urban Areas,Neighborhoods,2020.09
+United States Minor Outlying Islands,UMI,Country,Islands/Atolls,,,,,2020.09
+Uruguay,URY,Country,Departamentos/Departments,Municipios/Municipalities,,Localities/Urban Areas,Neighborhoods,2020.09
+United States of America,USA,Country,States/Territories,Counties,MCD/CCD/Post Localities,Municipalities,Neighborhoods,2020.09
+Uzbekistan,UZB,Country,Regions/Viloyatlar,Districts/Tumanlar,Cities,Localities/Urban Areas,,2020.09
+Vatican City,VAT,Country,,,,Localities/Urban Areas,,2020.09
+Saint Vincent and the Grenadines,VCT,Country,Parishes,Divisions,Localities/Urban Areas,,,2020.09
+Venezuela,VEN,Country,States/Estados,Municipalities/Municipios,Parish/Parroquias,,Neighborhoods,2020.09
+British Virgin Islands,VGB,Country,Districts,,,,,2020.09
+Vietnam,VNM,Country,Provinces Cities,Districts,Wards,Localities/Urban Areas,,2020.09
+Vanuatu,VUT,Country,Provinces,,,,,2020.09
+Wallis and Futuna Islands,WLF,Country,Districts/Rayaumes,,,,,2020.09
+Samoa,WSM,Country,Districts/Itūmālō,Towns,Localities/Urban Areas,,,2020.09
+Kosovo,XKS,Country,Districts,Municipalities,,Localities/Urban Areas,,2020.09
+Yemen,YEM,Country,Governorates/Muhafazat,Districts/Muderiah,,Localities/Urban Areas,,2020.09
+South Africa,ZAF,Country,Provinces,Districts,Municipalities,Wards,Neighborhoods,2020.09
+Zambia,ZMB,Country,Provinces,Districts,Towns,Suburbs/Localities,,2020.09
+Zimbabwe,ZWE,Country,Provinces,Districts/Muderiah,Localities/Urban Areas,Suburbs,,2020.09
+Afghanistan,AFG,Country,Wilayat,Wuleswali,,Localities/Urban Areas,,2020.06
+Albania,ALB,Country,Qarqe/Qark,Communes/Bashki,Njësi,Localities/Urban Areas,,2020.06
+Algeria,DZA,Country,Provinces/Wilayas,Districts,Municipalities/Baladiyas,Localities/Urban Areas,Villages,2020.06
+American Samoa,ASM,Country,Districts,Counties,Villages,,,2020.06
+Andorra,AND,Country,Parishes/Parròquies,Localities/Urban Areas,,,,2020.06
+Angola,AGO,Country,Provinces/Províncias,Municipios,,Local/Neighborhoods,,2020.06
+Anguilla,AIA,Country,Parishes,,,,,2020.06
+Antarctica,ATA,Country,,,,,,2020.06
+Antigua and Barbuda,ATG,Country,Parishes,,,Localities/Urban Areas,,2020.06
+Argentina,ARG,Country,Provincias/Provinces,Departamentos/Departments,Localities/Urban Areas,Comunas/Barrios,Neighborhoods,2020.06
+Armenia,ARM,Country,Provinces/Marzpet,,Localities/Urban Areas,,,2020.06
+Aruba,ABW,Country,Regions,Zones,,,,2020.06
+Australia,AUS,Country,States,Local Government Areas,Suburbs,Urban Centers,,2020.06
+Austria,AUT,Country,States/Bundesländer,Districts/Bezirke,Municipalities/Gemeinden,Urban Areas/Stadtteil,Neighborhoods,2020.06
+Azerbaijan,AZE,Country,Regions/Iqtisadi Rayonlar,Districts/Rayonlar,Localities/Urban Areas,,,2020.06
+Bahamas,BHS,Country,Island Groups,Districts,Towns,,,2020.06
+Bahrain,BHR,Country,Governorates,Constituencies,,,,2020.06
+Bangladesh,BGD,Country,Divisions/Bibhag,Districts/Zila,Subdistricts/Upzila,Localities/Urban Areas,,2020.06
+Barbados,BRB,Country,Parishes,,,Localities/Urban Areas,,2020.06
+Belarus,BLR,Country,Voblasts’,Rayon,Selsoviet,Localities/Urban Areas,,2020.06
+Belgium,BEL,Country,Regions/Gewest,Provinces/Provincie,Districts/Arrondissements,Municipalities/Communes,Localities/Gemeente,2020.06
+Belize,BLZ,Country,Districts,Constituencies,Localities/Urban Areas,,,2020.06
+Benin,BEN,Country,Departments,Communes,Arrondisements,Neighborhoods,,2020.06
+Bermuda,BMU,Country,Parishes,,,,,2020.06
+Bhutan,BTN,Country,Districts/Dzongkhag,,Localities/Urban Areas,,,2020.06
+Bolivia,BOL,Country,Provincias/Provinces,Departamentos/Departments,Municipios/Municipalities,Localities/Urban Areas,Neighborhoods,2020.06
+Bonaire Sint Eustasius and Saba,BES,Country,Municipalities,,,Localities/Urban Areas,,2020.06
+Bosnia and Herzegovina,BIH,Country,Federation/Republika,Kanton,Opština,Localities/Urban Areas,,2020.06
+Botswana,BWA,Country,Districts ,Sub-Districts,,Local/Neighborhoods,,2020.06
+Bouvet Island,BVT,Country,,,,,,2020.06
+Brazil,BRA,Country,Provinces/States/Unidades,Municipalities/Municipios,Towns,Urban Areas,Neighborhoods/Bairros,2020.06
+British Indian Ocean Territory,IOT,Country,,,,,,2020.06
+British Virgin Islands,VGB,Country,Districts,,,,,2020.06
+Brunei,BRN,Country,Districts/Dawaïr,Subdistricts/Mukim,Villages/Kampung,Localities/Urban Areas,,2020.06
+Bulgaria,BGR,Country,Oblasts,Obshtina,Localities/Urban Areas,Suburbs,,2020.06
+Burkina Faso,BFA,Country,Regions,Provinces,Communes,Localities/Urban Areas,Neighborhoods,2020.06
+Burundi,BDI,Country,Provinces,Communes,,Localities/Urban Areas,Neighborhoods,2020.06
+Cambodia,KHM,Country,Provinces/Khaet,Districts/Srŏk,Communes/Khum,Localities/Urban Areas,,2020.06
+Cameroon,CMR,Country,Provinces/Regions,Departments,Municipalités/Cities/Communes,City Districts/Arrondissements,,2020.06
+Canada,CAN,Country,Provinces/Territories,Census Divisions,Census Subdivisions,Localities/Urban Areas,Neighborhoods,2020.06
+Cape Verde,CPV,Country,Ilhas,Concelhos,Freguesias,Localities/Urban Areas,,2020.06
+Cayman Islands,CYM,Country,Districts,,,,,2020.06
+Central African Republic,CAF,Country,Prefectures,Sub Prefectures,Communes,Localities/Urban Areas,,2020.06
+Chad,TCD,Country,Regions,Departements,Arrondissements,Localities/Urban Areas,,2020.06
+Chile,CHL,Country,Regions/Regiones,Province/Provincias,Communes/Comunas,Localities/Urban Areas,Neighborhoods,2020.06
+China People’s Republic of,CHN,Country,Provinces,Prefectures,Cities/Counties,,Neighborhoods,2020.06
+Colombia,COL,Country,Departmentos,Municipios,Urban Areas,Localities,,2020.06
+Comoros,COM,Country,Autonomous Islands/îles Autonomes,Prefectures,Communes,Villes/Villages,,2020.06
+Congo Democratic Republic of,COD,Country,Provinces,Districts,Territories,Localities/Urban Areas,Villages,2020.06
+Congo Republic of,COG,Country,,Regions,Communes,Arrondissements,,2020.06
+Cook Islands,COK,Country,Island Councils,,,,,2020.06
+Costa Rica,CRI,Country,Provincias,Cantons,Distritos,Localities/Urban Areas,,2020.06
+Cote d’Ivoire,CIV,Country,Districts,Regions,Departments,Sub Prefectures,Villages,2020.06
+Croatia,HRV,Country,Counties/Županija,Municipalities/Općine,,Gradska četvrt,Neighborhoods,2020.06
+Cuba,CUB,Country,Provinces/Provincias,Municipalities/Municipios,Distritos Municipales,Localities/Urban Areas,,2020.06
+Curaçoa,CUW,Country,,,,Localities/Urban Areas,,2020.06
+Cyprus,CYP,Country,Districts/Eparchies,Municipalities/Dimos,Localities/Urban Area,Districts/Sinikia,,2020.06
+Czech Republic,CZE,Country,Regions/Kraj,Municipalities/Orp,Obec,Mesto,,2020.06
+Denmark,DNK,Country,Regions,Municipalities,,Localities/Urban Areas,Neighborhoods,2020.06
+Djibouti,DJI,Country,Regions,Districts,Cities,Localities,,2020.06
+Dominica,DMA,Country,Parishes,,,Localities/Urban Areas,,2020.06
+Dominican Republic,DOM,Country,Provinces/Provincias,Municipalities/Municipios,Localities/Urban Areas,,,2020.06
+East Timor (Timor-Leste),TLS,Country,Municipalities,Administrative Post,,Localities/Urban Areas,,2020.06
+Ecuador,ECU,Country,Provinces,Cantones,,Urban Areas,,2020.06
+Egypt,EGY,Country,Governorates/Muhafazat,Municipal Divisions/Markaz,Towns/Cities,Sub Municipal Divisions,Villages/Neighborhoods,2020.06
+El Salvador,SLV,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.06
+Equatorial Guinea,GNQ,Country,Regions,Provincias,Distritos ,Localities/Urban Areas,,2020.06
+Eritrea,ERI,Country,Regions/Zoba,Districts/Subzobas,,Localities/Urban Areas,,2020.06
+Estonia,EST,Country,Maakond,Omavalitsus/Linn/Vald,Küla,Localities/Urban Areas,,2020.06
+Eswatini,SWZ,Country,Regions,Tinkhundla,Towns,Suburbs/Localities,,2020.06
+Ethiopia,ETH,Country,Regions/Kililoch,Zones/Zonouch,,Localities/Urban Areas,,2020.06
+Falkland Islands,FLK,Country,,,,,,2020.06
+Faroe Islands,FRO,Country,Regions/Syslur,Municipalities/Kommunur,Localities/Urban Areas,,,2020.06
+Fiji,FJI,Country,Divisions,Provinces,Districts,Villages,,2020.06
+Finland,FIN,Country,Regions/Maakunta,Sub-Regions/Seutukunta,Municipalities/Kunta,Localities/Urban Areas,Neighborhoods,2020.06
+France,FRA,Country,Regions,Départements,Arrondissements,Cantons,Communes,2020.06
+French Guiana,GUF,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.06
+French Polynesia,PYF,Country,Subdivisions/Iles,Communes,,,,2020.06
+French Southern Territories,ATF,Country,,,,,,2020.06
+Gabon,GAB,Country,Provinces,Departments,Urban Areas/Cities,Arrondissements/Communes,,2020.06
+Gambia,GMB,Country,Regions,Districts,,Localities/Urban Areas,,2020.06
+Georgia,GEO,Country,Regions/Mkhare,Municipalities/Munitsipaliteti,Localities/Urban Areas,,,2020.06
+Germany,DEU,Country,Bundesland/States,Kreis/Districts,Gemeinde/Municipalities,Stadtteil/Localities/Urban Areas,Neighborhoods,2020.06
+Ghana,GHA,Country,Regions,Districts,Localities/Urban Areas,Neighborhoods,,2020.06
+Gibraltar,GIB,Country,,,Towns,Localities/Urban Areas,,2020.06
+Greece,GRC,Country,Regions/Periphenies,Regional Units Peri Enotities,Municipalities/Domoi,Localities/Urban Areas,Neighborhoods,2020.06
+Greenland,GRL,Country,Municipalities/Kommunia,,,,,2020.06
+Grenada,GRD,Country,States,Parishes/Dependencies,Localities/Urban Areas,,,2020.06
+Guadeloupe,GLP,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.06
+Guam,GUM,Country,States,Districts,Towns,,,2020.06
+Guatemala,GTM,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.06
+Guinea,GIN,Country,Regions,Prefectures,Sub Prefectures,neighborhoods,Localities,2020.06
+Guinea Bissau,GNB,Country,Regions,Sectors,Localities/Urban Areas,,,2020.06
+Guyana,GUY,Country,Regions,,Towns,Localities,,2020.06
+Haiti,HTI,Country,Departments/Départements,Districts/Arrondissements,Communes,Localities/Urban Areas,,2020.06
+Heard and McDonald Islands,HMD,Country,,,,,,2020.06
+Honduras,HND,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.06
+Hong Kong,HKG,Country,Districts,Subdistricts,,Localities/Urban Areas,,2020.06
+Hungary,HUN,Country,Megyék,Járások,Városok,Kerűlet,,2020.06
+Iceland,ISL,Country,Regions/Landsvaedi,Municipalities/Sveitarfelog,Localities/Urban Areas,,,2020.06
+India,IND,Country,States,Districts,Sub-districts/Towns,Localities/Urban Areas,,2020.06
+Indonesia,IDN,Country,Provinces/Provinsi,Regency/Kabupaten,Districts/Kecamatan,Localities/Urban Areas,Subdistricts/Kelurahan ,2020.06
+Iran,IRN,Country,Provinces/Ostanha,Counties/Shahrestan,Urban Areas/šahr,Localities/Dehestân,,2020.06
+Iraq,IRQ,Country,Governorates/Muhafazat,Districts/Qadaa/Kaza,Urban Areas,Localities,,2020.06
+Ireland,IRL,Country,Counties,,Electoral Divisions,Localities/Urban Areas,Neighborhoods,2020.06
+Israel,ISR,Country,Districts,Counties,Local Councils,,Neighborhoods,2020.06
+Italy,ITA,Country,Regiones,Provincias,Communes,Localities/Urban Areas,Neighborhoods,2020.06
+Jamaica,JAM,Country,Counties,Parishes,Constituencies,Localities/Urban Areas,,2020.06
+Japan,JPN,Country,Prefectures,Cities/Districts,Municipalities,Machi-Oaza,,2020.06
+Jordan,JOR,Country,Provinces,Districts,Cities,Communities,Neighborhoods,2020.06
+Kazakhstan,KAZ,Country,Regions/Oblystar,Districts/Audandar,Towns/Kent,Localities/Urban Areas,,2020.06
+Kenya,KEN,Country,Counties,Constituencies,Localities/Urban Areas,Suburbs,Neighborhoods,2020.06
+Kiribati,KIR,Country,Island Councils,,,,,2020.06
+Korea (North),PRK,Country,Provinces,,Do/To/Si,Localities/Urban Areas,,2020.06
+Korea (South),KOR,Country,Provinces/Do,Districts/Si/Gun,,Localities/Urban Areas,Neighborhoods/Dong,2020.06
+Kosovo,XKS,Country,,,Komuna/Opstina,Localities/Urban Areas,,2020.06
+Kuwait,KWT,Country,Governorates,,Cities,Communities,,2020.06
+Kyrgyzstan,KGZ,Country,Regions/Oblasttar,Districts/Raions,,Localities/Urban Areas,,2020.06
+Laos,LAO,Country,Provinces/Khoueng,Districts/Muang,Localities/Urban Areas,,,2020.06
+Latvia,LVA,Country,Regions,Municipalities/Novadi,Pilsētas/Pagasti,Localities/Urban Areas,,2020.06
+Lebanon,LBN,Country,Governorates/Muhafazat,Districts/Qadaa,Municipalities,Localities/Urban Areas,,2020.06
+Lesotho,LSO,Country,Districts,Constituencies,Community Councils,Local Neighborhoods,,2020.06
+Liberia,LBR,Country,Counties,Districts,Clans,,,2020.06
+Libya,LBY,Country,Districts/Shabiya,,Cities/Urban Areas,Localities,,2020.06
+Liechtenstein,LIE,Country,Districts/Bezirk,Municipalities/Gemeinden,Localities/Urban Areas,,,2020.06
+Lithuania,LTU,Country,Apskritis,Savivaldybé,,Seniūnija,,2020.06
+Luxembourg,LUX,Country,Cantons/Kantounen/Kantone,Communes/Gemengen/Gemeinden,Localities/Ortschaft/Uertschaft,Urban Areas,Neighborhoods,2020.06
+Macao,MAC,Country,Parishes,,,Localities/Urban Areas,,2020.06
+Macedonia,MKD,Country,Statistical Regions,Opstina,,Localities/Urban Areas,,2020.06
+Madagascar,MDG,Country,Regions/Faritra,Districts,Communes,Localities/Urban Areas,,2020.06
+Malawi,MWI,Country,Regions,Districts,Localities/Urban Areas,Suburbs,,2020.06
+Malaysia,MYS,Country,States/Negeri,Districts/Daïra/Daerah,Subdistricts/Mukim,Localities/Urban Area/Bahagian Kecil,Neighborhoods,2020.06
+Maldives,MDV,Country,Atolls/Cities,Islands,,,,2020.06
+Mali,MLI,Country,Regions,Communes,Arrondissements,Localities/Urban Areas,,2020.06
+Malta,MLT,Country,Districts,Local Councils/Kunsilli Lokali,Localities/Urban Areas,,,2020.06
+Marshall Islands,MHL,Country,Municipalities,,,,,2020.06
+Martinique,MTQ,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.06
+Mauritania,MRT,Country,Regions,Departements,,Localities/Urban Areas,Neighborhoods,2020.06
+Mauritius,MUS,Country,Islands,Districts,Wards,Localities,,2020.06
+Mayotte,MYT,Country,Communes,Cantons,Cities/Urban Areas,Villages,,2020.06
+Mexico,MEX,Country,Estados,Municipios/Delegaciones,Colonias,Localities/Urban Areas,Neighborhoods,2020.06
+Micronesia Federated States of,FSM,Country,States,,,,,2020.06
+Moldova,MDA,Country,,Raion,Comuna,Localities/Urban Areas,,2020.06
+Monaco,MCO,Country,Communes,Wards/Quartiers,,,,2020.06
+Mongolia,MNG,Country,Provinces/Aimags,Districts/Sums,Localities/Urban Areas,,,2020.06
+Montenegro,MNE,Country,Opštine,Gradska Opština,,Localities/Urban Areas,,2020.06
+Montserrat,MSR,Country,Parishes,,,Localities/Urban Areas,,2020.06
+Morocco,MAR,Country,Regions,Provinces/Prefectures,Communes,Localities/Urban Areas,,2020.06
+Mozambique,MOZ,Country,Provinces,Districts/Distritos,Localities/Urban Areas,Suburbs/Freguesias,,2020.06
+Myanmar,MMR,Country,States/Regions/Union Territories,Districts,Townships,Localities/Urban Areas,,2020.06
+Namibia,NAM,Country,Provinces,Constituencies,Towns,Suburbs/Localities,,2020.06
+Nauru,NRU,Country,Districts,,,,,2020.06
+Nepal,NPL,Country,Provinces/Pradeshaharu,Districts/Jilla,Localities/Urban Areas,,,2020.06
+Netherlands,NLD,Country,Counties/Fylker,Districts/Okonomisk,Municipalities/Kommuner,Localities/Urban Areas,Neighborhoods,2020.06
+New Caledonia,NCL,Country,Provinces,Communes,,,,2020.06
+New Zealand,NZL,Country,Regions,Territorial Authorities,,Localities/Urban Areas,Neighborhoods,2020.06
+Nicaragua,NIC,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.06
+Niger,NER,Country,Regions,Departments,Cities/Urban Areas,Towns/Communes,,2020.06
+Nigeria,NGA,Country,States,Local Government Areas,Towns/Cities,Suburbs,,2020.06
+Niue,NIU,Country,Villages,Towns,,,,2020.06
+Northern Mariana Islands,MNP,Country,Municipalities,,,,,2020.06
+Norway,NOR,Country,Counties/Fylker,Districts/Okonomisk,Municipalities/Kommuner,Localities/Urban Areas,Neighborhoods,2020.06
+Oman,OMN,Country,Governorates/Muhafazah,Provinces/Wilayat,Cities/Urban Areas,Communities,,2020.06
+Pakistan,PAK,Country,Provinces,Districts,Cities/Urban Areas,Localities/Tehsils,,2020.06
+Palau,PLW,Country,States,,,,,2020.06
+Palestine,PSE,Country,Territories,Governorates/Muhafazat,Urban Areas,,,2020.06
+Panama,PAN,Country,Provinces/Provincias,Districts/Distrito,Corregimientos,Localities/Urban Areas,,2020.06
+Papua New Guinea,PNG,Country,Regions,Provinces,Districts,Localities/Urban Areas,,2020.06
+Paraguay,PRY,Country,Departments,Distritos,,Localities/Urban Areas,,2020.06
+Peru,PER,Country,Regions,Districts,Distritos,Urban Areas,,2020.06
+Philippines,PHL,Country,Regions/Rehiyon,Provinces/Lalawigan,Municipalities/Cities/Munisipiyos/Lungsod,Barangays/Villages,,2020.06
+Pitcairn Islands,PCN,Country,Islands,,,,,2020.06
+Poland,POL,Country,Provinces/Voivodeships,Counties/Powiats,Communes/Gminas,Towns/Dzielnicas,,2020.06
+Portugal,PRT,Country,Districts/Distritos,Municipalities/Concelhos,Civil Parish/Freguesias,Localities/Urban Areas,Neighborhoods,2020.06
+Puerto Rico,PRI,Country,Territories,State,Municipality,Towns,,2020.06
+Qatar,QAT,Country,Municipalities/Baladiyat,Zones,Localities/Urban Areas,,,2020.06
+Réunion ,REU,Country,Arrondissements,Communes,,Localities/Urban Areas,,2020.06
+Romania,ROU,Country,Regions/Judete,Communes,Cities/Municipiu,Towns/Oraș,,2020.06
+Russia,RUS,Country,Federal District/Federal’nyy Okrug,Oblast’,Rayon/Raion,Urban Area/Gorod,,2020.06
+Rwanda,RWA,Country,Provinces,Districts,Sectors/Secteurs,Localities/Urban Areas,Cellule Suburb,2020.06
+Saint Barthélemy,BLM,Country,,,,,,2020.06
+Saint Helena,SHN,Country,Islands,Districts,,,,2020.06
+Saint Kitts and Nevis,KNA,Country,States,Parishes,,Localities/Urban Areas,,2020.06
+Saint Lucia,LCA,Country,Districts/Quarters,,,Localities/Urban Areas,,2020.06
+Saint Martin,MAF,Country,,,,Localities/Urban Areas,,2020.06
+Saint Pierre and Miquelon,SPM,Country,,,,,,2020.06
+Saint Vincent and the Grenadines,VCT,Country,Parishes,Divisions,Localities/Urban Areas,,,2020.06
+Samoa,WSM,Country,Districts/Itūmālō,Towns,,,,2020.06
+San Marino,SMR,Country,Municipalities/Castelli,Localities/Urban Areas,,,,2020.06
+São Tomé and Príncipe,STP,Country,Provinces,Districts,,Localities/Urban Areas,,2020.06
+Saudi Arabia,SAU,Country,Regions/Manatiq,Governorates/Muhafazat,Municipalities/Amanah,Localities/Urban Areas,,2020.06
+Senegal,SEN,Country,Regions,Departments,Arrondissements,Localities/Urban Areas,Neighborhoods,2020.06
+Serbia,SRB,Country,Autonomna Pokrajina,Okrug/Grad,Opstina,Localities/Urban Areas,,2020.06
+Seychelles,SYC,Country,Districts,,,Localities/Urban Areas,,2020.06
+Sierra Leone,SLE,Country,Provinces,Districts,Chiefdoms,Localities/Urban Areas,,2020.06
+Singapore,SGP,Country,Community Governoring Council,Planning Areas,,,,2020.06
+Sint Maarten,SXM,Country,,,,,,2020.06
+Slovakia,SVK,Country,Regions/Kraje,Districts/Okresy,Municipalities/Obec,Mestská cast,,2020.06
+Slovenia,SVN,Country,Regions/Regi,,Municipalities/Obcine,Localities/Urban Areas,,2020.06
+Solomon Islands,SLB,Country,Provinces,Constituencies,Wards,,,2020.06
+Somalia,SOM,Country,Regions/Gobolada,,,Localities/Urban Areas,,2020.06
+South Africa,ZAF,Country,Provinces,Districts,Municipalities,Wards,Neighborhoods,2020.06
+South Georgia and the South Sandwich Islands,SGS,Country,,,,,,2020.06
+South Sudan,SSD,Country,States/Wilayat,,,Localities/Urban Areas,,2020.06
+Spain,ESP,Country,Autonomous Communities/Comunidados Autonomas,Provincias,Municipios,Localities/Urban Areas,Neighborhoods,2020.06
+Sri Lanka,LKA,Country,Provinces,Districts,Divisional Secretariats,Localities/Urban Areas,Neighborhoods,2020.06
+Sudan,SDN,Country,States/Wilaya'at,,,Localities/Urban Areas,,2020.06
+Suriname,SUR,Country,Districts/Distrikt,Resorts,Localities/Urban Areas,,,2020.06
+Sweden,SWE,Country,Counties,Municipalities,,Localities/Urban Areas,Neighborhoods,2020.06
+Switzerland,CHE,Country,Cantons/Kanton/Cantone/Chantun,District/Bezirk/Distretto/Circul,Commune/Gemeinde/Comune/Cumün,Localities/Urban Areas,Neighborhoods,2020.06
+Syria,SYR,Country,Governorates,Districts/Muhafazah,Localities,,,2020.06
+Taiwan,TWN,Country,Provinces,,Towns/Special Municipalities/Counties/Cities,Neighborhoods/Villages,,2020.06
+Tajikistan,TJK,Country,Provinces/Regions,Districts/Raion/Rayon,,Localities/Urban Areas,,2020.06
+Tanzania,TZA,Country,Provinces/Mkoa,Districts/Wilaya,Towns,Localities/Urban Areas,Neighborhoods,2020.06
+Thailand,THA,Country,Provinces/Changwat,Districts/Amphoe,Subdistricts/Tambon,Localities/Urban Areas,,2020.06
+Togo,TGO,Country,Regions/Provinces,Prefectures,Towns,Localities/Urban Areas,,2020.06
+Tokelau,TKL,Country,Atolls,,,,,2020.06
+Tonga,TON,Country,Subdivisions,,,,,2020.06
+Trinidad and Tobago,TTO,Country,Municipalities,,,Localities/Urban Areas,,2020.06
+Tunisia,TUN,Country,Governates/Wilayahs,Delegations/Mutamadiyats,Municipality/Shaykhats,Localities,,2020.06
+Turkey,TUR,Country,Provinces/Il,Districts/Ilce,Urban Areas/Belde,Subdistricts/Bucak/Neighborhoods/Mahalle,Villages/Koy,2020.06
+Turkmenistan,TKM,Country,Welayat,Etraplar,Etraplar,Towns,,2020.06
+Turks and Caicos Islands,TCA,Country,Districts,,,Localities/Urban Areas,,2020.06
+Tuvalu,TUV,Country,Islands,,,,,2020.06
+Uganda,UGA,Country,Regions,Districts,Counties,Localities/Urban Areas,Neighborhoods,2020.06
+Ukraine,UKR,Country,Oblast/Mista/Avtonomna Respublika,Raions,Settlement Councils/Rural Councils,Localities/Urban Areas,,2020.06
+United Arab Emirates,ARE,Country,Emirates,,Municipalities,Localities,,2020.06
+United Kingdom,GBR,Country,Nations,Counties,Districts,Localities/Urban Areas,Parishes/Neighbourhoods,2020.06
+United States of America,USA,Country,States,Counties,MCD/CCD/Post Localities,Municipalities,Neighborhoods,2020.06
+United States Minor Outlying Islands,UMI,Country,Islands/Atolls,,,,,2020.06
+Uruguay,URY,Country,Departamentos/Departments,Municipios/Municipalities,,Localities/Urban Areas,Neighborhoods,2020.06
+Uzbekistan,UZB,Country,Regions/Viloyatlar,Districts/Tumanlar,,Localities/Urban Areas,,2020.06
+Vanuatu,VUT,Country,Provinces,,,,,2020.06
+Vatican City,VAT,Country,,,,Localities/Urban Areas,,2020.06
+Venezuela,VEN,Country,States/Estados,Municipalities/Municipios,,Localities/Urban Areas,Neighborhoods,2020.06
+Vietnam,VNM,Country,Provinces Cities,Districts,Wards,Localities/Urban Areas,,2020.06
+Wallis and Futuna Islands,WLF,Country,Districts/Rayaumes,,,,,2020.06
+Yemen,YEM,Country,Governorates/Muhafazat,Districts/Muderiah,,Localities/Urban Areas,,2020.06
+Zambia,ZMB,Country,Provinces,Districts,Towns,Suburbs/Localities,,2020.06
+Zimbabwe,ZWE,Country,Provinces,Districts/Muderiah,Localities/Urban Areas,Suburbs,,2020.06
+Afghanistan,AFG,Country,Wilayat,Wuleswali,,Localities/Urban Areas,,2020.03
+Albania,ALB,Country,Qarqe/Qark,Communes/Bashki,Njësi,Localities/Urban Areas,,2020.03
+Algeria,DZA,Country,Provinces/Wilayas,Districts,Municipalities/Baladiyas,Localities/Urban Areas,Villages,2020.03
+American Samoa,ASM,Country,Districts,Counties,Villages,,,2020.03
+Andorra,AND,Country,Parishes/Parròquies,Localities/Urban Areas,,,,2020.03
+Angola,AGO,Country,Provinces/Províncias,Distritos,Towns,Suburbs/Freguesias,,2020.03
+Anguilla,AIA,Country,Parishes,,,,,2020.03
+Antarctica,ATA,Country,,,,,,2020.03
+Antigua and Barbuda,ATG,Country,Parishes,,,Localities/Urban Areas,,2020.03
+Argentina,ARG,Country,Provincias/Provinces,Departamentos/Departments,Localities/Urban Areas,Comunas/Barrios,Neighborhoods,2020.03
+Armenia,ARM,Country,Provinces/Marzpet,,Localities/Urban Areas,,,2020.03
+Aruba,ABW,Country,Regions,Zones,,,,2020.03
+Australia,AUS,Country,States,Local Government Areas,Suburbs,Urban Centers,,2020.03
+Austria,AUT,Country,States/Bundesländer,Districts/Bezirke,Municipalities/Gemeinden,Urban Areas/Stadtteil,Neighborhoods,2020.03
+Azerbaijan,AZE,Country,Regions/Iqtisadi Rayonlar,Districts/Rayonlar,Localities/Urban Areas,,,2020.03
+Bahamas,BHS,Country,Island Groups,Districts,Towns,,,2020.03
+Bahrain,BHR,Country,Governorates,Constituencies,,,,2020.03
+Bangladesh,BGD,Country,Divisions/Bibhag,Districts/Zila,Subdistricts/Upzila,Localities/Urban Areas,,2020.03
+Barbados,BRB,Country,Parishes,,,Localities/Urban Areas,,2020.03
+Belarus,BLR,Country,Voblasts’,Rayon,Selsoviet,Localities/Urban Areas,,2020.03
+Belgium,BEL,Country,Regions/Gewest,Provinces/Provincie,Districts/Arrondissements,Municipalities/Communes,Localities/Gemeente,2020.03
+Belize,BLZ,Country,Districts,Constituencies,Localities/Urban Areas,,,2020.03
+Benin,BEN,Country,Departments,Communes,Arrondisements,Neighborhoods,,2020.03
+Bermuda,BMU,Country,Parishes,,,,,2020.03
+Bhutan,BTN,Country,Districts/Dzongkhag,,Localities/Urban Areas,,,2020.03
+Bolivia,BOL,Country,Provincias/Provinces,Departamentos/Departments,Municipios/Municipalities,Localities/Urban Areas,Neighborhoods,2020.03
+Bonaire Sint Eustasius and Saba,BES,Country,Municipalities,,,Localities/Urban Areas,,2020.03
+Bosnia and Herzegovina,BIH,Country,Federation/Republika,Kanton,Opština,Localities/Urban Areas,,2020.03
+Botswana,BWA,Country,Provinces,Local Municipalities,Towns ,Suburbs,,2020.03
+Bouvet Island,BVT,Country,,,,,,2020.03
+Brazil,BRA,Country,Provinces/States/Unidades,Municipalities/Municipios,Towns,Urban Areas,Neighborhoods/Bairros,2020.03
+British Indian Ocean Territory,IOT,Country,,,,,,2020.03
+British Virgin Islands,VGB,Country,Districts,,,,,2020.03
+Brunei,BRN,Country,Districts/Dawaïr,Subdistricts/Mukim,Villages/Kampung,Localities/Urban Areas,,2020.03
+Bulgaria,BGR,Country,Oblasts,Obshtina,Localities/Urban Areas,Suburbs,,2020.03
+Burkina Faso,BFA,Country,,Regions,Communes,Arrondissements,,2020.03
+Burundi,BDI,Country,Provinces,Communes,,Localities/Urban Areas,Neighborhoods,2020.03
+Cambodia,KHM,Country,Provinces/Khaet,Districts/Srŏk,Communes/Khum,Localities/Urban Areas,,2020.03
+Cameroon,CMR,Country,Provinces/Regions,Departments,Municipalités/Cities/Communes,City Districts/Arrondissements,,2020.03
+Canada,CAN,Country,Provinces/Territories,Census Divisions,Census Subdivisions,Localities/Urban Areas,Neighborhoods,2020.03
+Cape Verde,CPV,Country,,Districts,,Localities/Urban Areas,,2020.03
+Cayman Islands,CYM,Country,Districts,,,,,2020.03
+Central African Republic,CAF,Country,,Prefectures/Communes,,Localities/Urban Areas,,2020.03
+Chad,TCD,Country,Regions,Departements,Arrondissements,Localities/Urban Areas,,2020.03
+Chile,CHL,Country,Regions/Regiones,Province/Provincias,Communes/Comunas,Localities/Urban Areas,Neighborhoods,2020.03
+China People’s Republic of,CHN,Country,Provinces,Prefectures,Cities/Counties,,Neighborhoods,2020.03
+Colombia,COL,Country,Departmentos,Municipios,Urban Areas,Localities,,2020.03
+Comoros,COM,Country,Autonomous Islands/îles Autonomes,Prefectures,Communes,Villes/Villages,,2020.03
+Congo Democratic Republic of,COD,Country,Provinces,Districts,Territories,Localities/Urban Areas,Villages,2020.03
+Congo Republic of,COG,Country,,Regions,Communes,Arrondissements,,2020.03
+Cook Islands,COK,Country,Island Councils,,,,,2020.03
+Costa Rica,CRI,Country,Provincias,Cantons,Distritos,Localities/Urban Areas,,2020.03
+Cote d’Ivoire,CIV,Country,Districts,Regions,Departments,Sub Prefectures,Villages,2020.03
+Croatia,HRV,Country,Counties/Županija,Municipalities/Općine,,Gradska četvrt,,2020.03
+Cuba,CUB,Country,Provinces/Provincias,Municipalities/Municipios,Distritos Municipales,Localities/Urban Areas,,2020.03
+Curaçoa,CUW,Country,,,,Localities/Urban Areas,,2020.03
+Cyprus,CYP,Country,Districts/Eparchies,Municipalities/Dimos,Localities/Urban Area,Districts/Sinikia,,2020.03
+Czech Republic,CZE,Country,Regions/Kraj,Municipalities/Orp,Obec,Mesto,,2020.03
+Denmark,DNK,Country,Regions,Municipalities,,Localities/Urban Areas,Neighborhoods,2020.03
+Djibouti,DJI,Country,Regions,Districts,Cities,Localities,,2020.03
+Dominica,DMA,Country,Parishes,,,Localities/Urban Areas,,2020.03
+Dominican Republic,DOM,Country,Provinces/Provincias,Municipalities/Municipios,Localities/Urban Areas,,,2020.03
+East Timor (Timor-Leste),TLS,Country,Municipalities,Administrative Post,,Localities/Urban Areas,,2020.03
+Ecuador,ECU,Country,Provinces,Cantones,,Urban Areas,,2020.03
+Egypt,EGY,Country,Governorates,Municipal Divisions/Markaz,Towns/Cities,Sub Municipal Divisions,Villages/Neighborhoods,2020.03
+El Salvador,SLV,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.03
+Equatorial Guinea,GNQ,Country,Regions,Provincias,Distritos ,Localities/Urban Areas,,2020.03
+Eritrea,ERI,Country,,Zoba,,Localities/Urban Areas,,2020.03
+Estonia,EST,Country,Maakond,Omavalitsus/Linn/Vald,Küla,Localities/Urban Areas,,2020.03
+Eswatini,SWZ,Country,Regions,Tinkhundla,Towns,Suburbs/Localities,,2020.03
+Ethiopia,ETH,Country,,Kilil/Astedader,,Localities/Urban Areas,,2020.03
+Falkland Islands,FLK,Country,,,,,,2020.03
+Faroe Islands,FRO,Country,Regions/Syslur,Municipalities/Kommunur,Localities/Urban Areas,,,2020.03
+Fiji,FJI,Country,Divisions,Provinces,Districts,Villages,,2020.03
+Finland,FIN,Country,Regions/Maakunta,Sub-Regions/Seutukunta,Municipalities/Kunta,Localities/Urban Areas,Neighborhoods,2020.03
+France,FRA,Country,Regions,Départements,Arrondissements,Cantons,Communes,2020.03
+French Guiana,GUF,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.03
+French Polynesia,PYF,Country,Subdivisions/Iles,Communes,,,,2020.03
+French Southern Territories,ATF,Country,,,,,,2020.03
+Gabon,GAB,Country,Provinces,Departments,Urban Areas/Cities,Arrondissements/Communes,,2020.03
+Gambia,GMB,Country,Regions,Districts,,Localities/Urban Areas,,2020.03
+Georgia,GEO,Country,Regions/Mkhare,Municipalities/Munitsipaliteti,Localities/Urban Areas,,,2020.03
+Germany,DEU,Country,Bundesland/States,Kreis/Districts,Gemeinde/Municipalities,Stadtteil/Localities/Urban Areas,,2020.03
+Ghana,GHA,Country,Regions,Districts,Localities/Urban Areas,Neighborhoods,,2020.03
+Gibraltar,GIB,Country,,,Towns,Localities/Urban Areas,,2020.03
+Greece,GRC,Country,Regions,Nomos,Dimos Koinotita,Dimotiko Diamerisma,,2020.03
+Greenland,GRL,Country,Municipalities/Kommunia,,,,,2020.03
+Grenada,GRD,Country,States,Parishes/Dependencies,Localities/Urban Areas,,,2020.03
+Guadeloupe,GLP,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.03
+Guam,GUM,Country,States,Districts,Towns,,,2020.03
+Guatemala,GTM,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.03
+Guinea,GIN,Country,,Governorates/Conakry,,Localities/Urban Areas,,2020.03
+Guinea Bissau,GNB,Country,Regions,Sectors,Localities/Urban Areas,,,2020.03
+Guyana,GUY,Country,Regions,,Towns,Localities,,2020.03
+Haiti,HTI,Country,Departments/Départements,Districts/Arrondissements,Communes,Localities/Urban Areas,,2020.03
+Heard and McDonald Islands,HMD,Country,,,,,,2020.03
+Honduras,HND,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.03
+Hong Kong,HKG,Country,Districts,Subdistricts,,Localities/Urban Areas,,2020.03
+Hungary,HUN,Country,Megyék,Járások,Városok,Kerűlet,,2020.03
+Iceland,ISL,Country,Regions/Landsvaedi,Municipalities/Sveitarfelog,Localities/Urban Areas,,,2020.03
+India,IND,Country,States,Districts,Sub-districts/Towns,Localities/Urban Areas,,2020.03
+Indonesia,IDN,Country,Provinces/Provinsi,Regency/Kabupaten,Districts/Kecamatan,Localities/Urban Areas,Subdistricts/Kelurahan ,2020.03
+Iran,IRN,Country,Provinces/Ostanha,Counties/Shahrestan,Urban Areas/šahr,Localities/Dehestân,,2020.03
+Iraq,IRQ,Country,Governorates/Muhafazat,Districts/Qadaa/Kaza,Urban Areas,Localities,,2020.03
+Ireland,IRL,Country,Counties,,Electoral Divisions,Localities/Urban Areas,Neighborhoods,2020.03
+Israel,ISR,Country,Districts,Counties,Local Councils,,Neighborhoods,2020.03
+Italy,ITA,Country,Regiones,Provincias,Communes,Localities/Urban Areas,Neighborhoods,2020.03
+Jamaica,JAM,Country,Counties,Parishes,Constituencies,Localities/Urban Areas,,2020.03
+Japan,JPN,Country,Prefectures,Cities/Districts,Municipalities,Machi-Oaza,,2020.03
+Jordan,JOR,Country,Provinces,Districts,Cities,Communities,Neighborhoods,2020.03
+Kazakhstan,KAZ,Country,Regions/Oblystar,Districts/Audandar,Towns/Kent,Localities/Urban Areas,,2020.03
+Kenya,KEN,Country,Counties,Constituencies,Localities/Urban Areas,Suburbs,Neighborhoods,2020.03
+Kiribati,KIR,Country,Island Councils,,,,,2020.03
+Korea (North),PRK,Country,Provinces,,Do/To/Si,Localities/Urban Areas,,2020.03
+Korea (South),KOR,Country,Provinces/Do,Districts/Si/Gun,,Localities/Urban Areas,Neighborhoods/Dong,2020.03
+Kosovo,XKS,Country,,,Komuna/Opstina,Localities/Urban Areas,,2020.03
+Kuwait,KWT,Country,Governorates,,Cities,Communities,,2020.03
+Kyrgyzstan,KGZ,Country,Regions/Oblasttar,Districts/Raions,,Localities/Urban Areas,,2020.03
+Laos,LAO,Country,Provinces/Khoueng,Districts/Muang,Localities/Urban Areas,,,2020.03
+Latvia,LVA,Country,Regions,Municipalities/Novadi,Pilsētas/Pagasti,Localities/Urban Areas,,2020.03
+Lebanon,LBN,Country,Governorates/Muhafazat,Districts/Qadaa,Municipalities,Localities/Urban Areas,,2020.03
+Lesotho,LSO,Country,,Provinces,Towns,Suburbs,,2020.03
+Liberia,LBR,Country,Counties,Districts,Clans,,,2020.03
+Libya,LBY,Country,Districts/Shabiya,Basic Peoples Congress,Cities/Urban Areas,Localities,,2020.03
+Liechtenstein,LIE,Country,Districts/Bezirk,Municipalities/Gemeinden,Localities/Urban Areas,,,2020.03
+Lithuania,LTU,Country,Apskritis,Savivaldybé,,Seniūnija,,2020.03
+Luxembourg,LUX,Country,Cantons/Kantounen/Kantone,Communes/Gemengen/Gemeinden,Localities/Ortschaft/Uertschaft,Urban Areas,Neighborhoods,2020.03
+Macao,MAC,Country,Parishes,,,Localities/Urban Areas,,2020.03
+Macedonia,MKD,Country,Statistical Regions,Opstina,,Localities/Urban Areas,,2020.03
+Madagascar,MDG,Country,Regions/Faritra,Districts,Communes,Localities/Urban Areas,,2020.03
+Malawi,MWI,Country,Regions,Districts,Localities/Urban Areas,Suburbs,,2020.03
+Malaysia,MYS,Country,States/Negeri,Districts/Daïra/Daerah,Subdistricts/Mukim,Localities/Urban Area/Bahagian Kecil,Neighborhoods,2020.03
+Maldives,MDV,Country,Atolls/Cities,Islands,,,,2020.03
+Mali,MLI,Country,Regions,Communes,Arrondissements,Localities/Urban Areas,,2020.03
+Malta,MLT,Country,Districts,Local Councils/Kunsilli Lokali,Localities/Urban Areas,,,2020.03
+Marshall Islands,MHL,Country,Municipalities,,,,,2020.03
+Martinique,MTQ,Country,Arrondissements,Communes,Localities/Urban Areas,,,2020.03
+Mauritania,MRT,Country,,Regions,Communes,Arrondissements,,2020.03
+Mauritius,MUS,Country,Islands,Districts,Wards,Localities,,2020.03
+Mayotte,MYT,Country,Communes,Cantons,Cities/Urban Areas,Villages,,2020.03
+Mexico,MEX,Country,Estados,Municipios/Delegaciones,Colonias,Localities/Urban Areas,Neighborhoods,2020.03
+Micronesia Federated States of,FSM,Country,States,,,,,2020.03
+Moldova,MDA,Country,,Raion,Comuna,Localities/Urban Areas,,2020.03
+Monaco,MCO,Country,Communes,Wards/Quartiers,,,,2020.03
+Mongolia,MNG,Country,Provinces/Aimags,Districts/Sums,Localities/Urban Areas,,,2020.03
+Montenegro,MNE,Country,Opštine,Gradska Opština,,Localities/Urban Areas,,2020.03
+Montserrat,MSR,Country,Parishes,,,Localities/Urban Areas,,2020.03
+Morocco,MAR,Country,Regions,Provinces/Prefectures,Communes,Localities/Urban Areas,,2020.03
+Mozambique,MOZ,Country,Provinces,Districts/Distritos,Localities/Urban Areas,Suburbs/Freguesias,,2020.03
+Myanmar,MMR,Country,States/Regions/Union Territories,Districts,Townships,Localities/Urban Areas,,2020.03
+Namibia,NAM,Country,Provinces,Constituencies,Towns,Suburbs/Localities,,2020.03
+Nauru,NRU,Country,Districts,,,,,2020.03
+Nepal,NPL,Country,Provinces/Pradeshaharu,Districts/Jilla,Localities/Urban Areas,,,2020.03
+Netherlands,NLD,Country,Counties/Fylker,Districts/Okonomisk,Municipalities/Kommuner,Localities/Urban Areas,Neighborhoods,2020.03
+New Caledonia,NCL,Country,Provinces,Communes,,,,2020.03
+New Zealand,NZL,Country,Regions,Territorial Authorities,,Localities/Urban Areas,Neighborhoods,2020.03
+Nicaragua,NIC,Country,Departments/Departamentos,Municipalities/Municipios,Localities/Urban Areas,,,2020.03
+Niger,NER,Country,Regions,Departments,Cities/Urban Areas,Towns/Communes,,2020.03
+Nigeria,NGA,Country,States,Local Government Areas,Towns/Cities,Suburbs,,2020.03
+Niue,NIU,Country,Villages,Towns,,,,2020.03
+Northern Mariana Islands,MNP,Country,Municipalities,,,,,2020.03
+Norway,NOR,Country,Counties/Fylker,Districts/Okonomisk,Municipalities/Kommuner,Localities/Urban Areas,Neighborhoods,2020.03
+Oman,OMN,Country,Governorates/Muhafazah,Provinces/Wilayat,Cities/Urban Areas,Communities,,2020.03
+Pakistan,PAK,Country,Provinces,Districts,Cities/Urban Areas,Localities/Tehsils,,2020.03
+Palau,PLW,Country,States,,,,,2020.03
+Palestine,PSE,Country,Territories,Governorates/Muhafazat,Urban Areas,,,2020.03
+Panama,PAN,Country,Provinces/Provincias,Districts/Distrito,Corregimientos,Localities/Urban Areas,,2020.03
+Papua New Guinea,PNG,Country,Regions,Provinces,Districts,Localities/Urban Areas,,2020.03
+Paraguay,PRY,Country,Departments,Distritos,,Localities/Urban Areas,,2020.03
+Peru,PER,Country,Regions,Districts,Distritos,Urban Areas,,2020.03
+Philippines,PHL,Country,Regions/Rehiyon,Provinces/Lalawigan,Municipalities/Cities/Munisipiyos/Lungsod,Barangays/Villages,,2020.03
+Pitcairn Islands,PCN,Country,Islands,,,,,2020.03
+Poland,POL,Country,Provinces/Voivodeships,Counties/Powiats,Communes/Gminas,Towns/Dzielnicas,,2020.03
+Portugal,PRT,Country,Districts/Distritos,Municipalities/Concelhos,Civil Parish/Freguesias,Localities/Urban Areas,Neighborhoods,2020.03
+Puerto Rico,PRI,Country,Territories,State,Municipality,Towns,,2020.03
+Qatar,QAT,Country,Municipalities/Baladiyat,Zones,Localities/Urban Areas,,,2020.03
+Réunion ,REU,Country,Regions,,Communes,Arrondissements,,2020.03
+Romania,ROU,Country,Regions/Judete,Communes,Cities/Municipiu,Towns/Oraș,,2020.03
+Russia,RUS,Country,Federal District/Federal’nyy Okrug,Oblast’,Rayon/Raion,Urban Area/Gorod,,2020.03
+Rwanda,RWA,Country,Provinces,Districts,Sectors/Secteurs,Localities/Urban Areas,Cellule Suburb,2020.03
+Saint Barthélemy,BLM,Country,,,,,,2020.03
+Saint Helena,SHN,Country,Islands,Districts,,,,2020.03
+Saint Kitts and Nevis,KNA,Country,States,Parishes,,Localities/Urban Areas,,2020.03
+Saint Lucia,LCA,Country,Districts/Quarters,,,Localities/Urban Areas,,2020.03
+Saint Martin,MAF,Country,,,,Localities/Urban Areas,,2020.03
+Saint Pierre and Miquelon,SPM,Country,,,,,,2020.03
+Saint Vincent and the Grenadines,VCT,Country,Parishes,Divisions,Localities/Urban Areas,,,2020.03
+Samoa,WSM,Country,Districts/Itūmālō,Towns,,,,2020.03
+San Marino,SMR,Country,Municipalities/Castelli,Localities/Urban Areas,,,,2020.03
+São Tomé and Príncipe,STP,Country,,Districts,,Localities/Urban Areas,,2020.03
+Saudi Arabia,SAU,Country,Regions/Manatiq,Governorates/Muhafazat,Municipalities/Amanah,Localities/Urban Areas,,2020.03
+Senegal,SEN,Country,Regions,Departments,Arrondissements,Localities/Urban Areas,Neighborhoods,2020.03
+Serbia,SRB,Country,Autonomna Pokrajina,Okrug/Grad,Opstina,Localities/Urban Areas,,2020.03
+Seychelles,SYC,Country,Districts,,,Localities/Urban Areas,,2020.03
+Sierra Leone,SLE,Country,Provinces,Districts,Chiefdoms,Localities/Urban Areas,,2020.03
+Singapore,SGP,Country,Community Governoring Council,Planning Areas,,,,2020.03
+Sint Maarten,SXM,Country,,,,,,2020.03
+Slovakia,SVK,Country,Regions/Kraje,Districts/Okresy,Municipalities/Obec,Mestská cast,,2020.03
+Slovenia,SVN,Country,Regions/Regi,Upravne Enote,Municipalities/Obcine,Localities/Urban Areas,,2020.03
+Solomon Islands,SLB,Country,Provinces,Constituencies,Wards,,,2020.03
+Somalia,SOM,Country,,Gobolka,,Localities/Urban Areas,,2020.03
+South Africa,ZAF,Country,Provinces,Districts,Municipalities,Wards,Neighborhoods,2020.03
+South Georgia and the South Sandwich Islands,SGS,Country,,,,,,2020.03
+South Sudan,SSD,Country,,Wilayat,,Localities/Urban Areas,,2020.03
+Spain,ESP,Country,Autonomous Communities/Comunidados Autonomas,Provincias,Municipios,Localities/Urban Areas,Neighborhoods,2020.03
+Sri Lanka,LKA,Country,Provinces,Districts,Divisional Secretariats,Localities/Urban Areas,Neighborhoods,2020.03
+Sudan,SDN,Country,States/Wilaya'at,,,Localities/Urban Areas,,2020.03
+Suriname,SUR,Country,Districts/Distrikt,Resorts,Localities/Urban Areas,,,2020.03
+Sweden,SWE,Country,Counties,Municipalities,,Localities/Urban Areas,Neighborhoods,2020.03
+Switzerland,CHE,Country,Cantons/Kanton/Cantone/Chantun,District/Bezirk/Distretto/Circul,Commune/Gemeinde/Comune/Cumün,Localities/Urban Areas,Neighborhoods,2020.03
+Syria,SYR,Country,Governorates,Districts/Muhafazah,Localities,,,2020.03
+Taiwan,TWN,Country,Provinces,,Towns/Special Municipalities/Counties/Cities,Neighborhoods/Villages,,2020.03
+Tajikistan,TJK,Country,Provinces/Regions,Districts/Raion/Rayon,,Localities/Urban Areas,,2020.03
+Tanzania,TZA,Country,Provinces/Mkoa,Districts/Wilaya,Towns,Localities/Urban Areas,Neighborhoods,2020.03
+Thailand,THA,Country,Provinces/Changwat,Districts/Amphoe,Subdistricts/Tambon,Localities/Urban Areas,,2020.03
+Togo,TGO,Country,Regions/Provinces,Prefectures,Towns,Localities/Urban Areas,,2020.03
+Tokelau,TKL,Country,Atolls,,,,,2020.03
+Tonga,TON,Country,Subdivisions,,,,,2020.03
+Trinidad and Tobago,TTO,Country,Municipalities,,,Localities/Urban Areas,,2020.03
+Tunisia,TUN,Country,Governates/Wilayahs,Delegations/Mutamadiyats,Municipality/Shaykhats,Localities,,2020.03
+Turkey,TUR,Country,Provinces/Il,Districts/Ilce,Urban Areas/Belde,Subdistricts/Bucak/Neighborhoods/Mahalle,Villages/Koy,2020.03
+Turkmenistan,TKM,Country,Welayat,Etraplar,Etraplar,Towns,,2020.03
+Turks and Caicos Islands,TCA,Country,Districts,,,Localities/Urban Areas,,2020.03
+Tuvalu,TUV,Country,Islands,,,,,2020.03
+Uganda,UGA,Country,Regions,Districts,Counties,Localities/Urban Areas,Neighborhoods,2020.03
+Ukraine,UKR,Country,Oblast/Mista/Avtonomna Respublika,Raions,Settlement Councils/Rural Councils,Localities,,2020.03
+United Arab Emirates,ARE,Country,Emirates,,Municipalities,Localities,,2020.03
+United Kingdom,GBR,Country,Nations,Counties,Districts,Urban Areas,Parishes/Neighbourhoods,2020.03
+United States of America,USA,Country,States,Counties,MCD/CCD/Post Localities,Municipalities,Neighborhoods,2020.03
+United States Minor Outlying Islands,UMI,Country,Islands/Atolls,,,,,2020.03
+Uruguay,URY,Country,Departamentos/Departments,Municipios/Municipalities,,Localities/Urban Areas,Neighborhoods,2020.03
+Uzbekistan,UZB,Country,Regions/Viloyatlar,Districts/Tumanlar,,Localities/Urban Areas,,2020.03
+Vanuatu,VUT,Country,Provinces,,,,,2020.03
+Vatican City,VAT,Country,,,,Localities/Urban Areas,,2020.03
+Venezuela,VEN,Country,States/Estados,Municipalities/Municipios,,Localities/Urban Areas,Neighborhoods,2020.03
+Vietnam,VNM,Country,Provinces Cities,Districts,Wards,Localities/Urban Areas,,2020.03
+Wallis and Futuna Islands,WLF,Country,Districts/Rayaumes,,,,,2020.03
+Yemen,YEM,Country,Governorates/Muhafazat,Districts/Muderiah,,Localities/Urban Areas,,2020.03
+Zambia,ZMB,Country,Provinces,Districts,Towns,Suburbs/Localities,,2020.03
+Zimbabwe,ZWE,Country,Provinces,Districts/Muderiah,Localities/Urban Areas,Suburbs,,2020.03

@@ -1,0 +1,7 @@
+md5: cae8a1ec6be6a50ed46fe7cbed1b6d6e
+outs:
+- md5: 4a110200cae5f46cd650577cebf5d84a.dir
+  path: KIR
+  cache: true
+  metric: false
+  persist: false

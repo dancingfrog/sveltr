@@ -1,0 +1,7 @@
+md5: d01c39eec1bf9b6ac61253dbb4773a8b
+outs:
+- md5: a30a2041a53bb7017a5af23c72094865.dir
+  path: CUW
+  cache: true
+  metric: false
+  persist: false

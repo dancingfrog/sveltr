@@ -1,0 +1,7 @@
+md5: 2d7d21804af2e122678d172f04ca3698
+outs:
+- md5: 509ffc94479a0aa8173fab515f4dc06c.dir
+  path: COM
+  cache: true
+  metric: false
+  persist: false

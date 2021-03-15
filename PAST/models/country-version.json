@@ -1,0 +1,298 @@
+{
+    "Canada.2019.06": {
+        "country": "CAN",
+        "version": "201906",
+        "code3": "can"
+    },
+    "Canada.2019.03": {
+        "country": "CAN",
+        "version": "201903",
+        "code3": "can"
+    },
+    "GBR.2019.09": {
+        "country": "GBR",
+        "version": "201909",
+        "code3": "gbr",
+        "code4": "gbri"
+    },
+    "USA.2019.06": {
+        "country":  "USA",
+        "version":  "201906",
+        "code3": "usa"
+    },
+    "USA.2019.03": {
+        "country":  "USA",
+        "version":  "201903",
+        "code3": "usa"
+    },
+    "ARE.2018.12": {
+        "country": "ARE",
+        "version": "201812",
+        "code3": "are",
+        "code4": "arem"
+    },
+    "Austria.2019.09": {
+        "country": "AUT",
+        "version": "201909",
+        "code3": "aut",
+        "code4": "aust"
+    },
+    "Bahrain.2018.12": {
+        "country": "BHR",
+        "version": "201812",
+        "code3": "bhr",
+        "code4": "bahr"
+    },
+    "Brazil.2019.03": {
+        "country": "BRA",
+        "version": "201903",
+        "code3": "bra",
+        "code4": "braz"
+    },
+    "Bulgaria.2018.09": {
+        "country": "BGR",
+        "version": "201809",
+        "code3": "bgr",
+        "code4": "blgr"
+    },
+    "Czech.Republic.2018.09": {
+        "country": "CZE",
+        "version": "201809",
+        "code3": "cze",
+        "code4": "czec"
+    },
+    "Denmark.2019.09": {
+        "country": "DNK",
+        "version": "201909",
+        "code3": "dnk",
+        "code4": "dnmk"
+    },
+    "Germany.2019.09": {
+        "country": "DEU",
+        "version": "201909",
+        "code3": "deu",
+        "code4": "deut"
+    },
+    "Egypt.2019.06": {
+        "country": "EGY",
+        "version": "201906",
+        "code3": "egy",
+        "code4": "egyp"
+    },
+    "Spain.2019.03": {
+        "country": "ESP",
+        "version": "201903",
+        "code3": "esp",
+        "code4": "espa"
+    },
+    "Estonia.2019.09": {
+        "country": "EST",
+        "version": "201909",
+        "code3": "est",
+        "code4": "esti"
+    },
+    "Finland.2019.09": {
+        "country": "FIN",
+        "version": "201909",
+        "code3": "fin",
+        "code4": "finl"
+    },
+    "France.2019.09": {
+        "country": "FRA",
+        "version": "201909",
+        "code3": "fra",
+        "code4": "fran"
+    },
+    "Hong.Kong.2019.03": {
+        "country": "HKG",
+        "version": "201903",
+        "code3": "hkg",
+        "code4": "hoko"
+    },
+    "Hungary.2018.09": {
+        "country": "HUN",
+        "version": "201809",
+        "code3": "hun",
+        "code4": "hung"
+    },
+    "Indonesia.2019.03": {
+        "country": "IDN",
+        "version": "201903",
+        "code3": "idn",
+        "code4": "indo"
+    },
+    "Ireland.2019.03": {
+        "country": "IRL",
+        "version": "201903",
+        "code3": "irl",
+        "code4": "irel"
+    },
+    "Italy.2019.03": {
+        "country": "ITA",
+        "version": "201903",
+        "code3": "ita",
+        "code4": "ital"
+    },
+    "Kenya.2019.06": {
+        "country": "KEN",
+        "version": "201906",
+        "code3": "ken",
+        "code4": "keny"
+    },
+    "Kuwait.2018.12": {
+        "country": "KWT",
+        "version": "201812",
+        "code3": "kwt",
+        "code4": "kuwa"
+    },
+    "Lithuania.2019.09": {
+        "country": "LTU",
+        "version": "201909",
+        "code3": "ltu",
+        "code4": "litu"
+    },
+    "Macau.2019.09": {
+        "country": "MAC",
+        "version": "201909",
+        "code3": "mac",
+        "code4": "maca"
+    },
+    "Malaysia.2019.09": {
+        "country": "MYS",
+        "version": "201909",
+        "code3": "mys",
+        "code4": "mala"
+    },
+    "Malta.2019.09": {
+        "country": "MLT",
+        "version": "201909",
+        "code3": "mlt",
+        "code4": "mlta"
+    },
+    "Mexico.2019.03": {
+        "country": "MEX",
+        "version": "201903",
+        "code3": "mex",
+        "code4": "mexi"
+    },
+    "Morocco.2019.06": {
+        "country": "MCO",
+        "version": "201906",
+        "code3": "mco",
+        "code4": "moro"
+    },
+    "Nigeria.2019.06": {
+        "country": "NGA",
+        "version": "201906",
+        "code3": "nga",
+        "code4": "nigr"
+    },
+    "Netherlands.2019.06": {
+        "country": "NLD",
+        "version": "201909",
+        "code3": "nld",
+        "code4": "neth"
+    },
+    "Norway.2019.09": {
+        "country": "NOR",
+        "version": "201909",
+        "code3": "nor",
+        "code4": "norw"
+    },
+    "Oman.2018.12": {
+        "country": "OMN",
+        "version": "201812",
+        "code3": "omn",
+        "code4": "oman"
+    },
+    "Philippines.2019.09": {
+        "country": "PHL",
+        "version": "201909",
+        "code3": "phl",
+        "code4": "phil"
+    },
+    "Qatar.2018.12": {
+        "country": "QAT",
+        "version": "201812",
+        "code3": "qat",
+        "code4": "qata"
+    },
+    "Romania.2018.12": {
+        "country": "ROU",
+        "version": "201812",
+        "code3": "rou",
+        "code4": "roma"
+    },
+    "Russia.2018.12": {
+        "country": "RUS",
+        "version": "201812",
+        "code3": "rus",
+        "code4": "russ"
+    },
+    "Saudi.Arabia.2018.12": {
+        "country": "SAU",
+        "version": "201812",
+        "code3": "sau",
+        "code4": "saud"
+    },
+    "Serbia.2018.12": {
+        "country": "SRB",
+        "version": "201812",
+        "code3": "srb",
+        "code4": "serb"
+    },
+    "Singapore.2019.03": {
+        "country": "SGP",
+        "version": "201903",
+        "code3": "sgp",
+        "code4": "sing"
+    },
+    "Slovakia.2018.09": {
+        "country": "SVK",
+        "version": "201809",
+        "code3": "svk",
+        "code4": "slvk"
+    },
+    "Slovenia.2019.09": {
+        "country": "SVN",
+        "version": "201909",
+        "code3": "svn",
+        "code4": "slvn"
+    },
+    "Sweden.2019.09": {
+        "country": "SWE",
+        "version": "201909",
+        "code3": "swe",
+        "code4": "swed"
+    },
+    "Turkey.2019.09": {
+        "country": "TUR",
+        "version": "201909",
+        "code3": "tur",
+        "code4": "turk"
+    },
+    "Taiwan.2019.09": {
+        "country": "TWN",
+        "version": "201909",
+        "code3": "twn",
+        "code4": "taiw"
+    },
+    "Thailand.2019.03": {
+        "country": "THA",
+        "version": "201903",
+        "code3": "tha",
+        "code4": "thai"
+    },
+    "Vietnam.2019.03": {
+        "country": "VNM",
+        "version": "201903",
+        "code3": "vnm",
+        "code4": "viet"
+    },
+    "South.Africa.2018.06": {
+        "country": "ZAF",
+        "version": "201806",
+        "code3": "zaf",
+        "code4": "soaf"
+    }
+}

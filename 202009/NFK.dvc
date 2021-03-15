@@ -1,0 +1,7 @@
+md5: 88c23f1fd91e2fa76c7d50d65430b164
+outs:
+- md5: 854c7536cba54737673a6706252f944f.dir
+  path: NFK
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: d348145a09e9524f86f34923c38bb711
+outs:
+- md5: 083af6a82929f7670e00481f20ff1ab9.dir
+  path: GMB
+  cache: true
+  metric: false
+  persist: false

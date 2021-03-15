@@ -1,0 +1,381 @@
+---
+title: "Explore Past Stats"
+author: "John Hall"
+date: "3/17/2020"
+output: html_document
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+options(warn = -1)
+working_dir <- getwd()
+print(working_dir)
+print(grepl("/content", getwd(), ignore.case = TRUE))
+if (grepl("/content", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/content", "")
+    setwd(working_dir)
+    print("")
+}
+
+# We will use the readxl package to parse the past stats workbook
+if (!require("readxl")) {
+    install.packages("readxl")
+    library("readxl")
+}
+require("jsonlite")
+require("stringr")
+```
+
+## Past Statistics (Pre Q1 2020)
+
+Statistics from previous releases of the StreetPro product family (Display/Classic/Navigation) have been collected insided the workbook named `PAST/Past_Stats_Q1_2020.xlsx`. Each column represents statistics for a geography which must be extracted into one or more CSV files, with a printed format that matches the current build statistics located under the directory `201912`.
+
+Begin by exploring the data within `Past_Stats_Q1_2020.xlsx`:
+
+```{r explore, echo=TRUE, root.dir=working_dir}
+setwd(working_dir)
+
+if (file.exists("PAST/Past_Stats_Pre_Q1_2020.xlsx")) {
+    past_stats_file <- "PAST/Past_Stats_Pre_Q1_2020.xlsx"
+} else {
+    past_stats_file <- file.choose()
+}
+print(past_stats_file)
+
+# Use readxl to load the sheet names into a var
+past_stats_sheetnames <- readxl::excel_sheets(past_stats_file)
+
+# All columns from the workbook will be loaded into this var
+past_stats_columns <- c()
+
+# Columns from each sheet will be loaded into these vars
+nav_premium <- c()
+us_classic <- c()
+can_classic <- c()
+emea_classic <- c()
+
+for (sheetname in past_stats_sheetnames) {
+
+    # Get individual sheets from workbook
+    sheet <- readxl::read_excel(past_stats_file, sheetname)
+    past_stats_columns <- c(past_stats_columns, data.frame(sheet))
+
+    if (grepl("NAV", c(sheetname), perl = TRUE)) {
+        print(paste0(sheetname, " -> nav_premium"))
+        nav_premium <- data.frame(sheet)
+        # str(nav_premium)
+
+    } else if (grepl("US", c(sheetname), perl = TRUE)) {
+        print(paste0(sheetname, " -> us_classic"))
+        us_classic <- data.frame(sheet)
+        # str(us_classic)
+
+    } else if (grepl("CA", c(sheetname), perl = TRUE)) {
+        print(paste0(sheetname, " -> can_classic"))
+        can_classic <- data.frame(sheet)
+        # str(can_classic)
+
+    } else if (grepl("EMEA", c(sheetname), perl = TRUE)) {
+        print(paste0(sheetname, " -> emea_classic"))
+        emea_classic <- data.frame(sheet)
+        # str(emea_classic)
+    }
+}
+
+#names(past_stats_columns)
+#print(past_stats_columns)
+
+column_validator <- grepl("(?:2019|2018)", names(past_stats_columns), perl = TRUE)
+valid_stats_columns <- names(past_stats_columns)[column_validator]
+#print(valid_stats_columns)
+```
+
+
+Once we've loaded the columns into vars, parse the columns into appropriate data frame, per StreetPro layer-type, per Country (code):
+```{r review_parse_model, echo=TRUE, root.dir=working_dir}
+setwd(working_dir)
+
+if (file.exists("PAST/models/country-version.json")) {
+    past_parse_model <- jsonlite::fromJSON("PAST/models/country-version.json")
+} else {
+    past_parse_model <- jsonlite::fromJSON(file.choose())
+}
+
+#head(past_parse_model)
+#flatten(data.frame(past_parse_model))
+
+#str(past_parse_model)
+#str(past_parse_model[valid_stats_columns])
+#View(past_parse_model[valid_stats_columns])
+
+past_stats_columns$name <- names(past_stats_columns)
+product_type <- c()
+
+check_dir <- function (vers, ctry) {
+    ifelse(!dir.exists(file.path(".", vers)), dir.create(file.path(".", vers)), FALSE)
+    ifelse(!dir.exists(file.path(vers, ctry)), dir.create(file.path(vers, ctry)), FALSE)
+    dir.exists(file.path(vers, ctry))
+}
+
+us_display_classic_frame <- data.frame()
+can_display_classic_frame <- data.frame()
+
+for (column in c(1:length(past_stats_columns))) {
+    column_name <- past_stats_columns$name[column]
+    column_stats <- past_stats_columns[column][1][[1]]
+    product_attrs <- product_type[1][[1]]
+    options(digits = 2)
+
+    if (grepl("Table", column_name) || grepl("Layer", column_name)) {
+        product_type <- past_stats_columns[column]
+        product_type$name <- c("Display and Classic")
+
+    } else if (grepl("Attribute", column_name)) {
+        product_type <- past_stats_columns[column]
+        product_type$name <- c("Navigation Premium")
+
+    } else if (!is.null(column_name) && grepl("(?:2019|2018)", column_name, perl = TRUE)) {
+        country <- past_parse_model[column_name][[1]][1]
+        country_code3 <- past_parse_model[column_name][[1]][3]
+        country_code4 <- past_parse_model[column_name][[1]][4]
+        version <- past_parse_model[column_name][[1]][2]
+        # print(paste0(country, " ", product_type$name))
+        # print(product_type)
+        # print(paste0("Country: ", country))
+        # print(paste0("Version: ", version))
+        # print(jsonlite::toJSON(past_stats_columns[column]))
+        frame_name <- c()
+        stat_frame <- data.frame(c())
+        record_total <- c()
+        road_classes <- c()
+        road_lengths <- c()
+
+        create_sp_frame <- function(attr, value) {
+          # print(paste0(attr, ": ", value))
+          data.frame(
+              "Table/Attribute" = c(frame_name),
+              "Count/Length" = c(value),
+              "Attribute Filled %" = c(""),
+              check.names = FALSE,
+              stringsAsFactors = FALSE
+          )
+        }
+
+        append_sp_frame <- function(attr, value, filled_pct = "") {
+            # print(paste0(attr, ": ", value))
+            rbind(stat_frame, data.frame(
+                "Table/Attribute" = c(attr),
+                "Count/Length" = c(value),
+                "Attribute Filled %" = c(filled_pct),
+                check.names = FALSE,
+                stringsAsFactors = FALSE
+            ))
+        }
+
+        for (record in c(1:length(product_attrs))) {
+            attribute <- product_attrs[record]
+            stat_value <- column_stats[record]
+
+            if (grepl("Navigation Premium", product_type$name, perl = TRUE)) {
+
+                if(grepl("Streets", attribute, perl = TRUE)) {
+                    frame_name <- paste0(stringr::str_to_lower(country), "_", stringr::str_to_lower(attribute))
+                    record_total <- as.numeric(stat_value)
+                    stat_frame <- create_sp_frame(attribute, stat_value)
+                    stat_frame <- append_sp_frame("SPEED", as.character(record_total), filled_pct = "100 %") # Calculate and incluce fill % when appropriate
+                    # str(stat_frame)
+
+                } else if (grepl("Nodes", attribute, perl = TRUE)) {
+                    frame_name <- paste0(stringr::str_to_lower(country), "_", stringr::str_to_lower(attribute))
+                    record_total <- as.numeric(stat_value)
+                    stat_frame <- create_sp_frame(attribute, stat_value)
+                    # str(stat_frame)
+
+                    # write out current stat_frame to CSV
+                    # if (grepl("USA", country, perl = TRUE)) {
+                        nodes_frame <- stat_frame
+                        # View(nodes_frame, frame_name)
+                        write.csv(nodes_frame,
+                                  file = paste0(version, "/", country, "/", frame_name, "-statistics.csv"),
+                                  na = "",
+                                  row.names = FALSE,
+                                  col.names = FALSE,
+                                  append = TRUE,
+                                  sep = ",")
+                    # }
+
+                } else if (grepl("Restrictions", attribute, perl = TRUE)) {
+                    frame_name <- paste0(stringr::str_to_lower(country), "_", stringr::str_to_lower(attribute))
+                    record_total <- as.numeric(stat_value)
+                    stat_frame <- create_sp_frame(attribute, stat_value)
+                    # str(stat_frame)
+
+                    # write out current stat_frame to CSV
+                    # if (grepl("USA", country, perl = TRUE)) {
+                        restrictions_frame <- stat_frame
+                        # View(restrictions_frame, frame_name)
+                        write.csv(restrictions_frame,
+                                  file = paste0(version, "/", country, "/", frame_name, "-statistics.csv"),
+                                  na = "",
+                                  row.names = FALSE,
+                                  col.names = FALSE,
+                                  append = TRUE,
+                                  sep = ",")
+                    # }
+
+                } else if (length(frame_name) > 0) {
+                    if (grepl("_streets", frame_name, perl = TRUE)) {
+
+                        # Filter and/or correct attribute names
+                        if (
+                            grepl("SPEED", attribute, perl = TRUE) ||
+                                grepl("Speed Verified 2", attribute, perl = TRUE) ||
+                                grepl("Length Total", attribute, perl = TRUE)
+                        ) {
+                            # Skip these attributes
+
+                        } else if (grepl("Speed Verified 1", attribute, perl = TRUE)) {
+                            stat_frame <- append_sp_frame("SPEED_VERIFIED", stat_value, filled_pct = paste0(format(100 * as.numeric(stat_value) / record_total, nsmall = 2), " %"))
+
+                        }  else if (grepl("MAX_HEIGHT", attribute, perl = TRUE)) {
+                            stat_frame <- append_sp_frame("MAX_HEIGHT", stat_value, filled_pct = paste0(format(100 * as.numeric(stat_value) / record_total, nsmall = 2), " %"))
+
+                        }  else if (grepl("MAX_WIDTH", attribute, perl = TRUE)) {
+                            stat_frame <- append_sp_frame("MAX_WIDTH", stat_value, filled_pct = paste0(format(100 * as.numeric(stat_value) / record_total, nsmall = 2), " %"))
+
+                        }  else if (grepl("MAX_WEIGHT", attribute, perl = TRUE)) {
+                            stat_frame <- append_sp_frame("MAX_WEIGHT", stat_value, filled_pct = paste0(format(100 * as.numeric(stat_value) / record_total, nsmall = 2), " %"))
+
+                        } else if (grepl("Area_Type 0", attribute, perl = TRUE)) {
+                            stat_frame <- append_sp_frame("AREA_TYPE: 0", stat_value)
+
+                        } else if (grepl("Area_Type 1", attribute, perl = TRUE)) {
+                            stat_frame <- append_sp_frame("AREA_TYPE: 1", stat_value)
+
+                        } else if (grepl("Toll False", attribute, perl = TRUE)) {
+                            stat_frame <- append_sp_frame("TOLL: false", stat_value)
+
+                        } else if (grepl("Toll True", attribute, perl = TRUE)) {
+                            stat_frame <- append_sp_frame("TOLL: true", stat_value)
+
+                        } else if (grepl("^[A-Z]$", attribute, perl = TRUE)) {
+                            road_classes <- c(road_classes, c(attribute))
+
+                            if ((country == c("CAN")) || (country == c("GBR"))) {
+                                road_lengths <- c(road_lengths, c(as.double(stat_value) * 1000.0))
+
+                            } else {
+                                road_lengths <- c(road_lengths, c(as.double(stat_value)))
+                            }
+
+                            if (grepl("Z", attribute, perl = TRUE)) {
+
+                                total_length <- sum(as.double(road_lengths))
+
+                                stat_frame <- append_sp_frame(paste0("Length (total)"), as.character(total_length))
+
+                                for (r in 1:length(road_classes)) {
+                                    stat_frame <- append_sp_frame(paste0("Length (ROAD_CLASS: ", road_classes[r],")"), road_lengths[r])
+                                }
+
+                                # write out current stat_frame to CSV
+                                # if (grepl("USA", country, perl = TRUE)) {
+                                    streets_frame <- stat_frame
+                                    # View(streets_frame, frame_name)
+                                    if (check_dir(version, country)) {
+                                        write.csv(streets_frame,
+                                                  file = paste0(version, "/", country, "/", frame_name, "-statistics.csv"),
+                                                  na = "",
+                                                  row.names = FALSE,
+                                                  col.names = FALSE,
+                                                  append = TRUE,
+                                                  sep = ",")
+                                    }
+                                # }
+                            }
+                        } else {
+                            stat_frame <- append_sp_frame(attribute, stat_value)
+                        }
+                    }
+                }
+
+            } else if (grepl("Display and Classic", product_type$name, perl = TRUE)) {
+                # Display and Classic
+                # print(version)
+
+                if (!is.null(country) && !is.null(attribute) && !is.na(attribute)) {
+
+                    if (grepl("USA", country) || grepl("CAN", country)) {
+                        # print(country_code3)
+                        frame_name <- paste0(stringr::str_to_lower(country_code3), stringr::str_to_lower(attribute))
+                        record_total <- as.numeric(stat_value)
+                        # print(paste0(frame_name, " ", record_total))
+
+                        stat_frame <- create_sp_frame(frame_name, record_total)
+
+                        if (grepl("USA", country)) {
+                            us_display_classic_frame <- stat_frame
+                        } else if (grepl("CAN", country)) {
+                            can_display_classic_frame <- stat_frame
+                        }
+
+                        display_classic_frame <- stat_frame
+                        # View(streets_frame, frame_name)
+                        if (check_dir(version, country)) {
+                            write.csv(display_classic_frame,
+                                      file = paste0(version, "/", country, "/", frame_name, "-statistics.csv"),
+                                      na = "",
+                                      row.names = FALSE,
+                                      col.names = FALSE,
+                                      append = TRUE,
+                                      sep = ",")
+                        }
+
+                    } else {
+                        # print(country_code4)
+                        frame_name <- paste0(stringr::str_to_lower(country_code4), stringr::str_to_lower(attribute))
+
+                        if (
+                            grepl("s1", attribute) ||
+                            grepl("s2", attribute) ||
+                            grepl("s3", attribute) ||
+                            grepl("s4", attribute) ||
+                            grepl("s5", attribute) ||
+                            grepl("s6", attribute)
+                        ) {
+                            record_total <- c(NA)
+                            # print(paste0(frame_name, " length: ", c(as.double(stat_value) * 1000.0)))
+
+                            stat_frame <- create_sp_frame(frame_name, record_total)
+                            stat_frame <- append_sp_frame(paste0("Length_Meters (total)"), c(as.double(stat_value) * 1000.0))
+
+                        } else {
+                            record_total <- as.numeric(stat_value)
+                            # print(paste0(frame_name, " ", record_total))
+
+                            stat_frame <- create_sp_frame(frame_name, record_total)
+                        }
+
+                        display_classic_frame <- stat_frame
+                        # View(streets_frame, frame_name)
+                        if (check_dir(version, country)) {
+                            write.csv(display_classic_frame,
+                                      file = paste0(version, "/", country, "/", frame_name, "-statistics.csv"),
+                                      na = "",
+                                      row.names = FALSE,
+                                      col.names = FALSE,
+                                      append = TRUE,
+                                      sep = ",")
+                        }
+
+                    }
+                }
+            }
+        }
+
+    } else if (!is.null(column_name)) {
+         print(column_name)
+         print("")
+
+    }
+}
+```

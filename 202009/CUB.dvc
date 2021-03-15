@@ -1,0 +1,7 @@
+md5: f2874c31fe4806508dabdac17f7d84ac
+outs:
+- md5: 5f14a9767c9a2aab3acb9eac0605145b.dir
+  path: CUB
+  cache: true
+  metric: false
+  persist: false

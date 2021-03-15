@@ -1,0 +1,7 @@
+md5: afe3640c8ab8cda6eed14ca4b9097461
+outs:
+- md5: 768ca24a69c70252d0315a34f0a9db3a.dir
+  path: STP
+  cache: true
+  metric: false
+  persist: false

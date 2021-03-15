@@ -1,0 +1,937 @@
+---
+title: "Prepare Data For Stats Portal"
+author: "John Hall"
+date: "2/19/21"
+output: html_notebook
+---
+<div class="r-setup">
+
+```{r setup, echo = FALSE, include = FALSE}
+options(warn = -1)
+working_dir <- getwd()
+#print(working_dir)
+#print(grepl("/content", getwd(), ignore.case = TRUE))
+if (grepl("/content", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/content", "")
+    setwd(working_dir)
+}
+if (!require("knitr")) {
+  install.packages("knitr")
+  library("knitr")
+}
+knitr::opts_chunk$set(cache = FALSE)
+#knitr::opts_chunk$set(cache.extra = tools::md5sum(paste0(working_dir, "/src/stats-template.Rmd")))
+
+require("jsonlite")
+require("readtext")
+require("rmarkdown")
+require("stringr")
+
+CURRENT_VERSION <- if (!is.null(getOption("CURRENT_VERSION"))) {
+    getOption("CURRENT_VERSION")
+} else {
+    readtext::readtext("CURRENT/version.txt", encoding = "UTF-8")[[2]]
+}
+PAST_VERSION <- if (!is.null(getOption("CURRENT_VERSION"))) {
+    getOption("PAST_VERSION")
+} else {
+    readtext::readtext("PAST/version.txt", encoding = "UTF-8")[[2]]
+}
+
+print(paste0("CURRENT_VERSION: ", CURRENT_VERSION))
+print(paste0("PAST_VERSION: ", PAST_VERSION))
+```
+
+</div>
+
+```{r explore, echo = TRUE, root.dir = working_dir}
+setwd(working_dir)
+
+stats_portal_wb_template <- paste0(working_dir, "/", PAST_VERSION, "/streets_noram.xlsx")
+
+# Use readxl to load the sheet names into a var
+if (file.exists(stats_portal_wb_template)) {
+    stats_portal_wb_names <- readxl::excel_sheets(stats_portal_wb_template)
+} else {
+    stats_portal_wb_names <- readxl::excel_sheets(file.choose())
+}
+
+str(stats_portal_wb_names)
+
+stats_portal_wb_sheets <- list()
+
+stats_portal_wb <- openxlsx::loadWorkbook(stats_portal_wb_template)
+
+for (sheetname in stats_portal_wb_names) {
+    # Get individual sheets from workbook
+    stats_portal_wb_sheet <- openxlsx::read.xlsx(stats_portal_wb, sheet = sheetname, startRow = 1, colNames = TRUE)
+    stats_portal_wb_sheets[sheetname] <- list(stats_portal_wb_sheet)
+    str(stats_portal_wb_sheets[sheetname][[1]])
+}
+```
+
+```{r build_stats, echo = FALSE, warning = FALSE}
+options(warn = -1)
+setwd(working_dir)
+print(working_dir)
+print(file.exists(paste0(working_dir, "/src")))
+
+# Create data.frame for counts
+counts_frame <- stats_portal_wb_sheets$Street_Counts[-(1:nrow(stats_portal_wb_sheets$Street_Counts)), 1:ncol(stats_portal_wb_sheets$Street_Counts)]
+names(counts_frame)
+
+# Create data.frame for lengths
+lengths_frame <- stats_portal_wb_sheets$Street_Lengths[-(1:nrow(stats_portal_wb_sheets$Street_Lengths)), 1:ncol(stats_portal_wb_sheets$Street_Lengths)]
+names(lengths_frame)
+
+# Create data.frame for Nav Nodes counts
+nav_nodes_counts_frame <- data.frame(c(NA), c(NA), c(NA), c(NA))
+names(nav_nodes_counts_frame) <- c(
+    "Country",
+    "Region",
+    "Version", # paste0("Object Count - ", current_version),
+    "Nodes"
+)
+# Delete all rows
+nav_nodes_counts_frame <- nav_nodes_counts_frame[-1,1:length(nav_nodes_counts_frame)]
+names(nav_nodes_counts_frame)
+
+# Create data.frame for Nav Restrictions counts
+nav_restrictions_counts_frame <- data.frame(c(NA), c(NA), c(NA), c(NA))
+names(nav_restrictions_counts_frame) <- c(
+    "Country",
+    "Region",
+    "Version", # paste0("Object Count - ", current_version),
+    "Restrictions"
+)
+# Delete all rows
+nav_restrictions_counts_frame <- nav_restrictions_counts_frame[-1,1:length(nav_restrictions_counts_frame)]
+names(nav_restrictions_counts_frame)
+
+# Create data.frame for Nav Streets counts
+nav_streets_counts_frame <- data.frame(c(NA), c(NA), c(NA), c(NA))
+names(nav_streets_counts_frame) <- c(
+    "Country",
+    "Region",
+    "Version", # paste0("Object Count - ", current_version),
+    "Streets"
+)
+# Delete all rows
+nav_streets_counts_frame <- nav_streets_counts_frame[-1,1:length(nav_streets_counts_frame)]
+names(nav_streets_counts_frame)
+
+
+appendCountToFrame <- function (country, region, stats) {
+    sp_version <- paste0(substr(CURRENT_VERSION, 1, 4), ".", substr(CURRENT_VERSION, 5, 6))
+    count <- list()
+
+    for (stat in names(counts_frame)) {
+        if (!is.null(stats[[stat]]) && !is.na(as.numeric(stats[stat])) && is.numeric(as.numeric(stats[stat]))) {
+            count[stat] <- format(round(as.numeric(stats[stat]), 0), nsmall = 0)
+
+        } else {
+            switch(
+                stat,
+                "cr" = {
+                    if (!is.null(stats[["crossroads"]]) && !is.na(as.numeric(stats["crossroads"])) && is.numeric(as.numeric(stats["crossroads"]))) {
+                        count[stat] <- format(round(as.numeric(stats["crossroads"]), 0), nsmall = 0)
+                    } else {
+                        count[stat] <- NA
+                    }
+                },
+                "x1" = {
+                    if (!is.null(stats[["geocode1"]]) && !is.na(as.numeric(stats["geocode1"])) && is.numeric(as.numeric(stats["geocode1"]))) {
+                        count[stat] <- format(round(as.numeric(stats["geocode1"]), 0), nsmall = 0)
+                    } else {
+                        count[stat] <- NA
+                    }
+                },
+                "x2" = {
+                    if (!is.null(stats[["geocode2"]]) && !is.na(as.numeric(stats["geocode2"])) && is.numeric(as.numeric(stats["geocode2"]))) {
+                        count[stat] <- format(round(as.numeric(stats["geocode2"]), 0), nsmall = 0)
+                    } else {
+                        count[stat] <- NA
+                    }
+                },
+                count[stat] <- NA
+            )
+        }
+        #print(paste0(country, " ", region, " ", sp_version, " ", stat, " ", count[stat]))
+    }
+
+    data.frame(
+        "Country" = country, # "Country",
+        "Region" = region, # "Region",
+        "Version" = sp_version, # Version,
+        "cr" = count["cr"],
+        "sa" = count["sa"],
+        "x1" = count["x1"],
+        "x2" = count["x2"],
+        "a0" = count["a0"],
+        "a1" = count["a1"],
+        "a2" = count["a2"],
+        "a3" = count["a3"],
+        "a4" = count["a4"],
+        "a5" = count["a5"],
+        "aa" = count["aa"],
+        "ap" = count["ap"],
+        "b" = count["b"],
+        "f" = count["f"],
+        "fi" = count["fi"],
+        "fr" = count["fr"],
+        "g1" = count["g1"],
+        "g2" = count["g2"],
+        "g3" = count["g3"],
+        "g4" = count["g4"],
+        "g5" = count["g5"],
+        "g6" = count["g6"],
+        "gf" = count["gf"],
+        "lc" = count["lc"],
+        "lu" = count["lu"],
+        "nf" = count["nf"],
+        "ow" = count["ow"],
+        "p" = count["p"],
+        "pc" = count["pc"],
+        "pci" = count["pci"],
+        "pcp" = count["pcp"],
+        "pu" = count["pu"],
+        "r" = count["r"],
+        "re" = count["re"],
+        "st" = count["st"],
+        "u" = count["u"],
+        "wm" = count["wm"],
+        "w" = count["w"],
+        "zl" = count["zl"],
+        "zp" = count["zp"],
+        "s1" = count["s1"],
+        "s2" = count["s2"],
+        "s3" = count["s3"],
+        "s4" = count["s4"],
+        "s5" = count["s5"],
+        "s6" = count["s6"],
+# Add new columns to stats portal workbok:
+#[**] "airports"            "ferries"            "gazetteer1"         "gazetteer2"
+#[**] "gazetteer3"         "gazetteer4"         "gazetteer5"         "gazetteer6"
+#[**] "landuse"            "oneways"            "railroads"
+#{**] "rivers"             "streets" (displaystreets) "urbanareas"   "waterbodies"
+        "airports" = count["airports"],
+        "gazetteer1" = count["gazetteer1"],
+        "gazetteer2" = count["gazetteer2"],
+        "gazetteer3" = count["gazetteer3"],
+        "gazetteer4" = count["gazetteer4"],
+        "gazetteer5" = count["gazetteer5"],
+        "gazetteer6" = count["gazetteer6"],
+        "gazetteer7" = count["gazetteer7"],
+        "landmarks" = count["landmarks"],
+        "landuse" = count["landuse"],
+        "oneways" = count["oneways"],
+        "railroads" = count["railroads"],
+        "streets" = count["streets"], # displaystreets
+        "expressways" = count["expressways"],
+        "ferries" = count["ferries"],
+        "localhwys_med" = count["localhwys_med"],
+        "localrtes" = count["localrtes"],
+        "primaryhwys" = count["primaryhwys"],
+        "primaryhwys_med" = count["primaryhwys_med"],
+        "regionalhwys" = count["regionalhwys"],
+        "secondaryhwys" = count["secondaryhwys"],
+        "secondaryhwys_med" = count["secondaryhwys_med"],
+        "signposts" = count["signposts"],
+        "censusdivisions" = count["censusdivisions"],
+        "censussubdivisions" = count["censussubdivisions"],
+        "shldprhwy_0to5" = count["shldprhwy_0to5"],
+        "shldprhwy_5to15" = count["shldprhwy_5to15"],
+        "shldprhwy_15to50" = count["shldprhwy_15to50"],
+        "shldtchwy_0to5" = count["shldtchwy_0to5"],
+        "shldtchwy_5to15" = count["shldtchwy_5to15"],
+        "shldtchwy_15to50" = count["shldtchwy_15to50"],
+        "shldstate_0to5" = count["shldstate_0to5"],
+        "shldstate_5to15" = count["shldstate_5to15"],
+        "shldstate_15to50" = count["shldstate_15to50"],
+        "shldus_0to5" = count["shldus_0to5"],
+        "shldus_5to15" = count["shldus_5to15"],
+        "shldus_15to50" = count["shldus_15to50"],
+        "towns" = count["towns"],
+        "cities" = count["cities"],
+        "counties" = count["counties"],
+        "rivers" = count["rivers"],
+        "urbanareas" = count["urbanareas"],
+        "waterbodies" = count["waterbodies"],
+        stringsAsFactors = FALSE
+    )
+}
+
+appendLengthsToFrame <- function (country, region, lengths) {
+    sp_version <- paste0(substr(CURRENT_VERSION, 1, 4), ".", substr(CURRENT_VERSION, 5, 6))
+    length <- list()
+
+    for (stat in names(lengths_frame)) {
+        if (!is.null(lengths[[stat]]) && !is.na(as.numeric(lengths[stat])) && is.numeric(as.numeric(lengths[stat]))) {
+            length[stat] <- format(round(as.numeric(lengths[stat]), 0), nsmall = 0)
+
+        } else {
+            #switch(
+            #  stat,
+            #  "cr" = {
+            #        if (!is.null(lengths[["crossroads"]]) && !is.na(as.numeric(lengths["crossroads"])) && is.numeric(as.numeric(lengths["crossroads"]))) {
+            #            length[stat] <- format(round(as.numeric(lengths["crossroads"]), 0), nsmall = 0)
+            #        } else {
+            #            length[stat] <- NA
+            #        }
+            #    },
+            #  "x1" = {
+            #        if (!is.null(lengths[["geocode1"]]) && !is.na(as.numeric(lengths["geocode1"])) && is.numeric(as.numeric(lengths["geocode1"]))) {
+            #            length[stat] <- format(round(as.numeric(lengths["geocode1"]), 0), nsmall = 0)
+            #        } else {
+            #            length[stat] <- NA
+            #        }
+            #    },
+            #  "x2" = {
+            #        if (!is.null(lengths[["geocode2"]]) && !is.na(as.numeric(lengths["geocode2"])) && is.numeric(as.numeric(lengths["geocode2"]))) {
+            #            length[stat] <- format(round(as.numeric(lengths["geocode2"]), 0), nsmall = 0)
+            #        } else {
+            #            length[stat] <- NA
+            #        }
+            #    },
+              length[stat] <- NA
+            #)
+        }
+        #print(paste0(country, " ", region, " ", sp_version, " ", stat, " ", count[stat]))
+    }
+
+    data.frame(
+        "Country" = country, # "Country",
+        "Region" = region, # "Region",
+        "Version" = sp_version, # Version,
+# [1] "Country"                    "Region"
+# [3] "Version"                    "Streets.(All.Road.Classes)"
+# [5] "Streets.(Road.Class.A)"     "Streets.(Road.Class.C)"
+# [7] "Streets.(Road.Class.D)"     "Streets.(Road.Class.E)"
+# [9] "Streets.(Road.Class.F)"     "Streets.(Road.Class.G)"
+#[11] "Streets.(Road.Class.H)"     "Streets.(Road.Class.I)"
+#[13] "Streets.(Road.Class.L)"     "Streets.(Road.Class.M)"
+#[15] "Streets.(Road.Class.N)"     "Streets.(Road.Class.P)"
+#[17] "Streets.(Road.Class.Q)"     "Streets.(Road.Class.R)"
+#[19] "Streets.(Road.Class.S)"     "Streets.(Road.Class.T)"
+#[21] "Streets.(Road.Class.U)"     "Streets.(Road.Class.W)"
+#[23] "Streets.(Road.Class.Z)"     "s1"
+#[25] "s2"                         "s3"
+#[27] "s4"                         "s5"
+#[29] "s6"                         "streets"
+#[31] "expressways"                "localrtes"
+#[33] "primaryhwys"                "secondaryhwys"
+        "Streets.(All.Road.Classes)" = length["Streets.(All.Road.Classes)"],
+        "Streets.(Road.Class.A)" = length["Streets.(Road.Class.A)"],
+        "Streets.(Road.Class.C)" = length["Streets.(Road.Class.C)"],
+        "Streets.(Road.Class.D)" = length["Streets.(Road.Class.D)"],
+        "Streets.(Road.Class.E)" = length["Streets.(Road.Class.E)"],
+        "Streets.(Road.Class.F)" = length["Streets.(Road.Class.F)"],
+        "Streets.(Road.Class.G)" = length["Streets.(Road.Class.G)"],
+        "Streets.(Road.Class.H)" = length["Streets.(Road.Class.H)"],
+        "Streets.(Road.Class.I)" = length["Streets.(Road.Class.I)"],
+        "Streets.(Road.Class.L)" = length["Streets.(Road.Class.L)"],
+        "Streets.(Road.Class.M)" = length["Streets.(Road.Class.M)"],
+        "Streets.(Road.Class.N)" = length["Streets.(Road.Class.N)"],
+        "Streets.(Road.Class.P)" = length["Streets.(Road.Class.P)"],
+        "Streets.(Road.Class.Q)" = length["Streets.(Road.Class.Q)"],
+        "Streets.(Road.Class.R)" = length["Streets.(Road.Class.R)"],
+        "Streets.(Road.Class.S)" = length["Streets.(Road.Class.S)"],
+        "Streets.(Road.Class.T)" = length["Streets.(Road.Class.T)"],
+        "Streets.(Road.Class.U)" = length["Streets.(Road.Class.U)"],
+        "Streets.(Road.Class.W)" = length["Streets.(Road.Class.W)"],
+        "Streets.(Road.Class.Z)" = length["Streets.(Road.Class.Z)"],
+        "s1" = length["s1"],
+        "s2" = length["s2"],
+        "s3" = length["s3"],
+        "s4" = length["s4"],
+        "s5" = length["s5"],
+        "s6" = length["s6"],
+        "streets" = length["streets"],
+        "expressways" = length["expressways"],
+        "localrtes" = length["localrtes"],
+        "primaryhwys" = length["primaryhwys"],
+        "secondaryhwys" = length["secondaryhwys"],
+        stringsAsFactors = FALSE
+    )
+}
+
+appendCountToNavFrame <- function (country, region, stat) {
+    sp_version <- paste0(substr(CURRENT_VERSION, 1, 4), ".", substr(CURRENT_VERSION, 5, 6))
+
+    if (!is.na(stat["current"]) && !is.na(as.numeric(stat["current"])) && is.numeric(as.numeric(stat["current"]))) {
+        count <- format(round(as.numeric(stat["current"]), 0), nsmall = 0)
+    } else {
+        count <- NA
+    }
+    #print(paste0(country, " ", region, " ", sp_version, " ", count))
+    data.frame(
+        country, # "Country",
+        region, # "Region",
+        sp_version, # Version,
+        count, # Layer Count,
+        stringsAsFactors = FALSE
+    )
+}
+
+bindCountToNavRow <- function (nav_frame, column_name, stat) {
+    if (!is.na(stat["current"]) && is.numeric(stat["current"])) {
+        count <- format(round(as.numeric(stat["current"]), 0), nsmall = 0)
+    } else {
+        count <- NA
+    }
+    print(paste0(country, " ", column_name, " ", count))
+    column_names <- names(nav_frame)
+    output <- cbind(nav_frame, data.frame(count, stringsAsFactors = FALSE))
+    names(output) <- c(column_names, column_name)
+    output
+}
+
+check_release_dir <- function (vers, ctry) {
+    ifelse(!dir.exists(file.path(".", vers)), dir.create(file.path(".", vers)), FALSE)
+    ifelse(!dir.exists(file.path(vers, ctry)), dir.create(file.path(vers, ctry)), FALSE)
+    dir.exists(file.path(vers, ctry))
+}
+
+# Read release-version.csv to get current and past version strings per country code
+loadCountryVersions <- function (path_to_release_version_model) {
+    print(paste0(path_to_release_version_model, " exists? ",file.exists(path_to_release_version_model)))
+
+    geoVersions <- list()
+
+    if (file.exists(path_to_release_version_model)) {
+        release_version_model <- read.csv(path_to_release_version_model, header = FALSE, sep = ",", col.names = c("country", "current_version", "previous_version", "state_code"), colClasses = c("character", "character", "character", "character"))
+
+        for (col in colnames(release_version_model)) {
+            print(col)
+            for (idx in 1:length(release_version_model[,col])) {
+                #print(release_version_model[idx, col])
+                if (grepl("CURRENT_VERSION", release_version_model[idx, col], perl = TRUE)) {
+                    release_version_model[idx, col] <- CURRENT_VERSION
+                    #print(release_version_model[idx, col])
+                }
+                if (grepl("PAST_VERSION", release_version_model[idx, col], perl = TRUE)) {
+                    release_version_model[idx, col] <- PAST_VERSION
+                    #print(release_version_model[idx, col])
+                }
+            }
+        }
+
+        print(head(release_version_model))
+
+        for (idx in 1:nrow(release_version_model)) {
+            if (!grepl("\\w+", release_version_model[idx, 4], perl = TRUE)) {
+                release_version_model[idx, 4] <- c(NA)
+                print(as.character(release_version_model[idx, ]))
+            }
+            geoVersions[[length(geoVersions) + 1]] <- as.character(release_version_model[idx, ])
+        }
+
+        geoVersions
+    }
+
+    geoVersions
+}
+
+
+allGeos <- loadCountryVersions(paste0(working_dir, "/CURRENT/models/release-versions.csv"))
+
+if (file.exists(paste0(working_dir, "/CURRENT/models/country-codes.json"))) {
+    country_code_model <- jsonlite::fromJSON(paste0(working_dir, "/CURRENT/models/country-codes.json"))
+} else {
+    country_code_model <- jsonlite::fromJSON(file.choose())
+}
+
+if (file.exists(paste0(working_dir, "/CURRENT/models/country-names.csv"))) {
+    country_names <- read.csv(paste0(working_dir, "/CURRENT/models/country-names.csv"), header = FALSE, sep = ",", col.names = c("country_name", "country"), colClasses = c("character", "character"))
+} else {
+    country_names <- read.csv(file.choose(), header = FALSE, sep = ",", col.names = c("country_name", "country"), colClasses = c("character", "character"))
+}
+
+for (geo in allGeos) {
+    # Input params
+    country <- c(geo[1][1])
+    current_version <- c(geo[2][1])
+    previous_version <- c(geo[3][1])
+    if (!is.na(geo[4])) {
+        state_codes <- list(state_codes = c(geo[4][1]))
+    } else {
+        state_codes <- list(c())
+    }
+    state_flag <- c()
+
+    # Get codes from country-codes model
+    country_code3 <- country_code_model[country][[1]][1] # "can"
+    country_code4 <- country_code_model[country][[1]][2] # ""
+    if (is.null(state_codes[[1]]) || is.na(state_codes)) {
+        state_codes <- country_code_model[country][[1]][3] # c("AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT")
+        state_flag <- c(FALSE)
+    } else {
+        state_flag <- c(TRUE)
+    }
+
+    if (file.exists(paste0(working_dir, "/src"))) {
+
+        # Run compare stats to gather and populate all stats per country for CURRENT_RELEASE
+        source(paste0(working_dir, "/src/compare-stats.R"))
+
+        country_name <- country_names[(country_names$country == country), 1]
+
+        if (!is.na(country_name) && length(country_name) > 0) {
+
+            if (all(state_flag) && check_release_dir("CURRENT", paste0(country, "/", state_codes[[1]]))) {
+                region <- state_codes[[1]]
+            } else {
+                region <- NA
+            }
+
+            # Immediately append new row to Nav Nodes
+            nav_nodes_counts_frame[nrow(nav_nodes_counts_frame)+1,] <- appendCountToNavFrame(country_name, region, nodes_total)
+
+            # Immediatley append new row to Nav Restrictions
+            nav_restrictions_counts_frame[nrow(nav_restrictions_counts_frame)+1,] <- appendCountToNavFrame(country_name, region, restrictions_total)
+
+            if (ncol(nav_streets_counts_frame) < 60) {
+                # Only bind columns directly to Nav Streets when creating the first row
+                nav_streets_counts_frame[nrow(nav_streets_counts_frame)+1,] <- appendCountToNavFrame(country_name, region, streets_total)
+
+                # Join additional columns to nav streets data frame
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Street Name 1 (STREET)", STREET)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Street Name 2 (STREET2)", STREET2)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Street Name 3 (STREET3)", STREET3)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Street Name 4 (STREET4)", STREET4)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "FROMLEFT", FROMLEFT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "TOLEFT", TOLEFT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "FROMRIGHT", FROMRIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "TORIGHT", TORIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "L_STRUCT 1", L_STRUCT_1)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "L_STRUCT 2", L_STRUCT_2)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "L_STRUCT 3", L_STRUCT_3)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "L_STRUCT 4", L_STRUCT_4)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "L_STRUCT 5", L_STRUCT_5)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "L_STRUCT 6", L_STRUCT_6)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "R_STRUCT 1", R_STRUCT_1)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "R_STRUCT 2", R_STRUCT_2)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "R_STRUCT 3", R_STRUCT_3)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "R_STRUCT 4", R_STRUCT_4)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "R_STRUCT 5", R_STRUCT_6)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "R_STRUCT 6", R_STRUCT_6)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "A1_LEFT", A1_LEFT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "A1_RIGHT", A1_RIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "LOCALITY_LEFT", LOCALITY_LEFT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "LOCALITY_CODE_LEFT", LOCALITY_CODE_LEFT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "LOCALITY_RIGHT", LOCALITY_RIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "LOCALITY_CODE_RIGHT", LOCALITY_CODE_RIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "PC_LEFT", PC_LEFT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "PNAM_LEFT", PNAM_LEFT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "PC_RIGHT", PC_RIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "PNAM_RIGHT", PNAM_RIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ROUTE_NUM", ROUTE_NUM)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Rural Streets (AREA_TYPE 0)", AREA_TYPE_0)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Urban Streets (AREA_TYPE 1)", AREA_TYPE_1)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ROAD_TYPE D", ROAD_TYPE_D)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ROAD_TYPE S", ROAD_TYPE_S)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Streets with Sign Post Speed Limits (Speed_Verified 1)", SPEED_VERIFIED)
+                SPEED_MODELLED <- (as.numeric(SPEED) - as.numeric(SPEED_VERIFIED))
+                names(SPEED_MODELLED) <- c("current", "previous")
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Streets with Modelled Speed Limits (Speed_Verified 2)", SPEED_MODELLED)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "SPEED_AMPEAK", SPEED_AMPEAK)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "SPEED_PMPEAK", SPEED_PMPEAK)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "SPEED_INTERPEAK", SPEED_INTERPEAK)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "SPEED_NIGHT", SPEED_NIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "SPEED_SEVENDAY", SPEED_SEVENDAY)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ROUGHRD", ROUGHRD)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "SURFACE_TYPE 0", SURFACE_TYPE_0)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "SURFACE_TYPE 1", SURFACE_TYPE_1)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "SURFACE_TYPE 2", SURFACE_TYPE_2)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "SURFACE_TYPE 3", SURFACE_TYPE_3)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "MAX_HEIGHT Restrictions", MAX_HEIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "MAX_WEIGHT Restrictions", MAX_WEIGHT)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "MAX_WIDTH Restrictions", MAX_WIDTH)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ONEWAY 1", ONEWAY_1)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ONEWAY 2", ONEWAY_2)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ONEWAY 3", ONEWAY_3)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ONEWAY 4", ONEWAY_4)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ONEWAY 5", ONEWAY_5)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "ONEWAY 6", ONEWAY_6)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Toll Roads (TOLL: true)", TOLL_true)
+                nav_streets_counts_frame <- bindCountToNavRow(nav_streets_counts_frame, "Non-toll Roads (TOLL: false)", TOLL_false)
+
+            } else {
+                # For all subsequent rows, do not append until all columns have been added
+                nav_streets_row <- nav_streets_counts_frame[-(1:nrow(nav_streets_counts_frame)), (1:4)]
+                nav_streets_row[nrow(nav_streets_row)+1,] <- appendCountToNavFrame(country_name, region, streets_total)
+
+                # Join additional columns to nav streets data frame
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Street Name 1 (STREET)", STREET)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Street Name 2 (STREET2)", STREET2)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Street Name 3 (STREET3)", STREET3)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Street Name 4 (STREET4)", STREET4)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "FROMLEFT", FROMLEFT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "TOLEFT", TOLEFT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "FROMRIGHT", FROMRIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "TORIGHT", TORIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "L_STRUCT 1", L_STRUCT_1)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "L_STRUCT 2", L_STRUCT_2)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "L_STRUCT 3", L_STRUCT_3)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "L_STRUCT 4", L_STRUCT_4)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "L_STRUCT 5", L_STRUCT_5)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "L_STRUCT 6", L_STRUCT_6)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "R_STRUCT 1", R_STRUCT_1)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "R_STRUCT 2", R_STRUCT_2)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "R_STRUCT 3", R_STRUCT_3)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "R_STRUCT 4", R_STRUCT_4)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "R_STRUCT 5", R_STRUCT_6)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "R_STRUCT 6", R_STRUCT_6)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "A1_LEFT", A1_LEFT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "A1_RIGHT", A1_RIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "LOCALITY_LEFT", LOCALITY_LEFT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "LOCALITY_CODE_LEFT", LOCALITY_CODE_LEFT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "LOCALITY_RIGHT", LOCALITY_RIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "LOCALITY_CODE_RIGHT", LOCALITY_CODE_RIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "PC_LEFT", PC_LEFT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "PNAM_LEFT", PNAM_LEFT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "PC_RIGHT", PC_RIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "PNAM_RIGHT", PNAM_RIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ROUTE_NUM", ROUTE_NUM)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Rural Streets (AREA_TYPE 0)", AREA_TYPE_0)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Urban Streets (AREA_TYPE 1)", AREA_TYPE_1)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ROAD_TYPE D", ROAD_TYPE_D)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ROAD_TYPE S", ROAD_TYPE_S)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Streets with Sign Post Speed Limits (Speed_Verified 1)", SPEED_VERIFIED)
+                SPEED_MODELLED <- (as.numeric(SPEED) - as.numeric(SPEED_VERIFIED))
+                names(SPEED_MODELLED) <- c("current", "previous")
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Streets with Modelled Speed Limits (Speed_Verified 2)", SPEED_MODELLED)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "SPEED_AMPEAK", SPEED_AMPEAK)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "SPEED_PMPEAK", SPEED_PMPEAK)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "SPEED_INTERPEAK", SPEED_INTERPEAK)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "SPEED_NIGHT", SPEED_NIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "SPEED_SEVENDAY", SPEED_SEVENDAY)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ROUGHRD", ROUGHRD)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "SURFACE_TYPE 0", SURFACE_TYPE_0)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "SURFACE_TYPE 1", SURFACE_TYPE_1)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "SURFACE_TYPE 2", SURFACE_TYPE_2)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "SURFACE_TYPE 3", SURFACE_TYPE_3)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "MAX_HEIGHT Restrictions", MAX_HEIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "MAX_WEIGHT Restrictions", MAX_WEIGHT)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "MAX_WIDTH Restrictions", MAX_WIDTH)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ONEWAY 1", ONEWAY_1)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ONEWAY 2", ONEWAY_2)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ONEWAY 3", ONEWAY_3)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ONEWAY 4", ONEWAY_4)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ONEWAY 5", ONEWAY_5)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "ONEWAY 6", ONEWAY_6)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Toll Roads (TOLL: true)", TOLL_true)
+                nav_streets_row <- bindCountToNavRow(nav_streets_row, "Non-toll Roads (TOLL: false)", TOLL_false)
+
+                # Finish by appending row to Nav Streets
+                nav_streets_counts_frame[nrow(nav_streets_counts_frame)+1,] <- nav_streets_row
+            }
+
+            lengths <- list()
+
+            lengths["Streets.(All.Road.Classes)"] <- Length_total
+            lengths["Streets.(Road.Class.A)"] <- Length_A
+            lengths["Streets.(Road.Class.C)"] <- Length_C
+            lengths["Streets.(Road.Class.D)"] <- Length_D
+            lengths["Streets.(Road.Class.E)"] <- Length_E
+            lengths["Streets.(Road.Class.F)"] <- Length_F
+            lengths["Streets.(Road.Class.G)"] <- Length_G
+            lengths["Streets.(Road.Class.H)"] <- Length_H
+            lengths["Streets.(Road.Class.I)"] <- Length_I
+            lengths["Streets.(Road.Class.L)"] <- Length_L
+            lengths["Streets.(Road.Class.M)"] <- Length_M
+            lengths["Streets.(Road.Class.N)"] <- Length_N
+            lengths["Streets.(Road.Class.P)"] <- Length_P
+            lengths["Streets.(Road.Class.Q)"] <- Length_Q
+            lengths["Streets.(Road.Class.R)"] <- Length_R
+            lengths["Streets.(Road.Class.S)"] <- Length_S
+            lengths["Streets.(Road.Class.T)"] <- Length_T
+            lengths["Streets.(Road.Class.U)"] <- Length_U
+            lengths["Streets.(Road.Class.W)"] <- Length_W
+            lengths["Streets.(Road.Class.Z)"] <- Length_Z
+
+            stats <- list()
+
+            if ((!is.null(state_codes)) && (!is.na(state_codes)) && (country_code3 == "usa" || country_code3 == "can")) {
+                stats["airports"] <- airports_total
+                stats["cities"] <- cities_total
+                stats["expressways"] <- expressways_total
+                stats["ferries"] <- ferries_total
+                stats["gazetteer1"] <- gazetteer1_total
+                stats["gazetteer2"] <- gazetteer2_total
+                stats["gazetteer3"] <- gazetteer3_total
+                stats["gazetteer4"] <- gazetteer4_total
+                stats["gazetteer5"] <- gazetteer5_total
+                stats["gazetteer6"] <- gazetteer6_total
+                stats["gazetteer7"] <- gazetteer7_total
+                stats["crossroads"] <- crossroads_total
+                stats["geocode1"] <- geocode1_total
+                stats["geocode2"] <- geocode2_total
+                stats["sa"] <- sa_total
+                stats["landmarks"] <- landmarks_total
+                stats["landuse"] <- landuse_total
+                stats["localhwys_med"] <- localhwys_med_total
+                stats["localrtes"] <- localrtes_total
+                stats["oneways"] <- oneways_total
+                stats["primaryhwys"] <- primaryhwys_total
+                stats["primaryhwys_med"] <- primaryhwys_med_total
+                stats["railroads"] <- railroads_total
+                stats["regionalhwys"] <- regionalhwys_total
+                stats["rivers"] <- rivers_total
+                stats["secondaryhwys"] <- secondaryhwys_total
+                stats["secondaryhwys_med"] <- secondaryhwys_med_total
+                stats["signposts"] <- signposts_total
+                stats["streets"] <- displaystreets_total
+                stats["urbanareas"] <- urbanareas_total
+                stats["waterbodies"] <- waterbodies_total
+
+                lengths["streets"] <- Length_displaystreets
+                lengths["expressways"] <- Length_expressways
+                lengths["localrtes"] <- Length_localrtes
+                lengths["primaryhwys"] <- Length_primaryhwys
+                lengths["secondaryhwys"] <- Length_secondaryhwys
+
+            }
+
+            if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "usa")) {
+                # US only
+
+                stats["counties"] <- counties_total
+                stats["shldco_0to5"] <- shldco_0to5_total
+                stats["shldco_5to15"] <- shldco_5to15_total
+                stats["shldco_15to50"] <- shldco_15to50_total
+                stats["shldinter_0to5"] <- shldinter_0to5_total
+                stats["shldinter_5to15"] <- shldinter_5to15_total
+                stats["shldinter_15to50"] <- shldinter_15to50_total
+                stats["shldstate_0to5"] <- shldstate_0to5_total
+                stats["shldstate_5to15"] <- shldstate_5to15_total
+                stats["shldstate_15to50"] <- shldstate_15to50_total
+                stats["shldus_0to5"] <- shldus_0to5_total
+                stats["shldus_5to15"] <- shldus_5to15_total
+                stats["shldus_15to50"] <- shldus_15to50_total
+                stats["towns"] <- towns_total
+            }
+
+            if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "can")) {
+                # CAN only
+
+                stats["censusdivisions"] <- censusdivisions_total
+                stats["censussubdivisions"] <- censussubdivisions_total
+                stats["shldprhwy_0to5"] <- shldprhwy_0to5_total
+                stats["shldprhwy_5to15"] <- shldprhwy_5to15_total
+                stats["shldprhwy_15to50"] <- shldprhwy_15to50_total
+                stats["shldtchwy_0to5"] <- shldtchwy_0to5_total
+                stats["shldtchwy_5to15"] <- shldtchwy_5to15_total
+                stats["shldtchwy_15to50"] <- shldtchwy_15to50_total
+            }
+
+            if (!is.null(country_code4[[1]]) && !is.na(country_code4)) {
+                stats["a0"] <- a0_total
+                stats["a1"] <- a1_total
+                stats["a2"] <- a2_total
+                stats["a3"] <- a3_total
+                stats["a4"] <- a4_total
+                stats["a5"] <- a5_total
+                stats["aa"] <- aa_total
+                stats["ap"] <- ap_total
+                stats["b"] <- b_total
+                stats["cr"] <- cr_total
+                stats["sa"] <- sa_total
+                stats["x1"] <- x1_total
+                stats["x2"] <- x2_total
+                stats["f"] <- f_total
+                stats["fi"] <- fi_total
+                stats["fr"] <- fr_total
+                stats["g1"] <- g1_total
+                stats["g2"] <- g2_total
+                stats["g3"] <- g3_total
+                stats["g4"] <- g4_total
+                stats["g5"] <- g5_total
+                stats["g6"] <- g6_total
+                stats["gf"] <- gf_total
+                stats["lc"] <- lc_total
+                stats["lu"] <- lu_total
+                stats["nf"] <- nf_total
+                stats["ow"] <- ow_total
+                stats["p"] <- p_total
+                stats["pc"] <- pc_total
+                stats["pci"] <- pci_total
+                stats["pcp"] <- pcp_total
+                stats["pu"] <- pu_total
+                stats["r"] <- r_total
+                stats["re"] <- re_total
+                stats["s1"] <- s1_total
+                stats["s2"] <- s2_total
+                stats["s3"] <- s3_total
+                stats["s4"] <- s4_total
+                stats["s5"] <- s5_total
+                stats["s6"] <- s6_total
+                stats["st"] <- st_total
+                stats["u"] <- u_total
+                stats["wm"] <- wm_total
+                stats["w"] <- w_total
+                stats["zl"] <- zl_total
+                stats["zp"] <- zp_total
+
+                lengths["s1"] <- Length_s1
+                lengths["s2"] <- Length_s2
+                lengths["s3"] <- Length_s3
+                lengths["s4"] <- Length_s4
+                lengths["s5"] <- Length_s5
+                lengths["s6"] <- Length_s6
+            }
+
+            counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame(country_name, region, stats)
+            lengths_frame[nrow(lengths_frame)+1,] <- appendLengthsToFrame(country_name, region, lengths)
+
+        } else {
+            print("Stats results are empty!")
+            print(paste0("Country name: ", country_name))
+            print(paste0("CURRENT_VERSION: ", current_version))
+            print(paste0("PREVIOUS_VERSION: ", previous_version))
+        }
+
+    }
+}
+```
+
+```{r write_stats, echo = FALSE, warning = FALSE}
+
+# Write data frames to extended nav street stats workbook
+str(counts_frame)
+str(lengths_frame)
+str(nav_nodes_counts_frame)
+str(nav_restrictions_counts_frame)
+str(nav_streets_counts_frame)
+
+prev_nav_wb <- paste0(working_dir, "/", PAST_VERSION, "/streets_noram_nav.xlsx")
+
+if (require("openxlsx") && file.exists(prev_nav_wb)) {
+    print(head(stats_portal_wb_sheets))
+
+    # Write counts
+    next_row <- 1 + nrow(openxlsx::read.xlsx(stats_portal_wb, sheet = 1, startRow = 1, colNames = FALSE))
+    openxlsx::writeData(stats_portal_wb,
+        sheet = 1,
+        counts_frame,
+        startCol = 1,
+        startRow = next_row,
+        colNames = FALSE
+    )
+
+    wb <- openxlsx::loadWorkbook(prev_nav_wb)
+
+    # Write Nav Node counts
+    next_row <- 1 + nrow(openxlsx::read.xlsx(stats_portal_wb, sheet = 2, startRow = 1, colNames = FALSE))
+    openxlsx::writeData(stats_portal_wb,
+        sheet = 2,
+        nav_nodes_counts_frame,
+        startCol = 1,
+        startRow = next_row,
+        colNames = FALSE
+    )
+    openxlsx::writeData(wb,
+        sheet = 1,
+        openxlsx::read.xlsx(stats_portal_wb, sheet = 2, startRow = 1, colNames = FALSE),
+        startCol = 1,
+        startRow = 1,
+        colNames = FALSE
+    )
+
+    # Write Nav Restriction counts
+    next_row <- 1 + nrow(openxlsx::read.xlsx(stats_portal_wb, sheet = 3, startRow = 1, colNames = FALSE))
+    openxlsx::writeData(stats_portal_wb,
+        sheet = 3,
+        nav_restrictions_counts_frame,
+        startCol = 1,
+        startRow = next_row,
+        colNames = FALSE
+    )
+    openxlsx::writeData(wb,
+        sheet = 2,
+        openxlsx::read.xlsx(stats_portal_wb, sheet = 3, startRow = 1, colNames = FALSE),
+        startCol = 1,
+        startRow = 1,
+        colNames = FALSE
+    )
+
+    # If neccessary, rewrite Nav Streets column names
+    prev_cols <- names(openxlsx::read.xlsx(stats_portal_wb, sheet = 4, startRow = 1, colNames = FALSE))
+    if (length(prev_cols) < 60) {
+        neg_rows <- nrow(openxlsx::read.xlsx(stats_portal_wb, sheet = 4, startRow = 1, colNames = FALSE))
+        prev_cols_frame <- nav_streets_counts_frame[-(1:neg_rows), (1:length(prev_cols))]
+        new_cols_frame <- nav_streets_counts_frame[-(1:nrow(nav_streets_counts_frame)),  ((length(prev_cols) + 1):ncol(nav_streets_counts_frame))]
+        columns_frame <- cbind(prev_cols_frame, new_cols_frame)
+        columns_frame[nrow(columns_frame)+1,] <- data.frame(
+            as.list(names(columns_frame)),
+            stringsAsFactors = FALSE
+        )
+        names(columns_frame) <- names(nav_streets_counts_frame)
+        openxlsx::writeData(stats_portal_wb,
+            sheet = 4,
+            columns_frame,
+            startCol = 1,
+            startRow = 1,
+            colNames = FALSE
+        )
+    }
+
+    # Write Nav Street counts
+    next_row <- 1 + nrow(openxlsx::read.xlsx(stats_portal_wb, sheet = 4, startRow = 1, colNames = FALSE))
+    openxlsx::writeData(stats_portal_wb,
+        sheet = 4,
+        nav_streets_counts_frame,
+        startCol = 1,
+        startRow = next_row,
+        colNames = FALSE
+    )
+    openxlsx::writeData(wb,
+        sheet = 3,
+        openxlsx::read.xlsx(stats_portal_wb, sheet = 4, startRow = 1, colNames = FALSE),
+        startCol = 1,
+        startRow = 1,
+        colNames = FALSE
+    )
+
+    print(paste0("Writing out nav workbook: "))
+
+    # Save to nav counts workbook
+    openxlsx::saveWorkbook(
+        wb,
+        file = paste0(working_dir, "/", CURRENT_VERSION, "/streets_noram_nav.xlsx"),
+        overwrite = TRUE
+    )
+    print("")
+    print(paste0(working_dir, "/", CURRENT_VERSION, "/streets_noram_nav.xlsx"))
+    print(file.exists(paste0(working_dir, "/", CURRENT_VERSION, "/streets_noram_nav.xlsx")))
+
+    # Write lengths
+    next_row <- 1 + nrow(openxlsx::read.xlsx(stats_portal_wb, sheet = 5, startRow = 1, colNames = FALSE))
+    openxlsx::writeData(stats_portal_wb,
+        sheet = 5,
+        lengths_frame,
+        startCol = 1,
+        startRow = next_row,
+        colNames = FALSE
+    )
+    
+    print(paste0("Writing out classic/display workbook: "))
+
+    # Save to all counts/lengths workbook
+    openxlsx::saveWorkbook(
+        stats_portal_wb,
+        file = paste0(working_dir, "/", CURRENT_VERSION, "/streets_noram.xlsx"),
+        overwrite = TRUE
+    )
+    print("")
+    print(paste0(working_dir, "/", CURRENT_VERSION, "/streets_noram.xlsx"))
+    print(file.exists(paste0(working_dir, "/", CURRENT_VERSION, "/streets_noram.xlsx")))
+
+    file.copy(paste0(working_dir, "/", CURRENT_VERSION, "/streets_noram.xlsx"), paste0(working_dir, "/static/streets_noram.xlsx"))
+
+    print("")
+
+    cat(paste0('&nbsp;&nbsp;<a href="/InProcess/ReleaseStatistics/streets_noram.xlsx"> Download ', CURRENT_VERSION, " Stats Portal Workbook", '</a><br />'))
+}
+
+```

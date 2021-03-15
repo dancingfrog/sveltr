@@ -1,0 +1,7 @@
+md5: 1f9a352b8563ee2d80a3d3d7fd4a5d72
+outs:
+- md5: c7a3c1939339e9392011bda585bdf629.dir
+  path: FRA
+  cache: true
+  metric: false
+  persist: false

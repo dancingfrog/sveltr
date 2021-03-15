@@ -1,0 +1,7 @@
+md5: 739c7d4b744005fccf6be8578dc6577c
+outs:
+- md5: c006e08cc1fa3b12f0d47ab46565771f.dir
+  path: KNA
+  cache: true
+  metric: false
+  persist: false

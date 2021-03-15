@@ -1,0 +1,7 @@
+md5: ed5c0b06c91bb92ed9985b639d34164a
+outs:
+- md5: 26d52eb7062da28e0cb3287618e82748.dir
+  path: NIC
+  cache: true
+  metric: false
+  persist: false

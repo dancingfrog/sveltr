@@ -1,0 +1,7 @@
+md5: df60ba7b11a049c2ca7518758b5527a9
+outs:
+- md5: 71ae716d06ca2bbb66d7f27e8c7a1522.dir
+  path: MNG
+  cache: true
+  metric: false
+  persist: false

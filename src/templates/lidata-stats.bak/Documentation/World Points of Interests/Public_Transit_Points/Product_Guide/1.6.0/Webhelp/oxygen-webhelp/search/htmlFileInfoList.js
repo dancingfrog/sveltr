@@ -1,0 +1,16 @@
+fil = new Array();
+fil["0"]= "GeoEnrichmentDatabases/source/Introduction/ChapterIntroduction_public_transit_points.html@@@Introduction@@@...";
+fil["1"]= "GeoEnrichmentDatabases/source/Introduction/Using_public_transit_points.html@@@Using Transit Points Data@@@...";
+fil["2"]= "GeoEnrichmentDatabases/source/Introduction/coverage_public_transit_points.html@@@Coverage@@@The following table provides details of the USA including the ISO3 codes (three-character ISO country codes) for country included. Country Bundle Country ISO3 United States of America United States of...";
+fil["3"]= "GeoEnrichmentDatabases/source/Introduction/features_public_transit_points.html@@@Features@@@The PTP dataset provides features designed to help users improve their business services. Features include: PTPs are classified using both Pitney Bowes MiCode and the Standard Industrial...";
+fil["4"]= "GeoEnrichmentDatabases/source/Introduction/installation_transit.html@@@Installation@@@...";
+fil["5"]= "GeoEnrichmentDatabases/source/Introduction/introduction_using_transit_points_data.html@@@Introduction@@@The Transit Points data is supplied as a pipe delimited (|) text file (.TXT). In this chapter you will come to know about the methods that can be applied to use the transit datasets provided...";
+fil["6"]= "GeoEnrichmentDatabases/source/Introduction/micodes.html@@@Micodes@@@...";
+fil["7"]= "GeoEnrichmentDatabases/source/Introduction/overview_public_transit_points.html@@@Overview@@@Public Transit Points (PTP) is an innovative addition to our data portfolio. This data product contains the location and categorization of public transit points such as bus stops, railway stations...";
+fil["8"]= "GeoEnrichmentDatabases/source/Introduction/product_schema_transit.html@@@Product Schema@@@...";
+fil["9"]= "GeoEnrichmentDatabases/source/Introduction/spatial_referencing_system.html@@@Spatial Referencing System@@@...";
+fil["10"]= "GeoEnrichmentDatabases/source/Introduction/to_display_the_data_as_geographic_points.html@@@To display the data as geographic points@@@Go to the Table tab and select \u2018Table\u2019 &gt; \u2018Modify Structure\u2019. Choose the table to be viewed and click \u2018OK\u2019. Check the \u2018Table is Mappable\u2019 check box and set the projection to Category: - Longitude /...";
+fil["11"]= "GeoEnrichmentDatabases/source/Introduction/to_use_in_mapinfo_professional.html@@@To use in MapInfo Professional@@@Select \u2018Open\u2019 &gt; \u2018Table\u2019 Select \u201CDelimited ASCII (*.txt)\u201D file type in the open dialog. Select the POI text file you want to open. In the \u201CDelimited ASCII Information\u201D dialog, select \u201COther\u201D delimiter...";
+fil["12"]= "GeoEnrichmentDatabases/source/LandingPage/LandingPage_public_transit_points.html@@@Welcome@@@World Premium Points of Interest: Public Transit Points Data 1.6.0 Topics covered in this guide include: Introduction to the Public Transit Points Data Using Transit Points Data Databases covered in...";
+fil["13"]= "Shared/source/legalstuff/getting_support_transit.html@@@Product Support@@@If you have any questions or concerns, you may contact our support team directly by phone or email: Software Support Call: 1.800.367.6950 Email: software.support@pb.com Technical Support Visit...";
+var doStem = false;searchLoaded = true;

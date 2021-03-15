@@ -1,0 +1,7 @@
+md5: 8f4928cfebb6197ae75d13f614b830b8
+outs:
+- md5: 9494c141fa8583bf72a800743dc5878c.dir
+  path: VCT
+  cache: true
+  metric: false
+  persist: false

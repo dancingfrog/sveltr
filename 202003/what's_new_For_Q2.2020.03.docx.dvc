@@ -1,0 +1,7 @@
+md5: f16854567ebdb9cb71fb59b3e500fd32
+outs:
+- md5: 93d00bb2049ca1205ef5dc5b76692c4e
+  path: what's_new_For_Q2.2020.03.docx
+  cache: true
+  metric: false
+  persist: false

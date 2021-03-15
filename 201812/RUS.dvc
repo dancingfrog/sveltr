@@ -1,0 +1,7 @@
+md5: 1e53918d9b6b0cab7cd785ef5f8ec231
+outs:
+- md5: 51f01eeb5d19d89b916cf3d42e9dab48.dir
+  path: RUS
+  cache: true
+  metric: false
+  persist: false

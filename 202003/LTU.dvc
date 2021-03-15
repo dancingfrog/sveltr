@@ -1,0 +1,7 @@
+md5: b2432122b85db5069588b7fd88b0ff81
+outs:
+- md5: 70421a02f2bff9a6a3b750807db7e927.dir
+  path: LTU
+  cache: true
+  metric: false
+  persist: false

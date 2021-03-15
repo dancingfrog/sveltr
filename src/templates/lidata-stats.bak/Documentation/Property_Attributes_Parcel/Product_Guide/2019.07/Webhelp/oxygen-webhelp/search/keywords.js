@@ -1,0 +1,15 @@
+var keywords=[{w:"Data",p:["p0","p2","p3","p4","p7","p9","p10"]},{w:"Layouts",p:["p0"]},{w:"Frequently",p:["p1"]},{w:"Asked",p:["p1"]},{w:"Questions",p:["p1"]},{w:"Parcel",p:["p2","p4"]},{w:"Classic/Plus",p:["p2"]},{w:"Fields",p:["p2","p3","p4"]},{w:"PBkey",p:["p3","p7"]},{w:"Lookup",p:["p3","p7"]},{w:"Historical",p:["p4","p7"]},{w:"FAQs",p:["p5"]},{w:"Introduction",p:["p6"]},{w:"Parcels",p:["p7","p9"]},{w:"Classic,",p:["p7"]},{w:"Plus,",p:["p7"]},{w:"Sales",p:["p7"]},{w:"and",p:["p7"]},{w:"Descriptions",p:["p7","p9"]},{w:"Installation",p:["p8"]},{w:"Property",p:["p9","p10"]},{w:"Attributes",p:["p9","p10"]},{w:"Welcome",p:["p11"]},{w:"Product",p:["p12"]},{w:"Support",p:["p12"]}];
+var ph={};
+ph["p0"]=[0, 1];
+ph["p1"]=[2, 3, 4];
+ph["p2"]=[5, 6, 0, 7];
+ph["p3"]=[8, 9, 0, 7];
+ph["p4"]=[5, 10, 0, 7];
+ph["p5"]=[11];
+ph["p6"]=[12];
+ph["p7"]=[13, 14, 15, 10, 16, 0, 17, 8, 9, 18];
+ph["p8"]=[19];
+ph["p9"]=[20, 21, 13, 0, 18];
+ph["p10"]=[20, 21, 0];
+ph["p12"]=[23, 24];
+ph["p11"]=[22];

@@ -1,0 +1,7 @@
+md5: 9b8607b49b61cec2e90222ee19834bb8
+outs:
+- md5: f23210908f0c7a910d83508d27ac1313.dir
+  path: MAF
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,139 @@
+---
+title: "Product Build Status for Navigation Layers"
+author: "John Hall"
+date: 5/4/20
+output: html_document
+---
+<div class="r-setup">
+
+```{r setup, echo = FALSE, include = FALSE}
+options(warn = -1)
+working_dir <- getwd()
+print(working_dir)
+print(grepl("/content", getwd(), ignore.case = TRUE))
+if (grepl("/content", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/content", "")
+    setwd(working_dir)
+}
+
+CURRENT_VERSION <- if (!is.null(getOption("CURRENT_VERSION"))) {
+    getOption("CURRENT_VERSION")
+} else {
+    readtext::readtext("CURRENT/version.txt", encoding = "UTF-8")[[2]]
+}
+
+require("jsonlite")
+require("rmarkdown")
+require("stringr")
+
+if (!require(dplyr) || !require(ggplot2) || !require(RColorBrewer)) {
+    install.packages(c("dplyr", "ggplot2", "RColorBrewer"))
+}
+
+library(dplyr)   # For data manipulation
+library(ggplot2) # For data visualization
+library(RColorBrewer)
+theme_set(theme_minimal())
+```
+
+</div>
+
+```{r read_built_layers, cache = FALSE, echo = FALSE, results = "asis"}
+
+cat(paste0('<h3>', CURRENT_VERSION, ' StreetPro Navigation Layers Built By Country</h3>'))
+
+if (
+  file.exists(paste0(working_dir, "/", CURRENT_VERSION, "/", CURRENT_VERSION, "-sp-nav_nodes.csv")) &&
+  file.exists(paste0(working_dir, "/", CURRENT_VERSION, "/", CURRENT_VERSION, "-sp-nav_restrictions.csv")) &&
+  file.exists(paste0(working_dir, "/", CURRENT_VERSION, "/", CURRENT_VERSION, "-sp-nav_streets.csv")) &&
+  file.exists(paste0(working_dir, "/", CURRENT_VERSION, "/", CURRENT_VERSION, "-sp-speed_profile_sets.csv"))
+) {
+    built_nav_nodes <- read.csv(paste0(working_dir, "/", CURRENT_VERSION, "/", CURRENT_VERSION, "-sp-nav_nodes.csv"), header = TRUE, col.names = c("Country", "Built_Nodes_Date", "Built_Nodes_Time", "Built_Nodes_Size", "Nav_Nodes"), stringsAsFactors = FALSE)
+    built_nav_restrictions <- read.csv(paste0(working_dir, "/", CURRENT_VERSION, "/", CURRENT_VERSION, "-sp-nav_restrictions.csv"), header = TRUE, col.names = c("Country", "Built_Restrictions_Date", "Built_Restrictions_Time", "Built_Restrictions_Size", "Nav_Restrictions"), stringsAsFactors = FALSE)
+    built_nav_streets <- read.csv(paste0(working_dir, "/", CURRENT_VERSION, "/", CURRENT_VERSION, "-sp-nav_streets.csv"), header = TRUE, col.names = c("Country", "Built_Streets_Date", "Built_Streets_Time", "Built_Streets_Size", "Nav_Streets"), stringsAsFactors = FALSE)
+    built_speed_profiles <- read.csv(paste0(working_dir, "/", CURRENT_VERSION, "/", CURRENT_VERSION, "-sp-speed_profile_sets.csv"), header = TRUE, col.names = c("Country", "Built_Speeds_Date", "Built_Speeds_Time", "Built_Speeds_Size", "Speed_Profile_Sets"), stringsAsFactors = FALSE)
+
+    # Merge data.frames for all layers into single frame
+    built_nav_layers <- built_nav_nodes
+    built_nav_layers <- merge(built_nav_layers, built_nav_restrictions, all = TRUE)
+    built_nav_layers <- merge(built_nav_layers, built_nav_streets, all = TRUE)
+    built_nav_layers <- merge(built_nav_layers, built_speed_profiles, all = TRUE)
+
+    write.csv(built_nav_layers,
+              file = paste0(working_dir, "/", CURRENT_VERSION, "/", CURRENT_VERSION, "-sp-all-layers.csv"),
+              na = "", row.names = FALSE, col.names = TRUE, append = TRUE, sep = ",")
+
+    # Drop rows with empty "Country" values (i.e. ZZZ) and AND
+    built_nav_layers <- subset(
+      built_nav_layers[order(built_nav_layers$Country, decreasing = FALSE), ],
+      eval(!(is.na(built_nav_layers$Country) | built_nav_layers$Country=="" | built_nav_layers$Country=="AND"))
+    )
+
+    data_set_split <- 6
+
+    for (i in 1:data_set_split) {
+        start <- 1 + ((i - 1) * nrow(built_nav_layers) / data_set_split)
+        if (i == data_set_split) {
+            end <- nrow(built_nav_layers)
+        } else {
+          end <- i * nrow(built_nav_layers) / data_set_split
+        }
+
+        # Reverse order for ggplot (y-axis ascends from bottom to top)
+        built_nav_layers_sub <- built_nav_layers[start:end, ] # [order((built_nav_layers[start:end, ])$Country, decreasing = TRUE), ]
+
+        reverse_country_list <- rev(built_nav_layers_sub$Country)
+
+        built_nav_layers_sub$Country <- factor(built_nav_layers_sub$Country, levels = reverse_country_list)
+
+        ctry_names <- built_nav_layers_sub$Country
+
+        ctryHasLayer <- function (x, nav_files) {
+            foundLayers <- c()
+            #print(x[nav_files])
+            for (file in nav_files) {
+                if (is.na(x[file])) {
+                    foundLayers <- c(foundLayers, "Not Built For Geography")
+                } else {
+                    foundLayers <- switch(
+                      file,
+                      "Nav_Nodes" = c(foundLayers, "Built_Nodes_Layer"),
+                      "Nav_Restrictions" = c(foundLayers, "Built_Restrictions_Layer"),
+                      "Nav_Streets" = c(foundLayers, "Built_Streets_Layer"),
+                      "Speed_Profile_Sets" = c(foundLayers, "Built_Speed_Profile_Sets"),
+                       c(foundLayers, "Built For Geo")
+                    )
+                }
+            }
+            foundLayers
+        }
+
+        nav_cats <- c("Nav_Nodes", "Nav_Restrictions", "Nav_Streets", "Speed_Profile_Sets")
+
+        y <- as.vector(apply(built_nav_layers_sub, 1, ctryHasLayer, nav_cats))
+
+        df <- data.frame(
+          country = rep(ctry_names, each = length(nav_cats)),
+          layer = rep(nav_cats, length(ctry_names)),
+          built = y
+        )
+
+        head(df)
+
+        theme(axis.text.x = element_text(angle = 90))
+
+        p <- ggplot(df, aes(x = layer, y = country)) +
+          geom_tile(aes(color = built, fill = built, width = 0.95, height = 0.75), linejoin = "round", size=1) +
+          #geom_tile(aes(color = built, fill = layer, width = 0.95, height = 0.75), size=1) +
+          scale_color_manual(values = c("#CCCCCC", "#CCCCCC", "#CCCCCC", "#CCCCCC", "#F25E5A")) +
+          scale_fill_manual(values = c("#DE40F0", "#919805", "#1AB66A", "#1F9CF3", "#F25E5A")) +
+          #scale_color_brewer(palette = "Set3") +
+          #scale_fill_brewer(palette = "Set3") +
+          #scale_color_brewer(palette = "Dark2") +
+          #scale_fill_brewer(palette = "Dark2") +
+          labs(title="", x ="", y = "")
+
+        print(p)
+    }
+}
+```

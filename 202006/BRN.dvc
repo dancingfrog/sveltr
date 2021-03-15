@@ -1,0 +1,7 @@
+md5: 32c2265bd1d4ad7c99845d2e3f10fd55
+outs:
+- md5: b745288c6f30b24c59162734e9d1f07c.dir
+  path: BRN
+  cache: true
+  metric: false
+  persist: false

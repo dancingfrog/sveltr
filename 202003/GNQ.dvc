@@ -1,0 +1,7 @@
+md5: b80ba98995dfd5bd232f4aebd513d0f7
+outs:
+- md5: 8ee3cba6b0a470df08855b6d949175fd.dir
+  path: GNQ
+  cache: true
+  metric: false
+  persist: false

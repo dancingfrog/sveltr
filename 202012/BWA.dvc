@@ -1,0 +1,7 @@
+md5: 6997c6e5633a413744ff2d243e14d77f
+outs:
+- md5: eb20931a1d765f02c0eca15046536606.dir
+  path: BWA
+  cache: true
+  metric: false
+  persist: false

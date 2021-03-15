@@ -1,0 +1,1245 @@
+/*
+    CSS to implement Pitney Bowes Design System 2.x in WebHelp
+*/
+
+	 
+@font-face {
+  font-family: 'Precision Sans';
+  src: url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_Lt.eot");
+  src: local("Precision Sans"), local("Precision Sans"),
+       url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_Lt.eot") format("embedded-opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/OTF/PrecisionSans_W_Lt.otf") format("opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/TTF/PrecisionSans_W_Lt.ttf") format("truetype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/WOFF/PrecisionSans_W_Lt.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Precision Sans';
+  src: url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_LtIt.eot");
+  src: local("Precision Sans"), local("Precision Sans"),
+       url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_LtIt.eot") format("embedded-opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/OTF/PrecisionSans_W_LtIt.otf") format("opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/TTF/PrecisionSans_W_LtIt.ttf") format("truetype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/WOFF/PrecisionSans_W_LtIt.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Precision Sans';
+  src: url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_Rg.eot");
+  src: local("Precision Sans"), local("Precision Sans"),
+       url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_Rg.eot") format("embedded-opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/OTF/PrecisionSans_W_Rg.otf") format("opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/TTF/PrecisionSans_W_Rg.ttf") format("truetype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/WOFF/PrecisionSans_W_Rg.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Precision Sans';
+  src: url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_RgIt.eot");
+  src: local("Precision Sans"), local("Precision Sans"),
+       url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_RgIt.eot") format("embedded-opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/OTF/PrecisionSans_W_RgIt.otf") format("opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/TTF/PrecisionSans_W_RgIt.ttf") format("truetype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/WOFF/PrecisionSans_W_RgIt.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Precision Sans';
+  src: url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_Md.eot");
+  src: local("Precision Sans"), local("Precision Sans"),
+       url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_Md.eot") format("embedded-opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/OTF/PrecisionSans_W_Md.otf") format("opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/TTF/PrecisionSans_W_Md.ttf") format("truetype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/WOFF/PrecisionSans_W_Md.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Precision Sans';
+  src: url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_MdIt.eot");
+  src: local("Precision Sans"), local("Precision Sans"),
+       url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_MdIt.eot") format("embedded-opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/OTF/PrecisionSans_W_MdIt.otf") format("opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/TTF/PrecisionSans_W_MdIt.ttf") format("truetype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/WOFF/PrecisionSans_W_MdIt.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Precision Sans';
+  src: url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_Bd.eot");
+  src: local("Precision Sans"), local("Precision Sans"),
+       url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_Bd.eot") format("embedded-opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/OTF/PrecisionSans_W_Bd.otf") format("opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/TTF/PrecisionSans_W_Bd.ttf") format("truetype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/WOFF/PrecisionSans_W_Bd.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Precision Sans';
+  src: url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_BdIt.eot");
+  src: local("Precision Sans"), local("Precision Sans"),
+       url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/EOT/PrecisionSans_W_BdIt.eot") format("embedded-opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/OTF/PrecisionSans_W_BdIt.otf") format("opentype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/TTF/PrecisionSans_W_BdIt.ttf") format("truetype"),
+	   url("https://www.pitneybowes.com/etc/designs/pb-redesign/resources/fonts/PrecisionSans_V1.030/Webfonts/WOFF/PrecisionSans_W_BdIt.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+}
+	 
+
+#splitterContainer .hasSubMenuClosed {
+  background-color: transparent;
+}
+
+#splitterContainer .menuItemSelected {
+  color: rgb(0, 130, 213) !important;
+  background-color: transparent;
+  /* font-family: Calibri; */
+  font-size: 13.3333px;
+  font-weight: 700;
+  font-style: normal;
+  font-variant: normal;
+}
+
+a.xref {
+  color: #0072b8;
+  text-decoration: none;
+}
+
+a.foundResult{
+  color: #0072b8;
+  text-decoration: none;
+}
+
+/*
+a.xref:visited {
+  color: rgb(0, 0, 238);
+  font-weight: 400;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-size: 14px;
+}
+*/
+
+a:visited {
+  color: #0072b8;
+}
+
+#splitterContainer .menuItemSelected:hover {
+  /* background-color: white; */
+  /* color: #3E53A4; */
+}
+
+#splitterContainer .hasSubMenuClosed:hover {
+  color: rgb(0, 130, 213);
+  /* background-color: white; */
+}
+
+/*
+a.xref:hover {
+  color: #3E53A4;
+  text-decoration: underline;
+}
+*/
+
+
+
+
+
+/* The following controls child links that appear at the end of a topic */
+a {
+  color: #0072B8;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+/* The following controls web links and cross references*/
+
+/*
+a.xref:link {
+  color: #3E53A4;
+}
+*/
+a.xref:active {
+  color: rgb(0, 0, 238);
+  font-weight: 400;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-size: 14px;
+}
+
+a:hover {
+  color: #3E53A4;
+  text-decoration: underline;
+}
+
+
+
+.frmBody {
+  background-color: transparent;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 60px;
+  padding-left: 60px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  max-width: 700px;
+}
+.shortdesc {
+  background-color: transparent;
+  color: rgb(78, 78, 78);
+  font-weight: 400;
+  font-family: Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-size: 14px;
+  font-variant: normal;
+}
+
+.p {
+  background-color: transparent;
+  /* color: rgb(78, 78, 78); */
+  margin-top: 16px;
+  margin-right: 0px;
+  margin-bottom: 16px;
+  margin-left: 0px;
+  line-height: 18px;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-size: 14px;
+  font-variant: normal;
+}
+
+th p {
+  font-family: "Precision Sans",Arial,sans-serif;
+}
+
+.q {
+  background-color: transparent;
+}
+.example {
+  background-color: transparent;
+  color: rgb(78, 78, 78);
+  font-weight: 400;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-size: 14px;
+  font-variant: normal;
+}
+.ul {
+  background-color: transparent;
+  margin-top:10px
+}
+.ol {
+  background-color: transparent;
+}
+
+.li {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.dl {
+  background-color: transparent;
+  font-weight: 400;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-size: 14px;
+  margin-top: 20px;
+} 
+
+.dt {
+  background-color: transparent;
+  font-weight: 700;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-size: 14px;
+}
+
+
+.dd {
+  font-size: 13.3333px;
+  font-size: 14px;
+  margin-left: 40px;
+} 
+
+.keyword.apiname {
+  font-family: Menlo,Monaco,Consolas,"Courier New",Courier,monospace;
+  color: #CF0989;
+  background-color: #EEE;
+  white-space: nowrap;
+}
+
+.keyword.parmname {
+  font-family: Menlo,Monaco,Consolas,"Courier New",Courier,monospace;
+  color: #CF0989;
+  background-color: #EEE;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+span.filepath {
+	font-family: Menlo,Monaco,Consolas,"Courier New",Courier,monospace;
+}
+
+.p .image {
+  background-color: transparent;
+}
+:not(p) > .image {
+  background-color: transparent;
+}
+.fig.fignone {
+  background-color: transparent;
+}
+.figcap {
+  background-color: transparent;
+}
+.simpletable td {
+  background-color: transparent;
+}
+
+.footer a {
+  background-color: transparent;
+  color: rgb(0, 130, 213);
+  font-weight: 400;
+  font-family: Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-size: 14px;
+  font-variant: normal;
+}
+
+#productTitle {
+  background: transparent linear-gradient(90deg, #4C4CA2 0%, #872E96 40%, #872E96 45%, #C90D8B 100%) repeat scroll 0% 0%;
+}
+
+#header #productTitle H1 {
+  background-color: transparent;
+  font-size: 24px;
+  margin-top: 17px;
+  margin-right: 0px;
+  margin-left: 9px;
+  font-weight: 400;
+  color: white;
+  font-family: "Precision Sans",Arial,sans-serif;
+  font-style: normal;
+  margin-bottom: 0px;
+  font-variant: normal;
+  text-align: start;
+  text-decoration: none;
+  line-height: 33px;
+  text-shadow: none;
+}
+#header #tocMenu {
+  background-color: transparent;
+  padding-left: 13px;
+}
+
+#breadcrumbLinks {
+  margin-left: 90px;
+}
+
+#header .navheader_parent_path {
+  background-color: transparent;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-right: 2px;
+  color: #0082D5;
+  font-size: 13.3333px;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+#header .link {
+  background-color: transparent;
+  font-size: 13.3333px;
+  color: #0082D5;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+#splitterContainer .topic:not(.menuItemSelected) {
+  background-color: transparent;
+  color: rgb(78, 78, 78);
+  font-weight: 400;
+  font-family: arial,helvetica,tahoma,sans-serif;
+  font-style: normal;
+  font-size: 13.3333px;
+  font-variant: normal;
+}
+#splitterContainer .hasSubMenuOpened {
+  background-color: transparent;
+  color: rgb(78, 78, 78);
+  font-family: arial,helvetica,tahoma,sans-serif;
+  font-size: 13.3333px;
+  font-weight: 400;
+  font-style: normal;
+  font-variant: normal;
+}
+.title.topictitle1 {
+  background-color: rgb(255, 255, 255);
+  padding-top: 25px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 0px;
+  font-size: 32px;
+  box-shadow: rgb(153, 153, 153) 0px 0px 0px 0px;
+  margin-top: 0px;
+  margin-left: -2px;
+  color: #cf0989;
+  font-family: "Precision Sans",Arial,sans-serif;
+  font-style: normal;
+  font-weight: 200;
+  text-shadow: transparent 0px 0px 0px;
+  line-height: 1em;
+  text-align: initial;
+  text-decoration: none;
+  margin-bottom: 0px;
+  font-variant: normal;
+}
+
+/* Formatting for the welcome page */
+
+.title.topictitle1.welcome {
+  font-size: 42pt;
+  font-weight: 300;
+  font-family: "Precision Sans",Arial,sans-serif;
+}
+
+.title.sectiontitle.welcome {
+  font-size: 24px;
+  font-weight: 200;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: #eee;
+  padding-top: 12px;
+  font-family: "Precision Sans",Arial,sans-serif;
+  color: #2e2e2e;
+  
+}
+
+.title.sectiontitle.moreinformation {
+  font-weight: 200;
+  padding-top: 12px;
+  font-family: "Precision Sans",Arial,sans-serif;
+}
+
+#splash {
+  max-width: 500px;
+}
+
+.section.welcomeSubtitle {
+  margin-top: -0.5em;
+  margin-bottom: 3em;
+  color: #2e2e2e;
+}
+
+.ph.welcomeProductInfo {
+  font-size: 24px;
+  font-weight: 300;
+  font-family: "Precision Sans",Arial,sans-serif;
+}
+
+.ph.welcomeLegal {
+  font-size: 8pt;
+  vertical-align: 12px;
+}
+
+.stentry.welcomeFooterSupportLinkCell {
+  text-align: right;
+  vertical-align: middle;
+}
+
+.xref.welcomeFooterSupportLink {
+  font-size: 10pt;
+}
+
+.section.welcomeFooter {
+  margin-top: 40px;
+}
+
+.simpletable.welcomeFooterTable {
+  width: 500px;
+}
+
+#header #lHeader {
+  background-color: rgb(255, 255, 255);
+  border-top-color: rgb(0, 0, 0);
+  border-left-color: rgb(0, 0, 0);
+  border-right-color: rgb(0, 0, 0);
+  border-bottom-color: rgb(0, 0, 0);
+  border-top-width: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-width: 0px;
+  border-bottom-left-radius: 0px;
+  border-right-style: solid;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-right-width: 0px;
+  border-left-style: solid;
+  border-left-width: 0px;
+}
+
+/* .title.sectiontitle Trying h3 instead*/
+h3.title {
+  padding: 0px;
+  font-size: 16px;
+  box-shadow: transparent 0px 0px 0px 0px;
+  color: #2e2e2e;
+  font-family: "Precision Sans",Arial,sans-serif;
+  font-style: normal;
+  font-weight: 200;
+  font-variant: normal;
+  text-align: left;
+  background-color: transparent;
+}
+
+div.section.refsyn .title.sectiontitle {
+  margin-bottom: 16px
+}
+
+/* .title.topictitle2 Trying h2 selector instead*/
+h2.title {
+  padding: 0px;
+  font-size: 20px;
+  box-shadow: transparent 0px 0px 0px 0px;
+  color: #2e2e2e;
+  font-family: "Precision Sans",Arial,sans-serif;
+  font-style: normal;
+  font-weight: 200;
+  font-variant: normal;
+  text-align: left;
+  background-color: transparent;
+  
+  /* -- Default style which doesn't match Design System --
+  background-color: rgb(236, 236, 236);
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-right: 6px;
+  padding-left: 6px;
+  font-size: 14px;
+  box-shadow: transparent 0px 1px 2px 0px;
+  color: rgb(41, 81, 147);
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-weight: 700;*/
+}
+
+.codeblock {
+  background-color: rgb(230, 236, 245);
+}
+pre.screen {
+  font-family: Menlo,Monaco,Consolas,"Courier New",Courier,monospace;
+  background-color: #EEE;
+  border-top-color: rgb(204, 204, 204);
+  border-left-color: rgb(204, 204, 204);
+  border-right-color: rgb(204, 204, 204);
+  border-bottom-color: rgb(204, 204, 204);
+  border-top-width: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-width: 0px;
+  border-bottom-left-radius: 0px;
+  border-right-style: solid;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-right-width: 0px;
+  border-left-style: solid;
+  border-left-width: 0px;
+}
+
+caption {
+  margin-bottom: 16px;
+}
+
+.choicetable {
+  margin-top: 18px;
+}
+
+.stentry.choption {
+	border-top: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	font-weight: bold;
+	color: #4e4e4e;
+}
+
+.stentry.chdesc {
+	border-top: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+}
+
+.sthead.chhead {
+	border-top: 1px solid #DDD;
+	background-color: #F8F8F8;
+}
+
+.stentry.choptionhd {
+	font-family: "Precision Sans",arial,helvetica,sans-serif;
+	font-weight: 400;
+	color: #4e4e4e;
+}
+
+.stentry.chdeschd {
+	font-family: "Precision Sans",arial,helvetica,sans-serif;
+	font-weight: 400;
+	color: #4e4e4e;
+}
+
+.tablecap {
+  background-color: rgba(0, 0, 0, 0);
+  color: #4E4E4E;
+  font-weight: 400;
+  font-family: "Precision Sans",arial,helvetica,sans-serif;
+  font-style: normal;
+  font-size: 14px;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+}
+
+.tablenoborder {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.table {
+  background-color: rgba(0, 0, 0, 0);
+  border-top-style: solid;
+  border-top-color: #C5CBE3;
+  border-top-width: 1px;
+  border-top-right-radius: 0;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+  color: rgb(0, 0, 0);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  font-variant: normal;
+}
+
+.strow {
+	color: #4e4e4e;
+}
+
+th.entry {
+  background-color: #F8F8F8;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: solid;
+  border-bottom-color: #C5CBE3;
+  border-bottom-width: 1px;
+  border-left-style: none;
+  text-align: -moz-left;
+  text-decoration: none;
+  line-height: 18px;
+  text-shadow: none;
+  font-family: "Precision Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #4e4e4e;
+  padding-bottom: 8px;
+}
+td.entry {
+  background-color: rgba(0, 0, 0, 0);
+  border-top-style: solid;
+  border-top-color: rgb(0, 0, 0);
+  border-top-width: 0;
+  border-right-style: none;
+  border-bottom-style: solid;
+  border-bottom-color: #C5CBE3;
+  border-bottom-width: 1px;
+  border-left-style: none;
+  padding: 4pt;
+}
+
+table.properties {
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  border-bottom: 1px solid #A03F9B;
+}
+
+th.stentry {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: normal;
+  color: #A03F9B;
+  border-top: none;
+  border-right:none;
+  border-left: none;
+  border-bottom-color: #A03F9B;
+  border-bottom-width: 1px;
+}
+
+td.stentry {
+  border-top: 1px solid #DDD;
+  border-top-style: solid;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 8px;
+}
+
+#splitterContainer .splitbuttonV {
+  background-color: rgba(0, 0, 0, 0);
+}
+.image {
+  background-color: rgba(0, 0, 0, 0);
+}
+#header .tab.selectedTab {
+  background-color: white;
+  padding-top: 7px;
+  padding-bottom: 4px;
+  padding-right: 20px;
+  padding-left: 20px;
+  font-size: 14px;
+  margin-top: 6px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  margin-right: 3px;
+  color: #2e2e2e;
+  border-left-style: solid;
+  font-family: "Precision Sans",helvetica,sans-serif;
+  font-style: normal;
+  font-weight: 200;
+  text-shadow: transparent 0px 0px 0px;
+  line-height: 2em;
+  text-align: initial;
+  text-decoration: none;
+  margin-bottom: 0px;
+  border-top-color: #3e53a4;
+  border-left-color: rgb(204, 204, 204);
+  border-right-color: rgb(204, 204, 204);
+  border-top-width: 2px;
+  border-right-style: solid;
+  border-top-style: solid;
+  border-right-width: 1px;
+  border-left-width: 1px;
+}
+
+#searchForm {
+  box-shadow: none;
+  font-family: arial,helvetica,sans-serif;
+  padding-top: 14px;
+}
+
+
+#header #space {
+  background-color: #e1e1e1;
+}
+#header .tab:not(.selectedTab) {
+  background-color: #f7f7f7;
+  margin-right: 4px;
+  margin-left: 0px;
+  color: #4E4E4E;
+  border-left-width: 1px;
+  padding-top: 7px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+  font-size: 14px;
+  margin-top: 6px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  font-family: "Precision Sans",helvetica,sans-serif;
+  font-style: normal;
+  font-weight: 200;
+  text-shadow: transparent 0px 0px 0px;
+  text-align: initial;
+  text-decoration: none;
+  margin-bottom: 0px;
+  border-top-color: rgb(204, 204, 204);
+  border-left-color: rgb(204, 204, 204);
+  border-right-color: rgb(204, 204, 204);
+  border-bottom-color: rgb(0, 0, 0);
+  border-top-width: 1px;
+  border-bottom-right-radius: 0px;
+  border-bottom-width: 1px;
+  border-bottom-left-radius: 0px;
+  border-right-style: solid;
+  border-top-style: solid;
+  border-bottom-style: none;
+  border-right-width: 1px;
+  border-left-style: solid;
+  font-variant: normal;
+}
+#splitterContainer #leftPane {
+  background-color: #EEEEEE;
+  border-top-color: rgb(230, 236, 245);
+  border-left-color: rgb(255, 255, 255);
+  border-right-color: rgb(255, 255, 255);
+  border-bottom-color: rgb(255, 255, 255);
+  border-top-width: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-width: 0px;
+  border-bottom-left-radius: 0px;
+  border-right-style: solid;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-right-width: 0px;
+  border-left-style: solid;
+  border-left-width: 0px;
+}
+#splitterContainer .splitbarV {
+  background-color: rgb(192, 192, 192);
+  border-top-color: rgb(0, 0, 0);
+  border-left-color: rgb(238, 238, 238);
+  border-right-color: rgb(204, 204, 204);
+  border-bottom-color: rgb(0, 0, 0);
+  border-top-width: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-width: 0px;
+  border-bottom-left-radius: 0px;
+  border-right-style: solid;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-top-style: none;
+  border-bottom-style: none;
+  border-right-width: 1px;
+  border-left-style: solid;
+  border-left-width: 0px;
+}
+.navparent {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAIAAADdWck9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3wMTFQwQgV+4CAAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVYdFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aHAAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tInAAAA2ElEQVQokWP8//8/AymAiSTVQ0bD359f7h2YN+/AvS8//2LR8R8DHF3S6O1kYeHk3bjkKKYsI3Kw/vn24dT6SWVTNv/4/Z+BgYGRlcM3pysv0EyAiwW7k46s6GyavQ2imoGB4f/vH9tmN3WuOIKsBmrD7y9vDi7rrJi1H6tHHdM6yqPsRXhYoTb8+/1j57zmjiWHcIXMoSUdzfN2/vj9j4GBgfHnx+c7F7Q1LjqGSzUcWMXVVyW4szy+fmj7kcdSUlIENTw+sv2QuRbjz58/CSpFBkMjLeEHAInZgOgWSqznAAAAAElFTkSuQmCC');
+}
+.navprev {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAASJJREFUeNpiNGh+zEAJYCIgH0fQgP///jLgwJVAvACPPBiz/AMSaIAZiCcCcTYxXmD59/c3Mp+DkZFh2f//DIHEhgGyAYJAzZv//WewRlPzH49+RpZ/f8AGyDExMuz8+59Bg9RYABrwi4GNhWnxr9//NMiKRpALNpXo7JYVZH4FYpOKmf4Cw0BJjLN/TaH+FC1pjkcgPimYUS5tJ9gpD2e6sf34/S89eer5nCPX36rBnAgUn4XL+fLpu9IZZZO3wAUezfFm+vvvf1zh3At5G04+M4SFNP4wACYkGJZJ2vSPmYlx4aRUw6YUV4Vj/////Y8sjw2z/EdLidIJ60HxvuHpgsCPonxsVS0rr5CXmYAG7c/0VK0kFI2M////pyg7AwQYAE5X/eYU8AIhAAAAAElFTkSuQmCC');
+}
+.navnext {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAARRJREFUeNpiNGh+zEAJYCJCTRw+SZb///4SMmABEEsDcTtWA/4RNoARiNuAWAqIC4D4L6oBf38T690cRkYG6f//GaKA7B/oBvwn0pBAoCG7gYb4AdnvIQb8+U1qwNswMTIc+/efwQ3Ifgw04BfJUfePgUGDhZlx8Z+//x2YQC4gFcsJsrzaUqq7B8Rm+fuXNC/oyvE+WpCtN1uIh7UfpBccBg9nus3CpUE+fVca3POawrfmZhtO4WBlmgkUB/udUTZ5CyFLwTEUZCF9vjdJfxIzE+MiuZSt/4hOSMBo+5/qpny8Lly7C8jdJJO06T9JSbk6XGdPpqdqu3TC+v1YkzIh9wM1VwI1n8Xpwv///1OUnQECDADCpo03Qtlz+QAAAABJRU5ErkJggg==');
+}
+#oldFrames {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtQTFRFAwQEAwQEAwQEgICAeXl5gICAt7e329vb/////AgxhgAAAAV0Uk5TABsmsr0akO92AAAAQUlEQVQI12MwDQ0IBYJghoiOgIiOjo5WhoiMgIi0tLRWsEh5eXkrqhSE0QFSk0GOVEYHkpQrxPYQBiElBSUgUAQA8U0zT8QVMU8AAAAASUVORK5CYII=');
+}
+#printlink a {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAC1QTFRFAwQEAwQEAwQEgICAYGBggICAk5OT2tra3t7e5eXl7Ozs9PT0+/v7/f39////qdjBqAAAAAV0Uk5TAAsmTWgvFGPAAAAAWElEQVQI12NgYA4FAgMGBgbWd0AQQBzDNBTECA1miHsK0p73lCHmejkQ1BxliN4NBlsZolaBwVKGyKkgNZFTGSIguloZXCGMEAYhVZBUkCIDA5MSECgwAACPPj1sb0KIdAAAAABJRU5ErkJggg==');
+}
+#permalink a {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAjJJREFUeNqEUkFo02AUbtKWQigaoWAvXWnTQw7iYeuhgnrcZuZxinNOFNSDnrXKBjrECU4YKKgXb7bFHTxZa3pyiE4vFcEiBWGp0m6lsY1tjdmWpH5/STVstP3h4yXv/e+97//eo9rttsPldjsGnTPT05dgrgMh4Aew8CyReEINKoBECmYJ946uSdJcoVAoHYrFJliWnYP/qssx+Nw2TfPI+9XVGUmSvuF/62U6LQmCYOxj2Rv0ANocTLxarS4i+Su+N4E28KuysZGkKGp/3wKGaY7D6IZhfECxUWCkG+N5/oCu6597FtC3tx2bmqaU19cv+/3+4VAolFEURbWY8ej+FMzu7BIRwQjMGCBD5fSJycnj6JYSRXEsGAwqHo/nIGLztVrt/qtM5v8ULLVvArOEgKqqpxiGodH5BUmORCIjNE0vIPazKsuz8KXw3bBPYQlqHy6Xy+eLxWIhGo1ySO50brVa75rNJoOiF77k8x8rlYqE+y2S5LJoX7RGdRZqr52emjrGcVzK6jyM9zKJZDKLq4TlH8Dsdu2IiGdcQ2LcGpUK1fnXojgaCARqoH1X0zQn8QO/7cn/GKAD5/V6893g8+XlR+QyFw6fQ3EFG/i217Roa97ffT7fSZu/jmeFnU7nLQgWz+Vycq8CHQbNRuMhdvseksgvUTcGPK7X64vZbDa5k7b9dMe4Z0IQrqDIDJ4zBN+nUqn04M3KikhG1W9b7Yu0F2ABt7XzsqV43/NXgAEAwlcULR7CYrMAAAAASUVORK5CYII=');
+}
+#header #customLogo {
+  background-image: none;
+  background-size: contain;
+  width: 200px;
+  height: 70px;
+}
+
+.hasSubMenuClosed {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAMCAIAAADUCbv3AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3wMJEyEmVea8NwAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVYdFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aHAAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tInAAAAj0lEQVQYlWN89+4dA27ABKFuH99x9v4HnNKvH1xrrau48vQrdmkGBobPL+6WF+XdfPkduzQDA8Ovd49qKstvvPiKXZqBgeHD4+u11dUPP/zFLg0F/3HoFpDVbG5plRdkhnBZkOXYhGSb2zo1JDix2M0rodTZNwlZjoGBgRESareOb/8sYWmsKIBmFyP+QAUAII80MUVQxXgAAAAASUVORK5CYII=');
+  background-position: left;
+  color: #4E4E4E;
+}
+
+#splitterContainer .topic:not(.menuItemSelected):hover {
+  color: rgb(0, 130, 213);
+  font-weight: 700;
+  font-family: arial,helvetica,tahoma,sans-serif;
+  font-style: normal;
+  font-size: 13.3333px;
+}
+
+/* Default icon
+.hasSubMenuClosed {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAmNJREFUeNpiFBERYcAD5ID4BxC/wqWAsX7DMwzBqSl6wkAqm4mZxRVIi/z7+ycqe86l89gMYEHTyAqkwllY2RLUwvucDc2tGF68eMOwt819IVAuEWjIWQwXFK14AmYsyjFwZOPgLlQOaPTVNnVk4GJnhiu6/egFw/Fuz0sM//8nx025cAbFAGAYqDOzspUo+jakKBq5MLCzsmD16/0nLxiuTvEGGZLi03nuNEycSUhBf9KMaVNTfrIKMnz8ycjw6stfrJhbQJRBPmWjHlDPnC3lRmYwcUYxacX/mq4pDHvnlDNoZW1g4JczwBcrDB/fPmd4tzjwMpCZqlhw4iSjiKTsf8Wcgwy8D9Yx7JpewKCQupGBXUIXryE/P71g+LEy6AqQmcnE8Ps7w8O3vxg+KwQxeORMZngw25/h89PLDJ9//sOJf7EB046Q2j2gAX1MMFNBhnyU9WfwzJ/B8GSOPwPDm+vYrX9749i/tcEHPc2V/YA8WyamuCOM/xbZwA35IOXF4FcyD2iILwPDu5sIjb++PPy/v/yE5Yf5VgzfXiepq6uDRP8xiBXdAGNgdP4H0mBs2nrvv2fhvP8/f/76L5a2f6WoZ8t5Jxe3/4sXL/4PVCexbNkyED0PiLMYQZphAOiS/0AXQTKBEBsD34O1DF8vr2G4e/euz8KFC7fEx8fLxcTEPFqyZMlOoJJOoNr9wHTxH47RXQJiA7H4li1bQHQsEO8F4gQgZgFlQhBGSXYve9UZxBnAYQJ3SUhIyNWEhITtQCbI04FA/AklKYNsRgfixTfB3oFylwFxIxDfwhYpAAEGAGU+HrjdkNLUAAAAAElFTkSuQmCC');
+}
+/*
+
+#splitterContainer .topic:not(.menuItemSelected):hover {
+  color: rgb(0, 0, 128);
+  font-weight: 700;
+  font-family: arial,helvetica,tahoma,sans-serif;
+  font-style: normal;
+  /* font-size: 14px; */
+
+#splitterContainer .hasSubMenuOpened:hover {
+  /* background-color: white; */
+  color: rgb(0, 130, 213);
+}
+
+ /* span.uicontrol {
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-size: 13.3333px;
+} */
+span.wintitle {
+  font-weight: 400;
+  font-family: arial,helvetica,sans-serif;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.hasSubMenuOpened {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAMCAIAAADUCbv3AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3wMJEyISX38bQQAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVYdFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aHAAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tInAAAAi0lEQVQYlWN89+4dA27AhEeOsDTL/fMHdp26iVVO3cydRUZB6f7s2Wdvv0KTE1M19gyTZmIVlGtqadWS5UOW45PVam1plhNkZWJgYGATUujt7dWSE4DICchp9/X2KQixMjAwMMI99vX59YrquhcMks2t7RqS3BBBRmR//3l37zGDvKIQM1yEkZbBAgBlHSp28yz/UgAAAABJRU5ErkJggg==');
+  background-position: left
+}
+
+/* Default icon
+.hasSubMenuOpened {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAYtJREFUeNqkUz1Lw1AUva9JG6w4dRA3xUUo6FboIK0puLi7O6ggXdTJKQ30J4iDi3+hqziIji5SsQ7i3EWxbT6aj5fm+l7TxJRGrfrgwn0v9xzOufeGICL856TiF1VV8c8E9XodZVn+PcnIAq6pLyzFdrPZxFqtxnOIB39Leh+zQD1/YWl5Rc9mZ8dsNRoNVBSlJUnShADxUwmA5XjQt+hcZXMrsnJ4fHKanRGrLM3zOyEER8rJWA98xmBaFPQ+BZByD0wubMgVsF2v6lI/bpmk9loRUaTA95GBXdBNFzTTXQ1lcVVpUWCRSuyhGFegGUMwdA0nwENgK5OegmAwQOgxYI+RdHUHQgbTmpKAW+gwYI9FSMAV9G0KUkYYkny7SJQp6GjOkOQ9JBg1lpNYtndRLBaTFfDO8q4eHTzC+jzCYsaOCgyL3j3fXxU6b+2dcrn8tQU2GmKc5fGSjWg796rwHbq9ueafChxYKu2SJAsk/jcK+0/gn+eRz/mnw+qCZZrY7QCM0wSv/xBgAAjCDIc92hotAAAAAElFTkSuQmCC');
+}
+*/
+
+span.topic {
+  background-image: none;
+}
+
+/* Default icon
+span.topic {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMBQTFRFdnZ2////dnZ2dnZ2dnZ2dnZ2bGxsZ2dnAmbVaGhocnJyc3NzdHR0dnZ2d3d3eHh4enp6e3t7fHx8l5WVl5eXqqmpuri4v729wsDA0tHR09HR1NPT2NbW3t3d393d397e4N/f4uDg4+Li5OLi5uTk5ubm5+bm5+fn6efn6enp6unp6+vr7evr7+/v8O/v8fDw8vHx8vLy8/Ly8/Pz9PLy9PT09fX19vT09vb2+Pj4+fn5+/v7/Pz8/f39/v7+////jqIH8QAAAAh0Uk5TAAABCpWWzPHo/ha5AAAAlUlEQVQYGQXBMU7DQBQFwHnrtUlEOAU9Xcj9a6jpIkDUIJkGROL9zCQAgE7fSeM6/saIxOFe1fV3+7xZa+hoq1GXy9j7HhpEyxxfPzMdkWpjuq15pUMq1Xq2HhokYl52d42OaTZUVS2hYTqfX/vb+/KxhMThYauB2vYvq440E2VuoaM94/jEIzpyghNCAwBILA3AdvEPw3k2DzcTQpQAAAAASUVORK5CYII=');
+}
+*/
+
+/* This is for compatibility with I'm guessing Oxygen 15 and earlier */
+#bck_toc #contentBlock {
+  background-color: #EEEEEE;
+}
+
+/* This is for compatibility with I'm guessing Oxygen 15 and earlier */
+#bck_toc #searchBlock {
+  background-color: #EEEEEE;
+}
+
+/* This is for compatibility with I'm guessing Oxygen 15 and earlier */
+#bck_toc #indexBlock {
+  background-color: #EEEEEE;
+}
+
+/* This is for compatibility with I'm guessing Oxygen 15 and earlier */
+#productToolbar {
+  background-color: transparent;
+}
+
+iframe html body {
+  max-width: 700px;
+}
+
+/*
+#contentBlock a {
+  color: #4E4E4E;
+}
+*/
+/* Possibly causing odd spacing in TOC when a keyref element is used in a topic title
+#contentBlock li span {
+  padding: 2px 5px 2px 12px;
+}
+*/
+#collapseAllLink {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAIAAADdWck9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3wMJEgMDuJJEZwAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVYdFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aHAAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tInAAAAZElEQVQokWN89+4dAymAiSTVI1UDC4TiZv586tStH3hVisppaKpJQDV8vX1w4uQ1v/BpYNdzT8hT8II56dcvvKoZGBj+//n7+98/sv3AoWHsonHrCT6FPIa6mvzsDIyjaYkIAADfLR4Q4nEj1wAAAABJRU5ErkJggg==');
+  margin-right: 10px;
+}
+
+/* Default icon
+#collapseAllLink {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACRQTFRF////FRYWLy8vTk5OcHBwk5OTtLW109PT7e3t////M2WeM2Wet16nYQAAAAt0Uk5TACYmJiYmJiYmJrJxmO6NAAAAQElEQVQI12NgwASrdwPBAiBj50wg2ABk7IAJbQfxGIDENhhjK4yxBcbYvIF7924QYxNMZCOMsRrGYIAz4JZBAABseSSjqR9BogAAAABJRU5ErkJggg==');
+}
+*/
+
+#expandAllLink {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAIAAADdWck9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH3wMJEgIVVV3AdwAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVYdFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aHAAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tInAAAAzUlEQVQokWN89+4dAymAiSTVDAwMLOgC316/+PSXgYGBgYlVSFya7f8PAhpOrGidcegDAwMDA6dkYFqRv6EopU6ivQaW59fOPvuO4N948RPK+vPtwdVTJ/9JwHzJIiqnoakmwdgU6nfmJ7ox2AC7nntCXooX0y+iVDMwMPz/8/f3v39k+MHaQ+PXAwT//bPbLxERJyXKz8kIVchjqKvJz87AiJaWTswrGGwRx8jIiMTGogE98albeDuzPGdgYGDgFtVVEGNg+I9uIqkZCADipEM3YO3+6QAAAABJRU5ErkJggg==');
+  /* background-repeat: no-repeat; */
+  /* margin-left: 5px; */
+  }
+
+/* Default icon
+#expandAllLink {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAxQTFRF2tra2tra2tra2tramyAfKQAAAAN0Uk5TAMPEhqhG+gAAADFJREFUCNdjYIAD9v//HRh4GBgOMPDU///CwAOkYYQBjDj8H5nLfgCqnoGh/v8PsCEAmeQRT/igX3gAAAAASUVORK5CYII=');
+}
+*/
+.splitbuttonV {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAsCAMAAABblciFAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAK5QTFRFAAAASoXJVpfkVpjk////AAAAVZfkVpjkVZfkVpjkVpfkpsTlssvos8zoVpjkX53li7HcaZrUaZrSVpjkWZjkUIrNUYvOT4jKSoXJSobKS4bLS4fMS4jNTIjOTInPTYrQTYrRTovSTozTT4zUT43VT47WUI7XUI/YUZDZUZDaUZHaUpHbUpLcUpLdU5PdU5PeU5TfVJTgVJXgVJXhVZbiVZbjVZfjVZfkVpfkVpjklnpdnwAAABh0Uk5TAAAAAAAzTExNTYSduLi+ys7j5fP4+vr7vlDNOwAAAK1JREFUKM/NjzFuAkEQBGvHe9iBHwHIvgzn/v8PHB7wDThuweVgvUhcYskSEh31lHp6NOkThnI6k+i6rocsvMPXmBYfIISqbhaxqS4LAM/8mga6OVg2EMzUElf9nfgHuE+pDl41aGjZtnlbNJSyq/OuoKGZslfdF9AAMmuANWQIhb6u9LmusGqlKzS93eG5R+uYyixxJt+CiZcbMJ44VvL0CpbxcInpm0iQ8uzKDy74jaaFRq6zAAAAAElFTkSuQmCC");
+}
+.splitbuttonV.invert {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAsCAMAAABblciFAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAK5QTFRFAAAASoXJVpfkVpjk////AAAAVZfkVpjkVZfkVpjkVpfkpsTlssvos8zoVpjkX53li7HcaZrUaZrSVpjkWZjkUIrNUYvOT4jKSoXJSobKS4bLS4fMS4jNTIjOTInPTYrQTYrRTovSTozTT4zUT43VT47WUI7XUI/YUZDZUZDaUZHaUpHbUpLcUpLdU5PdU5PeU5TfVJTgVJXgVJXhVZbiVZbjVZfjVZfkVpfkVpjklnpdnwAAABh0Uk5TAAAAAAAzTExNTYSduLi+ys7j5fP4+vr7vlDNOwAAAK1JREFUKM/NjzFuAkEQBGvHe9iBHwHIvgzn/v8PHB7wDThuweVgvUhcYskSEh31lHp6NOkThnI6k+i6rocsvMPXmBYfIISqbhaxqS4LAM/8mga6OVg2EMzUElf9nfgHuE+pDl41aGjZtnlbNJSyq/OuoKGZslfdF9AAMmuANWQIhb6u9LmusGqlKzS93eG5R+uYyixxJt+CiZcbMJ44VvL0CpbxcInpm0iQ8uzKDy74jaaFRq6zAAAAAElFTkSuQmCC");
+}
+#undefined undefined {
+  border-bottom-color: rgb(0, 130, 213);
+}
+
+.attentiontitle {
+  background-image:none !important; /* Remove the default WebHelp note icon */
+  padding-left:0px !important;      /* Remove the default WebHelp note icon */
+}
+
+.notetitle {
+  background-image:none !important; /* Remove the default WebHelp note icon */
+  padding-left:0px !important;      /* Remove the default WebHelp note icon */
+  color: #3E53A4;
+}
+
+.note {
+  color: #3E53A4;
+  background-color: #EBEDF5;
+  border-color: #C5CBE3;
+  margin: 20px 0px;
+  padding: 20px;
+  border-left: 4px solid #C5CBE3;
+} 
+
+.tiptitle {
+  background-image:none !important; /* Remove the default WebHelp note icon */
+  padding-left:0px !important;      /* Remove the default WebHelp note icon */
+  color: #3E53A4;
+}
+
+.tip {
+  color: #3E53A4;
+  background-color: #EBEDF5;
+  border-color: #C5CBE3;
+  margin: 20px 0px;
+  padding: 20px;
+  border-left: 4px solid #C5CBE3;
+}
+
+.noticetitle {
+  background-image:none !important; /* Remove the default WebHelp note icon */
+  padding-left:0px !important;      /* Remove the default WebHelp note icon */
+  color: #3E53A4;
+}
+
+.notice {
+  color: #3E53A4;
+  background-color: #EBEDF5;
+  border-color: #C5CBE3;
+  margin: 20px 0px;
+  padding: 20px;
+  border-left: 4px solid #C5CBE3;
+}
+
+.importanttitle {
+  background-image:none !important;
+  padding-left:0px !important;
+  color: #BE5000;
+}
+
+.important {
+  color: #BE5000;
+  background-color: #FCF6F2;
+  border-color: #F2E1CC;
+  margin: 20px 0px;
+  padding: 20px;
+  border-left: 4px solid #F2E1CC;
+}
+
+.cautiontitle {
+  background-image:none !important;
+  padding-left:0px !important;
+  color: #BE5000;
+}
+
+.caution {
+  color: #BE5000;
+  background-color: #FCF6F2;
+  border-color: #F2E1CC;
+  margin: 20px 0px;
+  padding: 20px;
+  border-left: 4px solid #F2E1CC;
+}
+
+.restrictiontitle {
+  background-image:none !important;
+  padding-left:0px !important;
+  color: #8A6D3B;
+}
+
+.restriction {
+  background-color: #FCF8E3;
+  border-color: #FAEBCC;
+  margin: 20px 0px;
+  padding: 20px;
+  border-left: 4px solid #FAEBCC;
+}
+
+.warningtitle {
+  background-image:none !important;
+  padding-left:0px !important;
+  color: #DC0000;
+}
+
+.warning {
+  color: #DC0000;
+  background-color: #FEF2F2;
+  border-color: #F4B7B7;
+  margin: 20px 0px;
+  padding: 20px;
+  border-left: 4px solid #F4B7B7;
+}
+
+.dangertitle {
+  background-image:none !important;
+  padding-left:0px !important;
+  color: #DC0000;
+}
+
+.danger {
+  color: #DC0000;
+  background-color: #FEF2F2;
+  margin: 20px 0px;
+  padding: 20px;
+  border-left: 4px solid #F4B7B7;
+}
+
+div.body {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  color: #4e4e4e;
+}
+
+div.p {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  color: #4e4e4e;
+}
+
+div.stepresult {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  color: #4e4e4e;
+}
+
+.refsyn {
+  font-family: "courier New",Courier,monospace;
+}
+
+div.section {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  color: #4e4e4e;
+}
+
+
+div.sectiondiv {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  color: #4e4e4e;
+}
+
+div.info{
+  font-size: 14px;
+}
+
+.note{
+ font-size: 14px;
+}
+
+td{
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  color: #4e4e4e;
+}
+
+.substep {
+ margin-top: 1em;
+ margin-bottom: 1em;
+}
+
+.relinfo {
+  font-size: 14px;
+  color: #3E53A4;
+  background-color: #EBEDF5;
+  border-color: #C5CBE3;
+  padding: 20px;
+}
+
+.codeblock {
+  background-color: #EEE;
+}
+
+.footer_separator {
+  border-top: 0px solid !important;
+}
+
+.cmdname {
+  font-family: Menlo,Monaco,Consolas,"Courier New",Courier,monospace;
+}
+
+.option {
+  font-family: Menlo,Monaco,Consolas,"Courier New",Courier,monospace;
+}
+
+.ulchildlink {
+  margin-left: -38px;
+}
+
+.framesLink {
+  padding-top: 18px;
+}
+
+#searchBlock #searchForm, #indexBlock #indexForm {
+    position: relative;
+    margin: 0;
+    padding-top: 10px;
+    top: 0;
+    z-index: 99;
+    width: 100%;
+    background-color: #0000FF;
+    box-shadow: none;
+}
+
+.fn {
+  color: #4E4E4E;
+  font-size: 8pt;
+}
+
+.fn * {
+  color: #4E4E4E;
+  font-size: 8pt;
+}
+
+/*Styles for collapisble sections*/
+.content {display:none;}
+.expander.expanded {
+    color: #0072b8;
+    padding-left: 13px;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAMCAIAAADUCbv3AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH4AICFigIQXTTkwAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVYdFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aHAAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tInAAAAj0lEQVQYlWP8//8/A27AhEeOsDTLuX3rd526iVVO3cydRUZB6f7s2Wdvv0KTE1M19gyTZvz////Lu+dLS4qvPf4El+OT1ert6TFUFmP4////////X909FxvobGxsbGxs7BwYd/7ua4g4VPr///+Prx6NDnB2Dog5dvUxXBAh/f///1d3zpy98xpZhJGWwQIAukdnfY/eFfoAAAAASUVORK5CYII=');
+}
+
+.expander.collapsed {
+    color: #0072b8;
+    padding-left: 13px;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAMCAIAAADUCbv3AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH4AICFics+u8rjQAAAAd0RVh0QXV0aG9yAKmuzEgAAAAMdEVYdERlc2NyaXB0aW9uABMJISMAAAAKdEVYdENvcHlyaWdodACsD8w6AAAADnRFWHRDcmVhdGlvbiB0aW1lADX3DwkAAAAJdEVYdFNvZnR3YXJlAF1w/zoAAAALdEVYdERpc2NsYWltZXIAt8C0jwAAAAh0RVh0V2FybmluZwDAG+aHAAAAB3RFWHRTb3VyY2UA9f+D6wAAAAh0RVh0Q29tbWVudAD2zJa/AAAABnRFWHRUaXRsZQCo7tInAAAAkklEQVQYlWP8//8/A27ABKFObVu+59x9nNKvH1xrras4fOUJdmkGBobPL+6WF+WduPEMuzQDA8Ovd49qKsuPX3+CXZqBgeHD4+u11dUX7r/BLg0FMN+gSwvIaja3tBooiUC4LMhybEKyzW2dlppSWOzmlVDq7JuELMfAwMDw////////n9i6dPfZe/8xACP+QAUADeRJowia0/UAAAAASUVORK5CYII=');
+}
+
+.expander:hover {
+    color: #3E53A4;
+    text-decoration: underline;
+    cursor: pointer
+}
+#index {
+ display:none;
+}
+
+code {
+	font-family: Menlo,Monaco,Consolas,"Courier New",Courier,monospace;
+}
+
+.userinput {
+	font-family: Menlo,Monaco,Consolas,"Courier New",Courier,monospace;
+}

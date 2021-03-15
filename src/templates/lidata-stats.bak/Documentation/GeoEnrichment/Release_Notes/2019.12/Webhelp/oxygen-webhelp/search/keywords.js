@@ -1,0 +1,11 @@
+var keywords=[{w:"Change",p:["p0"]},{w:"Log",p:["p0"]},{w:"Records",p:["p1"]},{w:"Count",p:["p1"]},{w:"Known",p:["p2"]},{w:"Issues",p:["p2"]},{w:"Data",p:["p3","p5"]},{w:"Vintage",p:["p3"]},{w:"What\'s",p:["p4"]},{w:"New",p:["p4"]},{w:"Demographics",p:["p5"]},{w:"Product",p:["p6","p8"]},{w:"Overview",p:["p6"]},{w:"Release",p:["p7"]},{w:"Notes",p:["p7"]},{w:"Support",p:["p8"]}];
+var ph={};
+ph["p0"]=[0, 1];
+ph["p1"]=[2, 3];
+ph["p2"]=[4, 5];
+ph["p3"]=[6, 7];
+ph["p4"]=[8, 9];
+ph["p5"]=[10, 6];
+ph["p6"]=[11, 12];
+ph["p7"]=[13, 14];
+ph["p8"]=[11, 15];

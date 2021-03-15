@@ -1,0 +1,7 @@
+md5: d140c4345f5dde5e44fea24d3535a457
+outs:
+- md5: 42bcdd33b53ec0bf291a5a8a7b03aa9c.dir
+  path: ITA
+  cache: true
+  metric: false
+  persist: false

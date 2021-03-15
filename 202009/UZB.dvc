@@ -1,0 +1,7 @@
+md5: c12edc363468e38a9da691a5e5c65259
+outs:
+- md5: 5b833063f5cc291f676ac40e339d1df9.dir
+  path: UZB
+  cache: true
+  metric: false
+  persist: false

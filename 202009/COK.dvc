@@ -1,0 +1,7 @@
+md5: 94b6e983b7c0e64a7cb5030cad40b518
+outs:
+- md5: a753e73c84619c60b7d50c4c2c0ccab6.dir
+  path: COK
+  cache: true
+  metric: false
+  persist: false

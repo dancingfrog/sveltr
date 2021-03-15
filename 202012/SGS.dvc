@@ -1,0 +1,7 @@
+md5: 26def212acba511cbea13e09c2133528
+outs:
+- md5: eebcddcee0af529d4cf78a011b2b9b11.dir
+  path: SGS
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: 14a3e7e6e1669053ef893f04a45b7345
+outs:
+- md5: 4339bd5dfb188b6a67d4a6c8e114556f.dir
+  path: WSM
+  cache: true
+  metric: false
+  persist: false

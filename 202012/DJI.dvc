@@ -1,0 +1,7 @@
+md5: 393914c6cdc319f73189e3b50f4d0ebd
+outs:
+- md5: 3980abde0b35df38ca71ba593a5c8e77.dir
+  path: DJI
+  cache: true
+  metric: false
+  persist: false

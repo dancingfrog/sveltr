@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="patch_introduction"
+               path="ReleaseNotes/source/O02/Introduction.html"/>
+   <appContext helpID="fixedissues" path="ReleaseNotes/source/fixedissues.html"/>
+   <appContext helpID="QueryCache_MultipleWhereClauses"
+               path="ReleaseNotes/source/O02/SpreadsheetIssue.html"/>
+   <appContext helpID="installation"
+               path="ReleaseNotes/source/O02/Installation_Overview.html"/>
+   <appContext helpID="installation" path="ReleaseNotes/source/O02/Change_Log.html"/>
+   <appContext helpID="installation" path="ReleaseNotes/source/O02/Known_issues.html"/>
+   <appContext helpID="copyright" path="ReleaseNotes/source/O02/getting_support.html"/>
+</map>

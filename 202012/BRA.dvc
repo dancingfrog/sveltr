@@ -1,0 +1,7 @@
+md5: 23fed94e8f1c0c2253952d18e7dfc870
+outs:
+- md5: cb96ba85c0fa4a6e5386fa767947d766.dir
+  path: BRA
+  cache: true
+  metric: false
+  persist: false

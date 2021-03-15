@@ -1,0 +1,7 @@
+md5: 3be8634fda4452d37a45969b8949dc24
+outs:
+- md5: af547f61c1caf0fc78156d27e0b2d6a5.dir
+  path: BGR
+  cache: true
+  metric: false
+  persist: false

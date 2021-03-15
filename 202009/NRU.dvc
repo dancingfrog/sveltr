@@ -1,0 +1,7 @@
+md5: 6be70101eaa93d4932781eac21f14d11
+outs:
+- md5: 7fd4f1d594cec22f9be9e669187059cf.dir
+  path: NRU
+  cache: true
+  metric: false
+  persist: false

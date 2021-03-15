@@ -1,0 +1,7 @@
+md5: bb1ce33d8a0a4f21b118ee74bdd60116
+outs:
+- md5: d462b3dadc63cd8fe7871173a4850dde.dir
+  path: AZE
+  cache: true
+  metric: false
+  persist: false

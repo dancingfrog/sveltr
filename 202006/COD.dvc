@@ -1,0 +1,7 @@
+md5: 8756ad57d29a179a63f72831e25a549f
+outs:
+- md5: 48e9dd15dbeeafcd18dcbb01cd7c894f.dir
+  path: COD
+  cache: true
+  metric: false
+  persist: false

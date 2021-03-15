@@ -1,0 +1,7 @@
+md5: b251b2be2e8a23a2fbdb42f33c7a9025
+outs:
+- md5: 028a59293b820a598cf13f44965f4998.dir
+  path: BGD
+  cache: true
+  metric: false
+  persist: false

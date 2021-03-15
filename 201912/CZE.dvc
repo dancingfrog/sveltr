@@ -1,0 +1,7 @@
+md5: b1766863d14a9177a6fded86fbe13f12
+outs:
+- md5: b6ad201113f022ce779f6996d6f031b8.dir
+  path: CZE
+  cache: true
+  metric: false
+  persist: false

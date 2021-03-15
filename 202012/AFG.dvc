@@ -1,0 +1,7 @@
+md5: d5b910a7d4e502db9503749e1df45966
+outs:
+- md5: 97ded05ac7a9ef7726189a4d2bc282a3.dir
+  path: AFG
+  cache: true
+  metric: false
+  persist: false

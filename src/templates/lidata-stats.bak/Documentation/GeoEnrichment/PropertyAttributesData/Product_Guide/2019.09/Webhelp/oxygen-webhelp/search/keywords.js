@@ -1,0 +1,15 @@
+var keywords=[{w:"Tables",p:["p0"]},{w:"Frequently",p:["p1"]},{w:"Asked",p:["p1"]},{w:"Questions",p:["p1"]},{w:"GeoEnrichment",p:["p2","p7"]},{w:"Data",p:["p2","p3","p7","p9","p10"]},{w:"Fields",p:["p2","p3"]},{w:"Historical",p:["p3"]},{w:"Sales",p:["p3"]},{w:"FAQs",p:["p4"]},{w:"SAUS",p:["p5"]},{w:"RSP",p:["p5"]},{w:"Description",p:["p5"]},{w:"Introduction",p:["p6"]},{w:"Descriptions",p:["p7","p9"]},{w:"Installation",p:["p8"]},{w:"Property",p:["p9","p10"]},{w:"Attributes",p:["p9","p10"]},{w:"Welcome",p:["p11"]},{w:"Product",p:["p12"]},{w:"Support",p:["p12"]}];
+var ph={};
+ph["p0"]=[0];
+ph["p1"]=[1, 2, 3];
+ph["p2"]=[4, 5, 6];
+ph["p3"]=[7, 8, 5, 6];
+ph["p4"]=[9];
+ph["p5"]=[10, 11, 12];
+ph["p6"]=[13];
+ph["p7"]=[4, 5, 14];
+ph["p8"]=[15];
+ph["p9"]=[16, 17, 5, 14];
+ph["p10"]=[16, 17, 5];
+ph["p12"]=[19, 20];
+ph["p11"]=[18];

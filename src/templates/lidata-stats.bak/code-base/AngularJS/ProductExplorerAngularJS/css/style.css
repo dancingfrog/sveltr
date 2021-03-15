@@ -1,0 +1,423 @@
+ 	  
+		  .ui-select-offscreen	{
+			 clip : auto;
+			 width: 80px  !important;
+			 height: 40px  !important;
+			 position: absolute  !important;
+			 left: 56%  !important,	
+			  
+		  }
+
+        .ui-grid-menu-button {
+            background: #a03f9b;
+
+        }
+
+        .ui-grid-cell-contents-auto {
+             /* Old Solution */
+            /*min-width: max-content !important;*/
+    
+            /* New Solution */
+            display: grid;
+            grid-auto-columns: max-content;
+    
+            /* IE Solution */
+            display: -ms-grid;
+            -ms-grid-columns: max-content;
+        }
+
+        .ui-grid-viewport {
+            overflow-anchor: none;
+        }
+
+        .productlineselected {
+          background: #3e53a4;
+          font-weight: bold;
+        }
+        .productselected {
+          background: red;
+          font-weight: bold;
+        }
+        .statsselected {
+          background: green;
+          font-weight: bold;
+        }
+
+        i#slidericon {
+            background: #314183;
+            padding: 9px 10px 9px 7px;
+            color: #fff;
+        }
+
+        .ui-grid-row:nth-child(odd) .ui-grid-cell {
+            background-color:#fff;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            color:#333;
+        }
+
+        .ui-grid-row:nth-child(even) .ui-grid-cell {
+            background-color:#f8f8f8;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            color:#333;
+        }
+
+        .leftNavigation .nav > li > a {
+        display: block;
+        padding: 14px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #767676;
+        /*border: 1px solid #ccc;*/
+        border-bottom: 1px solid #eee;
+        /*box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);*/
+        font-family: "PrecisionSans_W_Rg","Helvetica Neue",Arial,sans-serif;
+        border-radius:0;
+        }
+
+           .leftNavigation .nav .nav > li > a {
+              padding-left: 30px;
+          }
+
+          .leftNavigation .nav .nav .nav> li > a {
+              padding-left: 50px;
+          }
+
+          .leftNavigation .nav .nav .nav .nav> li > a {
+              padding-left: 60px;
+          }
+
+
+
+		  
+		  
+        .btnPanel {
+        position: absolute;
+        z-index: 99999999;
+        background: #fff;
+        width: 1.2%;
+        height: 4.0%;
+        line-height: 35px;
+        color: #212121;
+        top:50px;
+        /*top: 6.8%;*/
+        left: 23%;
+        cursor: pointer;
+        }
+
+
+      #legend {
+      
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+
+        
+      }
+      #legend h4 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+
+            .grid {
+              width: 100%;
+              margin-top:48px;
+            }
+            .blue { color: blue; text-decoration: underline; }
+          .listing {
+              margin-top: 48px;
+              font-size: 12px;
+              line-height: 19px;  
+          }
+          .detailNameText {
+              font-size: 24px;
+          }
+          .detailrow {
+              padding: 15px 10px;
+              font-size: 16px;
+              line-height: 32px;
+          }
+          .listrow {
+              border-bottom: 1px solid #eee;
+              padding: 15px 18px;
+          }
+          .listrow i, .listrow a, .detailrow i, .detailrow a {
+              margin-right: 6px;
+              cursor: pointer;
+          }
+          .nameText {
+              font-size: 14px;
+              color: #212121;
+          }
+          .listHeader{
+              padding: 8px 8px 0px 8px;
+              overflow: hidden;
+              position: fixed;
+              width: 600px;
+              background: #f5f5f5;
+              border: 1px solid #c5cbe3;
+              height: 50px;
+          }
+          .toolbar .btn-default {
+              margin-left:8px !important;
+          }
+          .toolbar {
+              float: right;
+          }
+          .listTitle {
+              float: left;
+              margin-top: 5px;
+              font-weight: bold;
+          }
+          .searchPanel .table {
+              background: none;
+              border: none;
+          }
+          .searchPanel {
+                top: 50px;
+                position: fixed;
+                z-index: 9999999;
+                width: 100%;
+                background: #eee;
+                height: 70px;
+          }
+
+          grid-viewport {
+                   width: 1890px;
+                   height: 300px;
+        }
+
+          #changes-height {
+            height: 730px;
+          
+        }
+
+        #changes-height-stats {
+            height: 400px;
+          
+        }
+
+          .full-height {
+            height: 100%;
+            }
+
+            .rightPanel {  
+                position: fixed;
+                top: 78px;
+              /*   left: 600px; */
+                z-index: 9;
+                height: 100%;
+                width:100%;
+                background: #fff;
+                overflow: auto;
+            }
+            #map {
+                height:100%;
+                width:100%;
+            }
+
+            .full-height-stats {
+            height: 91%;
+            }
+
+
+           .rightPanelStats {  
+                position: relative;
+                top: 2px;
+                left: 25%; 
+                z-index: 9;
+                height: 100%;
+                width:75%;
+                background: #fff;
+                overflow-x: hidden;
+            }
+
+            .rightPanelMap {  
+                position: absolute;
+                top: 5%;
+                left: 0%;                 
+                height: 95%;
+                width:100%;
+                background: #fff;
+                overflow-x: hidden;
+            }
+          
+          .leftPanel {  
+                position: absolute;
+                left: 0;
+                
+                background: #fff;
+                overflow: hidden;
+                width: 25%;
+                height: 93%;
+
+                display: block;
+                padding: 7px 10px;
+                -webkit-box-shadow: 2px 2px 13px 0px rgba(153,153,153,1);
+                -moz-box-shadow: 2px 2px 13px 0px rgba(153,153,153,1);
+                box-shadow: 2px 2px 13px 0px rgba(153,153,153,1);
+                z-index: 9999999;
+               
+               
+            }
+
+        
+    div.leftPanel:hover {
+        overflow: auto;
+        padding-right: 0px;
+    }
+
+          
+          .leftPanel table tr td {
+              font-size:12px;
+          }
+          
+          .leftPanel table {
+          }
+          
+          .listTop table tr td {
+              font-size:14px;
+              font-weight:bold;
+          }
+          
+          .backicon  {
+              color:#3e53a4;
+              cursor: pointer;
+          }
+          
+          footer {
+                bottom:0;
+                position:fixed;
+                width:100%;
+                z-index: 9999;
+          }
+
+.noResultsDiv {
+    font-size: 11px;
+    padding: 2px 9px;
+}
+
+.listTop table tr {
+    background: #c5cbe3;
+}
+
+.listTop {
+       width: 500px;
+    position: fixed;
+    top: 169px;
+    z-index: 1;
+    height: 44px;   
+}
+
+.brandRight {
+float: right;
+    padding: 14px;
+    color: #fff;
+    font-size: 16px;
+}
+table tr:hover {
+    cursor: pointer;
+}
+        
+.dropdown-menu {
+    min-width: 190px !important;
+}
+
+.dropdown-menu>.active>a {
+    background: #3e53a4 !important;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    color: #2e2e2e;
+    text-decoration: none;
+    background-color: #293c82 !importand;
+}
+
+.addressText {
+    color: #212121;
+    line-height: 16px;
+    margin: 5px 0px;
+    font-size: 12px;
+}
+
+.phoneText {
+    line-height: 15px;
+    font-size: 12px;
+    margin: 5px 0px;
+}
+
+.loadingIcon {
+    float:right;
+    margin-top: -30px;
+    margin-right: 10px;
+}
+
+.alertDiv {
+    z-index: 9999999999;
+    top: 50%;
+    position: fixed;
+    width: 80%;
+    left: 10%;
+    transition: all linear 0.2s;
+}
+
+.alertDiv.ng-hide {
+  opacity: 0;
+}
+
+.ResultNotFound {
+    padding: 20px;
+}
+ 
+.leftNavigation .nav > li > a.activeproductline {
+    background: #3e53a4 !important;
+    color:#fff;
+}
+
+.leftNavigation .nav > li > a.activeproduct {
+    background: #c8cee4 !important;
+    color:black;
+}
+
+.leftNavigation .nav > li > a.activesocialplaces {
+    background: #eaedf8 !important;
+    color:black;
+}
+
+.leftNavigation .nav > li > a.activestats {
+    background:#eaedf8 !important;
+    color:black;
+}
+
+.form-control-state {
+    position: absolute;
+    left: 25%;
+    top:5%;
+    display: block;
+    width: 27%;
+    color: #3e53a4;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid silver;
+    border-radius: 4px;
+    padding: 10px 12px;
+    height: 37px;
+}
+
+.form-control-fips {
+    position: absolute;
+    left: 70%;
+    top:5%;
+    display: block;
+    width: 27%;
+    color: #3e53a4;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid silver;
+    border-radius: 4px;
+    padding: 10px 12px;
+    height: 37px;
+}

@@ -1,0 +1,7 @@
+md5: a6284a32281ed7ef829a778fdd530a7c
+outs:
+- md5: 4b49e607e25f9f4ce78771741661301d.dir
+  path: UMI
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="LandingPage_CommunicationsSuite"
+               path="GeoEnrichmentDatabases/source/LandingPage/LandingPage_CANAddressFabric.html"/>
+   <appContext helpID="ChapterDatasets"
+               path="GeoEnrichmentDatabases/source/Datasets/Introduction_CAN%20-%20Copy.html"/>
+   <appContext helpID="product_naming"
+               path="GeoEnrichmentDatabases/source/Datasets/product_naming.html"/>
+   <appContext helpID="product_naming"
+               path="GeoEnrichmentDatabases/source/Datasets/data_specs_CAN.html"/>
+   <appContext helpID="product_naming"
+               path="GeoEnrichmentDatabases/source/Datasets/product_description_CAN.html"/>
+   <appContext helpID="ChapterDatasets"
+               path="GeoEnrichmentDatabases/source/Datasets/data_layouts_CAN.html"/>
+   <appContext helpID="ChapterDatasets"
+               path="GeoEnrichmentDatabases/source/Datasets/record_formats_CAN.html"/>
+   <appContext helpID="ChapterDatasets"
+               path="GeoEnrichmentDatabases/source/Datasets/Notices_Product_Support_CAN.html"/>
+   <appContext helpID="copyright"
+               path="Shared/source/legalstuff/copyright_AddressFabricCAN.html"/>
+   <appContext helpID="copyright"
+               path="Shared/source/legalstuff/getting_support_traffic.html"/>
+</map>

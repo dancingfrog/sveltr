@@ -1,0 +1,7 @@
+md5: 602d128bab3b56766e10f8f9cb84c3a2
+outs:
+- md5: 619e499b3b4ea04ea3b7169eff070028.dir
+  path: PAN
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,14 @@
+var keywords=[{w:"Frequently",p:["p0"]},{w:"Asked",p:["p0"]},{w:"Questions",p:["p0"]},{w:"Location",p:["p1"]},{w:"Type",p:["p1"]},{w:"Definitions",p:["p1"]},{w:"Change",p:["p2"]},{w:"Log",p:["p2"]},{w:"Data",p:["p2","p3","p5"]},{w:"Layout",p:["p2","p3"]},{w:"Address",p:["p3"]},{w:"Fabric",p:["p3"]},{w:"FAQs",p:["p4"]},{w:"Specifications",p:["p5"]},{w:"Product",p:["p6","p8","p11"]},{w:"Description",p:["p6"]},{w:"pbKey\u2122",p:["p7"]},{w:"File",p:["p8"]},{w:"Naming",p:["p8"]},{w:"Welcome",p:["p9"]},{w:"Notices",p:["p10"]},{w:"Support",p:["p11"]}];
+var ph={};
+ph["p0"]=[0, 1, 2];
+ph["p1"]=[3, 4, 5];
+ph["p11"]=[14, 21];
+ph["p2"]=[6, 7, 8, 9];
+ph["p3"]=[10, 11, 8, 9];
+ph["p4"]=[12];
+ph["p5"]=[8, 13];
+ph["p6"]=[14, 15];
+ph["p7"]=[16];
+ph["p8"]=[14, 17, 18];
+ph["p9"]=[19];
+ph["p10"]=[20];

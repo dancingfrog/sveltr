@@ -1,0 +1,7 @@
+md5: 1b22aa8e9bf619978caf98946981d550
+outs:
+- md5: 76efa3925d007ef491f4e8abf514c99d.dir
+  path: MEX
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: a8acde6e8e8b229d811c1182dde28796
+outs:
+- md5: 4c66f90269f0f55bf8ab36f1f8f45dfc.dir
+  path: TWN
+  cache: true
+  metric: false
+  persist: false

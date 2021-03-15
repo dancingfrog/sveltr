@@ -1,0 +1,7 @@
+md5: 32c920e324a17fa9eeea128ee12ee1e2
+outs:
+- md5: 07fdb2ba3f025b0416feb0de2ff2f8f0.dir
+  path: CRI
+  cache: true
+  metric: false
+  persist: false

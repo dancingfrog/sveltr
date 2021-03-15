@@ -1,0 +1,7 @@
+md5: a33f5f04605113900352accb1704dc7e
+outs:
+- md5: e04027a4708e3041acd116d8b86d805f.dir
+  path: ATG
+  cache: true
+  metric: false
+  persist: false

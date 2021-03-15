@@ -1,0 +1,7 @@
+md5: 7f92408753fb7117172760e22d15bf00
+outs:
+- md5: f0c8f97c9f92400df57cbe5e13afb2ef.dir
+  path: ROU
+  cache: true
+  metric: false
+  persist: false

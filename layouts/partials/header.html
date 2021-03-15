@@ -1,0 +1,122 @@
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <base href="{{ if getenv "CONTEXT" }}{{ cond (eq "production" (getenv "CONTEXT")) (getenv "URL") (getenv "DEPLOY_PRIME_URL") }}{{ else }}{{ $.Site.BaseURL }}{{ end }}">
+    <title>{{ $.Site.Title }}</title>
+
+    <style type="text/css">
+      {{ $stylesheet := .Site.Data.assets.main }}
+      {{ with $stylesheet.css }}@import url("{{ relURL . }}");
+      {{ end }}
+
+      pre code {
+        font-size: 16px; }
+
+      div.container {
+        height: 100%;
+        overflow-y: scroll; }
+      div.container h1 {
+        margin-top: 2rem;
+        margin-bottom: 0rem;
+        padding-left: 2rem;
+        color: var(--h1_color);
+        font-family: "PrecisionSans_W_Lt", "Helvetica Neue", Arial, sans-serif;
+        font-size: 2rem; }
+      div.container a.download-link {
+        float: right;
+        padding-right: 10px; }
+
+      main.content {
+        max-width: none;
+        padding: 0; }
+      main.content h1 {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        padding-left: 2rem;
+        color: var(--h1_color);
+        font-family: "PrecisionSans_W_Lt", "Helvetica Neue", Arial, sans-serif;
+        font-size: 2rem; }
+      main.content div {
+        padding-left: 2rem; }
+      main.content .nav-links {
+        margin: inherit;
+        padding: inherit;
+        font-size: 14px;
+        list-style: none; }
+      main.content .nav-links li {
+        margin-left: 15px; }
+      main.content .nav-links li li:first-child {
+        margin-left: 15px; }
+      @media (min-width: 600px) {
+        main.content .nav-links li {
+          margin-left: 30px; } }
+
+      div.r-debug, div.r-setup {
+        display: none; }
+
+      div.datatables.html-widget {
+        font-size: 12px; }
+
+      div.datatables.html-widget * {
+        font-size: 1em; }
+
+      div.tabs .fade {
+        transition: opacity .15s linear; }
+
+      div.tabs .nav {
+        position: absolute;
+        bottom: 0px;
+        display: -webkit-box;
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+        color: #999b9f;
+        background-color: #353941;
+        background-image: -webkit-gradient(linear, right bottom, right top, from(rgba(0, 0, 0, 0.3)), color-stop(7%, rgba(0, 0, 0, 0)));
+        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0) 7%);
+        -webkit-transition: left .5s;
+        transition: left .5s; }
+
+      div.tabs *.nav {
+        max-width: none;
+        width: 100%; }
+
+      div.tabs ul.nav-tabs {
+        border-top: 1px solid var(--divider_color);
+        padding-top: 6px; }
+      div.tabs ul.nav-tabs .nav-item {
+        margin-top: -1px; }
+      div.tabs ul.nav-tabs .nav-item a {
+        padding: 8px 16px;
+        margin-right: 2px;
+        border-top-color: transparent !important;
+        background-color: var(--bg_rich);
+        color: #999b9f;
+        font-family: PrecisionSans_W_Rg,"Helvetica Neue",Arial,sans-serif;
+        text-decoration: none; }
+      div.tabs ul.nav-tabs .nav-item a#fill-rates-tab {
+        display: none; }
+      div.tabs ul.nav-tabs .nav-item a.nav-link {
+        border: 1px solid transparent;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: .25rem;
+        border-bottom-right-radius: .25rem; }
+      div.tabs ul.nav-tabs .nav-item a.nav-link.active {
+        border: 1px solid var(--divider_color);
+        border-bottom: 2px solid var(--secondary);
+        border-top-color: transparent !important;
+        background-color: var(--bg_rich);
+        color: #fff;
+        cursor: default; }
+
+      div.tabs .tab-content > .tab-pane {
+        display: none; }
+
+      div.tabs .tab-content > .active {
+        display: block; }
+
+    </style>
+  </head>

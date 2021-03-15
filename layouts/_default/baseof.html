@@ -1,32 +1,21 @@
-<!doctype html>
-<html lang="{{ $.Site.Language.Lang }}">
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <base href="{{ if getenv "CONTEXT" }}{{ cond (eq "production" (getenv "CONTEXT")) (getenv "URL") (getenv "DEPLOY_PRIME_URL") }}{{ else }}{{ $.Site.BaseURL }}{{ end }}">
-  <title>{{ $.Site.Title }}</title>
-
-  <link href="{{ if getenv "CONTEXT" }}{{ cond (eq "production" (getenv "CONTEXT")) (getenv "URL") (getenv "DEPLOY_PRIME_URL") }}{{ else }}{{ $.Site.BaseURL }}{{ end }}global.css" rel="stylesheet">
-{{ $stylesheet := .Site.Data.assets.main }}
-  {{ with $stylesheet.css }}<link href="{{ relURL . }}" rel="stylesheet">
-{{ end }}
-
-</head>
+{{ partial "header.html" . }}
 
 <body>
 
-{{ block "header" . }}{{ partial "header" . }}{{end}}
 
+<div class="wrapper">
 {{ block "main" . }}{{end}}
+</div>
 
-{{ block "footer" . }}{{ partial "footer" . }}{{end}}
+{{ partial "footer.html" . }}
 
 {{ $script := .Site.Data.assets.main }}
 {{ with $script.js }}
-  <script src="{{ relURL . }}"></script>
+<script src="{{ relURL . }}"></script>
 {{ end }}
 
 </body>
-
 </html>

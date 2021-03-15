@@ -10,5 +10,10 @@
 /public
 /resources
 /static
-**/*html
+data
+lidata-stats
+*html
+*csv
+*pdf
+*xlsx
 webpack.json

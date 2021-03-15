@@ -1,0 +1,7 @@
+md5: 4cfac7ae5fdc708b2148ec93ef22775f
+outs:
+- md5: 3a9b639425cece8a7ad28a1ccb64b5f9.dir
+  path: YEM
+  cache: true
+  metric: false
+  persist: false

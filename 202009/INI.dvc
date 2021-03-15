@@ -1,0 +1,7 @@
+md5: 07abab0026edd86c3b943ec94f5f2286
+outs:
+- md5: 6f9ab05d445d4a039fcb3219e9a605c1.dir
+  path: INI
+  cache: true
+  metric: false
+  persist: false

@@ -1,2 +1,0 @@
-/* js placeholder */
-'use strict';

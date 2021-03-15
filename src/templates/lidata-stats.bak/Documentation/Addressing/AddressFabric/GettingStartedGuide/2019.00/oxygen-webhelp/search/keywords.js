@@ -1,0 +1,12 @@
+var keywords=[{w:"Loading",p:["p0","p1","p4"]},{w:"Address",p:["p0","p1","p2","p3","p4"]},{w:"Fabric",p:["p0","p1","p2","p3","p4"]},{w:"Data",p:["p0","p1","p2","p3","p4","p5"]},{w:"in",p:["p0","p1","p2","p3","p4"]},{w:"SQL",p:["p0"]},{w:"Postgres",p:["p1"]},{w:"Opening",p:["p2","p3"]},{w:"QGIS",p:["p2"]},{w:"MapInfo",p:["p3"]},{w:"Pro\u00AE",p:["p3"]},{w:"Oracle",p:["p4"]},{w:"Specifications",p:["p5"]},{w:"Preface",p:["p6"]},{w:"Welcome",p:["p7"]},{w:"Notices",p:["p8"]},{w:"Product",p:["p9"]},{w:"Support",p:["p9"]}];
+var ph={};
+ph["p0"]=[0, 1, 2, 3, 4, 5];
+ph["p1"]=[0, 1, 2, 3, 4, 6];
+ph["p2"]=[7, 1, 2, 3, 4, 8];
+ph["p3"]=[7, 1, 2, 3, 4, 9, 10];
+ph["p4"]=[0, 1, 2, 3, 4, 11];
+ph["p5"]=[3, 12];
+ph["p6"]=[13];
+ph["p7"]=[14];
+ph["p8"]=[15];
+ph["p9"]=[16, 17];

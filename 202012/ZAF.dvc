@@ -1,0 +1,7 @@
+md5: 64b5ede316eb179a5eade4ea92086e0b
+outs:
+- md5: f14d63b13cb8334fb3c5d163e3687621.dir
+  path: ZAF
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: 03e3fb7f9143e3d5eb88e8d7c3d5191f
+outs:
+- md5: 46ed0f181c3084b49bf295a4a0d2bf8d.dir
+  path: VEN
+  cache: true
+  metric: false
+  persist: false

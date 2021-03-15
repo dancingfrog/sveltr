@@ -1,0 +1,7 @@
+md5: 3a527bbe91c96a076575883cf13d68b0
+outs:
+- md5: b195601b9611774b5edc613eeec06a9f.dir
+  path: KWT
+  cache: true
+  metric: false
+  persist: false

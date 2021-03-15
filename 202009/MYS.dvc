@@ -1,0 +1,7 @@
+md5: e7322d441d868acfdf3a5f1699548761
+outs:
+- md5: 46cb54365bbcb7b4283d5d9811508afb.dir
+  path: MYS
+  cache: true
+  metric: false
+  persist: false

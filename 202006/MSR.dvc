@@ -1,0 +1,7 @@
+md5: d3a1172b919476a08b74a47d88ef3c50
+outs:
+- md5: db78a5b02080fc5883f488bd9420fb39.dir
+  path: MSR
+  cache: true
+  metric: false
+  persist: false

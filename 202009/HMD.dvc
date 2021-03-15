@@ -1,0 +1,7 @@
+md5: e6fcc126e904f832df2490fdd56ca6a2
+outs:
+- md5: ea5c66c7c6a876497216b373b77be866.dir
+  path: HMD
+  cache: true
+  metric: false
+  persist: false

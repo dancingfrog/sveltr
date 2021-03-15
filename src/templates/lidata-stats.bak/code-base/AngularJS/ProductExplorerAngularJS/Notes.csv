@@ -1,0 +1,3 @@
+"risk_earthquake","data thru May 2015 was available at the time of product release.  Year 2014 was a complete set and is shown below."
+"risk_tornado","Starting in 2007, NOAA began classifying tornados per the Enhanced Fujita (EF) Damage Scale.  The results in the data set are normalized to the Fujita-Pearson (FP) Damage Scale.  Due to the significant difference in range for the EF F0 Category (65 to 85 mph) as compared to the FP F0 Category (40 to 72 mph), all EF FO events are shifted into the FP F1 range"
+"risk_wind","Data thru February 2015, < W7 not counted here"

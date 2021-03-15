@@ -1,0 +1,7 @@
+md5: bb8cdda07feb3b17b35680f5cbc75961
+outs:
+- md5: 6c65d2198069bf6bc8ff889b3614c27f.dir
+  path: CYP
+  cache: true
+  metric: false
+  persist: false

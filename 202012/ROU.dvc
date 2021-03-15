@@ -1,0 +1,7 @@
+md5: e85e996b6d8a9fbf8239e3b547a29f3f
+outs:
+- md5: cab60d83cae555664a78b05ae9d7f7e8.dir
+  path: ROU
+  cache: true
+  metric: false
+  persist: false

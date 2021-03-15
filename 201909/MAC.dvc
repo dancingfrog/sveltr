@@ -1,0 +1,7 @@
+md5: aa8572d046b9e791ce713094c304196c
+outs:
+- md5: 3ad0c79556f2548ad9e62b568f689215.dir
+  path: MAC
+  cache: true
+  metric: false
+  persist: false

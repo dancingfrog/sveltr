@@ -1,0 +1,7 @@
+md5: 3e1d7dde924a4af11d593d921c95e359
+outs:
+- md5: be5f91024e94d7a96b194174b0d1de48.dir
+  path: CHL
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: 8fc96069a36e3595fd619caec38557d7
+outs:
+- md5: d850c996ce8edab138392b6d70020882.dir
+  path: NOR
+  cache: true
+  metric: false
+  persist: false

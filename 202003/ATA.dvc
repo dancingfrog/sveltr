@@ -1,0 +1,7 @@
+md5: 5aae94cf5f84b88877498626cb7a9219
+outs:
+- md5: f1db371a77cde2b84ac56d51f495f581.dir
+  path: ATA
+  cache: true
+  metric: false
+  persist: false

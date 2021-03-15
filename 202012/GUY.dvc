@@ -1,0 +1,7 @@
+md5: e302b4b7adadebfe1684f7b13db3108e
+outs:
+- md5: e424e6cde17de8e3713ebaa4ba9d690a.dir
+  path: GUY
+  cache: true
+  metric: false
+  persist: false

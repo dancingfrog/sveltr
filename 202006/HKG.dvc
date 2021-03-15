@@ -1,0 +1,7 @@
+md5: 6227b241c15af40667793841bffadeb8
+outs:
+- md5: 55d15a8a7f5e8d6be82b812232a6eb76.dir
+  path: HKG
+  cache: true
+  metric: false
+  persist: false

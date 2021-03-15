@@ -1,0 +1,7 @@
+md5: 6ad2edf063ba500fff0b356af4733255
+outs:
+- md5: cb0ba394a978a0f97f63e287da214561.dir
+  path: BHS
+  cache: true
+  metric: false
+  persist: false

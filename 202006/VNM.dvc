@@ -1,0 +1,7 @@
+md5: 4de7a549f5a8079006e1f09579a984e4
+outs:
+- md5: ed8cdd18b9f444dc77b381798cf91f13.dir
+  path: VNM
+  cache: true
+  metric: false
+  persist: false

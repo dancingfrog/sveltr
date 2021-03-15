@@ -1,0 +1,15 @@
+var keywords=[{w:"Introduction",p:["p0"]},{w:"Using",p:["p1"]},{w:"Transit",p:["p1"]},{w:"Points",p:["p1","p9"]},{w:"Data",p:["p1","p9"]},{w:"Coverage",p:["p2"]},{w:"Features",p:["p3"]},{w:"Installation",p:["p4"]},{w:"Micodes",p:["p5"]},{w:"Overview",p:["p6"]},{w:"Product",p:["p7","p12"]},{w:"Schema",p:["p7"]},{w:"Spatial",p:["p8"]},{w:"Referencing",p:["p8"]},{w:"System",p:["p8"]},{w:"To",p:["p9","p10"]},{w:"display",p:["p9"]},{w:"the",p:["p9"]},{w:"as",p:["p9"]},{w:"geographic",p:["p9"]},{w:"use",p:["p10"]},{w:"in",p:["p10"]},{w:"MapInfo",p:["p10"]},{w:"Professional",p:["p10"]},{w:"Welcome",p:["p11"]},{w:"Support",p:["p12"]}];
+var ph={};
+ph["p0"]=[0];
+ph["p1"]=[1, 2, 3, 4];
+ph["p2"]=[5];
+ph["p3"]=[6];
+ph["p4"]=[7];
+ph["p5"]=[8];
+ph["p6"]=[9];
+ph["p7"]=[10, 11];
+ph["p8"]=[12, 13, 14];
+ph["p9"]=[15, 16, 17, 4, 18, 19, 3];
+ph["p10"]=[15, 20, 21, 22, 23];
+ph["p12"]=[10, 25];
+ph["p11"]=[24];

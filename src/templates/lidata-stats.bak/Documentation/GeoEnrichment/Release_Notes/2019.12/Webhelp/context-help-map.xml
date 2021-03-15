@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="patch_introduction"
+               path="ReleaseNotes/source/O02/Introduction.html"/>
+   <appContext helpID="fixedissues" path="ReleaseNotes/source/O01/fixedissues.html"/>
+   <appContext helpID="QueryCache_MultipleWhereClauses"
+               path="ReleaseNotes/source/O01/SpreadsheetIssue.html"/>
+   <appContext helpID="QueryCache_MultipleWhereClauses"
+               path="ReleaseNotes/source/O01/Whats_New_GEM.html"/>
+   <appContext helpID="installation" path="ReleaseNotes/source/O01/Change_Log.html"/>
+   <appContext helpID="property_attributes_geoenrichment"
+               path="ReleaseNotes/source/O01/address_geoenrichment_demo_changelog.html"/>
+   <appContext helpID="installation" path="ReleaseNotes/source/O01/Known_issues.html"/>
+   <appContext helpID="installation"
+               path="ReleaseNotes/source/O01/Installation_Overview.html"/>
+   <appContext helpID="copyright"
+               path="Shared/source/legalstuff/getting_support_GEM.html"/>
+</map>

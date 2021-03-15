@@ -1,0 +1,7 @@
+md5: aedd6cf874b3e973a6b0ec2cf57cd7ac
+outs:
+- md5: 2b8762bab351e6fa883832228673e523.dir
+  path: PAK
+  cache: true
+  metric: false
+  persist: false

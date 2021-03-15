@@ -1,0 +1,7 @@
+md5: 67d1cb91525c7688209bbcaaeb0f43b3
+outs:
+- md5: 72442ccbc597604f921800636bfe23f4.dir
+  path: TJK
+  cache: true
+  metric: false
+  persist: false

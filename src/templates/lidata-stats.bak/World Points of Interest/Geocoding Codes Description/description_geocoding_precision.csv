@@ -1,0 +1,46 @@
+Georesult Code ,Description 
+Z1,Postal match with post code 1 centroid.
+Z2,Postal match with partial post code 2 centroid.
+Z3,Postal match with post code 2 centroid.
+G1,Geographic match with area name 1 centroid.
+G2,Geographic match with area name 2 centroid.
+G3,Geographic match with area name 3 centroid.
+G4,Geographic match with area name 4 centroid.
+S8,Single match with the point located at either the single point associated with an address point candidate or at an address point candidate that shares the same house number. No interpolation is required.
+S7,"Single match with the point located at an interpolated point along a street segment. Both a point dictionary and a street segment dictionary must be available. Because known point data is available, the S7 interpolation is more accurate than an S5 result."
+S6,"Single match, point located at point ZIP centroid."
+S5,"Single match with the point located at a street address position. Because only street segment data is available, the interpolation is not as accurate as an S7 return The S5code is followed by letters and dashes indicating match precision."
+S4,Single match with the point located at a street centroid.
+S3,Single match with the point located at a ZIP + 4® centroid. This is the same quality match as a Z3 result.
+S2,Single match with the point located at a ZIP + 2 centroid. This is the same quality match as a Z2 result.
+S1,Single match with the point located at a ZIP Code centroid. This is the same quality match as a Z1 result.
+S0,"Single match, however, no coordinates are available (this is a very rare occurrence)."
+SX,Single match with the point located at street intersection.
+SC,Single match where the original point has been moved a specified distance (usually along a perpendicular line) toward or away from the associated street segment. This result code can be returned only when both a point dictionary and a street segment dictionary are available and when the centerline offset feature is used.
+SG,Single match with point at the centre of a locality (areaName3) or Locality level geocode derived from topographic feature. An SG result code is associated with GNAF Reliability Level 5 (locality or neighbourhood) or with Level 6 (unique region.
+Z6,"Z6 results are matched to a point ZIP centroid. Point ZIPs are 5-digit The Z6 code indicates that these special ZIPs are actual point locations, not an area. Point ZIPs include unique single sites, buildings, or organizations."
+SL,Single match with the point located at  Sub locality (only for India) 
+M1,"multiple matches, point located at ZIP Code centroid"
+M2,"multiple matches, point located at ZIP + 2 centroid"
+M3,"multiple matches, point located at ZIP + 4® centroid"
+M4,"multiple matches, point located at the center of a shape point path (shape points define the shape of the street polyline)"
+M5,"multiple matches, point located at a street address position (highest accuracy available)"
+M6,"multiple matches, point located at point ZIP location"
+MX,"multiple matches, point located at street intersection"
+M0,"multiple matches, no coordinates available"
+T0,Polygon centroid i.e. a Park
+T1,"Manually located,  connected to the steet network, one or more street network entrance points"
+T2,"Manually located, no associated street network entrance points, i.e. Mountain Peak or Beach"
+T3,"Manually located, at a pre determined point connected to a street network, i.e. a Mountain Pass or Ferry Terminal "
+T11,Address point location Exact House number and street name match
+T12,Address point location  Numeric portion of  house number match and street name match. The correct side of the street is not guarenteed
+T13,"Interpolated location, house number range match and street name match"
+T14,"Interpolated location, street name match and nearby house number"
+T15,Street Intersection
+T16,"Original Location, address matched to the closest street with matching street name and house number range"
+T17,"Original Location, address matched to the closest street end point with matching street name and house number range"
+T18,"Original Location, address matched to the closest street with matching street name"
+T19,"Grouped Street Centroid Location,  Street Name match"
+T20,"Original location,  Address taken from nearest street segment"
+T22,City Centroid
+T99,No Level Available

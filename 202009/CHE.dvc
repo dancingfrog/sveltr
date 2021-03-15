@@ -1,0 +1,7 @@
+md5: af114dc7d4fb5b40bbfa34c5ea701af6
+outs:
+- md5: 24b605157510dc06929aed7ada8c1e65.dir
+  path: CHE
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,2260 @@
+---
+output:
+#  html_document:
+#    css: styles/global.css
+#    self_contained: no
+#    template: templates/test.html5
+  markdowntemplates::minimal:
+    css: /InProcess/ReleaseStatistics/main.css
+    self_contained: no
+params:
+  country: "CAN"
+  current_version: "201912"
+  previous_version: "201906"
+  state_code: ""
+  state_flag: FALSE
+---
+<!--div id="pb-header-spacer" style="min-height:48px">&nbsp;</div-->
+<div class="r-debug" style="display:none;">
+
+```{r, cache = FALSE, echo = FALSE}
+options(warn = -1)
+working_dir <- getwd()
+print(working_dir)
+#print(grepl("/content", getwd(), ignore.case = TRUE))
+if (grepl("/content", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/content", "")
+    #setwd(working_dir)
+
+} else if (grepl("/src/templates", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/src/templates", "")
+    #setwd(working_dir)
+
+} else if (grepl("/src", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/src", "")
+    #setwd(working_dir)
+}
+
+require("jsonlite")
+require("rmarkdown")
+require("readtext")
+require("stringr")
+require("tidyverse")
+# We will use the DT package to present dynamic HTML tables (and downloadable excel sheets)
+require("DT")
+
+download_links <- c()
+
+downloadPath <- c("CURRENT")
+
+country <- params$country
+current_version <- params$current_version
+previous_version <- params$previous_version
+state_codes <- list(state_codes = c(params$state_code))
+state_flag <- params$state_flag
+
+try({
+    print(file.exists(paste0(working_dir, "/CURRENT/models/country-codes.json")))
+
+    if (file.exists(paste0(working_dir, "/CURRENT/models/country-codes.json"))) {
+        country_code_model <- jsonlite::fromJSON(paste0(working_dir, "/CURRENT/models/country-codes.json"))
+
+        # Get from country-codes model
+        country_code3 <- country_code_model[country][[1]][1] # "gbr"
+        country_code4 <- country_code_model[country][[1]][2] # "gbri"
+        if (is.null(state_codes[[1]]) || is.na(state_codes)) {
+            state_codes <- country_code_model[country][[1]][3] # c("AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT")
+            state_flag <- c(FALSE)
+        } else {
+            state_flag <- c(TRUE)
+        }
+    }
+}, silent = FALSE, outFile = stderr())
+
+print(country)
+print(current_version)
+print(previous_version)
+print(state_codes)
+print(state_flag)
+
+length_units <- c()
+switch(country,
+    "GBR" = { length_units <- c("miles") },
+    "USA" = { length_units <- c("miles") },
+    { length_units <- c("kilometers") }
+)
+
+loadStatsCsv <- function (version, country, code, layer) {
+    stats_file_path <- paste0(working_dir, "/", version, "/", country, "/", stringr::str_to_lower(code), layer, "-statistics.csv")
+    stats <- data.frame(
+        "Table/Attribute" = c(NA),
+        "Count" = c(NA),
+        "Attribute Filled %" = c(NA)
+    )
+
+    if (all(state_flag)) {
+        state_code <- switch(
+            layer,
+            "_nodes" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            "_restrictions" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            "_streets" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            "_speed_profile_sets" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            { stringr::str_to_lower(state_codes[[1]]) }
+        )
+        stats_file_path <- paste0(working_dir, "/", version, "/", country, "/", state_code, layer, "-statistics.csv")
+
+        for (stats_file in stats_file_path) {
+            if (file.exists(stats_file)) {
+                print(stats_file)
+                stats <- read.csv(stats_file, sep = ",", na.strings = "NA", strip.white = TRUE, stringsAsFactors = FALSE)
+            }
+        }
+
+    } else if (file.exists(stats_file_path)) {
+        stats_file <- stats_file_path
+        #print(stats_file)
+        stats <- read.csv(stats_file, sep = ",", na.strings = "NA", strip.white = TRUE, stringsAsFactors = FALSE)
+
+    } else if ((!is.null(state_codes)) && (!is.na(state_codes)) && (country_code3 == "usa" || country_code3 == "can")) {
+        nation_wide_frame <- c(NA)
+        lengths_frame <- c(NA)
+
+        state_codes <- switch(
+            layer,
+            "_nodes" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            "_restrictions" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            "_streets" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            "_speed_profile_sets" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            { stringr::str_to_lower(state_codes[[1]]) }
+        )
+        stats_file_paths <- paste0(working_dir, "/", version, "/", country, "/", state_codes, layer, "-statistics.csv")
+
+        for (stats_file in stats_file_paths) {
+            if (file.exists(stats_file)) {
+
+                if (!is.na(nation_wide_frame) && !is.null(nation_wide_frame)) {
+                    # print(stats_file)
+                    read_frame <- read.csv(stats_file, sep = ",", na.strings = "NA", strip.white = TRUE, stringsAsFactors = FALSE)
+                    nation_wide_frame[nrow(nation_wide_frame)+1,] <- read_frame[1, 1:3]
+                    if (!is.null(read_frame[2, 1:2]) && !is.na(read_frame[2, 1:2])) {
+                        lengths_frame[nrow(lengths_frame)+1,] <- read_frame[2, 1:3]
+                    }
+
+                } else {
+                    # print(stats_file)
+                    read_frame <- read.csv(stats_file, sep = ",", na.strings = "NA", strip.white = TRUE, stringsAsFactors = FALSE)
+                    nation_wide_frame <- read_frame[1, 1:3]
+                    if (!is.null(read_frame[2, 1:2]) && !is.na(read_frame[2, 1:2])) {
+                        lengths_frame <- read_frame[2, 1:3]
+                    }
+
+                }
+            }
+        }
+
+        str(nation_wide_frame)
+
+        if (!is.na(lengths_frame) && !is.null(lengths_frame)) {
+            str(lengths_frame)
+            nation_wide_frame <- rbind(
+                nation_wide_frame[-1,1:length(nation_wide_frame)],
+                c(paste0(stringr::str_to_lower(code), layer), sum(nation_wide_frame[, 2]), NA),
+                c("Length_Meters (total)", sum(lengths_frame[, 2]), NA),
+                stringsAsFactors = FALSE
+            )
+            stats <- nation_wide_frame[c(nrow(nation_wide_frame) - 1, nrow(nation_wide_frame)), ]
+
+        } else if (length(nation_wide_frame) > 2 && length(nation_wide_frame[,2]) > 1) {
+            nation_wide_frame <- rbind(
+                nation_wide_frame[-1,1:length(nation_wide_frame)],
+                c(paste0(stringr::str_to_lower(code), layer), sum(nation_wide_frame[, 2]), NA),
+                stringsAsFactors = FALSE
+            )
+            stats <- nation_wide_frame[nrow(nation_wide_frame), ]
+        }
+    }
+
+    head(stats)
+    stats
+}
+
+loadUSCANStatsCsv <- function (version, country, code, layer) {
+    stats_file_path <- paste0(working_dir, "/", version, "/", country, "/", stringr::str_to_lower(code), layer, "-statistics.csv")
+    stats <- data.frame(
+        "Table/Attribute" = c(NA),
+        "Count" = c(NA),
+        "Attribute Filled %" = c(NA)
+    )
+
+    # print(all(state_flag))
+    if (all(state_flag)) {
+        state_code <- switch(
+            layer,
+            "_nodes" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            "_restrictions" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            "_streets" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            "_speed_profile_sets" = { paste0(stringr::str_to_lower(code), "_", stringr::str_to_lower(state_codes[[1]])) },
+            { stringr::str_to_lower(state_codes[[1]]) }
+        )
+        stats_file_path <- paste0(working_dir, "/", version, "/", country, "/", state_code, layer, "-statistics.csv")
+        for (stats_file in stats_file_path) {
+            if (file.exists(stats_file)) {
+                print(stats_file)
+                stats <- read.csv(stats_file, sep = ",", na.strings = "NA", strip.white = TRUE, stringsAsFactors = FALSE)
+            }
+        }
+
+    } else if (file.exists(stats_file_path)) {
+        stats_file <- stats_file_path
+        # print(stats_file)
+        stats <- read.csv(stats_file, sep = ",", na.strings = "NA", strip.white = TRUE, stringsAsFactors = FALSE)
+
+    } else {
+        nation_wide_frame <- c(NA)
+        lengths_frame <- c(NA)
+
+        for (state_code in stringr::str_to_lower(state_codes[[1]])) {
+            stats_file_path <- paste0(working_dir, "/", version, "/", country, "/", state_code, layer, "-statistics.csv")
+            # print(state_code)
+            # print(paste0(working_dir, "/", current_version, "/", country, "/", state_code, layer, "-statistics.csv"))
+
+            if (file.exists(stats_file_path)) {
+                stats_file <- stats_file_path
+
+                if (!is.na(nation_wide_frame) && !is.null(nation_wide_frame)) {
+                    # print(stats_file)
+                    read_frame <- read.csv(stats_file, sep = ",", na.strings = "NA", strip.white = TRUE, stringsAsFactors = FALSE)
+                    nation_wide_frame[nrow(nation_wide_frame)+1,] <- read_frame[1, 1:3]
+                    if (!is.null(read_frame[2, 1:2]) && !is.na(read_frame[2, 1:2])) {
+                        lengths_frame[nrow(lengths_frame)+1,] <- read_frame[2, 1:3]
+                    }
+
+                } else {
+                    # print(stats_file)
+                    read_frame <- read.csv(stats_file, sep = ",", na.strings = "NA", strip.white = TRUE, stringsAsFactors = FALSE)
+                    nation_wide_frame <- read_frame[1, 1:3]
+                    if (!is.null(read_frame[2, 1:2]) && !is.na(read_frame[2, 1:2])) {
+                        lengths_frame <- read_frame[2, 1:3]
+                    }
+
+                }
+            }
+        }
+
+        str(nation_wide_frame)
+
+        #if (length(nation_wide_frame) > 2 && length(nation_wide_frame[,2]) > 1) {
+        #     print(length(nation_wide_frame[,2]))
+        #     print(paste0(stringr::str_to_lower(code), layer, " ", sum(nation_wide_frame[, 2])))
+        #}
+
+        if (!is.na(lengths_frame) && !is.null(lengths_frame)) {
+            str(lengths_frame)
+            nation_wide_frame <- rbind(
+                nation_wide_frame[-1,1:length(nation_wide_frame)],
+                c(paste0(stringr::str_to_lower(code), layer), sum(nation_wide_frame[, 2]), NA),
+                c("Length_Meters (total)", sum(lengths_frame[, 2]), NA),
+                stringsAsFactors = FALSE
+            )
+            stats <- nation_wide_frame[c(nrow(nation_wide_frame) - 1, nrow(nation_wide_frame)), ]
+
+        } else if (length(nation_wide_frame) > 2 && length(nation_wide_frame[,2]) > 1) {
+            nation_wide_frame <- rbind(
+                nation_wide_frame[-1,1:length(nation_wide_frame)],
+                c(paste0(stringr::str_to_lower(code), layer), sum(nation_wide_frame[, 2]), NA),
+                stringsAsFactors = FALSE
+            )
+            stats <- nation_wide_frame[nrow(nation_wide_frame), ]
+        }
+    }
+
+    head(stats)
+    stats
+}
+
+# Navigation Tables
+nodes_current <- loadStatsCsv(current_version, country, country_code3, "_nodes")
+nodes_previous <- loadStatsCsv(previous_version, country, country_code3, "_nodes")
+
+head(nodes_current)
+head(nodes_previous)
+
+restrictions_current <- loadStatsCsv(current_version, country, country_code3, "_restrictions")
+restrictions_previous <- loadStatsCsv(previous_version, country, country_code3, "_restrictions")
+
+head(restrictions_current)
+head(restrictions_previous)
+
+streets_current <- loadStatsCsv(current_version, country, country_code3, "_streets")
+streets_previous <- loadStatsCsv(previous_version, country, country_code3, "_streets")
+
+head(streets_current)
+head(streets_previous)
+
+# Speed Profiles Table
+speed_profile_sets_current <- loadStatsCsv(current_version, country, country_code3, "_speed_profile_sets")
+speed_profile_sets_previous <- loadStatsCsv(previous_version, country, country_code3, "_speed_profile_sets")
+
+head(speed_profile_sets_current)
+head(speed_profile_sets_previous)
+
+if ((!is.null(state_codes)) && (!is.na(state_codes)) && (country_code3 == "usa" || country_code3 == "can")) {
+    # US/CAN Classic Tables
+    geocode1_current <- loadUSCANStatsCsv(current_version, country, country_code3, "geocode1")
+    geocode1_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "geocode1")
+    geocode2_current <- loadUSCANStatsCsv(current_version, country, country_code3, "geocode2")
+    geocode2_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "geocode2")
+    sa_current <- loadUSCANStatsCsv(current_version, country, country_code3, "sa")
+    sa_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "sa")
+
+    # US/CAN Display Tables
+    airports_current <- loadUSCANStatsCsv(current_version, country, country_code3, "airports")
+    airports_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "airports")
+
+    cities_current <- loadUSCANStatsCsv(current_version, country, country_code3, "cities")
+    cities_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "cities")
+
+    expressways_current <- loadUSCANStatsCsv(current_version, country, country_code3, "expressways")
+    expressways_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "expressways")
+
+    ferries_current <- loadUSCANStatsCsv(current_version, country, country_code3, "ferries")
+    ferries_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "ferries")
+
+    gazetteer1_current <- loadUSCANStatsCsv(current_version, country, country_code3, "gazetteer1")
+    gazetteer1_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "gazetteer1")
+
+    gazetteer2_current <- loadUSCANStatsCsv(current_version, country, country_code3, "gazetteer2")
+    gazetteer2_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "gazetteer2")
+
+    gazetteer3_current <- loadUSCANStatsCsv(current_version, country, country_code3, "gazetteer3")
+    gazetteer3_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "gazetteer3")
+
+    gazetteer4_current <- loadUSCANStatsCsv(current_version, country, country_code3, "gazetteer4")
+    gazetteer4_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "gazetteer4")
+
+    gazetteer5_current <- loadUSCANStatsCsv(current_version, country, country_code3, "gazetteer5")
+    gazetteer5_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "gazetteer5")
+
+    gazetteer6_current <- loadUSCANStatsCsv(current_version, country, country_code3, "gazetteer6")
+    gazetteer6_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "gazetteer6")
+
+    gazetteer7_current <- loadUSCANStatsCsv(current_version, country, country_code3, "gazetteer7")
+    gazetteer7_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "gazetteer7")
+
+    landmarks_current <- loadUSCANStatsCsv(current_version, country, country_code3, "landmarks")
+    landmarks_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "landmarks")
+
+    landuse_current <- loadUSCANStatsCsv(current_version, country, country_code3, "landuse")
+    landuse_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "landuse")
+
+    localhwys_med_current <- loadUSCANStatsCsv(current_version, country, country_code3, "localhwys_med")
+    localhwys_med_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "localhwys_med")
+
+    localrtes_current <- loadUSCANStatsCsv(current_version, country, country_code3, "localrtes")
+    localrtes_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "localrtes")
+
+    oneways_current <- loadUSCANStatsCsv(current_version, country, country_code3, "oneways")
+    oneways_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "oneways")
+
+    primaryhwys_current <- loadUSCANStatsCsv(current_version, country, country_code3, "primaryhwys")
+    primaryhwys_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "primaryhwys")
+
+    primaryhwys_med_current <- loadUSCANStatsCsv(current_version, country, country_code3, "primaryhwys_med")
+    primaryhwys_med_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "primaryhwys_med")
+
+    railroads_current <- loadUSCANStatsCsv(current_version, country, country_code3, "railroads")
+    railroads_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "railroads")
+
+    regionalhwys_current <- loadUSCANStatsCsv(current_version, country, country_code3, "regionalhwys")
+    regionalhwys_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "regionalhwys")
+
+    rivers_current <- loadUSCANStatsCsv(current_version, country, country_code3, "rivers")
+    rivers_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "rivers")
+
+    secondaryhwys_current <- loadUSCANStatsCsv(current_version, country, country_code3, "secondaryhwys")
+    secondaryhwys_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "secondaryhwys")
+
+    secondaryhwys_med_current <- loadUSCANStatsCsv(current_version, country, country_code3, "secondaryhwys_med")
+    secondaryhwys_med_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "secondaryhwys_med")
+
+    signposts_current <- loadUSCANStatsCsv(current_version, country, country_code3, "signposts")
+    signposts_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "signposts")
+
+    displaystreets_current <- loadUSCANStatsCsv(current_version, country, country_code3, "streets")
+    displaystreets_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "streets")
+
+    urbanareas_current <- loadUSCANStatsCsv(current_version, country, country_code3, "urbanareas")
+    urbanareas_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "urbanareas")
+
+    waterbodies_current <- loadUSCANStatsCsv(current_version, country, country_code3, "waterbodies")
+    waterbodies_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "waterbodies")
+
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "usa")) {
+    # US only
+
+    counties_current <- loadUSCANStatsCsv(current_version, country, country_code3, "counties")
+    counties_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "counties")
+
+    shldco_0to5_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldco_0to5")
+    shldco_0to5_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldco_0to5")
+
+    shldco_5to15_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldco_5to15")
+    shldco_5to15_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldco_5to15")
+
+    shldco_15to50_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldco_15to50")
+    shldco_15to50_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldco_15to50")
+
+    shldinter_0to5_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldinter_0to5")
+    shldinter_0to5_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldinter_0to5")
+
+    shldinter_5to15_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldinter_5to15")
+    shldinter_5to15_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldinter_5to15")
+
+    shldinter_15to50_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldinter_15to50")
+    shldinter_15to50_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldinter_15to50")
+
+    shldstate_0to5_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldstate_0to5")
+    shldstate_0to5_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldstate_0to5")
+
+    shldstate_5to15_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldstate_5to15")
+    shldstate_5to15_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldstate_5to15")
+
+    shldstate_15to50_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldstate_15to50")
+    shldstate_15to50_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldstate_15to50")
+
+    shldus_0to5_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldus_0to5")
+    shldus_0to5_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldus_0to5")
+
+    shldus_5to15_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldus_5to15")
+    shldus_5to15_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldus_5to15")
+
+    shldus_15to50_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldus_15to50")
+    shldus_15to50_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldus_15to50")
+
+    towns_current <- loadUSCANStatsCsv(current_version, country, country_code3, "towns")
+    towns_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "towns")
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "can")) {
+    # CAN only
+
+    censusdivisions_current <- loadUSCANStatsCsv(current_version, country, country_code3, "censusdivisions")
+    censusdivisions_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "censusdivisions")
+
+    censussubdivisions_current <- loadUSCANStatsCsv(current_version, country, country_code3, "censussubdivisions")
+    censussubdivisions_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "censussubdivisions")
+
+    shldprhwy_0to5_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldprhwy_0to5")
+    shldprhwy_0to5_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldprhwy_0to5")
+
+    shldprhwy_5to15_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldprhwy_5to15")
+    shldprhwy_5to15_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldprhwy_5to15")
+
+    shldprhwy_15to50_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldprhwy_15to50")
+    shldprhwy_15to50_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldprhwy_15to50")
+
+    shldtchwy_0to5_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldtchwy_0to5")
+    shldtchwy_0to5_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldtchwy_0to5")
+
+    shldtchwy_5to15_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldtchwy_5to15")
+    shldtchwy_5to15_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldtchwy_5to15")
+
+    shldtchwy_15to50_current <- loadUSCANStatsCsv(current_version, country, country_code3, "shldtchwy_15to50")
+    shldtchwy_15to50_previous <- loadUSCANStatsCsv(previous_version, country, country_code3, "shldtchwy_15to50")
+}
+
+if (!is.null(country_code4[[1]]) && !is.na(country_code4)) {
+    # EMEA Classic Tables
+    cr_current <- loadStatsCsv(current_version, country, country_code4, "cr")
+    cr_previous <- loadStatsCsv(previous_version, country, country_code4, "cr")
+    sa_current <- loadStatsCsv(current_version, country, country_code4, "sa")
+    sa_previous <- loadStatsCsv(previous_version, country, country_code4, "sa")
+    x1_current <- loadStatsCsv(current_version, country, country_code4, "x1")
+    x1_previous <- loadStatsCsv(previous_version, country, country_code4, "x1")
+    x2_current <- loadStatsCsv(current_version, country, country_code4, "x2")
+    x2_previous <- loadStatsCsv(previous_version, country, country_code4, "x2")
+
+    # EMEA Display Tables
+    a0_current <- loadStatsCsv(current_version, country, country_code4, "a0")
+    a0_previous <- loadStatsCsv(previous_version, country, country_code4, "a0")
+
+    a1_current <- loadStatsCsv(current_version, country, country_code4, "a1")
+    a1_previous <- loadStatsCsv(previous_version, country, country_code4, "a1")
+
+    a2_current <- loadStatsCsv(current_version, country, country_code4, "a2")
+    a2_previous <- loadStatsCsv(previous_version, country, country_code4, "a2")
+
+    a3_current <- loadStatsCsv(current_version, country, country_code4, "a3")
+    a3_previous <- loadStatsCsv(previous_version, country, country_code4, "a3")
+
+    a4_current <- loadStatsCsv(current_version, country, country_code4, "a4")
+    a4_previous <- loadStatsCsv(previous_version, country, country_code4, "a4")
+
+    a5_current <- loadStatsCsv(current_version, country, country_code4, "a5")
+    a5_previous <- loadStatsCsv(previous_version, country, country_code4, "a5")
+
+    aa_current <- loadStatsCsv(current_version, country, country_code4, "aa")
+    aa_previous <- loadStatsCsv(previous_version, country, country_code4, "aa")
+
+    ap_current <- loadStatsCsv(current_version, country, country_code4, "ap")
+    ap_previous <- loadStatsCsv(previous_version, country, country_code4, "ap")
+
+    b_current <- loadStatsCsv(current_version, country, country_code4, "b")
+    b_previous <- loadStatsCsv(previous_version, country, country_code4, "b")
+
+    f_current <- loadStatsCsv(current_version, country, country_code4, "f")
+    f_previous <- loadStatsCsv(previous_version, country, country_code4, "f")
+
+    fi_current <- loadStatsCsv(current_version, country, country_code4, "fi")
+    fi_previous <- loadStatsCsv(previous_version, country, country_code4, "fi")
+
+    fr_current <- loadStatsCsv(current_version, country, country_code4, "fr")
+    fr_previous <- loadStatsCsv(previous_version, country, country_code4, "fr")
+
+    g1_current <- loadStatsCsv(current_version, country, country_code4, "g1")
+    g1_previous <- loadStatsCsv(previous_version, country, country_code4, "g1")
+
+    g2_current <- loadStatsCsv(current_version, country, country_code4, "g2")
+    g2_previous <- loadStatsCsv(previous_version, country, country_code4, "g2")
+
+    g3_current <- loadStatsCsv(current_version, country, country_code4, "g3")
+    g3_previous <- loadStatsCsv(previous_version, country, country_code4, "g3")
+
+    g4_current <- loadStatsCsv(current_version, country, country_code4, "g4")
+    g4_previous <- loadStatsCsv(previous_version, country, country_code4, "g4")
+
+    g5_current <- loadStatsCsv(current_version, country, country_code4, "g5")
+    g5_previous <- loadStatsCsv(previous_version, country, country_code4, "g5")
+
+    g6_current <- loadStatsCsv(current_version, country, country_code4, "g6")
+    g6_previous <- loadStatsCsv(previous_version, country, country_code4, "g6")
+
+    gf_current <- loadStatsCsv(current_version, country, country_code4, "gf")
+    gf_previous <- loadStatsCsv(previous_version, country, country_code4, "gf")
+
+    lc_current <- loadStatsCsv(current_version, country, country_code4, "lc")
+    lc_previous <- loadStatsCsv(previous_version, country, country_code4, "lc")
+
+    lu_current <- loadStatsCsv(current_version, country, country_code4, "lu")
+    lu_previous <- loadStatsCsv(previous_version, country, country_code4, "lu")
+
+    nf_current <- loadStatsCsv(current_version, country, country_code4, "nf")
+    nf_previous <- loadStatsCsv(previous_version, country, country_code4, "nf")
+
+    ow_current <- loadStatsCsv(current_version, country, country_code4, "ow")
+    ow_previous <- loadStatsCsv(previous_version, country, country_code4, "ow")
+
+    p_current <- loadStatsCsv(current_version, country, country_code4, "p")
+    p_previous <- loadStatsCsv(previous_version, country, country_code4, "p")
+
+    pc_current <- loadStatsCsv(current_version, country, country_code4, "pc")
+    pc_previous <- loadStatsCsv(previous_version, country, country_code4, "pc")
+
+    pci_current <- loadStatsCsv(current_version, country, country_code4, "pci")
+    pci_previous <- loadStatsCsv(previous_version, country, country_code4, "pci")
+
+    pcp_current <- loadStatsCsv(current_version, country, country_code4, "pcp")
+    pcp_previous <- loadStatsCsv(previous_version, country, country_code4, "pcp")
+
+    pu_current <- loadStatsCsv(current_version, country, country_code4, "pu")
+    pu_previous <- loadStatsCsv(previous_version, country, country_code4, "pu")
+
+    r_current <- loadStatsCsv(current_version, country, country_code4, "r")
+    r_previous <- loadStatsCsv(previous_version, country, country_code4, "r")
+
+    re_current <- loadStatsCsv(current_version, country, country_code4, "re")
+    re_previous <- loadStatsCsv(previous_version, country, country_code4, "re")
+
+    s1_current <- loadStatsCsv(current_version, country, country_code4, "s1")
+    s1_previous <- loadStatsCsv(previous_version, country, country_code4, "s1")
+
+    s2_current <- loadStatsCsv(current_version, country, country_code4, "s2")
+    s2_previous <- loadStatsCsv(previous_version, country, country_code4, "s2")
+
+    s3_current <- loadStatsCsv(current_version, country, country_code4, "s3")
+    s3_previous <- loadStatsCsv(previous_version, country, country_code4, "s3")
+
+    s4_current <- loadStatsCsv(current_version, country, country_code4, "s4")
+    s4_previous <- loadStatsCsv(previous_version, country, country_code4, "s4")
+
+    s5_current <- loadStatsCsv(current_version, country, country_code4, "s5")
+    s5_previous <- loadStatsCsv(previous_version, country, country_code4, "s5")
+
+    s6_current <- loadStatsCsv(current_version, country, country_code4, "s6")
+    s6_previous <- loadStatsCsv(previous_version, country, country_code4, "s6")
+
+    st_current <- loadStatsCsv(current_version, country, country_code4, "st")
+    st_previous <- loadStatsCsv(previous_version, country, country_code4, "st")
+
+    u_current <- loadStatsCsv(current_version, country, country_code4, "u")
+    u_previous <- loadStatsCsv(previous_version, country, country_code4, "u")
+
+    wm_current <- loadStatsCsv(current_version, country, country_code4, "wm")
+    wm_previous <- loadStatsCsv(previous_version, country, country_code4, "wm")
+
+    w_current <- loadStatsCsv(current_version, country, country_code4, "w")
+    w_previous <- loadStatsCsv(previous_version, country, country_code4, "w")
+
+    zl_current <- loadStatsCsv(current_version, country, country_code4, "zl")
+    zl_previous <- loadStatsCsv(previous_version, country, country_code4, "zl")
+
+    zp_current <- loadStatsCsv(current_version, country, country_code4, "zp")
+    zp_previous <- loadStatsCsv(previous_version, country, country_code4, "zp")
+}
+
+
+# Navigation Field/Values
+nodes_total <- c(current = NA, previous = NA)
+restrictions_total <- c(current = NA, previous = NA)
+streets_total <- c(current = NA, previous = NA)
+STREET <- c(current = NA, previous = NA)
+STREET2 <- c(current = NA, previous = NA)
+STREET3 <- c(current = NA, previous = NA)
+STREET4 <- c(current = NA, previous = NA)
+FROMLEFT <- c(current = NA, previous = NA)
+TOLEFT <- c(current = NA, previous = NA)
+FROMRIGHT <- c(current = NA, previous = NA)
+TORIGHT <- c(current = NA, previous = NA)
+L_STRUCT_1 <- c(current = NA, previous = NA)
+L_STRUCT_2 <- c(current = NA, previous = NA)
+L_STRUCT_3 <- c(current = NA, previous = NA)
+L_STRUCT_4 <- c(current = NA, previous = NA)
+L_STRUCT_5 <- c(current = NA, previous = NA)
+L_STRUCT_6 <- c(current = NA, previous = NA)
+R_STRUCT_1 <- c(current = NA, previous = NA)
+R_STRUCT_2 <- c(current = NA, previous = NA)
+R_STRUCT_3 <- c(current = NA, previous = NA)
+R_STRUCT_4 <- c(current = NA, previous = NA)
+R_STRUCT_5 <- c(current = NA, previous = NA)
+R_STRUCT_6 <- c(current = NA, previous = NA)
+A1_LEFT <- c(current = NA, previous = NA)
+A1_RIGHT <- c(current = NA, previous = NA)
+LOCALITY_LEFT <- c(current = NA, previous = NA)
+LOCALITY_CODE_LEFT <- c(current = NA, previous = NA)
+LOCALITY_RIGHT <- c(current = NA, previous = NA)
+LOCALITY_CODE_RIGHT <- c(current = NA, previous = NA)
+PC_LEFT <- c(current = NA, previous = NA)
+PNAM_LEFT <- c(current = NA, previous = NA)
+PC_RIGHT <- c(current = NA, previous = NA)
+PNAM_RIGHT <- c(current = NA, previous = NA)
+ROUTE_NUM <- c(current = NA, previous = NA)
+AREA_TYPE_0 <- c(current = NA, previous = NA)
+AREA_TYPE_1 <- c(current = NA, previous = NA)
+ROAD_TYPE_D <- c(current = NA, previous = NA)
+ROAD_TYPE_S <- c(current = NA, previous = NA)
+SPEED <- c(current = NA, previous = NA)
+SPEED_VERIFIED <- c(current = NA, previous = NA)
+SPEED_AMPEAK <- c(current = NA, previous = NA)
+SPEED_PMPEAK <- c(current = NA, previous = NA)
+SPEED_INTERPEAK <- c(current = NA, previous = NA)
+SPEED_NIGHT <- c(current = NA, previous = NA)
+SPEED_SEVENDAY <- c(current = NA, previous = NA)
+ROUGHRD <- c(current = NA, previous = NA)
+SURFACE_TYPE_0 <- c(current = NA, previous = NA)
+SURFACE_TYPE_1 <- c(current = NA, previous = NA)
+SURFACE_TYPE_2 <- c(current = NA, previous = NA)
+SURFACE_TYPE_3 <- c(current = NA, previous = NA)
+MAX_HEIGHT <- c(current = NA, previous = NA)
+MAX_WIDTH <- c(current = NA, previous = NA)
+MAX_WEIGHT <- c(current = NA, previous = NA)
+ONEWAY_1 <- c(current = NA, previous = NA)
+ONEWAY_2 <- c(current = NA, previous = NA)
+ONEWAY_3 <- c(current = NA, previous = NA)
+ONEWAY_4 <- c(current = NA, previous = NA)
+ONEWAY_5 <- c(current = NA, previous = NA)
+ONEWAY_6 <- c(current = NA, previous = NA)
+TOLL_false <- c(current = NA, previous = NA)
+TOLL_true <- c(current = NA, previous = NA)
+Length_total <- c(current = NA, previous = NA)
+Length_A <- c(current = NA, previous = NA)
+Length_C <- c(current = NA, previous = NA)
+Length_D <- c(current = NA, previous = NA)
+Length_E <- c(current = NA, previous = NA)
+Length_F <- c(current = NA, previous = NA)
+Length_G <- c(current = NA, previous = NA)
+Length_H <- c(current = NA, previous = NA)
+Length_I <- c(current = NA, previous = NA)
+Length_L <- c(current = NA, previous = NA)
+Length_M <- c(current = NA, previous = NA)
+Length_N <- c(current = NA, previous = NA)
+Length_P <- c(current = NA, previous = NA)
+Length_Q <- c(current = NA, previous = NA)
+Length_R <- c(current = NA, previous = NA)
+Length_S <- c(current = NA, previous = NA)
+Length_T <- c(current = NA, previous = NA)
+Length_U <- c(current = NA, previous = NA)
+Length_W <- c(current = NA, previous = NA)
+Length_Z <- c(current = NA, previous = NA)
+streetsValuesList <- list(
+  streets_total,
+  STREET, STREET2, STREET3, STREET4,
+  FROMLEFT, TOLEFT, FROMRIGHT, TORIGHT,
+  L_STRUCT_1, L_STRUCT_2, L_STRUCT_3,
+  L_STRUCT_4, L_STRUCT_5, L_STRUCT_6,
+  R_STRUCT_1, R_STRUCT_2, R_STRUCT_3,
+  R_STRUCT_4, R_STRUCT_5, R_STRUCT_6,
+  A1_LEFT, A1_RIGHT, LOCALITY_LEFT, LOCALITY_CODE_LEFT,
+  LOCALITY_RIGHT, LOCALITY_CODE_RIGHT,
+  PC_LEFT, PNAM_LEFT, PC_RIGHT, PNAM_RIGHT,
+  AREA_TYPE_0, AREA_TYPE_1, ROAD_TYPE_D, ROAD_TYPE_S,
+  SPEED, SPEED_VERIFIED, SPEED_AMPEAK, SPEED_PMPEAK,
+  SPEED_INTERPEAK, SPEED_NIGHT, SPEED_SEVENDAY,
+  ROUGHRD, SURFACE_TYPE_0, SURFACE_TYPE_1, SURFACE_TYPE_2,
+  SURFACE_TYPE_3, MAX_HEIGHT, MAX_WIDTH, MAX_WEIGHT,
+  ONEWAY_1, ONEWAY_2, ONEWAY_3, ONEWAY_4, ONEWAY_5, ONEWAY_6,
+  ROUTE_NUM, TOLL_false, TOLL_true, Length_total, Length_A,
+  Length_C, Length_D, Length_E, Length_F, Length_G, Length_H,
+  Length_I, Length_L, Length_M, Length_N, Length_P, Length_Q,
+  Length_R, Length_S, Length_T, Length_U, Length_W, Length_Z)
+speed_profile_sets_total <- c(current = NA, previous = NA)
+
+if ((!is.null(state_codes)) && (!is.na(state_codes)) && (country_code3 == "usa" || country_code3 == "can")) {
+    # US/CAN Display and Classic Field/Values
+
+    airports_total <- c(current = NA, previous = NA)
+    cities_total <- c(current = NA, previous = NA)
+    expressways_total <- c(current = NA, previous = NA)
+    ferries_total <- c(current = NA, previous = NA)
+    gazetteer1_total <- c(current = NA, previous = NA)
+    gazetteer2_total <- c(current = NA, previous = NA)
+    gazetteer3_total <- c(current = NA, previous = NA)
+    gazetteer4_total <- c(current = NA, previous = NA)
+    gazetteer5_total <- c(current = NA, previous = NA)
+    gazetteer6_total <- c(current = NA, previous = NA)
+    gazetteer7_total <- c(current = NA, previous = NA)
+    geocode1_total <- c(current = NA, previous = NA)
+    geocode2_total <- c(current = NA, previous = NA)
+    sa_total <- c(current = NA, previous = NA)
+    landmarks_total <- c(current = NA, previous = NA)
+    landuse_total <- c(current = NA, previous = NA)
+    localhwys_med_total <- c(current = NA, previous = NA)
+    localrtes_total <- c(current = NA, previous = NA)
+    oneways_total <- c(current = NA, previous = NA)
+    primaryhwys_total <- c(current = NA, previous = NA)
+    primaryhwys_med_total <- c(current = NA, previous = NA)
+    railroads_total <- c(current = NA, previous = NA)
+    regionalhwys_total <- c(current = NA, previous = NA)
+    rivers_total <- c(current = NA, previous = NA)
+    secondaryhwys_total <- c(current = NA, previous = NA)
+    secondaryhwys_med_total <- c(current = NA, previous = NA)
+    signposts_total <- c(current = NA, previous = NA)
+    displaystreets_total <- c(current = NA, previous = NA)
+    urbanareas_total <- c(current = NA, previous = NA)
+    waterbodies_total <- c(current = NA, previous = NA)
+
+    Length_displaystreets <- c(current = NA, previous = NA)
+    Length_expressways <- c(current = NA, previous = NA)
+    Length_localrtes <- c(current = NA, previous = NA)
+    Length_primaryhwys <- c(current = NA, previous = NA)
+    Length_secondaryhwys <- c(current = NA, previous = NA)
+
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "usa")) {
+    # US only
+
+    counties_total <- c(current = NA, previous = NA)
+    shldco_0to5_total <- c(current = NA, previous = NA)
+    shldco_15to50_total <- c(current = NA, previous = NA)
+    shldco_5to15_total <- c(current = NA, previous = NA)
+    shldinter_0to5_total <- c(current = NA, previous = NA)
+    shldinter_15to50_total <- c(current = NA, previous = NA)
+    shldinter_5to15_total <- c(current = NA, previous = NA)
+    shldstate_0to5_total <- c(current = NA, previous = NA)
+    shldstate_15to50_total <- c(current = NA, previous = NA)
+    shldstate_5to15_total <- c(current = NA, previous = NA)
+    shldus_0to5_total <- c(current = NA, previous = NA)
+    shldus_15to50_total <- c(current = NA, previous = NA)
+    shldus_5to15_total <- c(current = NA, previous = NA)
+    towns_total <- c(current = NA, previous = NA)
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "can")) {
+    # CAN only
+
+    censusdivisions_total <- c(current = NA, previous = NA)
+    censussubdivisions_total <- c(current = NA, previous = NA)
+    shldprhwy_0to5_total <- c(current = NA, previous = NA)
+    shldprhwy_15to50_total <- c(current = NA, previous = NA)
+    shldprhwy_5to15_total <- c(current = NA, previous = NA)
+    shldtchwy_0to5_total <- c(current = NA, previous = NA)
+    shldtchwy_15to50_total <- c(current = NA, previous = NA)
+    shldtchwy_5to15_total <- c(current = NA, previous = NA)
+}
+
+if (!is.null(country_code4[[1]]) && !is.na(country_code4)) {
+    # EMEA Display and Classic Field/Values
+    a0_total <- c(current = NA, previous = NA)
+    a1_total <- c(current = NA, previous = NA)
+    a2_total <- c(current = NA, previous = NA)
+    a3_total <- c(current = NA, previous = NA)
+    a4_total <- c(current = NA, previous = NA)
+    a5_total <- c(current = NA, previous = NA)
+    aa_total <- c(current = NA, previous = NA)
+    ap_total <- c(current = NA, previous = NA)
+    b_total <- c(current = NA, previous = NA)
+    cr_total <- c(current = NA, previous = NA)
+    sa_total <- c(current = NA, previous = NA)
+    x1_total <- c(current = NA, previous = NA)
+    x2_total <- c(current = NA, previous = NA)
+    f_total <- c(current = NA, previous = NA)
+    fi_total <- c(current = NA, previous = NA)
+    fr_total <- c(current = NA, previous = NA)
+    g1_total <- c(current = NA, previous = NA)
+    g2_total <- c(current = NA, previous = NA)
+    g3_total <- c(current = NA, previous = NA)
+    g4_total <- c(current = NA, previous = NA)
+    g5_total <- c(current = NA, previous = NA)
+    g6_total <- c(current = NA, previous = NA)
+    gf_total <- c(current = NA, previous = NA)
+    lc_total <- c(current = NA, previous = NA)
+    lu_total <- c(current = NA, previous = NA)
+    nf_total <- c(current = NA, previous = NA)
+    ow_total <- c(current = NA, previous = NA)
+    p_total <- c(current = NA, previous = NA)
+    pc_total <- c(current = NA, previous = NA)
+    pci_total <- c(current = NA, previous = NA)
+    pcp_total <- c(current = NA, previous = NA)
+    pu_total <- c(current = NA, previous = NA)
+    r_total <- c(current = NA, previous = NA)
+    re_total <- c(current = NA, previous = NA)
+    s1_total <- c(current = NA, previous = NA)
+    s2_total <- c(current = NA, previous = NA)
+    s3_total <- c(current = NA, previous = NA)
+    s4_total <- c(current = NA, previous = NA)
+    s5_total <- c(current = NA, previous = NA)
+    s6_total <- c(current = NA, previous = NA)
+    st_total <- c(current = NA, previous = NA)
+    u_total <- c(current = NA, previous = NA)
+    wm_total <- c(current = NA, previous = NA)
+    w_total <- c(current = NA, previous = NA)
+    zl_total <- c(current = NA, previous = NA)
+    zp_total <- c(current = NA, previous = NA)
+
+    Length_s1 <- c(current = NA, previous = NA)
+    Length_s2 <- c(current = NA, previous = NA)
+    Length_s3 <- c(current = NA, previous = NA)
+    Length_s4 <- c(current = NA, previous = NA)
+    Length_s5 <- c(current = NA, previous = NA)
+    Length_s6 <- c(current = NA, previous = NA)
+}
+
+getNavStreetsValues <- function (ctx, valueList) {
+    streets_context <- switch(
+      ctx,
+      "current" = streets_current,
+      "previous" = streets_previous
+    )
+
+    valueIndex <- 0
+
+    for (c in list(streets_total,
+                   STREET, STREET2, STREET3, STREET4,
+                   FROMLEFT, TOLEFT, FROMRIGHT, TORIGHT,
+                   L_STRUCT_1, L_STRUCT_2, L_STRUCT_3,
+                   L_STRUCT_4, L_STRUCT_5, L_STRUCT_6,
+                   R_STRUCT_1, R_STRUCT_2, R_STRUCT_3,
+                   R_STRUCT_4, R_STRUCT_5, R_STRUCT_6,
+                   A1_LEFT, A1_RIGHT, LOCALITY_LEFT, LOCALITY_CODE_LEFT,
+                   LOCALITY_RIGHT, LOCALITY_CODE_RIGHT,
+                   PC_LEFT, PNAM_LEFT, PC_RIGHT, PNAM_RIGHT,
+                   AREA_TYPE_0, AREA_TYPE_1, ROAD_TYPE_D, ROAD_TYPE_S,
+                   SPEED, SPEED_VERIFIED, SPEED_AMPEAK, SPEED_PMPEAK,
+                   SPEED_INTERPEAK, SPEED_NIGHT, SPEED_SEVENDAY,
+                   ROUGHRD, SURFACE_TYPE_0, SURFACE_TYPE_1, SURFACE_TYPE_2,
+                   SURFACE_TYPE_3, MAX_HEIGHT, MAX_WIDTH, MAX_WEIGHT,
+                   ONEWAY_1, ONEWAY_2, ONEWAY_3, ONEWAY_4, ONEWAY_5, ONEWAY_6,
+                   ROUTE_NUM, TOLL_false, TOLL_true, Length_total, Length_A,
+                   Length_C, Length_D, Length_E, Length_F, Length_G, Length_H,
+                   Length_I, Length_L, Length_M, Length_N, Length_P, Length_Q,
+                   Length_R, Length_S, Length_T, Length_U, Length_W, Length_Z)
+    ) {
+        valueIndex <- (valueIndex + 1)
+        #print(paste0(valueIndex, ": ", valueList[valueIndex]))
+        c <- valueList[valueIndex]
+    }
+
+    for (c in c(1:length(streets_context[, 1]))) {
+        attr <- streets_context[c, 1]
+        value <- streets_context[c, 2]
+        if (!is.null(attr) && !is.na(attr)) {
+            sp_pattern <- paste0("(?:", country_code3, "_|", country_code4, "|\\s|SPEED_|MAX_|\\()(?:ROAD_CLASS\\:\\s)?([\\w]+\\)?)")
+            attr_match <- str_match(attr, sp_pattern)[,2]
+            # print(attr_match)
+
+            if (is.na(attr_match)) {
+                print(paste0("If attr match is NA, "))
+                switch(
+                    attr,
+                    "SPEED" = {
+                        print(paste0("then attr is 'SPEED': ", value))
+                        #attr_match <- c("SPEED")
+                        SPEED[ctx] <- value
+                    },
+                    "STREET" = {
+                        print(paste0("then attr is 'STREET': ", value))
+                        #attr_match <- c("STREET")
+                        STREET[ctx] <- value
+                    },
+                    "STREET2" = {
+                        print(paste0("then attr is 'STREET2': ", value))
+                        #attr_match <- c("STREET2")
+                        STREET2[ctx] <- value
+                    },
+                    "STREET3" = {
+                        print(paste0("then attr is 'STREET3': ", value))
+                        #attr_match <- c("STREET3")
+                        STREET3[ctx] <- value
+                    },
+                    "STREET4" = {
+                        print(paste0("then attr is 'STREET4': ", value))
+                        #attr_match <- c("STREET4")
+                        STREET4[ctx] <- value
+                    },
+                    "FROMLEFT" = {
+                        print(paste0("then attr is 'FROMLEFT': ", value))
+                        FROMLEFT[ctx] <- value
+                    },
+                    "TOLEFT" = {
+                        print(paste0("then attr is 'TOLEFT': ", value))
+                        TOLEFT[ctx] <- value
+                    },
+                    "FROMRIGHT" = {
+                        print(paste0("then attr is 'FROMRIGHT': ", value))
+                        FROMRIGHT[ctx] <- value
+                    },
+                    "TORIGHT" = {
+                        print(paste0("then attr is 'TORIGHT': ", value))
+                        TORIGHT[ctx] <- value
+                    },
+                    "A1_LEFT" = {
+                        print(paste0("then attr is 'A1_LEFT': ", value))
+                        A1_LEFT[ctx] <- value
+                    },
+                    "A1_RIGHT" = {
+                        print(paste0("then attr is 'A1_RIGHT': ", value))
+                        A1_RIGHT[ctx] <- value
+                    },
+                    "LOCALITY_LEFT" = {
+                        print(paste0("then attr is 'LOCALITY_LEFT': ", value))
+                        LOCALITY_LEFT[ctx] <- value
+                    },
+                    "LOCALITY_CODE_LEFT" = {
+                        print(paste0("then attr is 'LOCALITY_CODE_LEFT': ", value))
+                        LOCALITY_CODE_LEFT[ctx] <- value
+                    },
+                    "LOCALITY_RIGHT" = {
+                        print(paste0("then attr is 'LOCALITY_RIGHT': ", value))
+                        LOCALITY_RIGHT[ctx] <- value
+                    },
+                    "LOCALITY_CODE_RIGHT" = {
+                        print(paste0("then attr is 'LOCALITY_CODE_RIGHT': ", value))
+                        LOCALITY_CODE_RIGHT[ctx] <- value
+                    },
+                    "PC_LEFT" = {
+                        print(paste0("then attr is 'PC_LEFT': ", value))
+                        PC_LEFT[ctx] <- value
+                    },
+                    "PNAM_LEFT" = {
+                        print(paste0("then attr is 'PNAM_LEFT': ", value))
+                        PNAM_LEFT[ctx] <- value
+                    },
+                    "PC_RIGHT" = {
+                        print(paste0("then attr is 'PC_RIGHT': ", value))
+                        PC_RIGHT[ctx] <- value
+                    },
+                    "PNAM_RIGHT" = {
+                        print(paste0("then attr is 'PNAM_RIGHT': ", value))
+                        PNAM_RIGHT[ctx] <- value
+                    },
+                    "ROUTE_NUM" = {
+                        print(paste0("then attr is 'ROUTE_NUM': ", value))
+                        ROUTE_NUM[ctx] <- value
+                    },
+                    "ROUGHRD" = {
+                        print(paste0("then attr is 'ROUGHRD': ", value))
+                        ROUGHRD[ctx] <- value
+                    }
+                )
+            }
+
+            switch(
+                attr_match,
+                "streets" = { streets_total[ctx] <- value },
+                "VERIFIED" = { SPEED_VERIFIED[ctx] <- value },
+                "AMPEAK" = { SPEED_AMPEAK[ctx] <- value },
+                "PMPEAK" = { SPEED_PMPEAK[ctx] <- value },
+                "INTERPEAK" = { SPEED_INTERPEAK[ctx] <- value },
+                "NIGHT" = { SPEED_NIGHT[ctx] <- value },
+                "SEVENDAY" = { SPEED_SEVENDAY[ctx] <- value },
+                "HEIGHT" = { MAX_HEIGHT[ctx] <- value },
+                "WIDTH" = { MAX_WIDTH[ctx] <- value },
+                "WEIGHT" = { MAX_WEIGHT[ctx] <- value },
+                "0" = {
+                    switch(
+                        attr,
+                        "AREA_TYPE: 0" = { AREA_TYPE_0[ctx] <- value },
+                        "SURFACE_TYPE: 0" = { SURFACE_TYPE_0[ctx] <- value }
+                    )
+                },
+                "1" = {
+                    switch(
+                        attr,
+                        "AREA_TYPE: 1" = { AREA_TYPE_1[ctx] <- value },
+                        "L_STRUCT: 1" = { L_STRUCT_1[ctx] <- value },
+                        "R_STRUCT: 1" = { R_STRUCT_1[ctx] <- value },
+                        "ONEWAY: 1" = { ONEWAY_1[ctx] <- value },
+                        "SURFACE_TYPE: 1" = { SURFACE_TYPE_1[ctx] <- value }
+                    )
+                },
+                "2" = {
+                    switch(
+                        attr,
+                        "L_STRUCT: 2" = { L_STRUCT_2[ctx] <- value },
+                        "R_STRUCT: 2" = { R_STRUCT_2[ctx] <- value },
+                        "ONEWAY: 2" = { ONEWAY_2[ctx] <- value },
+                        "SURFACE_TYPE: 2" = { SURFACE_TYPE_2[ctx] <- value }
+                    )
+                },
+                "3" = {
+                    switch(
+                        attr,
+                        "L_STRUCT: 3" = { L_STRUCT_3[ctx] <- value },
+                        "R_STRUCT: 3" = { R_STRUCT_3[ctx] <- value },
+                        "ONEWAY: 3" = { ONEWAY_3[ctx] <- value },
+                        "SURFACE_TYPE: 3" = { SURFACE_TYPE_3[ctx] <- value }
+                    )
+                },
+                "4" = {
+                    switch(
+                        attr,
+                        "L_STRUCT: 4" = { L_STRUCT_4[ctx] <- value },
+                        "R_STRUCT: 4" = { R_STRUCT_4[ctx] <- value },
+                        "ONEWAY: 4" = { ONEWAY_4[ctx] <- value }
+                    )
+                },
+                "5" = {
+                    switch(
+                        attr,
+                        "L_STRUCT: 5" = { L_STRUCT_5[ctx] <- value },
+                        "R_STRUCT: 5" = { R_STRUCT_5[ctx] <- value },
+                        "ONEWAY: 5" = { ONEWAY_5[ctx] <- value }
+                    )
+                },
+                "6" = {
+                    switch(
+                        attr,
+                        "L_STRUCT: 6" = { L_STRUCT_6[ctx] <- value },
+                        "R_STRUCT: 6" = { R_STRUCT_6[ctx] <- value },
+                        "ONEWAY: 6" = { ONEWAY_6[ctx] <- value }
+                    )
+                },
+                "D" = { ROAD_TYPE_D[ctx] <- value },   # ROAD_TYPE: D
+                "S" = { ROAD_TYPE_S[ctx] <- value },   # ROAD_TYPE: S
+                "false" = { TOLL_false[ctx] <- value },   # TOLL: false
+                "true" = { TOLL_true[ctx] <- value },     # TOLL: true
+                "total)" = { Length_total[ctx] <- value }, # Length: ...
+                "A)" = { Length_A[ctx] <- value },
+                "C)" = { Length_C[ctx] <- value },
+                "D)" = { Length_D[ctx] <- value },
+                "E)" = { Length_E[ctx] <- value },
+                "F)" = { Length_F[ctx] <- value },
+                "G)" = { Length_G[ctx] <- value },
+                "H)" = { Length_H[ctx] <- value },
+                "I)" = { Length_I[ctx] <- value },
+                "L)" = { Length_L[ctx] <- value },
+                "M)" = { Length_M[ctx] <- value },
+                "N)" = { Length_N[ctx] <- value },
+                "P)" = { Length_P[ctx] <- value },
+                "Q)" = { Length_Q[ctx] <- value },
+                "R)" = { Length_R[ctx] <- value },
+                "S)" = { Length_S[ctx] <- value },
+                "T)" = { Length_T[ctx] <- value },
+                "U)" = { Length_U[ctx] <- value },
+                "W)" = { Length_W[ctx] <- value },
+                "Z)" = { Length_Z[ctx] <- value }
+            )
+        }
+    }
+
+    list(streets_total,
+         STREET, STREET2, STREET3, STREET4,
+         FROMLEFT, TOLEFT, FROMRIGHT, TORIGHT,
+         L_STRUCT_1, L_STRUCT_2, L_STRUCT_3,
+         L_STRUCT_4, L_STRUCT_5, L_STRUCT_6,
+         R_STRUCT_1, R_STRUCT_2, R_STRUCT_3,
+         R_STRUCT_4, R_STRUCT_5, R_STRUCT_6,
+         A1_LEFT, A1_RIGHT, LOCALITY_LEFT, LOCALITY_CODE_LEFT,
+         LOCALITY_RIGHT, LOCALITY_CODE_RIGHT,
+         PC_LEFT, PNAM_LEFT, PC_RIGHT, PNAM_RIGHT,
+         AREA_TYPE_0, AREA_TYPE_1, ROAD_TYPE_D, ROAD_TYPE_S,
+         SPEED, SPEED_VERIFIED, SPEED_AMPEAK, SPEED_PMPEAK,
+         SPEED_INTERPEAK, SPEED_NIGHT, SPEED_SEVENDAY,
+         ROUGHRD, SURFACE_TYPE_0, SURFACE_TYPE_1, SURFACE_TYPE_2,
+         SURFACE_TYPE_3, MAX_HEIGHT, MAX_WIDTH, MAX_WEIGHT,
+         ONEWAY_1, ONEWAY_2, ONEWAY_3, ONEWAY_4, ONEWAY_5, ONEWAY_6,
+         ROUTE_NUM, TOLL_false, TOLL_true, Length_total, Length_A,
+         Length_C, Length_D, Length_E, Length_F, Length_G, Length_H,
+         Length_I, Length_L, Length_M, Length_N, Length_P, Length_Q,
+         Length_R, Length_S, Length_T, Length_U, Length_W, Length_Z)
+}
+
+getStatValue <- function (stat_frame, layer_name) {
+    value <- c(NA)
+    for (c in c(1:length(stat_frame[, 1]))) {
+        attr <- stat_frame[c, 1]
+        if (!is.null(attr) && !is.na(attr) && grepl(layer_name, attr)) {
+            value <- stat_frame[c, 2]
+        }
+    }
+    value
+}
+
+getStatLength <- function (stat_frame) {
+    stat_length <- c(NA)
+    for (c in c(1:length(stat_frame[, 1]))) {
+        attr <- stat_frame[c, 1]
+        value <- stat_frame[c, 2]
+        if (!is.null(attr) && !is.na(attr)) {
+            sp_pattern <- paste0("(?:", country_code3, "_|", country_code4, "|\\s|SPEED_|MAX_|\\()(?:ROAD_CLASS\\:\\s)?([\\w]+)\\)?")
+            attr_match <- str_match(attr, sp_pattern)[,2]
+            print(attr_match)
+
+            if (!is.null(attr_match) && !is.na(attr_match) && attr_match == "total") {
+                stat_length <- value
+            }
+        }
+    }
+
+    stat_length
+}
+
+print(length(streets_current[1]))
+print(names(streets_current[1]))
+
+# Get current counts
+context <- "current"
+nodes_total[context] <- getStatValue(nodes_current, "nodes")
+restrictions_total[context] <- getStatValue(restrictions_current, "restrictions")
+streetsValuesList <- getNavStreetsValues(context, streetsValuesList)
+streets_total[context] <- streetsValuesList[[1]][context]
+STREET[context] <- streetsValuesList[[2]][context]
+STREET2[context] <- streetsValuesList[[3]][context]
+STREET3[context] <- streetsValuesList[[4]][context]
+STREET4[context] <- streetsValuesList[[5]][context]
+FROMLEFT[context] <- streetsValuesList[[6]][context]
+TOLEFT[context] <- streetsValuesList[[7]][context]
+FROMRIGHT[context] <- streetsValuesList[[8]][context]
+TORIGHT[context] <- streetsValuesList[[9]][context]
+L_STRUCT_1[context] <- streetsValuesList[[10]][context]
+L_STRUCT_2[context] <- streetsValuesList[[11]][context]
+L_STRUCT_3[context] <- streetsValuesList[[12]][context]
+L_STRUCT_4[context] <- streetsValuesList[[13]][context]
+L_STRUCT_5[context] <- streetsValuesList[[14]][context]
+L_STRUCT_6[context] <- streetsValuesList[[15]][context]
+R_STRUCT_1[context] <- streetsValuesList[[16]][context]
+R_STRUCT_2[context] <- streetsValuesList[[17]][context]
+R_STRUCT_3[context] <- streetsValuesList[[18]][context]
+R_STRUCT_4[context] <- streetsValuesList[[19]][context]
+R_STRUCT_5[context] <- streetsValuesList[[20]][context]
+R_STRUCT_6[context] <- streetsValuesList[[21]][context]
+A1_LEFT[context] <- streetsValuesList[[22]][context]
+A1_RIGHT[context] <- streetsValuesList[[23]][context]
+LOCALITY_LEFT[context] <- streetsValuesList[[24]][context]
+LOCALITY_CODE_LEFT[context] <- streetsValuesList[[25]][context]
+LOCALITY_RIGHT[context] <- streetsValuesList[[26]][context]
+LOCALITY_CODE_RIGHT[context] <- streetsValuesList[[27]][context]
+PC_LEFT[context] <- streetsValuesList[[28]][context]
+PNAM_LEFT[context] <- streetsValuesList[[29]][context]
+PC_RIGHT[context] <- streetsValuesList[[30]][context]
+PNAM_RIGHT[context] <- streetsValuesList[[31]][context]
+AREA_TYPE_0[context] <- streetsValuesList[[32]][context]
+AREA_TYPE_1[context] <- streetsValuesList[[33]][context]
+ROAD_TYPE_D[context] <- streetsValuesList[[34]][context]
+ROAD_TYPE_S[context] <- streetsValuesList[[35]][context]
+SPEED[context] <- streetsValuesList[[36]][context]
+SPEED_VERIFIED[context] <- streetsValuesList[[37]][context]
+SPEED_AMPEAK[context] <- streetsValuesList[[38]][context]
+SPEED_PMPEAK[context] <- streetsValuesList[[39]][context]
+SPEED_INTERPEAK[context] <- streetsValuesList[[40]][context]
+SPEED_NIGHT[context] <- streetsValuesList[[41]][context]
+SPEED_SEVENDAY[context] <- streetsValuesList[[42]][context]
+ROUGHRD[context] <- streetsValuesList[[43]][context]
+SURFACE_TYPE_0[context] <- streetsValuesList[[44]][context]
+SURFACE_TYPE_1[context] <- streetsValuesList[[45]][context]
+SURFACE_TYPE_2[context] <- streetsValuesList[[46]][context]
+SURFACE_TYPE_3[context] <- streetsValuesList[[47]][context]
+MAX_HEIGHT[context] <- streetsValuesList[[48]][context]
+MAX_WIDTH[context] <- streetsValuesList[[49]][context]
+MAX_WEIGHT[context] <- streetsValuesList[[50]][context]
+ONEWAY_1[context] <- streetsValuesList[[51]][context]
+ONEWAY_2[context] <- streetsValuesList[[52]][context]
+ONEWAY_3[context] <- streetsValuesList[[53]][context]
+ONEWAY_4[context] <- streetsValuesList[[54]][context]
+ONEWAY_5[context] <- streetsValuesList[[55]][context]
+ONEWAY_6[context] <- streetsValuesList[[56]][context]
+ROUTE_NUM[context] <- streetsValuesList[[57]][context]
+TOLL_false[context] <- streetsValuesList[[58]][context]
+TOLL_true[context] <- streetsValuesList[[59]][context]
+Length_total[context] <- streetsValuesList[[60]][context]
+Length_A[context] <- streetsValuesList[[61]][context]
+Length_C[context] <- streetsValuesList[[62]][context]
+Length_D[context] <- streetsValuesList[[63]][context]
+Length_E[context] <- streetsValuesList[[64]][context]
+Length_F[context] <- streetsValuesList[[65]][context]
+Length_G[context] <- streetsValuesList[[66]][context]
+Length_H[context] <- streetsValuesList[[67]][context]
+Length_I[context] <- streetsValuesList[[68]][context]
+Length_L[context] <- streetsValuesList[[69]][context]
+Length_M[context] <- streetsValuesList[[70]][context]
+Length_N[context] <- streetsValuesList[[71]][context]
+Length_P[context] <- streetsValuesList[[72]][context]
+Length_Q[context] <- streetsValuesList[[73]][context]
+Length_R[context] <- streetsValuesList[[74]][context]
+Length_S[context] <- streetsValuesList[[75]][context]
+Length_T[context] <- streetsValuesList[[76]][context]
+Length_U[context] <- streetsValuesList[[77]][context]
+Length_W[context] <- streetsValuesList[[78]][context]
+Length_Z[context] <- streetsValuesList[[79]][context]
+speed_profile_sets_total[context] <- getStatValue(speed_profile_sets_current, "speed_profile_sets")
+
+if ((!is.null(state_codes)) && (!is.na(state_codes)) && (country_code3 == "usa" || country_code3 == "can")) {
+    airports_total[context] <- getStatValue(airports_current, "airports")
+    cities_total[context] <- getStatValue(cities_current, "cities")
+    expressways_total[context] <- getStatValue(expressways_current, "expressways")
+    ferries_total[context] <- getStatValue(ferries_current, "ferries")
+    gazetteer1_total[context] <- getStatValue(gazetteer1_current, "gazetteer1")
+    gazetteer2_total[context] <- getStatValue(gazetteer2_current, "gazetteer2")
+    gazetteer3_total[context] <- getStatValue(gazetteer3_current, "gazetteer3")
+    gazetteer4_total[context] <- getStatValue(gazetteer4_current, "gazetteer4")
+    gazetteer5_total[context] <- getStatValue(gazetteer5_current, "gazetteer5")
+    gazetteer6_total[context] <- getStatValue(gazetteer6_current, "gazetteer6")
+    gazetteer7_total[context] <- getStatValue(gazetteer7_current, "gazetteer7")
+    geocode1_total[context] <- getStatValue(geocode1_current, "geocode1")
+    geocode2_total[context] <- getStatValue(geocode2_current, "geocode2")
+    sa_total[context] <- getStatValue(sa_current, "sa")
+    landmarks_total[context] <- getStatValue(landmarks_current, "landmarks")
+    landuse_total[context] <- getStatValue(landuse_current, "landuse")
+    localhwys_med_total[context] <- getStatValue(localhwys_med_current, "localhwys_med")
+    localrtes_total[context] <- getStatValue(localrtes_current, "localrtes")
+    oneways_total[context] <- getStatValue(oneways_current, "oneways")
+    primaryhwys_total[context] <- getStatValue(primaryhwys_current, "primaryhwys")
+    primaryhwys_med_total[context] <- getStatValue(primaryhwys_med_current, "primaryhwys_med")
+    railroads_total[context] <- getStatValue(railroads_current, "railroads")
+    regionalhwys_total[context] <- getStatValue(regionalhwys_current, "regionalhwys")
+    rivers_total[context] <- getStatValue(rivers_current, "rivers")
+    secondaryhwys_total[context] <- getStatValue(secondaryhwys_current, "secondaryhwys")
+    secondaryhwys_med_total[context] <- getStatValue(secondaryhwys_med_current, "secondaryhwys_med")
+    signposts_total[context] <- getStatValue(signposts_current, "signposts")
+    displaystreets_total[context] <- getStatValue(displaystreets_current, "streets")
+    urbanareas_total[context] <- getStatValue(urbanareas_current, "urbanareas")
+    waterbodies_total[context] <- getStatValue(waterbodies_current, "waterbodies")
+
+    Length_displaystreets[context] <- getStatLength(displaystreets_current)
+    Length_expressways[context] <- getStatLength(expressways_current)
+    Length_localrtes[context] <- getStatLength(localrtes_current)
+    Length_primaryhwys[context] <- getStatLength(primaryhwys_current)
+    Length_secondaryhwys[context] <- getStatLength(secondaryhwys_current)
+
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "usa")) {
+    # US only
+
+    counties_total[context] <- getStatValue(counties_current, "counties")
+    shldco_0to5_total[context] <- getStatValue(shldco_0to5_current, "shldco_0to5")
+    shldco_5to15_total[context] <- getStatValue(shldco_5to15_current, "shldco_5to15")
+    shldco_15to50_total[context] <- getStatValue(shldco_15to50_current, "shldco_15to50")
+    shldinter_0to5_total[context] <- getStatValue(shldinter_0to5_current, "shldinter_0to5")
+    shldinter_5to15_total[context] <- getStatValue(shldinter_5to15_current, "shldinter_5to15")
+    shldinter_15to50_total[context] <- getStatValue(shldinter_15to50_current, "shldinter_15to50")
+    shldstate_0to5_total[context] <- getStatValue(shldstate_0to5_current, "shldstate_0to5")
+    shldstate_5to15_total[context] <- getStatValue(shldstate_5to15_current, "shldstate_5to15")
+    shldstate_15to50_total[context] <- getStatValue(shldstate_15to50_current, "shldstate_15to50")
+    shldus_0to5_total[context] <- getStatValue(shldus_0to5_current, "shldus_0to5")
+    shldus_5to15_total[context] <- getStatValue(shldus_5to15_current, "shldus_5to15")
+    shldus_15to50_total[context] <- getStatValue(shldus_15to50_current, "shldus_15to50")
+    towns_total[context] <- getStatValue(towns_current, "towns")
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "can")) {
+    # CAN only
+
+    censusdivisions_total[context] <- getStatValue(censusdivisions_current, "censusdivisions")
+    censussubdivisions_total[context] <- getStatValue(censussubdivisions_current, "censussubdivisions")
+    shldprhwy_0to5_total[context] <- getStatValue(shldprhwy_0to5_current, "shldprhwy_0to5")
+    shldprhwy_5to15_total[context] <- getStatValue(shldprhwy_5to15_current, "shldprhwy_5to15")
+    shldprhwy_15to50_total[context] <- getStatValue(shldprhwy_15to50_current, "shldprhwy_15to50")
+    shldtchwy_0to5_total[context] <- getStatValue(shldtchwy_0to5_current, "shldtchwy_0to5")
+    shldtchwy_5to15_total[context] <- getStatValue(shldtchwy_5to15_current, "shldtchwy_5to15")
+    shldtchwy_15to50_total[context] <- getStatValue(shldtchwy_15to50_current, "shldtchwy_15to50")
+}
+
+if (!is.null(country_code4[[1]]) && !is.na(country_code4)) {
+    a0_total[context] <- getStatValue(a0_current, "a0")
+    a1_total[context] <- getStatValue(a1_current, "a1")
+    a2_total[context] <- getStatValue(a2_current, "a2")
+    a3_total[context] <- getStatValue(a3_current, "a3")
+    a4_total[context] <- getStatValue(a4_current, "a4")
+    a5_total[context] <- getStatValue(a5_current, "a5")
+    aa_total[context] <- getStatValue(aa_current, "aa")
+    ap_total[context] <- getStatValue(ap_current, "ap")
+    b_total[context] <- getStatValue(b_current, "b")
+    cr_total[context] <- getStatValue(cr_current, "cr")
+    sa_total[context] <- getStatValue(sa_current, "sa")
+    x1_total[context] <- getStatValue(x1_current, "x1")
+    x2_total[context] <- getStatValue(x2_current, "x2")
+    f_total[context] <- getStatValue(f_current, "f")
+    fi_total[context] <- getStatValue(fi_current, "fi")
+    fr_total[context] <- getStatValue(fr_current, "fr")
+    g1_total[context] <- getStatValue(g1_current, "g1")
+    g2_total[context] <- getStatValue(g2_current, "g2")
+    g3_total[context] <- getStatValue(g3_current, "g3")
+    g4_total[context] <- getStatValue(g4_current, "g4")
+    g5_total[context] <- getStatValue(g5_current, "g5")
+    g6_total[context] <- getStatValue(g6_current, "g6")
+    gf_total[context] <- getStatValue(gf_current, "gf")
+    lc_total[context] <- getStatValue(lc_current, "lc")
+    lu_total[context] <- getStatValue(lu_current, "lu")
+    nf_total[context] <- getStatValue(nf_current, "nf")
+    ow_total[context] <- getStatValue(ow_current, "ow")
+    p_total[context] <- getStatValue(p_current, "p")
+    pc_total[context] <- getStatValue(pc_current, "pc")
+    pci_total[context] <- getStatValue(pci_current, "pci")
+    pcp_total[context] <- getStatValue(pcp_current, "pcp")
+    pu_total[context] <- getStatValue(pu_current, "pu")
+    r_total[context] <- getStatValue(r_current, "r")
+    re_total[context] <- getStatValue(re_current, "re")
+    s1_total[context] <- getStatValue(s1_current, "s1")
+    s2_total[context] <- getStatValue(s2_current, "s2")
+    s3_total[context] <- getStatValue(s3_current, "s3")
+    s4_total[context] <- getStatValue(s4_current, "s4")
+    s5_total[context] <- getStatValue(s5_current, "s5")
+    s6_total[context] <- getStatValue(s6_current, "s6")
+    st_total[context] <- getStatValue(st_current, "st")
+    u_total[context] <- getStatValue(u_current, "u")
+    wm_total[context] <- getStatValue(wm_current, "wm")
+    w_total[context] <- getStatValue(w_current, "w")
+    zl_total[context] <- getStatValue(zl_current, "zl")
+    zp_total[context] <- getStatValue(zp_current, "zp")
+
+    Length_s1[context] <- getStatLength(s1_current)
+    Length_s2[context] <- getStatLength(s2_current)
+    Length_s3[context] <- getStatLength(s3_current)
+    Length_s4[context] <- getStatLength(s4_current)
+    Length_s5[context] <- getStatLength(s5_current)
+    Length_s6[context] <- getStatLength(s6_current)
+}
+
+print(length(streets_previous[1]))
+print(names(streets_previous[1]))
+
+# Get previous counts
+context <- "previous"
+nodes_total[context] <- getStatValue(nodes_previous, "nodes")
+restrictions_total[context] <- getStatValue(restrictions_previous, "restrictions")
+streetsValuesList <- getNavStreetsValues(context, streetsValuesList)
+streets_total[context] <- streetsValuesList[[1]][context]
+STREET[context] <- streetsValuesList[[2]][context]
+STREET2[context] <- streetsValuesList[[3]][context]
+STREET3[context] <- streetsValuesList[[4]][context]
+STREET4[context] <- streetsValuesList[[5]][context]
+FROMLEFT[context] <- streetsValuesList[[6]][context]
+TOLEFT[context] <- streetsValuesList[[7]][context]
+FROMRIGHT[context] <- streetsValuesList[[8]][context]
+TORIGHT[context] <- streetsValuesList[[9]][context]
+L_STRUCT_1[context] <- streetsValuesList[[10]][context]
+L_STRUCT_2[context] <- streetsValuesList[[11]][context]
+L_STRUCT_3[context] <- streetsValuesList[[12]][context]
+L_STRUCT_4[context] <- streetsValuesList[[13]][context]
+L_STRUCT_5[context] <- streetsValuesList[[14]][context]
+L_STRUCT_6[context] <- streetsValuesList[[15]][context]
+R_STRUCT_1[context] <- streetsValuesList[[16]][context]
+R_STRUCT_2[context] <- streetsValuesList[[17]][context]
+R_STRUCT_3[context] <- streetsValuesList[[18]][context]
+R_STRUCT_4[context] <- streetsValuesList[[19]][context]
+R_STRUCT_5[context] <- streetsValuesList[[20]][context]
+R_STRUCT_6[context] <- streetsValuesList[[21]][context]
+A1_LEFT[context] <- streetsValuesList[[22]][context]
+A1_RIGHT[context] <- streetsValuesList[[23]][context]
+LOCALITY_LEFT[context] <- streetsValuesList[[24]][context]
+LOCALITY_CODE_LEFT[context] <- streetsValuesList[[25]][context]
+LOCALITY_RIGHT[context] <- streetsValuesList[[26]][context]
+LOCALITY_CODE_RIGHT[context] <- streetsValuesList[[27]][context]
+PC_LEFT[context] <- streetsValuesList[[28]][context]
+PNAM_LEFT[context] <- streetsValuesList[[29]][context]
+PC_RIGHT[context] <- streetsValuesList[[30]][context]
+PNAM_RIGHT[context] <- streetsValuesList[[31]][context]
+AREA_TYPE_0[context] <- streetsValuesList[[32]][context]
+AREA_TYPE_1[context] <- streetsValuesList[[33]][context]
+ROAD_TYPE_D[context] <- streetsValuesList[[34]][context]
+ROAD_TYPE_S[context] <- streetsValuesList[[35]][context]
+SPEED[context] <- streetsValuesList[[36]][context]
+SPEED_VERIFIED[context] <- streetsValuesList[[37]][context]
+SPEED_AMPEAK[context] <- streetsValuesList[[38]][context]
+SPEED_PMPEAK[context] <- streetsValuesList[[39]][context]
+SPEED_INTERPEAK[context] <- streetsValuesList[[40]][context]
+SPEED_NIGHT[context] <- streetsValuesList[[41]][context]
+SPEED_SEVENDAY[context] <- streetsValuesList[[42]][context]
+ROUGHRD[context] <- streetsValuesList[[43]][context]
+SURFACE_TYPE_0[context] <- streetsValuesList[[44]][context]
+SURFACE_TYPE_1[context] <- streetsValuesList[[45]][context]
+SURFACE_TYPE_2[context] <- streetsValuesList[[46]][context]
+SURFACE_TYPE_3[context] <- streetsValuesList[[47]][context]
+MAX_HEIGHT[context] <- streetsValuesList[[48]][context]
+MAX_WIDTH[context] <- streetsValuesList[[49]][context]
+MAX_WEIGHT[context] <- streetsValuesList[[50]][context]
+ONEWAY_1[context] <- streetsValuesList[[51]][context]
+ONEWAY_2[context] <- streetsValuesList[[52]][context]
+ONEWAY_3[context] <- streetsValuesList[[53]][context]
+ONEWAY_4[context] <- streetsValuesList[[54]][context]
+ONEWAY_5[context] <- streetsValuesList[[55]][context]
+ONEWAY_6[context] <- streetsValuesList[[56]][context]
+ROUTE_NUM[context] <- streetsValuesList[[57]][context]
+TOLL_false[context] <- streetsValuesList[[58]][context]
+TOLL_true[context] <- streetsValuesList[[59]][context]
+Length_total[context] <- streetsValuesList[[60]][context]
+Length_A[context] <- streetsValuesList[[61]][context]
+Length_C[context] <- streetsValuesList[[62]][context]
+Length_D[context] <- streetsValuesList[[63]][context]
+Length_E[context] <- streetsValuesList[[64]][context]
+Length_F[context] <- streetsValuesList[[65]][context]
+Length_G[context] <- streetsValuesList[[66]][context]
+Length_H[context] <- streetsValuesList[[67]][context]
+Length_I[context] <- streetsValuesList[[68]][context]
+Length_L[context] <- streetsValuesList[[69]][context]
+Length_M[context] <- streetsValuesList[[70]][context]
+Length_N[context] <- streetsValuesList[[71]][context]
+Length_P[context] <- streetsValuesList[[72]][context]
+Length_Q[context] <- streetsValuesList[[73]][context]
+Length_R[context] <- streetsValuesList[[74]][context]
+Length_S[context] <- streetsValuesList[[75]][context]
+Length_T[context] <- streetsValuesList[[76]][context]
+Length_U[context] <- streetsValuesList[[77]][context]
+Length_W[context] <- streetsValuesList[[78]][context]
+Length_Z[context] <- streetsValuesList[[79]][context]
+speed_profile_sets_total[context] <- getStatValue(speed_profile_sets_previous, "speed_profile_sets")
+
+if ((!is.null(state_codes)) && (!is.na(state_codes)) && (country_code3 == "usa" || country_code3 == "can")) {
+    airports_total[context] <- getStatValue(airports_previous, "airports")
+    cities_total[context] <- getStatValue(cities_previous, "cities")
+    expressways_total[context] <- getStatValue(expressways_previous, "expressways")
+    ferries_total[context] <- getStatValue(ferries_previous, "ferries")
+    gazetteer1_total[context] <- getStatValue(gazetteer1_previous, "gazetteer1")
+    gazetteer2_total[context] <- getStatValue(gazetteer2_previous, "gazetteer2")
+    gazetteer3_total[context] <- getStatValue(gazetteer3_previous, "gazetteer3")
+    gazetteer4_total[context] <- getStatValue(gazetteer4_previous, "gazetteer4")
+    gazetteer5_total[context] <- getStatValue(gazetteer5_previous, "gazetteer5")
+    gazetteer6_total[context] <- getStatValue(gazetteer6_previous, "gazetteer6")
+    gazetteer7_total[context] <- getStatValue(gazetteer7_previous, "gazetteer7")
+    geocode1_total[context] <- getStatValue(geocode1_previous, "geocode1")
+    geocode2_total[context] <- getStatValue(geocode2_previous, "geocode2")
+    sa_total[context] <- getStatValue(sa_previous, "sa")
+    landmarks_total[context] <- getStatValue(landmarks_previous, "landmarks")
+    landuse_total[context] <- getStatValue(landuse_previous, "landuse")
+    localhwys_med_total[context] <- getStatValue(localhwys_med_previous, "localhwys_med")
+    localrtes_total[context] <- getStatValue(localrtes_previous, "localrtes")
+    oneways_total[context] <- getStatValue(oneways_previous, "oneways")
+    primaryhwys_total[context] <- getStatValue(primaryhwys_previous, "primaryhwys")
+    primaryhwys_med_total[context] <- getStatValue(primaryhwys_med_previous, "primaryhwys_med")
+    railroads_total[context] <- getStatValue(railroads_previous, "railroads")
+    regionalhwys_total[context] <- getStatValue(regionalhwys_previous, "regionalhwys")
+    rivers_total[context] <- getStatValue(rivers_previous, "rivers")
+    secondaryhwys_total[context] <- getStatValue(secondaryhwys_previous, "secondaryhwys")
+    secondaryhwys_med_total[context] <- getStatValue(secondaryhwys_med_previous, "secondaryhwys_med")
+    signposts_total[context] <- getStatValue(signposts_previous, "signposts")
+    displaystreets_total[context] <- getStatValue(displaystreets_previous, "streets")
+    urbanareas_total[context] <- getStatValue(urbanareas_previous, "urbanareas")
+    waterbodies_total[context] <- getStatValue(waterbodies_previous, "waterbodies")
+
+    Length_displaystreets[context] <- getStatLength(displaystreets_previous)
+    Length_expressways[context] <- getStatLength(expressways_previous)
+    Length_localrtes[context] <- getStatLength(localrtes_previous)
+    Length_primaryhwys[context] <- getStatLength(primaryhwys_previous)
+    Length_secondaryhwys[context] <- getStatLength(secondaryhwys_previous)
+
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "usa")) {
+    # US only
+
+    counties_total[context] <- getStatValue(counties_previous, "counties")
+    shldco_0to5_total[context] <- getStatValue(shldco_0to5_previous, "shldco_0to5")
+    shldco_5to15_total[context] <- getStatValue(shldco_5to15_previous, "shldco_5to15")
+    shldco_15to50_total[context] <- getStatValue(shldco_15to50_previous, "shldco_15to50")
+    shldinter_0to5_total[context] <- getStatValue(shldinter_0to5_previous, "shldinter_0to5")
+    shldinter_5to15_total[context] <- getStatValue(shldinter_5to15_previous, "shldinter_5to15")
+    shldinter_15to50_total[context] <- getStatValue(shldinter_15to50_previous, "shldinter_15to50")
+    shldstate_0to5_total[context] <- getStatValue(shldstate_0to5_previous, "shldstate_0to5")
+    shldstate_5to15_total[context] <- getStatValue(shldstate_5to15_previous, "shldstate_5to15")
+    shldstate_15to50_total[context] <- getStatValue(shldstate_15to50_previous, "shldstate_15to50")
+    shldus_0to5_total[context] <- getStatValue(shldus_0to5_previous, "shldus_0to5")
+    shldus_5to15_total[context] <- getStatValue(shldus_5to15_previous, "shldus_5to15")
+    shldus_15to50_total[context] <- getStatValue(shldus_15to50_previous, "shldus_15to50")
+    towns_total[context] <- getStatValue(towns_previous, "towns")
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "can")) {
+    # CAN only
+
+    censusdivisions_total[context] <- getStatValue(censusdivisions_previous, "censusdivisions")
+    censussubdivisions_total[context] <- getStatValue(censussubdivisions_previous, "censussubdivisions")
+    shldprhwy_0to5_total[context] <- getStatValue(shldprhwy_0to5_previous, "shldprhwy_0to5")
+    shldprhwy_5to15_total[context] <- getStatValue(shldprhwy_5to15_previous, "shldprhwy_5to15")
+    shldprhwy_15to50_total[context] <- getStatValue(shldprhwy_15to50_previous, "shldprhwy_15to50")
+    shldtchwy_0to5_total[context] <- getStatValue(shldtchwy_0to5_previous, "shldtchwy_0to5")
+    shldtchwy_5to15_total[context] <- getStatValue(shldtchwy_5to15_previous, "shldtchwy_5to15")
+    shldtchwy_15to50_total[context] <- getStatValue(shldtchwy_15to50_previous, "shldtchwy_15to50")
+}
+
+if (!is.null(country_code4[[1]]) && !is.na(country_code4)) {
+    a0_total[context] <- getStatValue(a0_previous, "a0")
+    a1_total[context] <- getStatValue(a1_previous, "a1")
+    a2_total[context] <- getStatValue(a2_previous, "a2")
+    a3_total[context] <- getStatValue(a3_previous, "a3")
+    a4_total[context] <- getStatValue(a4_previous, "a4")
+    a5_total[context] <- getStatValue(a5_previous, "a5")
+    aa_total[context] <- getStatValue(aa_previous, "aa")
+    ap_total[context] <- getStatValue(ap_previous, "ap")
+    b_total[context] <- getStatValue(b_previous, "b")
+    cr_total[context] <- getStatValue(cr_previous, "cr")
+    sa_total[context] <- getStatValue(sa_previous, "sa")
+    x1_total[context] <- getStatValue(x1_previous, "x1")
+    x2_total[context] <- getStatValue(x2_previous, "x2")
+    f_total[context] <- getStatValue(f_previous, "f")
+    fi_total[context] <- getStatValue(fi_previous, "fi")
+    fr_total[context] <- getStatValue(fr_previous, "fr")
+    g1_total[context] <- getStatValue(g1_previous, "g1")
+    g2_total[context] <- getStatValue(g2_previous, "g2")
+    g3_total[context] <- getStatValue(g3_previous, "g3")
+    g4_total[context] <- getStatValue(g4_previous, "g4")
+    g5_total[context] <- getStatValue(g5_previous, "g5")
+    g6_total[context] <- getStatValue(g6_previous, "g6")
+    gf_total[context] <- getStatValue(gf_previous, "gf")
+    lc_total[context] <- getStatValue(lc_previous, "lc")
+    lu_total[context] <- getStatValue(lu_previous, "lu")
+    nf_total[context] <- getStatValue(nf_previous, "nf")
+    ow_total[context] <- getStatValue(ow_previous, "ow")
+    p_total[context] <- getStatValue(p_previous, "p")
+    pc_total[context] <- getStatValue(pc_previous, "pc")
+    pci_total[context] <- getStatValue(pci_previous, "pci")
+    pcp_total[context] <- getStatValue(pcp_previous, "pcp")
+    pu_total[context] <- getStatValue(pu_previous, "pu")
+    r_total[context] <- getStatValue(r_previous, "r")
+    re_total[context] <- getStatValue(re_previous, "re")
+    s1_total[context] <- getStatValue(s1_previous, "s1")
+    s2_total[context] <- getStatValue(s2_previous, "s2")
+    s3_total[context] <- getStatValue(s3_previous, "s3")
+    s4_total[context] <- getStatValue(s4_previous, "s4")
+    s5_total[context] <- getStatValue(s5_previous, "s5")
+    s6_total[context] <- getStatValue(s6_previous, "s6")
+    st_total[context] <- getStatValue(st_previous, "st")
+    u_total[context] <- getStatValue(u_previous, "u")
+    wm_total[context] <- getStatValue(wm_previous, "wm")
+    w_total[context] <- getStatValue(w_previous, "w")
+    zl_total[context] <- getStatValue(zl_previous, "zl")
+    zp_total[context] <- getStatValue(zp_previous, "zp")
+
+    Length_s1[context] <- getStatLength(s1_previous)
+    Length_s2[context] <- getStatLength(s2_previous)
+    Length_s3[context] <- getStatLength(s3_previous)
+    Length_s4[context] <- getStatLength(s4_previous)
+    Length_s5[context] <- getStatLength(s5_previous)
+    Length_s6[context] <- getStatLength(s6_previous)
+}
+
+# Create data.frame for counts comparison
+counts_frame <- data.frame(c(NA), c(NA), c(NA), c(NA), c(NA))
+names(counts_frame) <- c(
+    "Layer Type",
+    "Layer",
+    paste0("Object Count - ", current_version),
+    paste0("Object Count - ", previous_version),
+    "Delta"
+)
+# Delete all rows
+counts_frame <- counts_frame[-1,1:length(counts_frame)]
+head(counts_frame)
+
+
+# Create data.frame for speed profiles sets comparison
+speed_profiles_frame <- data.frame(c(NA), c(NA), c(NA), c(NA), c(NA))
+names(speed_profiles_frame) <- c(
+    "Layer Type",
+    "Layer",
+    paste0("Object Count - ", current_version),
+    paste0("Object Count - ", previous_version),
+    "Delta"
+)
+# Delete all rows
+speed_profiles_frame <- speed_profiles_frame[-1,1:length(speed_profiles_frame)]
+head(speed_profiles_frame)
+
+# Ignore Fill Rates sheet for now
+# # Create data.frame for fill_rates comparison
+# fill_rates_frame <- data.frame(c(NA), c(NA), c(NA))
+# names(fill_rates_frame) <- c(
+#     "Layer Name",
+#     "Field",
+#     "Field Rate %"
+# )
+# # Delete all rows
+# fill_rates_frame <- fill_rates_frame[-1,1:length(fill_rates_frame)]
+# head(fill_rates_frame)
+
+# Create data.frame for street_lengths comparison
+street_lengths_frame <- data.frame(c(NA), c(NA), c(NA), c(NA), c(NA))
+names(street_lengths_frame) <- c(
+    "Streets Type",
+    "Layer Name (Road Class)",
+    paste0("Length (", length_units, ") - ", current_version),
+    paste0("Length (", length_units, ") - ", previous_version),
+    "Delta"
+)
+# Delete all rows
+street_lengths_frame <- street_lengths_frame[-1,1:length(street_lengths_frame)]
+head(street_lengths_frame)
+
+# Create data.frame for layer_spec_counts comparison
+layer_spec_counts_frame <- data.frame(c(NA), c(NA), c(NA), c(NA), c(NA))
+names(layer_spec_counts_frame) <- c(
+    "Layer Type",
+    "Layer Specific Field/Value",
+    paste0("Object Count - ", current_version),
+    paste0("Object Count - ", previous_version),
+    "Delta"
+)
+# Delete all rows
+layer_spec_counts_frame <- layer_spec_counts_frame[-1,1:length(layer_spec_counts_frame)]
+head(layer_spec_counts_frame)
+
+
+appendCountToFrame <- function (type, layer, stat) {
+    #print(stat["current"])
+    #print(stat["previous"])
+    delta <- c(as.numeric(stat["current"]) - as.numeric(stat["previous"]))
+    data.frame(
+        type, # "Layer Type",
+        layer, # "Layer",
+        format(round(as.numeric(stat["current"]), 0), nsmall = 0), # paste0("Object Count - ", current_version),
+        format(round(as.numeric(stat["previous"]), 0), nsmall = 0), # paste0("Object Count - ", previous_version),
+        format(round(delta, 0), nsmall = 0), # "Delta"
+        stringsAsFactors = FALSE
+    )
+}
+
+appendLengthToFrame <- function (type, layer_class, stat) {
+    current_length <- c(NA)
+    previous_length <- c(NA)
+
+    switch(
+        length_units,
+        "miles" = { # meters => miles
+            if (!is.na(stat["current"]) && grepl("\\d+", stat["current"], perl = TRUE)) {
+                current_length <- as.double(stat["current"]) * 0.000621371
+                print(paste0(stat["current"], " => ", current_length))
+
+            } else {
+                print(layer_class)
+                current_length <- switch(
+                    layer_class,
+                    "s1" = { c(NA) },
+                    "s2" = { c(NA) },
+                    "s3" = { c(NA) },
+                    "s4" = { c(NA) },
+                    "s5" = { c(NA) },
+                    "s6" = { c(NA) },
+                    "streets" = { c(NA) },
+                    "expressways" = { c(NA) },
+                    "localrtes" = { c(NA) },
+                    "primaryhwys" = { c(NA) },
+                    "secondaryhwys" = { c(NA) },
+                    { as.double(0.0) }
+                )
+            }
+
+            if (!is.na(stat["previous"]) && grepl("\\d+", stat["previous"], perl = TRUE)) {
+                previous_length <- as.double(stat["previous"]) * 0.000621371
+                print(paste0(as.double(stat["previous"]), " => ", previous_length))
+
+            } else {
+                print(layer_class)
+                previous_length <- switch(
+                    layer_class,
+                    "s1" = { c(NA) },
+                    "s2" = { c(NA) },
+                    "s3" = { c(NA) },
+                    "s4" = { c(NA) },
+                    "s5" = { c(NA) },
+                    "s6" = { c(NA) },
+                    "streets" = { c(NA) },
+                    "expressways" = { c(NA) },
+                    "localrtes" = { c(NA) },
+                    "primaryhwys" = { c(NA) },
+                    "secondaryhwys" = { c(NA) },
+                    { if (!is.null(streets_previous) && !is.na(streets_previous)) { as.double(0.0) } else { c(NA) } }
+                )
+            }
+
+        },
+        { # meters => kilometers
+            if (!is.na(stat["current"]) && grepl("\\d+", stat["current"], perl = TRUE)) {
+                current_length <- as.double(stat["current"]) * 0.001
+                print(paste0(stat["current"], " => ", current_length))
+
+            } else {
+                print(layer_class)
+                current_length <- switch(
+                    layer_class,
+                    "s1" = { c(NA) },
+                    "s2" = { c(NA) },
+                    "s3" = { c(NA) },
+                    "s4" = { c(NA) },
+                    "s5" = { c(NA) },
+                    "s6" = { c(NA) },
+                    "streets" = { c(NA) },
+                    "expressways" = { c(NA) },
+                    "localrtes" = { c(NA) },
+                    "primaryhwys" = { c(NA) },
+                    "secondaryhwys" = { c(NA) },
+                    { as.double(0.0) }
+                )
+            }
+
+            if (!is.na(stat["previous"]) && grepl("\\d+", stat["previous"], perl = TRUE)) {
+                previous_length <- as.double(stat["previous"]) * 0.001
+                print(paste0(as.double(stat["previous"]), " => ", previous_length))
+
+            } else {
+                print(layer_class)
+                previous_length <- switch(
+                    layer_class,
+                    "s1" = { c(NA) },
+                    "s2" = { c(NA) },
+                    "s3" = { c(NA) },
+                    "s4" = { c(NA) },
+                    "s5" = { c(NA) },
+                    "s6" = { c(NA) },
+                    "streets" = { c(NA) },
+                    "expressways" = { c(NA) },
+                    "localrtes" = { c(NA) },
+                    "primaryhwys" = { c(NA) },
+                    "secondaryhwys" = { c(NA) },
+                    { if (!is.null(streets_previous) && !is.na(streets_previous)){ as.double(0.0) } else { c(NA)} }
+                )
+            }
+        }
+    )
+
+    delta <- c(as.double(current_length) - as.double(previous_length))
+
+    data.frame(
+        type, # "Streets Type",
+        layer_class, # "Layer Name (Road Class)",
+        format(round(current_length, 2), nsmall = 2), # paste0("Length (", length_units, ") - ", current_version),
+        format(round(previous_length, 2), nsmall = 2), #paste0("Length (", length_units, ") - ", previous_version),
+        format(round(delta, 2), nsmall = 2), # "Delta"
+        stringsAsFactors = FALSE
+    )
+}
+
+# Counts
+# Avoid rbind when appending rows to 0-length data.frames
+counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Navigation", "Nodes", nodes_total)
+counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Navigation", "Restrictions", restrictions_total)
+counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Navigation", "Streets", streets_total)
+speed_profiles_frame[nrow(speed_profiles_frame)+1,] <- appendCountToFrame("Speed Profiles", "Speed Profile Sets", speed_profile_sets_total)
+
+if ((!is.null(state_codes)) && (!is.na(state_codes)) && (country_code3 == "usa" || country_code3 == "can")) {
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Classic", "geocode1", geocode1_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Classic", "geocode2", geocode2_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Classic", "sa", sa_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "airports", airports_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "cities", cities_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "expressways", expressways_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "ferries", ferries_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "gazetteer1", gazetteer1_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "gazetteer2", gazetteer2_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "gazetteer3", gazetteer3_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "gazetteer4", gazetteer4_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "gazetteer5", gazetteer5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "gazetteer6", gazetteer6_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "gazetteer7", gazetteer7_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "landmarks", landmarks_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "landuse", landuse_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "localhwys_med", localhwys_med_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "localrtes", localrtes_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "oneways", oneways_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "primaryhwys", primaryhwys_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "primaryhwys_med", primaryhwys_med_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "railroads", railroads_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "regionalhwys", regionalhwys_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "rivers", rivers_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "secondaryhwys", secondaryhwys_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "secondaryhwys_med", secondaryhwys_med_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "signposts", signposts_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "streets", displaystreets_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "urbanareas", urbanareas_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "waterbodies", waterbodies_total)
+
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "usa")) {
+    # US only
+
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "counties", counties_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldco_0to5", shldco_0to5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldco_5to15", shldco_5to15_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldco_15to50", shldco_15to50_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldinter_0to5", shldinter_0to5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldinter_5to15", shldinter_5to15_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldinter_15to50", shldinter_15to50_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldstate_0to5", shldstate_0to5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldstate_5to15", shldstate_5to15_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldstate_15to50", shldstate_15to50_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldus_0to5", shldus_0to5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldus_5to15", shldus_5to15_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldus_15to50", shldus_15to50_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "towns", towns_total)
+}
+
+if (!is.null(country_code3[[1]]) && !is.na(country_code3) && (country_code3 == "can")) {
+    # CAN only
+
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "censusdivisions", censusdivisions_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "censussubdivisions", censussubdivisions_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldprhwy_0to5", shldprhwy_0to5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldprhwy_5to15", shldprhwy_5to15_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldprhwy_15to50", shldprhwy_15to50_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldtchwy_0to5", shldtchwy_0to5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldtchwy_5to15", shldtchwy_5to15_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "shldtchwy_15to50", shldtchwy_15to50_total)
+}
+
+if (!is.null(country_code4[[1]]) && !is.na(country_code4)) {
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Classic", "cr", cr_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Classic", "sa", sa_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Classic", "x1", x1_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Classic", "x2", x2_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "a0", a0_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "a1", a1_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "a2", a2_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "a3", a3_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "a4", a4_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "a5", a5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "aa", aa_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "ap", ap_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "b", b_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "f", f_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "fi", fi_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "fr", fr_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "g1", g1_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "g2", g2_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "g3", g3_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "g4", g4_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "g5", g5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "g6", g6_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "gf", gf_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "lc", lc_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "lu", lu_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "nf", nf_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "ow", ow_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "p", p_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "pc", pc_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "pci", pci_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "pcp", pcp_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "pu", pu_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "r", r_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "re", re_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "st", st_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "u", u_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "wm", wm_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "w", w_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "zl", zl_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "zp", zp_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "s1", s1_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "s2", s2_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "s3", s3_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "s4", s4_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "s5", s5_total)
+    counts_frame[nrow(counts_frame)+1,] <- appendCountToFrame("Display", "s6", s6_total)
+}
+
+# Street Lengths
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (All Road Classes)", Length_total)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class A)", Length_A)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class C)", Length_C)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class D)", Length_D)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class E)", Length_E)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class F)", Length_F)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class G)", Length_G)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class H)", Length_H)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class I)", Length_I)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class L)", Length_L)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class M)", Length_M)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class N)", Length_N)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class P)", Length_P)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class Q)", Length_Q)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class R)", Length_R)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class S)", Length_S)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class T)", Length_T)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class U)", Length_U)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class W)", Length_W)
+street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Navigation", "Streets (Road Class Z)", Length_Z)
+
+if ((!is.null(state_codes)) && (!is.na(state_codes)) && (country_code3 == "usa" || country_code3 == "can")) {
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "streets", Length_displaystreets)
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "expressways", Length_expressways)
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "localrtes", Length_localrtes)
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "primaryhwys", Length_primaryhwys)
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "secondaryhwys", Length_secondaryhwys)
+}
+
+if (!is.null(country_code4[[1]]) && !is.na(country_code4)) {
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "s1", Length_s1)
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "s2", Length_s2)
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "s3", Length_s3)
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "s4", Length_s4)
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "s5", Length_s5)
+    street_lengths_frame[nrow(street_lengths_frame)+1,] <- appendLengthToFrame("Display", "s6", Length_s6)
+}
+
+# Layer Specific Counts
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "All Streets", streets_total)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Street Name 1 (STREET)", STREET)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Street Name 2 (STREET2)", STREET2)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Street Name 3 (STREET3)", STREET3)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Street Name 4 (STREET4)", STREET4)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "FROMLEFT", FROMLEFT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "TOLEFT", TOLEFT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "FROMRIGHT", FROMRIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "TORIGHT", TORIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "L_STRUCT 1", L_STRUCT_1)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "L_STRUCT 2", L_STRUCT_2)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "L_STRUCT 3", L_STRUCT_3)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "L_STRUCT 4", L_STRUCT_4)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "L_STRUCT 5", L_STRUCT_5)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "L_STRUCT 6", L_STRUCT_6)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "R_STRUCT 1", R_STRUCT_1)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "R_STRUCT 2", R_STRUCT_2)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "R_STRUCT 3", R_STRUCT_3)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "R_STRUCT 4", R_STRUCT_4)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "R_STRUCT 5", R_STRUCT_6)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "R_STRUCT 6", R_STRUCT_6)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "A1_LEFT", A1_LEFT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "A1_RIGHT", A1_RIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "LOCALITY_LEFT", LOCALITY_LEFT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "LOCALITY_CODE_LEFT", LOCALITY_CODE_LEFT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "LOCALITY_RIGHT", LOCALITY_RIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "LOCALITY_CODE_RIGHT", LOCALITY_CODE_RIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "PC_LEFT", PC_LEFT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "PNAM_LEFT", PNAM_LEFT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "PC_RIGHT", PC_RIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "PNAM_RIGHT", PNAM_RIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ROUTE_NUM", ROUTE_NUM)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Rural Streets (AREA_TYPE 0)", AREA_TYPE_0)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Urban Streets (AREA_TYPE 1)", AREA_TYPE_1)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ROAD_TYPE D", ROAD_TYPE_D)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ROAD_TYPE S", ROAD_TYPE_S)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Streets with Sign Post Speed Limits (Speed_Verified 1)", SPEED_VERIFIED)
+SPEED_MODELLED <- (as.numeric(SPEED) - as.numeric(SPEED_VERIFIED))
+names(SPEED_MODELLED) <- c("current", "previous")
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Streets with Modelled Speed Limits (Speed_Verified 2)", SPEED_MODELLED)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "SPEED_AMPEAK", SPEED_AMPEAK)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "SPEED_PMPEAK", SPEED_PMPEAK)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "SPEED_INTERPEAK", SPEED_INTERPEAK)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "SPEED_NIGHT", SPEED_NIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "SPEED_SEVENDAY", SPEED_SEVENDAY)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ROUGHRD", ROUGHRD)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "SURFACE_TYPE 0", SURFACE_TYPE_0)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "SURFACE_TYPE 1", SURFACE_TYPE_1)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "SURFACE_TYPE 2", SURFACE_TYPE_2)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "SURFACE_TYPE 3", SURFACE_TYPE_3)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "MAX_HEIGHT Restrictions", MAX_HEIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "MAX_WEIGHT Restrictions", MAX_WEIGHT)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "MAX_WIDTH Restrictions", MAX_WIDTH)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ONEWAY 1", ONEWAY_1)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ONEWAY 2", ONEWAY_2)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ONEWAY 3", ONEWAY_3)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ONEWAY 4", ONEWAY_4)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ONEWAY 5", ONEWAY_5)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "ONEWAY 6", ONEWAY_6)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Toll Roads (TOLL: true)", TOLL_true)
+layer_spec_counts_frame[nrow(layer_spec_counts_frame)+1,] <- appendCountToFrame("Navigation", "Non-toll Roads (TOLL: false)", TOLL_false)
+
+```
+
+```{r, cache = FALSE, echo = FALSE}
+options(warn = -1)
+working_dir <- getwd()
+print(working_dir)
+#print(grepl("/content", getwd(), ignore.case = TRUE))
+if (grepl("/content", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/content", "")
+    #setwd(working_dir)
+
+} else if (grepl("/src/templates", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/src/templates", "")
+    #setwd(working_dir)
+
+} else if (grepl("/src", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/src", "")
+    #setwd(working_dir)
+}
+
+
+
+check_release_dir <- function (vers, ctry) {
+    ifelse(!dir.exists(file.path(".", vers)), dir.create(file.path(".", vers)), FALSE)
+    ifelse(!dir.exists(file.path(vers, ctry)), dir.create(file.path(vers, ctry)), FALSE)
+    dir.exists(file.path(vers, ctry))
+}
+
+writeFrameToExcel <- function (workbook, sheet_name, frame) {
+    print(paste0("Add ", sheet_name, " to workbook:"))
+    print(workbook)
+
+    openxlsx::addWorksheet(workbook, sheet_name)
+
+    for(i in seq_along(frame)){
+        openxlsx::writeData(workbook, sheet = sheet_name, names(frame)[i], startCol = i, startRow = 1)
+        icol <- frame[[i]]
+        for(j in seq_along(icol)){
+            if (!is.na(icol[[j]])) {
+                if (grepl("[A-Za-z]+", icol[[j]], perl = TRUE)) {
+                    x <- icol[[j]]
+                } else if (grepl("\\.\\d", icol[[j]], perl = TRUE)) {
+                    x <- as.double(icol[[j]])
+                } else if (grepl("\\d", icol[[j]], perl = TRUE)) {
+                    x <- as.integer(icol[[j]])
+                } else {
+                    x <- icol[[j]]
+                }
+            } else {
+                x <- icol[[j]]
+            }
+            # print(paste0(icol[[j]], " is of type ", typeof(x)))
+            openxlsx::writeData(workbook, sheet = sheet_name, x, startCol = i, startRow = j + 1)
+        }
+    }
+}
+
+if (check_release_dir("CURRENT", country)) {
+    if (all(state_flag) && check_release_dir("CURRENT", paste0(country, "/", state_codes[[1]]))) {
+        #write.csv(counts_frame,
+        #          file = paste0(working_dir, "/", "CURRENT/", paste0(country, "/", state_codes[[1]]), "/Counts.csv"),
+        #          na = "",
+        #          row.names = FALSE,
+        #          col.names = FALSE,
+        #          append = TRUE,
+        #          sep = ",")
+        #write.csv(street_lengths_frame,
+        #          file = paste0(working_dir, "/", "CURRENT/", paste0(country, "/", state_codes[[1]]), "/Street_Lengths.csv"),
+        #          na = "",
+        #          row.names = FALSE,
+        #          col.names = FALSE,
+        #          append = TRUE,
+        #          sep = ",")
+        #write.csv(layer_spec_counts_frame,
+        #          file = paste0(working_dir, "/", "CURRENT/", paste0(country, "/", state_codes[[1]]), "/Layer_Specific_Counts.csv"),
+        #          na = "",
+        #          row.names = FALSE,
+        #          col.names = FALSE,
+        #          append = TRUE,
+        #          sep = ",")
+        if (require("openxlsx") && require("readtext")) {
+            wb <- openxlsx::loadWorkbook(paste0(working_dir, "/src/templates/streetpro_product_statistics.xlsx"))
+            names(wb)[[1]] <- paste0(country, " ", current_version, " Release Notes")
+            changelog_txt <- paste0(working_dir, "/", current_version, "/", country, "/", "Change_Log.txt")
+            if (file.exists(changelog_txt)) {
+                changelog <- readtext::readtext(changelog_txt, encoding = "UTF-8")[[2]]
+                print(changelog)
+                writeData(wb, 1, list("notes" =  str_replace_all(changelog, fixed("*"), "\u2022")), startCol = 1, startRow = 5, colNames = FALSE)
+            } else {
+                changelog <- paste0("Could not find file: ", changelog_txt)
+                print(changelog)
+                writeData(wb, 1, list("notes" = paste0("Release notes for ", country, ". ", changelog)), startCol = 1, startRow = 5, colNames = FALSE)
+            }
+            writeFrameToExcel(wb, "Counts", counts_frame)
+            writeFrameToExcel(wb, "Street Lengths", street_lengths_frame)
+            writeFrameToExcel(wb, "Navigation Specific Counts", layer_spec_counts_frame)
+
+            print(paste0("Writing out workbook: "))
+            print(wb)
+            downloadUri <- paste0(
+                downloadPath, "/",
+                paste0(country, "/", state_codes[[1]]),
+                "/StreetPro_Product_Statistics-", paste0(country, "-", state_codes[[1]]),
+                ".xlsx"
+            )
+            openxlsx::saveWorkbook(
+                wb,
+                file = paste0(working_dir, "/", downloadUri),
+                overwrite = TRUE
+            )
+            print("")
+            download_links <- c(download_links, paste0('<a class="download-link" href="/InProcess/ReleaseStatistics/', downloadUri, '">', "Download StreetPro Product Statistics workbook", '</a>'))
+        }
+    } else {
+        #write.csv(counts_frame,
+        #          file = paste0(working_dir, "/", "CURRENT/", country, "/Counts.csv"),
+        #          na = "",
+        #          row.names = FALSE,
+        #          col.names = FALSE,
+        #          append = TRUE,
+        #          sep = ",")
+        #write.csv(street_lengths_frame,
+        #          file = paste0(working_dir, "/", "CURRENT/", country, "/Street_Lengths.csv"),
+        #          na = "",
+        #          row.names = FALSE,
+        #          col.names = FALSE,
+        #          append = TRUE,
+        #          sep = ",")
+        #write.csv(layer_spec_counts_frame,
+        #          file = paste0(working_dir, "/", "CURRENT/", country, "/Layer_Specific_Counts.csv"),
+        #          na = "",
+        #          row.names = FALSE,
+        #          col.names = FALSE,
+        #          append = TRUE,
+        #          sep = ",")
+        if (require("openxlsx") && require("readtext")) {
+            wb <- openxlsx::loadWorkbook(paste0(working_dir, "/src/templates/streetpro_product_statistics.xlsx"))
+            names(wb)[[1]] <- paste0(country, " ", current_version, " Release Notes")
+            changelog_txt <- paste0(working_dir, "/", current_version, "/", country, "/", "Change_Log.txt")
+            if (file.exists(changelog_txt)) {
+                changelog <- readtext::readtext(changelog_txt, encoding = "UTF-8")[[2]]
+                print(changelog)
+                writeData(wb, 1, list("notes" =  str_replace_all(changelog, fixed("*"), "\u2022")), startCol = 1, startRow = 5, colNames = FALSE)
+            } else {
+                changelog <- paste0("Could not find file: ", changelog_txt)
+                print(changelog)
+                writeData(wb, 1, list("notes" = paste0("Release notes for ", country, ". ", changelog)), startCol = 1, startRow = 5, colNames = FALSE)
+            }
+            writeFrameToExcel(wb, "Counts", counts_frame)
+            writeFrameToExcel(wb, "Street Lengths", street_lengths_frame)
+            writeFrameToExcel(wb, "Navigation Specific Counts", layer_spec_counts_frame)
+
+            print(paste0("Writing out workbook: "))
+            print(wb)
+            downloadUri <- paste0(
+                downloadPath, "/",
+                country, "/StreetPro_Product_Statistics-", country,
+                ".xlsx"
+            )
+            openxlsx::saveWorkbook(
+                wb,
+                file = paste0(working_dir, "/", downloadUri),
+                overwrite = TRUE
+            )
+            print("")
+            download_links <- c(download_links, paste0('<a class="download-link" href="/InProcess/ReleaseStatistics/', downloadUri, '">', "Download StreetPro Product Statistics workbook", '</a>'))
+        }
+    }
+}
+
+```
+
+</div>
+
+```{r title, echo=FALSE, results = "asis"}
+if (is.null(state_codes[[1]]) || is.na(state_codes) || is.na(state_flag) || !state_flag) {
+    cat(paste0("<h1>StreetPro ", country, " (", current_version, ")", " Release Statistics</h1>"))
+} else {
+    cat(paste0("<h1>StreetPro ", country, " - ", state_codes[[1]], " (", current_version, ")", " Release Statistics</h1>"))
+}
+cat(download_links)
+```
+
+<div class="bd-example bd-example-tabs tabs">
+<div class="tab-content" id="myTabContent">
+<div class="tab-pane fade active show" id="counts" role="tabpanel" aria-labelledby="counts-tab">
+
+```{r, cache = FALSE, echo = FALSE}
+#counts_frame <- datasets::iris
+#str(counts_frame)
+counts_frame %>%
+    DT::datatable(extensions = 'Buttons',
+                  options = list(dom = 'rtBip',
+                                 buttons = c('csv', 'excel', 'pdf'),
+                                 lengthMenu = list(c(25,25,100,-1),
+                                                   c(50,25,100,"All"))))
+```
+
+
+</div>
+
+<div class="tab-pane fade" id="fill-rates" role="tabpanel" aria-labelledby="fill-rates-tab">
+
+```{r, cache = FALSE, echo = FALSE}
+fill_rates_frame <- datasets::iris
+#str(fill_rates_frame)
+fill_rates_frame %>%
+    DT::datatable(extensions = 'Buttons',
+                  options = list(dom = 'rtBip',
+                                 buttons = c('csv', 'excel', 'pdf'),
+                                 lengthMenu = list(c(25,25,100,-1),
+                                                   c(50,25,100,"All"))))
+```
+
+
+</div>
+
+<div class="tab-pane fade" id="lengths" role="tabpanel" aria-labelledby="lengths-tab">
+
+```{r, cache = FALSE, echo = FALSE}
+#street_lengths_frame <- datasets::iris
+#str(street_lengths_frame)
+street_lengths_frame %>%
+    DT::datatable(extensions = 'Buttons',
+                  options = list(dom = 'rtBip',
+                                 buttons = c('csv', 'excel', 'pdf'),
+                                 lengthMenu = list(c(25,25,100,-1),
+                                                   c(50,25,100,"All"))))
+```
+
+
+</div>
+
+<div class="tab-pane fade" id="specific-counts" role="tabpanel" aria-labelledby="specific-counts-tab">
+
+```{r, cache = FALSE, echo = FALSE}
+#layer_spec_counts_frame <- datasets::iris
+#str(layer_spec_counts_frame)
+layer_spec_counts_frame %>%
+    DT::datatable(extensions = 'Buttons',
+                  options = list(dom = 'rtBip',
+                                 buttons = c('csv', 'excel', 'pdf'),
+                                 lengthMenu = list(c(25,25,100,-1),
+                                                   c(50,25,100,"All"))))
+```
+
+
+</div>
+
+<br />
+
+</div>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+
+<li class="nav-item">
+<a class="nav-link active" id="counts-tab" data-toggle="tab" href="#counts" role="tab" aria-controls="counts" aria-selected="true">Counts</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="fill-rates-tab" data-toggle="tab" href="#fill-rates" role="tab" aria-controls="fill-rates" aria-selected="false" disabled="true">Fill Rates (%)</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="lengths-tab" data-toggle="tab" href="#lengths" role="tab" aria-controls="lengths" aria-selected="false">Street Lengths</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="specific-counts-tab" data-toggle="tab" href="#specific-counts" role="tab" aria-controls="specific-counts" aria-selected="false">Navigation Specific Counts</a>
+</li>
+</ul>
+</div>
+
+<script src="/InProcess/ReleaseStatistics/js/highlight.js"></script>
+<script src="/InProcess/ReleaseStatistics/js/popper.js"></script>
+<script src="/InProcess/ReleaseStatistics/js/util.js"></script>
+<script src="/InProcess/ReleaseStatistics/js/tab.js"></script>

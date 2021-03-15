@@ -1,0 +1,7 @@
+md5: 2eb2e653643e943bc6f984515e59dcff
+outs:
+- md5: 3c59dcb847725a65a658ab0befc9f594.dir
+  path: FJI
+  cache: true
+  metric: false
+  persist: false

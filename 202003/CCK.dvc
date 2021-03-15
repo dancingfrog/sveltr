@@ -1,0 +1,7 @@
+md5: 5ab0e089bf6a16205f43d4e4afe609ff
+outs:
+- md5: 19e6cd16b107de198f88cebf1c31bfa5.dir
+  path: CCK
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: 9241e4bf5e1f2d8407b000eefbd194c4
+outs:
+- md5: bb818350aca5a5c176375eda5c85b5d9.dir
+  path: TUR
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="patch_introduction"
+               path="ReleaseNotes/source/CAN_O01/Introduction_US_Address.html"/>
+   <appContext helpID="product_overview"
+               path="ReleaseNotes/source/Transit/product_overview.html"/>
+   <appContext helpID="transit_points_counts"
+               path="ReleaseNotes/source/Transit/transit_points_counts.html"/>
+   <appContext helpID="known_issues"
+               path="ReleaseNotes/source/Transit/known_issues.html"/>
+   <appContext helpID="copyright"
+               path="Shared/source/legalstuff/getting_support_transit.html"/>
+</map>

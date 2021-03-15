@@ -1,0 +1,7 @@
+md5: 30b1c277c434b580446c8ce380851331
+outs:
+- md5: 466ce9c62ebbfdc88881de887bfa6a03.dir
+  path: CRI
+  cache: true
+  metric: false
+  persist: false

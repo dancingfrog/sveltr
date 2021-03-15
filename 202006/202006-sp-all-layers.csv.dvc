@@ -1,0 +1,7 @@
+md5: 705cdc1c6d37e51847ea7e46c70fe29a
+outs:
+- md5: 989f452fea8489a2f0905cacc44fe0c2
+  path: 202006-sp-all-layers.csv
+  cache: true
+  metric: false
+  persist: false

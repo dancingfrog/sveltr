@@ -1,0 +1,7 @@
+md5: 75cd533f292f3441111a8264dcc8078e
+outs:
+- md5: 40d7d1b94393195fb5c9b0d9a6e365ed.dir
+  path: HTI
+  cache: true
+  metric: false
+  persist: false

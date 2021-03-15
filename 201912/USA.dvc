@@ -1,0 +1,7 @@
+md5: b71290516cc600d5a4a6e6c8db9dfa7a
+outs:
+- md5: 098cf86c6a28d21a98fb08bc27ceaa33.dir
+  path: USA
+  cache: true
+  metric: false
+  persist: false

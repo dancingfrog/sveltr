@@ -1,0 +1,7 @@
+md5: 9ae1fd485cecacd8bdf1d5088536a080
+outs:
+- md5: 9aacfcbadc07a6d572d277bc839de3e4.dir
+  path: KAZ
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,11 @@
+fil = new Array();
+fil["0"]= "ReleaseNotes/source/O01/Change_Log.html@@@Change Log@@@...";
+fil["1"]= "ReleaseNotes/source/O01/Installation_Overview.html@@@Records Count@@@...";
+fil["2"]= "ReleaseNotes/source/O01/Known_issues.html@@@Known Issues@@@...";
+fil["3"]= "ReleaseNotes/source/O01/SpreadsheetIssue.html@@@Data Vintage@@@Table 1. GeoEnrichment: Community and Market Link Product Version Compatible with Address Fabric Dataset Version Compatible with LI Boundaries Dataset Version Master Link Lookup Table 2019.12.0...";
+fil["4"]= "ReleaseNotes/source/O01/Whats_New_GEM.html@@@What&apos;s New@@@...";
+fil["5"]= "ReleaseNotes/source/O01/address_geoenrichment_demo_changelog.html@@@Demographics Data@@@...";
+fil["6"]= "ReleaseNotes/source/O01/fixedissues.html@@@Product Overview@@@GeoEnrichment data products use United States Address Fabric and location data in a pre-processed .txt or H2DB file. These datasets enrich locations with variables such as wildfire, population...";
+fil["7"]= "ReleaseNotes/source/O02/Introduction.html@@@Release Notes@@@This document contains information about GeoEnrichment Data 2019.12.0 . Please see the data vintage section for the right version of the product available. You have access only to the modules you have...";
+fil["8"]= "Shared/source/legalstuff/getting_support_GEM.html@@@Product Support@@@If you have any questions or concerns, you may contact our support team directly by phone or email: Software Support Call: 1.800.367.6950 Email: software.support@pb.com Technical Support Visit...";
+var doStem = false;searchLoaded = true;

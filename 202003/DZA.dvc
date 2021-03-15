@@ -1,0 +1,7 @@
+md5: dfc689add82bf95a578b7e6226847e2d
+outs:
+- md5: d64d4e894bb38cefad7d011ad932ff82.dir
+  path: DZA
+  cache: true
+  metric: false
+  persist: false

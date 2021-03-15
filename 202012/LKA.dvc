@@ -1,0 +1,7 @@
+md5: 5cc17e1b0233ca410de90e090e41b2b4
+outs:
+- md5: d8dabd3a713691b04ac120c94e596a32.dir
+  path: LKA
+  cache: true
+  metric: false
+  persist: false

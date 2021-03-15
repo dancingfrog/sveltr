@@ -1,0 +1,7 @@
+md5: 3efd425c1b79eb7a87cbf4ada7648e00
+outs:
+- md5: ea8a11c02ea1921acada56a0da69ba78.dir
+  path: ZMB
+  cache: true
+  metric: false
+  persist: false

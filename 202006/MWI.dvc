@@ -1,0 +1,7 @@
+md5: c63f6e817001a260a54a4cd7f5b7672f
+outs:
+- md5: fce4bde340cdb1906719aaf1a67b6d2c.dir
+  path: MWI
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: 772d2954efb0034b9fe42eaaae8224ea
+outs:
+- md5: 424455e77e66eb65e292997f4259c643.dir
+  path: KEN
+  cache: true
+  metric: false
+  persist: false

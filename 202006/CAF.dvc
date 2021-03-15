@@ -1,0 +1,7 @@
+md5: 3841cc2aa52c9c34eea276856a41052c
+outs:
+- md5: 466cc2e6bc17a022eb74b8042b3933b9.dir
+  path: CAF
+  cache: true
+  metric: false
+  persist: false

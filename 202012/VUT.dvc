@@ -1,0 +1,7 @@
+md5: bc81dd72f505307c6bdbe10711aff639
+outs:
+- md5: 72ff3cb856ee3760b88579b6de9c9703.dir
+  path: VUT
+  cache: true
+  metric: false
+  persist: false

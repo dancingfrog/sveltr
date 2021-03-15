@@ -1,0 +1,7 @@
+md5: 9706116e5ec46ae3ada93ca36b406f3b
+outs:
+- md5: d1d25efc9fc3fcaf4dd2a9fd67de00be.dir
+  path: BIH
+  cache: true
+  metric: false
+  persist: false

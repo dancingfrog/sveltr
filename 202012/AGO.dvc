@@ -1,0 +1,7 @@
+md5: 7666c940c80951e7c3feb03bd210c6be
+outs:
+- md5: f32c3c3410c38d93ce2f43117ed25422.dir
+  path: AGO
+  cache: true
+  metric: false
+  persist: false

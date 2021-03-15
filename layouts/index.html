@@ -1,11 +1,14 @@
 {{ define "main" }}
 
-<main id="svelte-app" role="main"></main><br /><br />
+<main class="content" role="main">
 
-<div class="front">
+  <h1 class="article-title">{{ .Site.Title }}</h1>
 
-  <a href="{{ "tech" | relURL }}">Check out the tech</a>
-  <br /><br />
+  <ul class="nav-links">
+    {{ range sort .Site.Menus.main "URL" "asc" }}
+    <li style="display: block"><a href="/{{ .URL }}">{{ .Name }}</a></li>
+    {{ end }}
+  </ul>
 
   {{ if .Content }}
   <article class="article">
@@ -17,24 +20,24 @@
     </div>
   </article><br /><br />
   {{ end }}
-  <div class="archive">
-    {{ $pages := .Pages }}
-    {{ if .IsHome }}
-    {{ $pages = .Site.RegularPages }}
-    {{ end }}
-    {{ range (where $pages "Section" "!=" "").GroupByDate "2006" }}
-    {{ range .Pages }}
-    <article class="archive-item">
-      <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .Title }}</a>
-      <span class="archive-item-date">
-          {{ .Date.Format "Jan, 02 2006" }}
-        </span>
-    </article><br />
-    {{ end }}
-    {{ end }}
-  </div>
 
+</main><br /><br />
+
+<div class="archive">
+  {{ $pages := .Pages }}
+  {{ if .IsHome }}
+  {{ $pages = .Site.RegularPages }}
+  {{ end }}
+  {{ range (where $pages "Section" "!=" "").GroupByDate "2006" }}
+  {{ range .Pages }}
+  <article class="archive-item">
+    <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .Title }}</a>
+    <span class="archive-item-date">
+        {{ .Date.Format "Jan, 02 2006" }}
+      </span>
+  </article><br />
+  {{ end }}
+  {{ end }}
 </div>
 
 {{ end }}
-

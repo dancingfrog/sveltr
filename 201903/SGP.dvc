@@ -1,0 +1,7 @@
+md5: 07f59a618a39350eae84153340e3a1f8
+outs:
+- md5: 70f3d268f666b0a26e95c2efd2c88834.dir
+  path: SGP
+  cache: true
+  metric: false
+  persist: false

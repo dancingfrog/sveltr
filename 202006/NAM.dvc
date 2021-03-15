@@ -1,0 +1,7 @@
+md5: 6b649c789487b58d9ae46f5a0fd224d6
+outs:
+- md5: be9491d3bf07e1dfb6624a60024577d5.dir
+  path: NAM
+  cache: true
+  metric: false
+  persist: false

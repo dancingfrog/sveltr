@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="LandingPage_RiskDataSuite"
+               path="GeoEnrichmentDatabases/source/LandingPage/LandingPage_RiskDataSuite.html"/>
+   <appContext helpID="ChapterIntroduction"
+               path="GeoEnrichmentDatabases/source/Introduction/ChapterIntroduction.html"/>
+   <appContext helpID="risk_data_suite"
+               path="GeoEnrichmentDatabases/source/Introduction/risk_data_suite.html"/>
+   <appContext helpID="risk_data_suite"
+               path="GeoEnrichmentDatabases/source/Introduction/Installation_GEM_Risk.html"/>
+   <appContext helpID="VersionCompatibility_RiskData"
+               path="GeoEnrichmentDatabases/source/Introduction/VersionCompatibility_RiskData.html"/>
+   <appContext helpID="ChapterDatasets"
+               path="GeoEnrichmentDatabases/source/Datasets/ChapterDatasets.html"/>
+   <appContext helpID="appendix_distance_to_coast"
+               path="GeoEnrichmentDatabases/source/Datasets/appendix_distance_to_coast.html"/>
+   <appContext helpID="coastal_waters_attribute"
+               path="GeoEnrichmentDatabases/source/Datasets/coastal_waters_attribute.html"/>
+   <appContext helpID="appendix_distance_to_coast"
+               path="GeoEnrichmentDatabases/source/Datasets/appendix_earthquake.html"/>
+   <appContext helpID="coastal_waters_attribute"
+               path="GeoEnrichmentDatabases/source/Datasets/earthquake_attribute.html"/>
+   <appContext helpID="appendix_flood_risk"
+               path="GeoEnrichmentDatabases/source/Datasets/appendix_flood_risk.html"/>
+   <appContext helpID="flood_risk_attribute"
+               path="GeoEnrichmentDatabases/source/Datasets/flood_risk_attribute.html"/>
+   <appContext helpID="appendix_flood_risk"
+               path="GeoEnrichmentDatabases/source/Datasets/appendix_historical_weather.html"/>
+   <appContext helpID="flood_risk_attribute"
+               path="GeoEnrichmentDatabases/source/Datasets/historical_weather_attribute.html"/>
+   <appContext helpID="appendix_distance_to_coast"
+               path="GeoEnrichmentDatabases/source/Datasets/appendix_premium_tax.html"/>
+   <appContext helpID="coastal_waters_attribute"
+               path="GeoEnrichmentDatabases/source/Datasets/premium_tax_attribute.html"/>
+   <appContext helpID="datasets_fire_protection"
+               path="GeoEnrichmentDatabases/source/Datasets/datasets_fire_protection.html"/>
+   <appContext helpID="gem_fire_protection_data"
+               path="GeoEnrichmentDatabases/source/Datasets/fire_protection_data.html"/>
+   <appContext helpID="appendix_fire_risk"
+               path="GeoEnrichmentDatabases/source/Datasets/appendix_fire_risk.html"/>
+   <appContext helpID="fire_risk_attribute"
+               path="GeoEnrichmentDatabases/source/Datasets/fire_risk_attribute.html"/>
+   <appContext helpID="copyright" path="Shared/source/legalstuff/getting_support.html"/>
+</map>

@@ -1,0 +1,7 @@
+md5: bc6faf90d8a44887dfd6fdf64b24681b
+outs:
+- md5: 667596721ae4f9f5fba94b2fb7697650.dir
+  path: SOM
+  cache: true
+  metric: false
+  persist: false

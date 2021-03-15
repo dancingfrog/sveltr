@@ -1,0 +1,7 @@
+md5: a2a7e59c6cfd406edd8aa536db6b79e7
+outs:
+- md5: 31de5b7dfebb1d02d4b2a922b5f9445a.dir
+  path: GNB
+  cache: true
+  metric: false
+  persist: false

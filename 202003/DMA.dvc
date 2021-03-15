@@ -1,0 +1,7 @@
+md5: add72f41eb884ee871e199ac87caf1e3
+outs:
+- md5: cf294cee15b5f2cfd2d475c3caf2f6e3.dir
+  path: DMA
+  cache: true
+  metric: false
+  persist: false

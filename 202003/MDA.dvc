@@ -1,0 +1,7 @@
+md5: 4e1260cb720d7d11fe4f8afaed7821e5
+outs:
+- md5: b93cce725950efd572af2015c2122282.dir
+  path: MDA
+  cache: true
+  metric: false
+  persist: false

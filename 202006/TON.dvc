@@ -1,0 +1,7 @@
+md5: 57fbd7f114558d6ab99b73a5aa44476f
+outs:
+- md5: bde7c8450b7dfaeecef29d34374d5277.dir
+  path: TON
+  cache: true
+  metric: false
+  persist: false

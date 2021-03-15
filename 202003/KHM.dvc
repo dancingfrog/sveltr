@@ -1,0 +1,7 @@
+md5: 00d61ca9c257fe39cd6431fa790e0fff
+outs:
+- md5: 4b4cf3d3bf1c7036fec083e19390b91d.dir
+  path: KHM
+  cache: true
+  metric: false
+  persist: false

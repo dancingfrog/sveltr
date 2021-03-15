@@ -1,0 +1,7 @@
+md5: 6cd30eec250bf065c784c51ab3536a58
+outs:
+- md5: a8f0388e4ba63edfabe9ecba961725d7.dir
+  path: SWE
+  cache: true
+  metric: false
+  persist: false

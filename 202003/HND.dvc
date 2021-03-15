@@ -1,0 +1,7 @@
+md5: b6410c7b4bf2f6c8773bee2044df739a
+outs:
+- md5: 159a0e43878bd392ad81df32dbed09a0.dir
+  path: HND
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: 81312e897f649e6cadbc24ea696930d9
+outs:
+- md5: a2bb4021d4f48586aabf89e932256328.dir
+  path: MCO
+  cache: true
+  metric: false
+  persist: false

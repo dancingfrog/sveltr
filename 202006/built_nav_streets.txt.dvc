@@ -1,0 +1,7 @@
+md5: c24a51a9663537ee3ff3ef1634191703
+outs:
+- md5: 0c8c0ac37b9f04b4387fbbfe0fb0a879
+  path: built_nav_streets.txt
+  cache: true
+  metric: false
+  persist: false

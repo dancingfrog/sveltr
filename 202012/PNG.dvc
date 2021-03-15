@@ -1,0 +1,7 @@
+md5: 0541369aa2cd64d2bb0e7d0da3bd9342
+outs:
+- md5: cf76252118e03b33fc7a131ecf0f3028.dir
+  path: PNG
+  cache: true
+  metric: false
+  persist: false

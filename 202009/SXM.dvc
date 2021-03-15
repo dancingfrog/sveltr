@@ -1,0 +1,7 @@
+md5: a50ae1392c9605759caa07e72e9a31ed
+outs:
+- md5: a9f5806671d018993b4248b6a4452020.dir
+  path: SXM
+  cache: true
+  metric: false
+  persist: false

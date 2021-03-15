@@ -1,0 +1,7 @@
+md5: 202552ca25ec67c3f4a3e2bbeb19dd62
+outs:
+- md5: 7a7d80c0d0a89be6b91387573689b634.dir
+  path: SEN
+  cache: true
+  metric: false
+  persist: false

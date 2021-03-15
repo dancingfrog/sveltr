@@ -1,0 +1,2 @@
+Information in this document is subject to change without notice and does not represent a commitment on the part of the vendor or its representatives. No part of this document may be reproduced or transmitted in any form or by any means, electronic or mechanical, including photocopying without the written permission of Pitney Bowes Software Inc, 3001 Summer Street, Stamford CT 06926-0700, USA
+© 2014-2020 Pitney Bowes All rights reserved.

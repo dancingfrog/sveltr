@@ -1,0 +1,151 @@
+---
+title: "Product Release Statistics By Country"
+author: "John Hall"
+date: 5/4/20
+output: html_document
+---
+<div class="r-setup">
+
+```{r setup, echo = FALSE, include = FALSE}
+options(warn = -1)
+working_dir <- getwd()
+#print(working_dir)
+#print(grepl("/content", getwd(), ignore.case = TRUE))
+if (grepl("/content", getwd(), ignore.case = TRUE)) {
+    working_dir <- stringr::str_replace(getwd(), "/content", "")
+    setwd(working_dir)
+}
+if (!require("knitr")) {
+  install.packages("knitr")
+  library("knitr")
+}
+knitr::opts_chunk$set(cache = FALSE)
+#knitr::opts_chunk$set(cache.extra = tools::md5sum(paste0(working_dir, "/src/stats-template.Rmd")))
+
+require("jsonlite")
+require("rmarkdown")
+require("stringr")
+
+CURRENT_VERSION <- if (!is.null(getOption("CURRENT_VERSION"))) {
+    getOption("CURRENT_VERSION")
+} else {
+    readtext::readtext("CURRENT/version.txt", encoding = "UTF-8")[[2]]
+}
+PAST_VERSION <- if (!is.null(getOption("CURRENT_VERSION"))) {
+    getOption("PAST_VERSION")
+} else {
+    readtext::readtext("PAST/version.txt", encoding = "UTF-8")[[2]]
+}
+
+print(paste0("CURRENT_VERSION: ", CURRENT_VERSION))
+print(paste0("PAST_VERSION: ", PAST_VERSION))
+
+links <- c()
+
+outputPath <- paste0("release-stats")
+```
+
+```{r build_stats, echo = FALSE, warning = FALSE}
+options(warn = -1)
+setwd(working_dir)
+print(working_dir)
+print(file.exists(paste0(working_dir, "/src")))
+print(file.exists(paste0(working_dir, "/static")))
+
+loadCountryVersions <- function (path_to_release_version_model) {
+    print(paste0(path_to_release_version_model, " exists? ",file.exists(path_to_release_version_model)))
+
+    geoVersions <- list()
+
+    if (file.exists(path_to_release_version_model)) {
+        release_version_model <- read.csv(path_to_release_version_model, header = FALSE, sep = ",", col.names = c("country", "current_version", "previous_version", "state_code"), colClasses = c("character", "character", "character", "character"))
+
+        for (col in colnames(release_version_model)) {
+            print(col)
+            for (idx in 1:length(release_version_model[,col])) {
+                #print(release_version_model[idx, col])
+                if (grepl("CURRENT_VERSION", release_version_model[idx, col], perl = TRUE)) {
+                    release_version_model[idx, col] <- CURRENT_VERSION
+                    #print(release_version_model[idx, col])
+                }
+                if (grepl("PAST_VERSION", release_version_model[idx, col], perl = TRUE)) {
+                    release_version_model[idx, col] <- PAST_VERSION
+                    #print(release_version_model[idx, col])
+                }
+            }
+        }
+
+        print(head(release_version_model))
+
+        for (idx in 1:nrow(release_version_model)) {
+            if (!grepl("\\w+", release_version_model[idx, 4], perl = TRUE)) {
+                release_version_model[idx, 4] <- c(NA)
+                print(as.character(release_version_model[1, ]))
+            }
+            geoVersions[[length(geoVersions) + 1]] <- as.character(release_version_model[idx, ])
+        }
+
+        geoVersions
+    }
+
+    geoVersions
+}
+
+allGeos <- loadCountryVersions(paste0(working_dir, "/CURRENT/models/release-versions.csv"))
+
+for (geo in allGeos) {
+    # Input params
+    args <- list()
+    args["country"] <- c(geo[1][1])
+    args["current_version"] <- c(geo[2][1])
+    args["previous_version"] <- c(geo[3][1])
+    if (!is.na(geo[4])) {
+        args["state_code"] <- c(geo[4][1])
+    } else {
+        args["state_code"] <- c(NA)
+    }
+    #args["state_flag"] <- c(NA)
+
+    if (is.na(args["state_code"])) {
+        outputURI <- paste0(outputPath, "/", args["country"])
+    } else {
+        outputURI <- paste0(outputPath, "/", args["country"],  "-", args["state_code"])
+    }
+
+    if (file.exists(paste0(working_dir, "/src")) && file.exists(paste0(working_dir, "/static"))) {
+
+        ifelse(!dir.exists(file.path(paste0(working_dir, "/static"), outputPath)),
+            dir.create(file.path(paste0(working_dir, "/static"), outputPath)),
+            FALSE)
+
+        ifelse(!dir.exists(file.path(paste0(working_dir, "/static"), outputURI)),
+            dir.create(file.path(paste0(working_dir, "/static"), outputURI)),
+            FALSE)
+
+        ifelse(file.exists(paste0(working_dir, "/static/", outputURI, '/index.html')),
+            file.remove(paste0(working_dir, "/static/", outputURI, '/index.html')),
+            FALSE)
+
+        rmarkdown::render(paste0(working_dir, "/src/templates/stats-template.Rmd"),
+                       output_file = paste0(working_dir, "/static/", outputURI, '/index.html'),
+                       params = args
+        )
+
+        if (is.na(args["state_code"])) {
+            links <- c(links, paste0('<a href="/InProcess/ReleaseStatistics/', outputURI, '/">', "StreetPro ", args["country"]," Release Statistics", '</a><br />'))
+        } else {
+            links <- c(links, paste0('&nbsp;&nbsp;<a href="/InProcess/ReleaseStatistics/', outputURI, '/">', "StreetPro ", args["country"],  " - ", args["state_code"]," Release Statistics", '</a><br />'))
+        }
+    }
+
+    print(links)
+}
+```
+
+</div>
+
+```{r release-links, echo = FALSE, results = "asis"}
+cat(paste0('<h3> StreetPro Navigation Premium (Latest: ', CURRENT_VERSION, ')</h3>'))
+
+cat(links)
+```

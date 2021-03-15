@@ -1,0 +1,7 @@
+md5: 97610d19a205e5ca80df32334f5fc04c
+outs:
+- md5: 889dc540d47acb39ca0d337de76a927d.dir
+  path: NGA
+  cache: true
+  metric: false
+  persist: false

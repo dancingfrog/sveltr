@@ -1,0 +1,7 @@
+md5: 062ec83ee5d0f15181b978b427427a07
+outs:
+- md5: 3d323e9307fc9aef0a165cfe9c8797e8.dir
+  path: TGO
+  cache: true
+  metric: false
+  persist: false

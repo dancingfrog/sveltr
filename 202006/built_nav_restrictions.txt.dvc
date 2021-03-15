@@ -1,0 +1,7 @@
+md5: 868ec08da4d7e075c7fccbdd7516ca98
+outs:
+- md5: 9e71196d2f284502a9764c2f7ce1b634
+  path: built_nav_restrictions.txt
+  cache: true
+  metric: false
+  persist: false

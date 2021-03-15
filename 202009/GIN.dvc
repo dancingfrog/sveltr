@@ -1,0 +1,7 @@
+md5: 51a6f513c8c447e648115c9d321ab879
+outs:
+- md5: 059f699cf85d3e1ae6c1a6f1bbc25a97.dir
+  path: GIN
+  cache: true
+  metric: false
+  persist: false

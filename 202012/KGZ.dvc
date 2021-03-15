@@ -1,0 +1,7 @@
+md5: 4f284029077f4ce9036225e64412168e
+outs:
+- md5: 8ebc46bc74eef63653166e83f256b0b8.dir
+  path: KGZ
+  cache: true
+  metric: false
+  persist: false

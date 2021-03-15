@@ -1,0 +1,7 @@
+md5: deb5578395b83c137d9b2037b09fb7d9
+outs:
+- md5: dadc72b02b948860049e951f53bfe1ca.dir
+  path: SVK
+  cache: true
+  metric: false
+  persist: false

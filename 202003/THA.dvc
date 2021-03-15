@@ -1,0 +1,7 @@
+md5: 9659a85843cc0fd82b2324bafbc7af35
+outs:
+- md5: 710af4cffd41d9415d97230af67b1d04.dir
+  path: THA
+  cache: true
+  metric: false
+  persist: false

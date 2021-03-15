@@ -1,0 +1,7 @@
+md5: 1c2d063cb6dc7ce01a6ecf00ee9573d1
+outs:
+- md5: 19c66a4520cfebdc7440375f37331a70
+  path: 202006-sp-nav_restrictions.csv
+  cache: true
+  metric: false
+  persist: false

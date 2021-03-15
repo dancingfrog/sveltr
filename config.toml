@@ -1,12 +1,44 @@
-baseurl = "/"
+baseurl = "/InProcess/ReleaseStatistics"
 languageCode = "en-us"
 languageLang = "en"
-publishDir = "public"
-title = "SveltR: Truly Epic Visualizations"
-
+title = "StreetPro Statistics"
+theme = "hugo-lithium"
+googleAnalytics = ""
+disqusShortname = ""
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
-# RSS, categories and tags disabled for an easy start
-# See configuration options for more details:
-# https://gohugo.io/getting-started/configuration/#toml-configuration
-disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
+
+[[menu.main]]
+    name = "Product Build Status for Navigation Layers"
+    url = "/product-build-status/"
+[[menu.main]]
+    name = "Product Release Statistics By Country"
+    url = "/release-stats/"
+[[menu.main]]
+    name = "Stats Portal Workbook"
+    url = "/streets_noram.xlsx"
+
+[params]
+
+    [params.logo]
+    url = "logo.png"
+    width = 50
+    height = 50
+    alt = "Logo"
+
+    # path to the favicon, under "static"
+    favicon = "favicon.ico"
+
+    description = "A website built through Hugo and blogdown."
+
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = "10.0.2"
+    highlightjsCDN = "//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.2/build/highlight.min.js"
+    highlightjsLang = ["r", "yaml"]
+    highlightjsTheme = "github"
+
+    MathJaxCDN = "//cdnjs.cloudflare.com/ajax/libs"
+    MathJaxVersion = "2.7.5"
+

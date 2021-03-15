@@ -1,0 +1,7 @@
+md5: 73c369ef394b60f47e988406b104b2f6
+outs:
+- md5: 945be8e51a3a3c52961b242a9e8d134a.dir
+  path: SWZ
+  cache: true
+  metric: false
+  persist: false

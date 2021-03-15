@@ -1,0 +1,7 @@
+md5: cadf8e2c282fb05932494dcb52811c7c
+outs:
+- md5: 5f1999fa010661acb0e80546d01533d1.dir
+  path: IDN
+  cache: true
+  metric: false
+  persist: false

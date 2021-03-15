@@ -1,0 +1,7 @@
+md5: c532975b5b8e8c9fb13416da94659bdb
+outs:
+- md5: 39830b25bedb881b0b2d0065905b868b.dir
+  path: MUS
+  cache: true
+  metric: false
+  persist: false

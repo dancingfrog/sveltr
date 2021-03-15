@@ -1,0 +1,7 @@
+md5: 55376e42d0cb1a1535bf79f843202b7f
+outs:
+- md5: 539e147da67c269e916d072bc86b497c.dir
+  path: NIU
+  cache: true
+  metric: false
+  persist: false

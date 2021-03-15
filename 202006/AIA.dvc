@@ -1,0 +1,7 @@
+md5: d84c90dfe2e18a13577e443cf5b9cab6
+outs:
+- md5: 74e4680cf0f8fdd16914d6d97355a883.dir
+  path: AIA
+  cache: true
+  metric: false
+  persist: false

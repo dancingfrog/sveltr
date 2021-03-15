@@ -1,0 +1,12 @@
+fil = new Array();
+fil["0"]= "GeoEnrichmentDatabases/source/Datasets/Introduction_CAN - Copy.html@@@Introduction@@@...";
+fil["1"]= "GeoEnrichmentDatabases/source/Datasets/Notices_Product_Support_CAN.html@@@Notices and Product Support@@@...";
+fil["2"]= "GeoEnrichmentDatabases/source/Datasets/data_layouts_CAN.html@@@Tables@@@...";
+fil["3"]= "GeoEnrichmentDatabases/source/Datasets/data_specs_CAN.html@@@Data Specifications@@@Geography Level Nationwide Release Frequency Quarterly File Size (Typical) 856MB (unzipped Nationwide File) File Format Tab-separated text file Header? Yes Character Encoding UTF-8 Line Feed Windows...";
+fil["4"]= "GeoEnrichmentDatabases/source/Datasets/product_description_CAN.html@@@Product Description@@@The Canada Address Fabric is a pre-geocoded nationwide dataset of postal and non-postal addresses, in a flat-file format. It contains the best location for each street address record, with all...";
+fil["5"]= "GeoEnrichmentDatabases/source/Datasets/product_naming.html@@@Product File Naming@@@The compressed file with nationwide coverage is named CAN_AddressFabric_YYYYMM.zip, where YYYYMM represents the product vintage year and month. Following are the files bundled in the zip...";
+fil["6"]= "GeoEnrichmentDatabases/source/Datasets/record_formats_CAN.html@@@Address Fabric Data Layout@@@Field Position Maximum Length Notes PBKEY 1 12 The unique identifier for the address. ADD_NUMBER 2 20 House number STREETNAME 3 60 Street name UNIT_DES* 4 10 Unit designator: Apt, Unit, etc. UNIT_NUM*...";
+fil["7"]= "GeoEnrichmentDatabases/source/LandingPage/LandingPage_CANAddressFabric.html@@@Welcome@@@Address Fabric: Canada Address Fabric Topics covered in this guide include: Introduction Tables Notices and Product Support For more information Complete documentation for Canada Address Fabric can be...";
+fil["8"]= "Shared/source/legalstuff/copyright_AddressFabricCAN.html@@@Notices@@@Copyright \u00A9 2019 Pitney Bowes Software Inc. All Rights Reserved. Data products sold by Pitney Bowes are protected by various trademarks and one or more of the following copyrights: Postal CodeOM...";
+fil["9"]= "Shared/source/legalstuff/getting_support_traffic.html@@@Product Support@@@If you have any questions or concerns, you may contact our support team directly by phone or email: Software Support Call: 1.800.367.6950 Email: software.support@pb.com Technical Support Visit...";
+var doStem = false;searchLoaded = true;

@@ -1,0 +1,7 @@
+md5: 27e9c750f29248472a6f9d713006437b
+outs:
+- md5: 27a25b7bc9db3a46452b119576e122ab.dir
+  path: MOZ
+  cache: true
+  metric: false
+  persist: false

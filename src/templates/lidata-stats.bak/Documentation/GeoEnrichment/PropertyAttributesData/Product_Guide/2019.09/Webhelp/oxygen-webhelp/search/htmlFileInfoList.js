@@ -1,0 +1,15 @@
+fil = new Array();
+fil["0"]= "GeoEnrichmentDatabases/source/Datasets/ChapterDatasets.html@@@Tables@@@...";
+fil["1"]= "GeoEnrichmentDatabases/source/Datasets/ChapterDatasets_parcel_faq.html@@@Frequently Asked Questions@@@...";
+fil["2"]= "GeoEnrichmentDatabases/source/Datasets/GeoEnrichment_and_Fabric_Data_Fields.html@@@GeoEnrichment Data Fields@@@This section describes the output fields that are returned for each Property Attributes dataset. For more details and for highlighted field names, refer to the Excel\u00AE spreadsheet that is provided with...";
+fil["3"]= "GeoEnrichmentDatabases/source/Datasets/Parcel Premium Historical Data Fields.html@@@Historical Sales Data Fields@@@This section describes the output fields that are returned for each Property Attributes dataset. For more details and for highlighted field names, refer to the Property Attributes Historical Sales...";
+fil["4"]= "GeoEnrichmentDatabases/source/Datasets/Parcel_FAQs.html@@@FAQs@@@...";
+fil["5"]= "GeoEnrichmentDatabases/source/Datasets/saus_rsp_description.html@@@SAUS RSP Description@@@Field Name Field Type Description PBKEY Char (17) A unique address identifier that is returned when an address match is made using the Master Location Dataset CODE char(12) 2017 Geography Layer Code...";
+fil["6"]= "GeoEnrichmentDatabases/source/Introduction/ChapterIntroduction.html@@@Introduction@@@...";
+fil["7"]= "GeoEnrichmentDatabases/source/Introduction/GEM_Datasets.html@@@GeoEnrichment Data Descriptions@@@GeoEnrichment Data Property Attributes GeoEnrichment data is available in an H2DB file compatible with Pitney Bowes Spectrum\u2122 Technology Platform, and a .txt file. The data contains the pbKey\u2122 which...";
+fil["8"]= "GeoEnrichmentDatabases/source/Introduction/Installation.html@@@Installation@@@To Install the Property Attributes GeoEnrichment Data Download your database(s). The database is downloaded as a .7z file. Extract the .7z file. Note: Tip: A tool that supports extracting the .7z...";
+fil["9"]= "GeoEnrichmentDatabases/source/Introduction/PAD_Descriptions.html@@@Property Attributes Data Descriptions@@@...";
+fil["10"]= "GeoEnrichmentDatabases/source/Introduction/demographics.html@@@Property Attributes Data@@@Features Pitney Bowes Property Attribute dataset lets you enrich your location information with more than 200 property attribute fields on over 149 million US properties. This includes 99% of the...";
+fil["11"]= "GeoEnrichmentDatabases/source/LandingPage/LandingPage_GroundviewRetailSalesPotentialDemographics.html@@@Welcome@@@GeoEnrichment Database: Property Attributes Data 2019.09.0 Topics covered in this guide include: Introduction to the Property Attributes Data Database fields and descriptions Database covered in this...";
+fil["12"]= "Shared/source/legalstuff/getting_support.html@@@Product Support@@@If you have any questions or concerns, you may contact our support team directly by phone or email: Software Support Call: 1.800.367.6950 Email: software.support@pb.com Technical Support Visit...";
+var doStem = false;searchLoaded = true;

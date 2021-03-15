@@ -1,0 +1,7 @@
+md5: b7ae9993979a50eddb84145b89e495d2
+outs:
+- md5: 23d4542a7bf20a0bc5dcf9f88dceb5be
+  path: 202006-sp-nav_nodes.csv
+  cache: true
+  metric: false
+  persist: false

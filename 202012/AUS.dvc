@@ -1,0 +1,7 @@
+md5: 7eaa13a02718b9642d3a6fad12dd3e01
+outs:
+- md5: b4f91f627f932482e042d26c7a0af892.dir
+  path: AUS
+  cache: true
+  metric: false
+  persist: false

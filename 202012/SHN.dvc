@@ -1,0 +1,7 @@
+md5: 41edd811c727b7d4c0bb99c080fac127
+outs:
+- md5: 134ba333bd873507107f22a7b3e7f6f3.dir
+  path: SHN
+  cache: true
+  metric: false
+  persist: false

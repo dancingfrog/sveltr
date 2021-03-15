@@ -1,0 +1,7 @@
+md5: f99d824f1cbe8f72ed09901ce69473ee
+outs:
+- md5: 1191e5108571adeae76d691819359b3a.dir
+  path: SSD
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: 742394e14dea64cd66aec0a69d07ab8c
+outs:
+- md5: 132d90513b7da82d99e0ae18d53ec6ae.dir
+  path: SYR
+  cache: true
+  metric: false
+  persist: false

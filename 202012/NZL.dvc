@@ -1,0 +1,7 @@
+md5: b4ff06cf76f5cd47276e1d10ee9ae072
+outs:
+- md5: cf40696adb748687b8d7c4fe1791bb4b.dir
+  path: NZL
+  cache: true
+  metric: false
+  persist: false

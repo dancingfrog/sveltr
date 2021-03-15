@@ -1,0 +1,7 @@
+md5: 777695270545fd84d3b8d0321bb9b210
+outs:
+- md5: eb374bae10a0b2eb0cdffc1f270fc818.dir
+  path: AZE
+  cache: true
+  metric: false
+  persist: false

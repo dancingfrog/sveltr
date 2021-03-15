@@ -1,0 +1,7 @@
+md5: 052d25ada99f2e87eb2bf859abecc9d8
+outs:
+- md5: c8ed510b8016a7cb2eef4df34e0adb2f.dir
+  path: BEN
+  cache: true
+  metric: false
+  persist: false

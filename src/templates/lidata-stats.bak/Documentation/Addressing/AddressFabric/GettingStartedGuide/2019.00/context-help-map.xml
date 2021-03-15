@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="LandingPage_CommunicationsSuite"
+               path="GeoEnrichmentDatabases/source/LandingPage/LandingPage_USAddressFabric_getting_started.html"/>
+   <appContext helpID="risk_data_suite"
+               path="GeoEnrichmentDatabases/source/Introduction/US_Address_Fabric_GSG_Introduction_Prface.html"/>
+   <appContext helpID="VersionCompatibility_RiskData"
+               path="GeoEnrichmentDatabases/source/Introduction/DataSpec_USAddressFabric.html"/>
+   <appContext helpID="Annexure1_ImportingStreetProTrafficData_SQL_Server"
+               path="GeoEnrichmentDatabases/source/AddressFabric/Product%20Guide/Annexure1_ImportingStreetProTrafficData_SQL_Server.html"/>
+   <appContext helpID="GettingStarted_ImportingStreetProTrafficData_TextFormat_Oracle"
+               path="GeoEnrichmentDatabases/source/AddressFabric/Product%20Guide/GettingStarted_ImportingStreetProTrafficData_TextFormat_Oracle.html"/>
+   <appContext helpID="Annexure1_ImportingStreetProTrafficData_SQL_Server"
+               path="GeoEnrichmentDatabases/source/AddressFabric/Product%20Guide/Annexure1_ImportingStreetProTrafficData_SQL_Server%20-%202.html"/>
+   <appContext helpID="GettingStarted_ImportingStreetProTrafficData_Tab-Files_in-MIPro"
+               path="GeoEnrichmentDatabases/source/AddressFabric/Product%20Guide/GettingStarted_ImportingStreetProTrafficData_Tab-Files_in-MIPro.html"/>
+   <appContext helpID="GettingStarted_ImportingStreetProTrafficData_Tab-Files_in-MIPro"
+               path="GeoEnrichmentDatabases/source/AddressFabric/Product%20Guide/GettingStarted_ImportingAFinQGIS.html"/>
+   <appContext helpID="copyright"
+               path="Shared/source/legalstuff/copyright_AF_Getting_Started.html"/>
+   <appContext helpID="copyright"
+               path="Shared/source/legalstuff/getting_support_traffic.html"/>
+</map>

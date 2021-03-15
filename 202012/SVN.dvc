@@ -1,0 +1,7 @@
+md5: 624665fb035af9e75fb887652d734299
+outs:
+- md5: 701aabb5af184a3252ab84f2f1f88383.dir
+  path: SVN
+  cache: true
+  metric: false
+  persist: false

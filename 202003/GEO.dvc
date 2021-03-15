@@ -1,0 +1,7 @@
+md5: 31bf135f6c0acabf6cb298bd1873af56
+outs:
+- md5: d8401fada23b6af4a79016fd87834eb3.dir
+  path: GEO
+  cache: true
+  metric: false
+  persist: false

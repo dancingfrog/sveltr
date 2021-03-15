@@ -1,0 +1,7 @@
+md5: 0154133f39f2659734c002c4800924e6
+outs:
+- md5: ad0b7a0757df18f6ff4dc830579bbc5c.dir
+  path: EGY
+  cache: true
+  metric: false
+  persist: false

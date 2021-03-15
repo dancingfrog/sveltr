@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="LandingPage_GroundviewFamilyDemographics"
+               path="GeoEnrichmentDatabases/source/LandingPage/LandingPage_public_transit_points.html"/>
+   <appContext helpID="ChapterIntroduction"
+               path="GeoEnrichmentDatabases/source/Introduction/ChapterIntroduction_public_transit_points.html"/>
+   <appContext helpID="demographics"
+               path="GeoEnrichmentDatabases/source/Introduction/overview_public_transit_points.html"/>
+   <appContext helpID="demographics"
+               path="GeoEnrichmentDatabases/source/Introduction/features_public_transit_points.html"/>
+   <appContext helpID="demographics"
+               path="GeoEnrichmentDatabases/source/Introduction/coverage_public_transit_points.html"/>
+   <appContext helpID="ChapterIntroduction"
+               path="GeoEnrichmentDatabases/source/Introduction/Using_public_transit_points.html"/>
+   <appContext helpID="introduction_using_transit_points_data"
+               path="GeoEnrichmentDatabases/source/Introduction/introduction_using_transit_points_data.html"/>
+   <appContext helpID="spatial_referencing_system"
+               path="GeoEnrichmentDatabases/source/Introduction/spatial_referencing_system.html"/>
+   <appContext helpID="product_schema_transit"
+               path="GeoEnrichmentDatabases/source/Introduction/product_schema_transit.html"/>
+   <appContext helpID="micodes"
+               path="GeoEnrichmentDatabases/source/Introduction/micodes.html"/>
+   <appContext helpID="installation_transit"
+               path="GeoEnrichmentDatabases/source/Introduction/installation_transit.html"/>
+   <appContext helpID="to_use_in_mapinfo_professional"
+               path="GeoEnrichmentDatabases/source/Introduction/to_use_in_mapinfo_professional.html"/>
+   <appContext helpID="to_display_the_data_as_geographic_points"
+               path="GeoEnrichmentDatabases/source/Introduction/to_display_the_data_as_geographic_points.html"/>
+   <appContext helpID="copyright"
+               path="Shared/source/legalstuff/getting_support_transit.html"/>
+</map>

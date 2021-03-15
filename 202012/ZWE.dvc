@@ -1,0 +1,7 @@
+md5: 916b92d6db60c40eb719487c9180bc2a
+outs:
+- md5: 535657f96977efcd759bc1009de510fe.dir
+  path: ZWE
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+   <appContext helpID="LandingPage_GroundviewRetailSalesPotentialDemographics"
+               path="GeoEnrichmentDatabases/source/LandingPage/LandingPage_GroundviewRetailSalesPotentialDemographics_parcel.html"/>
+   <appContext helpID="ChapterIntroduction"
+               path="GeoEnrichmentDatabases/source/Introduction/ChapterIntroduction_parcel.html"/>
+   <appContext helpID="demographics"
+               path="GeoEnrichmentDatabases/source/Introduction/demographics_parcel.html"/>
+   <appContext helpID="risk_data_suite"
+               path="GeoEnrichmentDatabases/source/Introduction/Installation_parcel.html"/>
+   <appContext helpID="risk_data_suite"
+               path="GeoEnrichmentDatabases/source/Introduction/PAD_Descriptions_parcel.html"/>
+   <appContext helpID="gem_datasets"
+               path="GeoEnrichmentDatabases/source/Introduction/GEM_Datasets3_parcel.html"/>
+   <appContext helpID="ChapterDatasets"
+               path="GeoEnrichmentDatabases/source/Datasets/ChapterDatasets_parcel.html"/>
+   <appContext helpID="dataset1_saus_cep1_5y_description"
+               path="GeoEnrichmentDatabases/source/Datasets/Parcel%20Data%20Fields_parcel.html"/>
+   <appContext helpID="dataset1_saus_cep1_5y_description"
+               path="GeoEnrichmentDatabases/source/Datasets/Parcel%20Premium%20Historical%20Data%20Fields_parcel.html"/>
+   <appContext helpID="dataset1_saus_cep1_5y_description"
+               path="GeoEnrichmentDatabases/source/Datasets/Parcel%20PBkey%20Lookup.html"/>
+   <appContext helpID="ChapterDatasets"
+               path="GeoEnrichmentDatabases/source/Datasets/ChapterDatasets_parcel_faq.html"/>
+   <appContext helpID="dataset1_saus_cep1_5y_description"
+               path="GeoEnrichmentDatabases/source/Datasets/Parcel_FAQs.html"/>
+   <appContext helpID="copyright" path="Shared/source/legalstuff/getting_support.html"/>
+</map>

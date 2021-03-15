@@ -1,0 +1,7 @@
+md5: 256b7a9806fb3a27d51246a80e1eb322
+outs:
+- md5: 5de8a86e1eef2b9cfdfaf802e09bc12b.dir
+  path: ABW
+  cache: true
+  metric: false
+  persist: false

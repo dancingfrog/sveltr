@@ -1,0 +1,7 @@
+md5: 48f4ee9594cbd033a286e9aa8acd4b12
+outs:
+- md5: c51559135d09b133273e7bfcf5d2a8a0.dir
+  path: GUF
+  cache: true
+  metric: false
+  persist: false

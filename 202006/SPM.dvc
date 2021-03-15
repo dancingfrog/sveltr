@@ -1,0 +1,7 @@
+md5: 66c7f54e97f52cd85854fac74eb03e76
+outs:
+- md5: 0ad3d50b57e28b4dc9f3bd173de194fb.dir
+  path: SPM
+  cache: true
+  metric: false
+  persist: false

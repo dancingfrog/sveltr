@@ -1,0 +1,7 @@
+md5: f9cda64dd0a80023521c1608aecbe8b6
+outs:
+- md5: 37e5eb3886b16e94f18907be8d4fd68a.dir
+  path: MNE
+  cache: true
+  metric: false
+  persist: false

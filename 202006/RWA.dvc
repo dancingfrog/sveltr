@@ -1,0 +1,7 @@
+md5: e7e742b64568cf9c0993891995d401a1
+outs:
+- md5: 15a62d12b1320d5870f5f92de923f4d1.dir
+  path: RWA
+  cache: true
+  metric: false
+  persist: false

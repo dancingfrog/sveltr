@@ -1,0 +1,7 @@
+md5: fe0992104c185a9448da5feffa5fb10e
+outs:
+- md5: d599488b6b86fce340376c416e13e7c5.dir
+  path: SOM
+  cache: true
+  metric: false
+  persist: false

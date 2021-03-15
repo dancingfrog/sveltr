@@ -1,0 +1,7 @@
+md5: a35409a6f41ddd8f58eec1d06da4c70a
+outs:
+- md5: 35a6e64ee676b51162180f7befe0f1f3.dir
+  path: SAU
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: 5fc80783f55db434f679867eb7b25656
+outs:
+- md5: c9c6080ee0764212833fe8fb6fa28551.dir
+  path: CMR
+  cache: true
+  metric: false
+  persist: false

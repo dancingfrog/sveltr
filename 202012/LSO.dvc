@@ -1,0 +1,7 @@
+md5: 926cd4a4234838f5faea31e11388ece9
+outs:
+- md5: cffcf79cbe8e190a3b0bbd0790d58a4d.dir
+  path: LSO
+  cache: true
+  metric: false
+  persist: false

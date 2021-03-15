@@ -1,0 +1,7 @@
+md5: e2c6a5b3df74e06dae3d675d7155c2b0
+outs:
+- md5: 04780b784b81c7b3b356fc56e1f0de28.dir
+  path: JOR
+  cache: true
+  metric: false
+  persist: false

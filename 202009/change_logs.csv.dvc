@@ -1,0 +1,7 @@
+md5: 8ab4775c4bed7d003630f9511ae72222
+outs:
+- md5: 82a3b62b5753986b4fd96b693fa9e19f
+  path: change_logs.csv
+  cache: true
+  metric: false
+  persist: false

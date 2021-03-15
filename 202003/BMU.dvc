@@ -1,0 +1,7 @@
+md5: f845d634b552da6efd09321f5ab36c6d
+outs:
+- md5: c0e15ff6595d9d5260ca5c4d3e2ff327.dir
+  path: BMU
+  cache: true
+  metric: false
+  persist: false

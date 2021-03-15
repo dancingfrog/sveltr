@@ -1,0 +1,7 @@
+md5: 0ec87a662f8f6119c9fb6445405fde72
+outs:
+- md5: a6b0617fe8d3232b6852f5f9025cd5ac.dir
+  path: GHA
+  cache: true
+  metric: false
+  persist: false

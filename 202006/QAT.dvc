@@ -1,0 +1,7 @@
+md5: ee271cc7950ebcf42d2c3612c63ba05a
+outs:
+- md5: cd49a5224fcd81ad6299d8470a4ac6e8.dir
+  path: QAT
+  cache: true
+  metric: false
+  persist: false

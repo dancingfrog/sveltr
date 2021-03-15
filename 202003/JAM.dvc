@@ -1,0 +1,7 @@
+md5: 1cc1034f3f00eb9ec88896c0e847a7c8
+outs:
+- md5: 48c3f7fae45d982262538dcbf29eab7c.dir
+  path: JAM
+  cache: true
+  metric: false
+  persist: false

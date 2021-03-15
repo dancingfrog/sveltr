@@ -1,0 +1,128 @@
+'Country','R0 (<Richter1)','R1 (Richter1to2)','R2 (Richter2to3)','R3 (Richter3to4)','R4 (Richter4to5)','R5 (Richter5to6)','R6 (Richter6to7)','R7 (>=Richter7)'
+Afghanistan,2938,0,0,2,480,95,22,1
+Albania,153,108,612,582,113,10,0,0
+Aleutians East,0,2,3,0,0,0,0,0
+Aleutians West,26,114,80,15,10,3,0,0
+Algeria,124,12,140,297,127,11,0,0
+Anchorage,0,2,0,0,0,0,0,0
+Angola,6,0,0,0,2,0,0,0
+Antarctica,27,0,1,0,10,2,0,0
+Argentina,2867,4,677,2484,1211,161,27,3
+Australia,357,0,375,301,82,10,0,0
+Azerbaijan,114,0,0,2,33,14,0,0
+Bangladesh,69,0,0,0,6,2,1,0
+Bhutan,32,0,0,1,5,2,1,0
+Bolivia,833,0,0,5,161,46,10,1
+Bosnia and Herzegovina,103,18,220,195,49,2,0,0
+Brazil,53,0,0,0,13,8,5,1
+Burundi,6,0,0,0,2,0,0,0
+Cabo Rojo,0,2,2,0,0,0,0,0
+Canada,364,1376,917,434,213,26,1,1
+Ceiba,0,1,0,0,0,0,0,0
+Chile,4948,188,3683,5228,2066,361,51,7
+China,5667,0,0,37,925,317,35,6
+Colombia,1286,1,43,51,249,45,9,1
+"Congo, The Democratic Republic of the",147,0,0,0,41,21,1,0
+Costa Rica,154,0,0,21,213,24,4,1
+Croatia,135,136,299,137,38,2,1,0
+Cuba,3,0,0,0,3,1,0,0
+Cyprus,83,6,137,119,21,3,0,0
+Czech Republic,67,113,306,104,9,0,0,0
+Djibouti,5,0,0,4,5,1,0,0
+Dominican Republic,40,0,11,229,116,7,1,0
+Ecuador,307,0,0,3,187,56,7,2
+Egypt,43,0,0,9,27,1,0,0
+El Salvador,117,0,0,39,95,6,4,0
+Eritrea,34,0,0,1,4,4,0,0
+Ethiopia,185,0,0,7,56,25,0,0
+Fiji,27,0,0,0,3,0,0,0
+France,465,1913,5098,617,56,6,0,0
+French Southern Territories,0,0,0,0,4,1,0,0
+Georgia,46,0,0,7,13,3,1,0
+Germany,42,168,1014,322,18,2,0,0
+Greece,1559,91,1715,5168,476,36,7,0
+Greenland,20,0,0,5,13,0,0,0
+Guam,8,0,0,1,4,1,0,0
+Guatemala,269,0,0,9,292,61,8,1
+Guayanilla,0,1,1,0,0,0,0,0
+Haines,1,0,0,0,0,0,0,0
+Haiti,78,0,0,11,10,2,0,1
+Hawaii,1,6,3,0,0,0,0,0
+Honduras,48,0,0,2,37,4,0,0
+Hoonah-Angoon,0,3,5,0,1,0,0,0
+Humboldt,0,0,2,0,0,0,0,0
+Hungary,2,5,29,21,10,0,0,0
+Iceland,55,0,0,1,400,52,3,0
+India,1375,0,0,9,198,57,3,3
+Indonesia,5492,0,0,13,1066,489,59,11
+"Iran, Islamic Republic of",1601,0,2,438,1312,223,21,3
+Iraq,81,0,0,15,63,9,0,0
+Italy,708,1785,7082,1648,374,36,3,0
+Jamaica,16,0,3,7,3,1,0,0
+Japan,2357,0,0,163,689,178,25,3
+Jefferson,2,0,0,0,0,0,0,0
+Jordan,13,0,0,1,7,1,0,0
+Kazakhstan,150,0,0,5,28,8,2,0
+Kenai Peninsula,2,38,19,1,0,0,0,0
+King,10,3,0,0,0,0,0,0
+Kitsap,7,1,0,0,0,0,0,0
+Kodiak Island,0,11,6,1,0,0,0,0
+Kyrgyzstan,491,0,0,1,67,20,3,0
+Lajas,0,2,1,0,0,0,0,0
+Lao People's Democratic Republic,35,0,0,1,3,1,1,0
+Lebanon,1,0,4,7,10,3,0,0
+Los Angeles,0,0,1,1,0,0,0,0
+"Macedonia, The Former Yugoslav Republic of",63,15,84,112,21,2,0,0
+Malawi,55,0,0,0,4,4,1,0
+Malaysia,8,0,0,0,3,3,0,0
+Matanuska-Susitna,0,2,1,0,0,0,0,0
+Mauritania,9,0,0,0,14,0,0,0
+Mexico,485,288,720,3905,3064,165,28,9
+Mongolia,175,0,0,0,21,12,0,0
+Montenegro,139,239,179,41,19,0,0,0
+Monterey,0,2,0,0,0,0,0,0
+Morocco,66,22,193,878,107,2,1,0
+Mozambique,113,0,0,0,20,9,0,1
+Myanmar,895,0,0,1,189,69,8,1
+Nepal,197,0,0,6,244,35,5,2
+New Zealand,1349,71,207,1043,1416,116,10,2
+Nicaragua,251,0,0,5,107,27,4,0
+Pakistan,1563,0,0,2,199,77,4,3
+Panama,78,0,13,56,75,17,3,0
+Papua New Guinea,3421,0,0,7,681,360,75,7
+Peru,1819,0,0,31,549,211,21,3
+Philippines,1267,0,0,1,372,130,8,1
+Poland,474,1,1565,1440,154,4,0,0
+Puerto Rico,52,289,1101,299,5,2,0,0
+Romania,481,0,91,179,91,11,0,0
+Russian Federation,2619,0,2,6,383,132,28,4
+San Juan,2,1,1,0,0,0,0,0
+San Mateo,0,2,0,0,0,0,0,0
+Saudi Arabia,64,0,1,6,26,2,0,0
+Serbia,34,7,149,135,36,4,0,0
+Slovenia,126,654,589,92,15,2,0,0
+Solomon Islands,255,0,0,0,52,25,4,0
+South Africa,332,0,1,29,66,1,0,0
+Spain,664,1787,3060,631,71,7,1,0
+Sudan,12,0,0,0,1,0,0,0
+Sweden,23,0,3,4,2,0,0,0
+Syrian Arab Republic,5,0,0,4,9,1,0,0
+"Taiwan, Province of China",409,0,0,18,211,77,15,1
+Tajikistan,1432,0,0,2,192,37,1,0
+"Tanzania, United Republic of",215,0,0,6,39,23,2,0
+Thailand,11,0,0,1,19,2,1,0
+Timor-Leste,158,0,0,0,26,8,0,0
+Turkey,1467,0,1377,2194,783,103,8,2
+Turkmenistan,83,0,0,3,27,9,0,1
+Uganda,35,0,0,0,12,6,0,0
+United Kingdom,22,18,47,37,4,2,0,0
+United States,83872,86099,31623,14681,1663,170,17,3
+Uzbekistan,131,0,0,0,23,8,0,0
+Valdez-Cordova,3,48,6,0,0,0,0,0
+Vanuatu,149,0,0,0,45,15,3,1
+Venezuela,121,0,4,80,132,15,0,1
+Viet Nam,10,0,0,0,6,0,0,0
+"Virgin Islands, British",2,1,18,21,0,0,0,0
+"Virgin Islands, U.S.",0,0,9,8,0,0,0,0
+Yakutat,3,76,2,0,0,0,0,0
+Zambia,31,0,0,1,15,3,0,0

@@ -1,0 +1,7 @@
+md5: 01f4d7afab70177176ad604400f945a7
+outs:
+- md5: 00f2a8404f6fe03aa9bc82db28b67626.dir
+  path: KOR
+  cache: true
+  metric: false
+  persist: false

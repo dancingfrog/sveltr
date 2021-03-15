@@ -1,0 +1,7 @@
+md5: 0dde20d9089440574d85dc25e390b872
+outs:
+- md5: d6a04de4f2f5c3c6de41e3df9c8f16d6.dir
+  path: OMN
+  cache: true
+  metric: false
+  persist: false

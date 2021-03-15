@@ -52,10 +52,10 @@ export default [
 				extract: true,
 				// extract: 'public/global.css',
 				plugins: [
-				 nested(),
-				 // cssnext({ warnForDuplicates: false, }),
-				 // cssnano(),
-			   ],
+					// cssnano(),
+					// cssnext({ warnForDuplicates: false, }),
+					nested()
+				],
 			}),
 
 			// Watch the `public` directory and refresh the

@@ -1,0 +1,7 @@
+md5: 816a7ecbcb50982d35ce8c91765e14e4
+outs:
+- md5: 376b6b304c50f44a9ae0e817c203277f.dir
+  path: HUN
+  cache: true
+  metric: false
+  persist: false
