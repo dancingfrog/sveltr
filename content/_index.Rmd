@@ -1,0 +1,143 @@
+---
+title: "Hartford Strategic Vision 2020"
+author: John
+date: '2021-01-22'
+output: html_notebook
+---
+
+Victorious Hartford
+===================
+
+## A Strategic Vision By John Hall
+
+```{r setup, cache = FALSE, echo = FALSE, include = FALSE}
+options(warn = -1)
+working_dir <- getwd()
+print(working_dir)
+if (!require("knitr")) {
+  install.packages("knitr")
+  library("knitr")
+}
+knitr::opts_chunk$set(cache = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
+
+if (!require(akima) || !require(magick)  || !require(png)  || !require(rgl) || !require(reshape2) || !require(viridis)) {
+    install.packages(c("akima", "ggplot2", "magick", "png", "reshape2", "viridis"))
+    devtools::install_github("tylermorganwall/rayimage@7a9a138e10e19119c88e960f9cfb191d1fdae002", upgrade = FALSE)
+    devtools::install_github("tylermorganwall/terrainmeshr@e112055e47033508cc45c8246b8dc0a0e94920f7", upgrade = FALSE)
+    devtools::install_github("tylermorganwall/rayshader@d0c9bd94be95c44eff6e7d8da5eadff070dc11db", upgrade = FALSE)
+    devtools::install_version("rgl", version = "0.100.19", dependencies = FALSE)
+    devtools::install_github("MilesMcBain/slippymath", upgrade = FALSE)
+    devtools::install_github("neilcharles/geoviz", upgrade = FALSE)
+}
+```
+
+```{r hartford_survey, cache = FALSE, echo = FALSE}
+options(warn = -1)
+if (!suppressMessages(require(googlesheets4))) {
+    devtools::install_github("tidyverse/googledrive", upgrade = FALSE)
+    devtools::install_github("tidyverse/googlesheets4", upgrade = FALSE)
+}
+
+googlesheets4::gs4_deauth()
+hartford_campaign_survey <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1qQ5ZbMdO3ai_rVmLCdVCdf-2EN5fxqdE3sU3bhRItiE/edit?usp=sharing")
+
+```
+
+
+```{r geoviz_test, cache = FALSE, dev.args = list(bg = 'transparent'), echo = FALSE}
+options(warn = -1)
+suppressMessages(library(geoviz))
+suppressMessages(library(rayshader))
+suppressMessages(library(raster))
+suppressMessages(library(slippymath))
+
+# Load an example IGC (GPS track log) file
+igc <- example_igc()
+
+# Load a small example elevation raster showing a piece of the English Lake district
+DEM <- example_raster()
+
+# import desert heightmap demo
+if (file.exists("data/57-Elevation_DEMHF0p7m2016_N5145E281.img")) {
+    localdem <- raster::raster("data/57-Elevation_DEMHF0p7m2016_N5145E281.img")
+} else {
+    localdem <- file.choose()
+}
+
+DEM <- raster(localdem)
+
+sunangle <- 270
+
+zscale <- 25
+
+# Get a Stamen map that will cover our DEM
+stamen_overlay <- slippy_overlay(DEM, image_source = "stamen", image_type = "watercolor", png_opacity = 0.3)
+
+# Make an elevation shading layer with dark valleys and light peaks (not essential but I like it!)
+suppressMessages(elevation_overlay <- elevation_shade(DEM, elevation_palette = c("#000000", "#FFFFFF"), png_opacity = 0.6))
+
+## Calculate the 'rayshader' scene (see 'rayshader' documentation)
+#elmat <- matrix(
+#  raster::extract(DEM, raster::extent(DEM), method = 'bilinear'),
+#  nrow = ncol(DEM),
+#  ncol = nrow(DEM)
+#)
+#
+#scene <- elmat %>%
+#  sphere_shade(sunangle = sunangle, texture = "bw") %>%
+#  add_overlay(elevation_overlay) %>%
+#  add_overlay(stamen_overlay)
+#
+#scene %>%
+#  plot_map()
+
+## Render the 'rayshader' scene
+#rayshader::plot_3d(
+#  scene,
+#  elmat,
+#  zscale = zscale,
+#  solid = FALSE,
+#  shadow = TRUE,
+#  shadowdepth = -100
+#)
+```
+
+<p style="margin-top: -35px;"></p>
+
+Candidates for Selectboard 2021
+
+|                             |                             |
+|-----------------------------|-----------------------------|
+| Dan Fraser      &nbsp;&nbsp;|                 &nbsp;&nbsp;|
+| John Hall       &nbsp;&nbsp;| Rachel Edens    &nbsp;&nbsp;|
+| Ally Tufenkjian &nbsp;&nbsp;| Julia Dalphin   &nbsp;&nbsp;|
+
+<div id="stream" style="text-align:center">
+<a id="aud1_play" href="/#" onclick="(function(evt) { aud1.play(); aud1.muted=false; evt.target.innerHTML='Now Playing'; evt.target.onclick = null; }) (event || window.event)">Play</a>
+&nbsp;<br /><br />
+<!--a href="http://www.w3.org/2010/05/video/mediaevents.html" target="_blank">Media Help</a-->
+<audio id="aud1" controls="true" preload="auto"  style="width:280px;">
+<source src="/vision/vision.mp3" />
+</audio>
+</div>
+
+<span id="text_title" style="display:none">Vision</span>
+
+<em>Victorious Hartford&nbsp;</em> or <em>Victory For Hartford&nbsp;</em> means discovering and building strength from within our community. By strength, I mean creative problem solving, health, resilience, trust and well-being. We can see that the challenges of the recent past and of the near future will continue to push our current resources and systems to the absolute limit of their capacity to respond and to stabilize. We, and by we I mean the entire community, must consciously and continuously re-evaluate and re-invest in our collective capabilities ── enhancing our strengths, shining light on our blind spots and working through our shortcomings ── in order to overcome these challenges.
+
+Hartford is a land of three rivers cradling countless flora and fauna. Trees cover a cumulative 23 square miles of the total 45 square mile expanse that is Hartford. Across that expanse, almost ten thousand souls live and labor and depend on the stability of the land beneath their feet and the social and economic systems that bind our realities together. These systems are as fragile as any forest ecosystem, possibly more so, and like any river, great care and maintenance and awareness are required to keep the water flowing to every place and every mouth that needs it.
+
+As issues within our community come to the surface, be they challenges to our economic well-being, environmental health, social cohesion, or otherwise, we must honestly evaluate strategies to deepen our understanding of these challenges and plot a course of action that will fundamentally improve the ways that the Town relates to its personnel and to its residents. I understand that both the process of acknowledging real issues, and the genesis of effective strategies must be driven by the groups on which those issues have the greatest impact. We need to frequently remind ourselves of that dynamic value and accept that when we allow the powers of choice and action to stagnate, we lose the ability to adapt to disasters of all forms, be they biological, climactic, or economic. Every person in our community must be granted access and agency over these powers of governance in order for all of us to be victorious.
+
+ It’s been a rough year and I believe this next year is going to be more challenging than the last. The catastrophe of the pandemic was only the beginning of what will be a prolonged period of tough times. I truly believe that the thinking that brought us through the last few decades, at times fat and happy, at times threadbare and weary, but ultimately still standing, is not going to be enough to ensure our prosperity during the next few decades. Times are changing, to the extreme, and last year through this next year in particular, will set the tone for everything that happens throughout the rest of the 2020’s. My intent in joining the Selectboard is to work to ensure that my community, my neighbors, and my family have a fighting chance to survive these tough times.
+
+What is so tough about the times we are coming into? More people are going to fall into poverty and more working families will find themselves not being able to afford the cost of living in the Upper Valley. Even though they have lived here for years or even if they grew up here their finances are declining, while rents are going up, the cost of housing is going up, the price of real estate and property is following a market trend, as if the pandemic hadn’t happened at all. I see that the Feds and the state of Vermont are trying to accommodate and trying to adjust, providing funding for emergency programs like hotel vouchers for people who are without homes, but at the exact same time state revenue has taken a tremendous hit this past year which I believe will continue into the next year. To be frank, financial conditions notwithstanding, the state is not Hartford, and no amount of funding will generate a solution to a problem that the buyer does not understand. The needs of Hartford are unique to Hartford, regardless of how many of those needs are shared with other towns. So, at some point what the state can provide, will not be good enough and will not be specific enough for people who are trying to pick themselves back up, whether they’ve lost a house, or they are dealing with protracted legal issues or their family situation has dissolved, all things that prolonged economic, emotional and physical stress will contribute to.
+
+We’re going to have to step up to the plate with local resources, local brain power and very creative solutions to make it good enough for a growing group of people, a larger and larger group that includes families, children, young working people who are not making enough to live on. People who were already facing challenges, discrimination, online harrassment and abuse before last year even landed on us at all. This economic situation has only intensified the difficulty level of the many challenges in their lives and their challenges become our challenges, affect our prosperity, affect our standard of living, change our sense of safety and security and opportunity and possibility. I believe it’s this kind of reckoning, this ability to come to terms with the situation we are in, that will be a prerequisite to any constructive action that the Selectboard takes over this next year. The actions we take this year will resonate and have follow-on effects for years and years to come, as will all of the actions that we didn’t take and the challenges that we failed to address when a response was required.
+
+So why is equity and trust so important to the function of our Town? Someone I’ve interacted with in the government of the Town of Hartford, is the Town Clerk. I trust the Town Clerk. Why?
+
+Because I’ve interacted with her and in each and everyone of those interactions, she was courteous and kind, but most importantly, she was fair. So, when I watch a meeting of the Selectboard and they turn to the Town Clerk for her professional opinion about an issue regarding the election, I trust that her advice has integrity and is what she sincerely believes is best for the Town, because I believe that *she* has integrity. And ultimately that leads me to believe that our election has integrity. Now, I consider it a privilege to have had the chance to interact with her, because most residents of Hartford will never interact with the Town Clerk directly. They might interact with someone working in Parks & Rec, or someone doing work for the Planning Department, or a police officer. Many people interact with police officers and for the person who’s encounter with a police officer may have been the only face-to-face interaction they’ve ever had with an employee of the Town, the nature of that interaction is going to strongly influence how they see the town, how they react to communications that come in their mailbox from the Town Clerk, and how they participate or feel that they cannot or should not participate in the governance of the Town. For a person who is not male or not white or not cis-gendered or not any of the above, the experience of seeing a town employee interact with a post or a page on social media that is either explicitly or implicitly denigrating people because of their skin color or gender or sexual identity or condoning violence and threats of violence against a specific person, regardless of the reason espoused; that experience will have a profound impact on their ability to trust the representatives of the Town they live in or the Town they were going to visit or the Town they were going to invest in. Ultimately, that will have a profound impact on the integrity of the Town and its ability to function and survive.
+
+The Selectboard and the School Board need to come together around the Strategic Plan for Equity and Inclusion and discuss overlaps and develop a criteria and a rubric to assess what kind of providers, educators and trainers we are going to invite into this process. Then the Selectboard needs to outline an action plan for moving forward. In addition, they need to develop a Social Media Policy alongside the personnel policies that already apply to every employee of every department of the Town because the representation of the Town matters. This is not about achieving perfection. It's about meaningful progress; keeping it moving forward. At this point in the history of the United States and in the history of Hartford, there is no excuse for our Town not to be expressly and explicitly anti-racist, anti-sexist, anti-homophobic and anti-xenophobic. In fact, our survival as a town, culturally, economically, and socially, depends on achieving, at minimum, that level of justice and of fairness with all due haste.

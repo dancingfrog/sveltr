@@ -1,22 +1,18 @@
-# SveltR
+# Victorious Hartford
 
-**A blogdown/svelte boilerplate for creating truly epic visualizations**, *inspired by Netlify's [Victor Hugo](https://github.com/netlify-templates/victor-hugo)*
+Candidates for Selectboard 2021
 
-<a href="https://bookdown.org/yihui/blogdown" target="_blank">
-    <img src="https://bookdown.org/yihui/blogdown/images/logo.png"
-         style="max-width: 80px; opacity: 0.25;"
-         alt="blogdown logo" width="10%" align="left" />
-</a>
+|                             |                             |
+|-----------------------------|-----------------------------|
+| Dan Fraser      &nbsp;&nbsp;|                 &nbsp;&nbsp;|
+| John Hall       &nbsp;&nbsp;| Rachel Edens    &nbsp;&nbsp;|
+| Ally Tufenkjian &nbsp;&nbsp;| Julia Dalphin   &nbsp;&nbsp;|
 
-<a href="https://svelte.dev/" target="_blank">
-    <img src="docs/svelte.svg"
-         style="max-width: 80px; opacity: 0.25;"
-         alt="svelte logo" width="12%" align="right" />
-</a>
+<em>Victorious Hartford&nbsp;</em> or <em>Victory For Hartford&nbsp;</em> means discovering and building strength from within our community. By strength, I mean creative problem solving, health, resilience, trust and well-being. We can see that the challenges of the recent past and of the near future will continue to push our current resources and systems to the absolute limit of their capacity to respond and to stabilize. We, and by we I mean the entire community, must consciously and continuously re-evaluate and re-invest in our collective capabilities ── enhancing our strengths, shining light on our blind spots and working through our shortcomings ── in order to overcome these challenges.
 
-This is a boilerplate for using [blogdown (R Markdown x Hugo)](https://github.com/rstudio/blogdown/) as a static site generator and [Svelte](https://svelte.dev/) as your reactive app engine.
+Hartford is a land of three rivers cradling countless flora and fauna. Trees cover a cumulative 23 square miles of the total 45 square mile expanse that is Hartford. Across that expanse, almost ten thousand souls live and labor and depend on the stability of the land beneath their feet and the social and economic systems that bind our realities together. These systems are as fragile as any forest ecosystem, possibly more so, and like any river, great care and maintenance and awareness are required to keep the water flowing to every place and every mouth that needs it.
 
-This project is released under the [MIT license](LICENSE). Please make sure you understand its implications and guarantees.
+As issues within our community come to the surface, be they challenges to our economic well-being, environmental health, social cohesion, or otherwise, we must honestly evaluate strategies to deepen our understanding of these challenges and plot a course of action that will fundamentally improve the ways that the Town relates to its personnel and to its residents. I understand that both the process of acknowledging real issues, and the genesis of effective strategies must be driven by the groups on which those issues have the greatest impact. We need to frequently remind ourselves of that dynamic value and accept that when we allow the powers of choice and action to stagnate, we lose the ability to adapt to disasters of all forms, be they biological, climactic, or economic. Every person in our community must be granted access and agency over these powers of governance in order for all of us to be victorious.
 
 ## Usage
 
@@ -31,7 +27,7 @@ Next step, clone this repository and run:
 npm install
 ```
 
-This will take some time and will install all packages necessary to run SveltR and its tasks.
+This will take some time and will install all packages necessary to run Sveltr and its tasks.
 
 ### :construction_worker: Development
 
@@ -103,16 +99,5 @@ You can access the environment variable inside the theme files with `getenv "NOD
     {{ if eq (getenv "NODE_ENV") "development" }}You're in development!{{ end }}
 
 All tasks starting with _build_ set the environment variable to `production` - the other will set it to `development`.
-
-## Deploying to Netlify
-
-- Push your clone to your own GitHub repository.
-- [Create a new site on Netlify](https://app.netlify.com/start) and link the repository.
-
-Now Netlify will build and deploy your site whenever you push to git.
-
-You can also click this button:
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/real-currents/sveltr)
 
 ## Enjoy!! 😸

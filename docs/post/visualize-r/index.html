@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <base href="/SveltR/">
-  <title>SveltR: Truly Epic Visualizations</title>
+  <base href="/">
+  <title>My new blogdown site</title>
 
-  <link href="/SveltR/global.css" rel="stylesheet">
+  <link href="/global.css" rel="stylesheet">
 
-  <link href="/SveltR/main.css" rel="stylesheet">
+  <link href="/main.css" rel="stylesheet">
 
 
 </head>
@@ -18,22 +18,22 @@
 
 
 
-
+ 
 <article class="content">
   <main>
-<link href="/SveltR/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/SveltR/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
-<div id="vizr-app" role="main" style="width: 100%;">
-;
+<div id="vizr-app" role="main" style="width: 100%; min-width: 800px;">
+<p> </p>
 </div>
 <div id="visualizing-r-data-with-sveltr" class="section level2">
-<h2>Visualizing R Data with <a href="/SveltR/https://github.com/Real-Currents/SveltR">SveltR</a></h2>
+<h2>Visualizing R Data with <a href="https://github.com/dancingfrog/sveltr">SveltR</a></h2>
 <p>If the output target of your Rmd (R Markdown) content is HTML, R has some methods for turning R data into JavaScript or JSON data and printing the results within HTML tags.
 <br />
 <br />
-<img src="/SveltR/post/data/heightmap-small.png" style="float: right; max-width:256px; padding: 1%;" />
+<img src="post/data/heightmap-small.png" style="float: right; width:256px; padding: 1%;" />
 After using R to read each pixel of this heightmap, the table (data.frame) is written to json …
 <br />
 <br />
@@ -55,7 +55,7 @@ After using R to read each pixel of this heightmap, the table (data.frame) is wr
   var data = JSON.parse(document.getElementById(&#39;gl_data_in_html&#39;).children[0].innerHTML);
 &lt;/script&gt;</code></pre>
 <p><br /></p>
-<p>Then that same data can be used specify dimensions of the individual blocks in <a href="/SveltR/https://github.com/Real-Currents/SvelteGL/tree/real/currents"><code>@sveltejs/gl</code></a>. Here’s the full source of the app.</p>
+<p>Then that same data can be used specify dimensions of the individual blocks in <a href="https://github.com/Real-Currents/SvelteGL/tree/real/currents"><code>@sveltejs/gl</code></a>. Here’s the full source of the app.</p>
 <p><code>VizRApp.svelte</code>:</p>
 <pre><code>&lt;script&gt;
     import { onMount } from &#39;svelte&#39;;
@@ -121,23 +121,28 @@ After using R to read each pixel of this heightmap, the table (data.frame) is wr
 
     console.log(heightmap);
 
+
     /* This is a helper callback to bind custom uniforms/attributes
-     * and to pass custom buffers. I inserted a hook directly in the
-     * @sveltejs/gl source for this purpose:
-     * https://github.com/Real-Currents/SvelteGL/tree/real/currents
+     * and to pass custom buffers, like the ad-hoc texture coords
+     * used in normal-selected texture shader below. I inserted a
+     * hook directly in the @sveltejs/gl source for this purpose
      */
     let process_extra_shader_components = (gl, material, model) =&gt; {
         // console.log(&quot;Process Extra Shader Components&quot;);
         const program = material.program;
     };
 
-    let controlInit;
+    let updateWorld = (event) =&gt; {
+        console.log(event);
+    };
+
+    let navControlInit;
 
     onMount(() =&gt; {
         let frame;
 
-        if (typeof controlInit === &#39;function&#39;) {
-            controlInit();
+        if (typeof navControlInit === &#39;function&#39;) {
+            navControlInit();
         }
 
         const loop = () =&gt; {
@@ -210,7 +215,7 @@ After using R to read each pixel of this heightmap, the table (data.frame) is wr
 &lt;/GL.Scene&gt;
 
 &lt;Controls
-        bind:init={controlInit}
+        bind:init={navControlInit}
         bind:color={color}
         bind:options={options}
         bind:rangeOptions={ranges}
@@ -414,7 +419,7 @@ After using R to read each pixel of this heightmap, the table (data.frame) is wr
 
 
 
-  <script src="/SveltR/main.js"></script>
+  <script src="/main.js"></script>
 
 
 </body>

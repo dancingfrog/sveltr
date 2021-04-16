@@ -3,9 +3,6 @@ title: Visualizing R Data with SveltR
 author: John
 date: '2020-03-14'
 draft: false
-output:
-  html_document:
-    keep_md: yes
 categories:
   - GL
 tags:
@@ -14,9 +11,13 @@ tags:
   - SvelteGL
   - WebGL
 ---
-<div id="vizr-app" role="main" style="width: 100%;">;</div>
 
-## Visualizing R Data with [SveltR](https://github.com/Real-Currents/SveltR)
+<div id="vizr-app" role="main" style="width: 100%; min-width: 800px;">
+&nbsp;
+</div>
+
+
+## Visualizing R Data with [SveltR](https://github.com/dancingfrog/sveltr)
 
 ```{r setup, include=FALSE}
 options(warn = -1)
@@ -34,23 +35,22 @@ if (!require("png")) {
 }
 library(png)
 ```
+
 If the output target of your Rmd (R Markdown) content is HTML, R has some methods for turning R data into JavaScript or JSON data and printing the results within HTML tags.
 <br />
 <br />
-<img src="post/data/heightmap-small.png" style="float: right; max-width:256px; padding: 1%;" />
+<img src="post/data/heightmap-small.png" style="float: right; width:256px; padding: 1%;" />
 After using R to read each pixel of this heightmap, the table (data.frame) is written to json ...
 <br />
 <br />
 <br />
-
 ```{r gl_data, echo = FALSE, results = "asis"}
 options(warn = -1)
 working_dir <- getwd()
 # print(working_dir)
-heightmap <- data.frame(NULL)
+heightmap <- data.frame(c())
 if (file.exists("data/heightmap-small.png")) {
     heightmap <- data.frame(png::readPNG("data/heightmap-small.png"))
-    #heightmap <- data.frame(magick::image_read("data/heightmap-small.png"))
     # head(heightmap)
     # length(heightmap)
     # str(heightmap)
@@ -146,23 +146,28 @@ Then that same data can be used specify dimensions of the individual blocks in [
 
         console.log(heightmap);
 
+
         /* This is a helper callback to bind custom uniforms/attributes
-         * and to pass custom buffers. I inserted a hook directly in the
-         * @sveltejs/gl source for this purpose:
-         * https://github.com/Real-Currents/SvelteGL/tree/real/currents
+         * and to pass custom buffers, like the ad-hoc texture coords
+         * used in normal-selected texture shader below. I inserted a
+         * hook directly in the @sveltejs/gl source for this purpose
          */
         let process_extra_shader_components = (gl, material, model) => {
             // console.log("Process Extra Shader Components");
             const program = material.program;
         };
 
-        let controlInit;
+        let updateWorld = (event) => {
+            console.log(event);
+        };
+
+        let navControlInit;
 
         onMount(() => {
             let frame;
 
-            if (typeof controlInit === 'function') {
-                controlInit();
+            if (typeof navControlInit === 'function') {
+                navControlInit();
             }
 
             const loop = () => {
@@ -235,7 +240,7 @@ Then that same data can be used specify dimensions of the individual blocks in [
     </GL.Scene>
 
     <Controls
-            bind:init={controlInit}
+            bind:init={navControlInit}
             bind:color={color}
             bind:options={options}
             bind:rangeOptions={ranges}

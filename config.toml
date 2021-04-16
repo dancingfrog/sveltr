@@ -1,12 +1,25 @@
-baseurl = "/SveltR/"
-languageCode = "en-us"
-languageLang = "en"
-publishDir = "public"
-title = "SveltR: Truly Epic Visualizations"
-
+baseURL = "/victorious-hartford"
+languageCode = "en"
+defaultContentLanguage = "en"
+title = "Victorious Hartford"
+theme = "stip-hugo"
+disableKinds = ["page", "section", "taxonomy", "taxonomyTerm"]
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
-# RSS, categories and tags disabled for an easy start
-# See configuration options for more details:
-# https://gohugo.io/getting-started/configuration/#toml-configuration
-disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
+[Author]
+    name = "Victorious Hartford"
+    bio = "A Strategic Vision"
+
+[params]
+
+    [[params.links]]
+        iconset = "fas"
+        icon = "envelope"
+        title = "E-mail"
+        url = "mailto:info@victorious-hartford.us"
+
+    [[params.links]]
+        icon = "github"
+        title = "Github"
+        url = "https://github.com/dancingfrog/victorious-hartford"
+

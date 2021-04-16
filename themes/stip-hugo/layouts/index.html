@@ -1,0 +1,31 @@
+{{ define "main" }}
+
+<main>
+    <div class="portrait-container">
+<!--        <img src="{{ "/_index_files/figure-html/geoviz_test-1.png" | relURL }}" class="portrait" alt="Portrait" />-->
+    </div>
+
+    <div class="content">
+<!--        <h1>{{ .Site.Author.name | default "Stip" }}</h1>-->
+<!--        <h2>{{ .Site.Author.bio | default "Hugo theme to introduce yourself" }}</h2>-->
+<!--        <p>{{- partial "introduction.html" . -}}</p>-->
+
+        <!-- Note that the content for index.html, as a sort of list page, will pull from content/_index.md -->
+        {{.Content}}
+
+
+        <div class="links">
+            {{- range .Site.Params.links -}}
+                <a rel="me" href="{{ .url }}" title="{{ .title }}">
+                    <span class="{{ .iconset | default "fab" }} fa-{{ .icon }}"></span>
+                </a>
+            {{- end -}}
+        </div>
+
+<!--        <main id="svelte-app" role="main"></main><br /><br />-->
+
+        {{- partial "footer.html" . -}}
+    </div>
+</main>
+
+{{ end }}

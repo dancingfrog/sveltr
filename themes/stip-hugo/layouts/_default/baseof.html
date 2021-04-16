@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
+    {{- partial "head.html" . -}}
+    <body>
+        {{- partial "header.html" . -}}
+        {{- block "main" . }}{{- end }}
+
+        {{ $script := .Site.Data.assets.main }}
+        {{ with $script.js }}
+        <script src="{{ relURL . }}"></script>
+        {{ end }}
+
+    </body>
+</html>

@@ -1,3 +1,5 @@
+
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.head.appendChild(r) })(window.document);
 var app = (function (exports) {
     'use strict';
 
@@ -526,14 +528,14 @@ var app = (function (exports) {
     			h3 = element("h3");
     			t = space();
     			canvas_1 = element("canvas");
-    			add_location(h3, file, 62, 1, 1388);
+    			add_location(h3, file, 70, 1, 1542);
     			attr_dev(canvas_1, "width", canvas_1_width_value = 32);
     			attr_dev(canvas_1, "height", canvas_1_height_value = 32);
-    			attr_dev(canvas_1, "class", "svelte-y9ulwz");
-    			add_location(canvas_1, file, 63, 1, 1415);
+    			attr_dev(canvas_1, "class", "svelte-10c35ml");
+    			add_location(canvas_1, file, 71, 1, 1569);
     			attr_dev(div, "id", "view");
-    			attr_dev(div, "class", "svelte-y9ulwz");
-    			add_location(div, file, 61, 0, 1371);
+    			attr_dev(div, "class", "svelte-10c35ml");
+    			add_location(div, file, 69, 0, 1525);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -544,7 +546,7 @@ var app = (function (exports) {
     			h3.innerHTML = /*greeting*/ ctx[0];
     			append_dev(div, t);
     			append_dev(div, canvas_1);
-    			/*canvas_1_binding*/ ctx[2](canvas_1);
+    			/*canvas_1_binding*/ ctx[5](canvas_1);
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*greeting*/ 1) h3.innerHTML = /*greeting*/ ctx[0];		},
@@ -552,7 +554,7 @@ var app = (function (exports) {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
-    			/*canvas_1_binding*/ ctx[2](null);
+    			/*canvas_1_binding*/ ctx[5](null);
     		}
     	};
 
@@ -569,6 +571,13 @@ var app = (function (exports) {
 
     function instance($$self, $$props, $$invalidate) {
     	let { greeting } = $$props;
+    	let pin;
+    	let view;
+
+    	function handleSubmit() {
+    		alert(`submitted ${pin}`);
+    	}
+
     	let canvas;
 
     	onMount(() => {
@@ -625,7 +634,11 @@ var app = (function (exports) {
     	$$self.$capture_state = () => ({
     		onMount,
     		greeting,
+    		pin,
+    		view,
+    		handleSubmit,
     		canvas,
+    		alert,
     		requestAnimationFrame,
     		window,
     		Math,
@@ -634,6 +647,8 @@ var app = (function (exports) {
 
     	$$self.$inject_state = $$props => {
     		if ("greeting" in $$props) $$invalidate(0, greeting = $$props.greeting);
+    		if ("pin" in $$props) $$invalidate(3, pin = $$props.pin);
+    		if ("view" in $$props) view = $$props.view;
     		if ("canvas" in $$props) $$invalidate(1, canvas = $$props.canvas);
     	};
 
@@ -641,7 +656,8 @@ var app = (function (exports) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [greeting, canvas, canvas_1_binding];
+    	 view = pin ? pin.replace(/\d(?!$)/g, "*") : "enter your pin";
+    	return [greeting, canvas, view, pin, handleSubmit, canvas_1_binding];
     }
 
     class App extends SvelteComponentDev {
@@ -932,7 +948,7 @@ var app = (function (exports) {
     /**
      * Creates a new mat4 initialized with values from an existing matrix
      *
-     * @param {ReadonlyMat4} a matrix to clone
+     * @param {mat4} a matrix to clone
      * @returns {mat4} a new 4x4 matrix
      */
 
@@ -960,7 +976,7 @@ var app = (function (exports) {
      * Copy the values from one mat4 to another
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the source matrix
+     * @param {mat4} a the source matrix
      * @returns {mat4} out
      */
 
@@ -1097,7 +1113,7 @@ var app = (function (exports) {
      * Transpose the values of a mat4
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the source matrix
+     * @param {mat4} a the source matrix
      * @returns {mat4} out
      */
 
@@ -1147,7 +1163,7 @@ var app = (function (exports) {
      * Inverts a mat4
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the source matrix
+     * @param {mat4} a the source matrix
      * @returns {mat4} out
      */
 
@@ -1210,7 +1226,7 @@ var app = (function (exports) {
      * Calculates the adjugate of a mat4
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the source matrix
+     * @param {mat4} a the source matrix
      * @returns {mat4} out
      */
 
@@ -1252,7 +1268,7 @@ var app = (function (exports) {
     /**
      * Calculates the determinant of a mat4
      *
-     * @param {ReadonlyMat4} a the source matrix
+     * @param {mat4} a the source matrix
      * @returns {Number} determinant of a
      */
 
@@ -1292,8 +1308,8 @@ var app = (function (exports) {
      * Multiplies two mat4s
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the first operand
-     * @param {ReadonlyMat4} b the second operand
+     * @param {mat4} a the first operand
+     * @param {mat4} b the second operand
      * @returns {mat4} out
      */
 
@@ -1353,8 +1369,8 @@ var app = (function (exports) {
      * Translate a mat4 by the given vector
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the matrix to translate
-     * @param {ReadonlyVec3} v vector to translate by
+     * @param {mat4} a the matrix to translate
+     * @param {vec3} v vector to translate by
      * @returns {mat4} out
      */
 
@@ -1408,8 +1424,8 @@ var app = (function (exports) {
      * Scales the mat4 by the dimensions in the given vec3 not using vectorization
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the matrix to scale
-     * @param {ReadonlyVec3} v the vec3 to scale the matrix by
+     * @param {mat4} a the matrix to scale
+     * @param {vec3} v the vec3 to scale the matrix by
      * @returns {mat4} out
      **/
 
@@ -1439,9 +1455,9 @@ var app = (function (exports) {
      * Rotates a mat4 by the given angle around the given axis
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the matrix to rotate
+     * @param {mat4} a the matrix to rotate
      * @param {Number} rad the angle to rotate the matrix by
-     * @param {ReadonlyVec3} axis the axis to rotate around
+     * @param {vec3} axis the axis to rotate around
      * @returns {mat4} out
      */
 
@@ -1519,7 +1535,7 @@ var app = (function (exports) {
      * Rotates a matrix by the given angle around the X axis
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the matrix to rotate
+     * @param {mat4} a the matrix to rotate
      * @param {Number} rad the angle to rotate the matrix by
      * @returns {mat4} out
      */
@@ -1563,7 +1579,7 @@ var app = (function (exports) {
      * Rotates a matrix by the given angle around the Y axis
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the matrix to rotate
+     * @param {mat4} a the matrix to rotate
      * @param {Number} rad the angle to rotate the matrix by
      * @returns {mat4} out
      */
@@ -1607,7 +1623,7 @@ var app = (function (exports) {
      * Rotates a matrix by the given angle around the Z axis
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the matrix to rotate
+     * @param {mat4} a the matrix to rotate
      * @param {Number} rad the angle to rotate the matrix by
      * @returns {mat4} out
      */
@@ -1655,7 +1671,7 @@ var app = (function (exports) {
      *     mat4.translate(dest, dest, vec);
      *
      * @param {mat4} out mat4 receiving operation result
-     * @param {ReadonlyVec3} v Translation vector
+     * @param {vec3} v Translation vector
      * @returns {mat4} out
      */
 
@@ -1686,7 +1702,7 @@ var app = (function (exports) {
      *     mat4.scale(dest, dest, vec);
      *
      * @param {mat4} out mat4 receiving operation result
-     * @param {ReadonlyVec3} v Scaling vector
+     * @param {vec3} v Scaling vector
      * @returns {mat4} out
      */
 
@@ -1718,7 +1734,7 @@ var app = (function (exports) {
      *
      * @param {mat4} out mat4 receiving operation result
      * @param {Number} rad the angle to rotate the matrix by
-     * @param {ReadonlyVec3} axis the axis to rotate around
+     * @param {vec3} axis the axis to rotate around
      * @returns {mat4} out
      */
 
@@ -1873,7 +1889,7 @@ var app = (function (exports) {
      *
      * @param {mat4} out mat4 receiving operation result
      * @param {quat4} q Rotation quaternion
-     * @param {ReadonlyVec3} v Translation vector
+     * @param {vec3} v Translation vector
      * @returns {mat4} out
      */
 
@@ -1917,7 +1933,7 @@ var app = (function (exports) {
      * Creates a new mat4 from a dual quat.
      *
      * @param {mat4} out Matrix
-     * @param {ReadonlyQuat2} a Dual Quaternion
+     * @param {quat2} a Dual Quaternion
      * @returns {mat4} mat4 receiving operation result
      */
 
@@ -1952,7 +1968,7 @@ var app = (function (exports) {
      *  the returned vector will be the same as the translation vector
      *  originally supplied.
      * @param  {vec3} out Vector to receive translation component
-     * @param  {ReadonlyMat4} mat Matrix to be decomposed (input)
+     * @param  {mat4} mat Matrix to be decomposed (input)
      * @return {vec3} out
      */
 
@@ -1969,7 +1985,7 @@ var app = (function (exports) {
      *  the same as the scaling vector
      *  originally supplied.
      * @param  {vec3} out Vector to receive scaling factor component
-     * @param  {ReadonlyMat4} mat Matrix to be decomposed (input)
+     * @param  {mat4} mat Matrix to be decomposed (input)
      * @return {vec3} out
      */
 
@@ -1994,7 +2010,7 @@ var app = (function (exports) {
      *  fromRotationTranslation, the returned quaternion will be the
      *  same as the quaternion originally supplied.
      * @param {quat} out Quaternion to receive the rotation component
-     * @param {ReadonlyMat4} mat Matrix to be decomposed (input)
+     * @param {mat4} mat Matrix to be decomposed (input)
      * @return {quat} out
      */
 
@@ -2057,8 +2073,8 @@ var app = (function (exports) {
      *
      * @param {mat4} out mat4 receiving operation result
      * @param {quat4} q Rotation quaternion
-     * @param {ReadonlyVec3} v Translation vector
-     * @param {ReadonlyVec3} s Scaling vector
+     * @param {vec3} v Translation vector
+     * @param {vec3} s Scaling vector
      * @returns {mat4} out
      */
 
@@ -2116,9 +2132,9 @@ var app = (function (exports) {
      *
      * @param {mat4} out mat4 receiving operation result
      * @param {quat4} q Rotation quaternion
-     * @param {ReadonlyVec3} v Translation vector
-     * @param {ReadonlyVec3} s Scaling vector
-     * @param {ReadonlyVec3} o The origin vector around which to scale and rotate
+     * @param {vec3} v Translation vector
+     * @param {vec3} s Scaling vector
+     * @param {vec3} o The origin vector around which to scale and rotate
      * @returns {mat4} out
      */
 
@@ -2177,7 +2193,7 @@ var app = (function (exports) {
      * Calculates a 4x4 matrix from the given quaternion
      *
      * @param {mat4} out mat4 receiving operation result
-     * @param {ReadonlyQuat} q Quaternion to create matrix from
+     * @param {quat} q Quaternion to create matrix from
      *
      * @returns {mat4} out
      */
@@ -2370,9 +2386,9 @@ var app = (function (exports) {
      * If you want a matrix that actually makes an object look at another object, you should use targetTo instead.
      *
      * @param {mat4} out mat4 frustum matrix will be written into
-     * @param {ReadonlyVec3} eye Position of the viewer
-     * @param {ReadonlyVec3} center Point the viewer is looking at
-     * @param {ReadonlyVec3} up vec3 pointing up
+     * @param {vec3} eye Position of the viewer
+     * @param {vec3} center Point the viewer is looking at
+     * @param {vec3} up vec3 pointing up
      * @returns {mat4} out
      */
 
@@ -2453,9 +2469,9 @@ var app = (function (exports) {
      * Generates a matrix that makes something look at something else.
      *
      * @param {mat4} out mat4 frustum matrix will be written into
-     * @param {ReadonlyVec3} eye Position of the viewer
-     * @param {ReadonlyVec3} center Point the viewer is looking at
-     * @param {ReadonlyVec3} up vec3 pointing up
+     * @param {vec3} eye Position of the viewer
+     * @param {vec3} center Point the viewer is looking at
+     * @param {vec3} up vec3 pointing up
      * @returns {mat4} out
      */
 
@@ -2511,7 +2527,7 @@ var app = (function (exports) {
     /**
      * Returns a string representation of a mat4
      *
-     * @param {ReadonlyMat4} a matrix to represent as a string
+     * @param {mat4} a matrix to represent as a string
      * @returns {String} string representation of the matrix
      */
 
@@ -2521,7 +2537,7 @@ var app = (function (exports) {
     /**
      * Returns Frobenius norm of a mat4
      *
-     * @param {ReadonlyMat4} a the matrix to calculate Frobenius norm of
+     * @param {mat4} a the matrix to calculate Frobenius norm of
      * @returns {Number} Frobenius norm
      */
 
@@ -2532,8 +2548,8 @@ var app = (function (exports) {
      * Adds two mat4's
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the first operand
-     * @param {ReadonlyMat4} b the second operand
+     * @param {mat4} a the first operand
+     * @param {mat4} b the second operand
      * @returns {mat4} out
      */
 
@@ -2560,8 +2576,8 @@ var app = (function (exports) {
      * Subtracts matrix b from matrix a
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the first operand
-     * @param {ReadonlyMat4} b the second operand
+     * @param {mat4} a the first operand
+     * @param {mat4} b the second operand
      * @returns {mat4} out
      */
 
@@ -2588,7 +2604,7 @@ var app = (function (exports) {
      * Multiply each element of the matrix by a scalar.
      *
      * @param {mat4} out the receiving matrix
-     * @param {ReadonlyMat4} a the matrix to scale
+     * @param {mat4} a the matrix to scale
      * @param {Number} b amount to scale the matrix's elements by
      * @returns {mat4} out
      */
@@ -2616,8 +2632,8 @@ var app = (function (exports) {
      * Adds two mat4's after multiplying each element of the second operand by a scalar value.
      *
      * @param {mat4} out the receiving vector
-     * @param {ReadonlyMat4} a the first operand
-     * @param {ReadonlyMat4} b the second operand
+     * @param {mat4} a the first operand
+     * @param {mat4} b the second operand
      * @param {Number} scale the amount to scale b's elements by before adding
      * @returns {mat4} out
      */
@@ -2644,8 +2660,8 @@ var app = (function (exports) {
     /**
      * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
      *
-     * @param {ReadonlyMat4} a The first matrix.
-     * @param {ReadonlyMat4} b The second matrix.
+     * @param {mat4} a The first matrix.
+     * @param {mat4} b The second matrix.
      * @returns {Boolean} True if the matrices are equal, false otherwise.
      */
 
@@ -2655,8 +2671,8 @@ var app = (function (exports) {
     /**
      * Returns whether or not the matrices have approximately the same elements in the same position.
      *
-     * @param {ReadonlyMat4} a The first matrix.
-     * @param {ReadonlyMat4} b The second matrix.
+     * @param {mat4} a The first matrix.
+     * @param {mat4} b The second matrix.
      * @returns {Boolean} True if the matrices are equal, false otherwise.
      */
 
@@ -2784,7 +2800,7 @@ var app = (function (exports) {
     /**
      * Creates a new vec3 initialized with values from an existing vector
      *
-     * @param {ReadonlyVec3} a vector to clone
+     * @param {vec3} a vector to clone
      * @returns {vec3} a new 3D vector
      */
 
@@ -2798,7 +2814,7 @@ var app = (function (exports) {
     /**
      * Calculates the length of a vec3
      *
-     * @param {ReadonlyVec3} a vector to calculate length of
+     * @param {vec3} a vector to calculate length of
      * @returns {Number} length of a
      */
 
@@ -2828,7 +2844,7 @@ var app = (function (exports) {
      * Copy the values from one vec3 to another
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the source vector
+     * @param {vec3} a the source vector
      * @returns {vec3} out
      */
 
@@ -2858,8 +2874,8 @@ var app = (function (exports) {
      * Adds two vec3's
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {vec3} out
      */
 
@@ -2873,8 +2889,8 @@ var app = (function (exports) {
      * Subtracts vector b from vector a
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {vec3} out
      */
 
@@ -2888,8 +2904,8 @@ var app = (function (exports) {
      * Multiplies two vec3's
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {vec3} out
      */
 
@@ -2903,8 +2919,8 @@ var app = (function (exports) {
      * Divides two vec3's
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {vec3} out
      */
 
@@ -2918,7 +2934,7 @@ var app = (function (exports) {
      * Math.ceil the components of a vec3
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a vector to ceil
+     * @param {vec3} a vector to ceil
      * @returns {vec3} out
      */
 
@@ -2932,7 +2948,7 @@ var app = (function (exports) {
      * Math.floor the components of a vec3
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a vector to floor
+     * @param {vec3} a vector to floor
      * @returns {vec3} out
      */
 
@@ -2946,8 +2962,8 @@ var app = (function (exports) {
      * Returns the minimum of two vec3's
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {vec3} out
      */
 
@@ -2961,8 +2977,8 @@ var app = (function (exports) {
      * Returns the maximum of two vec3's
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {vec3} out
      */
 
@@ -2976,7 +2992,7 @@ var app = (function (exports) {
      * Math.round the components of a vec3
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a vector to round
+     * @param {vec3} a vector to round
      * @returns {vec3} out
      */
 
@@ -2990,7 +3006,7 @@ var app = (function (exports) {
      * Scales a vec3 by a scalar number
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the vector to scale
+     * @param {vec3} a the vector to scale
      * @param {Number} b amount to scale the vector by
      * @returns {vec3} out
      */
@@ -3005,8 +3021,8 @@ var app = (function (exports) {
      * Adds two vec3's after scaling the second operand by a scalar value
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @param {Number} scale the amount to scale b by before adding
      * @returns {vec3} out
      */
@@ -3020,8 +3036,8 @@ var app = (function (exports) {
     /**
      * Calculates the euclidian distance between two vec3's
      *
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {Number} distance between a and b
      */
 
@@ -3034,8 +3050,8 @@ var app = (function (exports) {
     /**
      * Calculates the squared euclidian distance between two vec3's
      *
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {Number} squared distance between a and b
      */
 
@@ -3048,7 +3064,7 @@ var app = (function (exports) {
     /**
      * Calculates the squared length of a vec3
      *
-     * @param {ReadonlyVec3} a vector to calculate squared length of
+     * @param {vec3} a vector to calculate squared length of
      * @returns {Number} squared length of a
      */
 
@@ -3062,7 +3078,7 @@ var app = (function (exports) {
      * Negates the components of a vec3
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a vector to negate
+     * @param {vec3} a vector to negate
      * @returns {vec3} out
      */
 
@@ -3076,7 +3092,7 @@ var app = (function (exports) {
      * Returns the inverse of the components of a vec3
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a vector to invert
+     * @param {vec3} a vector to invert
      * @returns {vec3} out
      */
 
@@ -3090,7 +3106,7 @@ var app = (function (exports) {
      * Normalize a vec3
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a vector to normalize
+     * @param {vec3} a vector to normalize
      * @returns {vec3} out
      */
 
@@ -3113,8 +3129,8 @@ var app = (function (exports) {
     /**
      * Calculates the dot product of two vec3's
      *
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {Number} dot product of a and b
      */
 
@@ -3125,8 +3141,8 @@ var app = (function (exports) {
      * Computes the cross product of two vec3's
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @returns {vec3} out
      */
 
@@ -3146,8 +3162,8 @@ var app = (function (exports) {
      * Performs a linear interpolation between two vec3's
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
      * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
      * @returns {vec3} out
      */
@@ -3165,10 +3181,10 @@ var app = (function (exports) {
      * Performs a hermite interpolation with two control points
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
-     * @param {ReadonlyVec3} c the third operand
-     * @param {ReadonlyVec3} d the fourth operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
+     * @param {vec3} c the third operand
+     * @param {vec3} d the fourth operand
      * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
      * @returns {vec3} out
      */
@@ -3188,10 +3204,10 @@ var app = (function (exports) {
      * Performs a bezier interpolation with two control points
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the first operand
-     * @param {ReadonlyVec3} b the second operand
-     * @param {ReadonlyVec3} c the third operand
-     * @param {ReadonlyVec3} d the fourth operand
+     * @param {vec3} a the first operand
+     * @param {vec3} b the second operand
+     * @param {vec3} c the third operand
+     * @param {vec3} d the fourth operand
      * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
      * @returns {vec3} out
      */
@@ -3232,8 +3248,8 @@ var app = (function (exports) {
      * 4th vector component is implicitly '1'
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the vector to transform
-     * @param {ReadonlyMat4} m matrix to transform with
+     * @param {vec3} a the vector to transform
+     * @param {mat4} m matrix to transform with
      * @returns {vec3} out
      */
 
@@ -3252,8 +3268,8 @@ var app = (function (exports) {
      * Transforms the vec3 with a mat3.
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the vector to transform
-     * @param {ReadonlyMat3} m the 3x3 matrix to transform with
+     * @param {vec3} a the vector to transform
+     * @param {mat3} m the 3x3 matrix to transform with
      * @returns {vec3} out
      */
 
@@ -3271,8 +3287,8 @@ var app = (function (exports) {
      * Can also be used for dual quaternions. (Multiply it with the real part)
      *
      * @param {vec3} out the receiving vector
-     * @param {ReadonlyVec3} a the vector to transform
-     * @param {ReadonlyQuat} q quaternion to transform with
+     * @param {vec3} a the vector to transform
+     * @param {quat} q quaternion to transform with
      * @returns {vec3} out
      */
 
@@ -3312,8 +3328,8 @@ var app = (function (exports) {
     /**
      * Rotate a 3D vector around the x-axis
      * @param {vec3} out The receiving vec3
-     * @param {ReadonlyVec3} a The vec3 point to rotate
-     * @param {ReadonlyVec3} b The origin of the rotation
+     * @param {vec3} a The vec3 point to rotate
+     * @param {vec3} b The origin of the rotation
      * @param {Number} rad The angle of rotation in radians
      * @returns {vec3} out
      */
@@ -3338,8 +3354,8 @@ var app = (function (exports) {
     /**
      * Rotate a 3D vector around the y-axis
      * @param {vec3} out The receiving vec3
-     * @param {ReadonlyVec3} a The vec3 point to rotate
-     * @param {ReadonlyVec3} b The origin of the rotation
+     * @param {vec3} a The vec3 point to rotate
+     * @param {vec3} b The origin of the rotation
      * @param {Number} rad The angle of rotation in radians
      * @returns {vec3} out
      */
@@ -3364,8 +3380,8 @@ var app = (function (exports) {
     /**
      * Rotate a 3D vector around the z-axis
      * @param {vec3} out The receiving vec3
-     * @param {ReadonlyVec3} a The vec3 point to rotate
-     * @param {ReadonlyVec3} b The origin of the rotation
+     * @param {vec3} a The vec3 point to rotate
+     * @param {vec3} b The origin of the rotation
      * @param {Number} rad The angle of rotation in radians
      * @returns {vec3} out
      */
@@ -3389,8 +3405,8 @@ var app = (function (exports) {
     }
     /**
      * Get the angle between two 3D vectors
-     * @param {ReadonlyVec3} a The first operand
-     * @param {ReadonlyVec3} b The second operand
+     * @param {vec3} a The first operand
+     * @param {vec3} b The second operand
      * @returns {Number} The angle in radians
      */
 
@@ -3423,7 +3439,7 @@ var app = (function (exports) {
     /**
      * Returns a string representation of a vector
      *
-     * @param {ReadonlyVec3} a vector to represent as a string
+     * @param {vec3} a vector to represent as a string
      * @returns {String} string representation of the vector
      */
 
@@ -3433,8 +3449,8 @@ var app = (function (exports) {
     /**
      * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
      *
-     * @param {ReadonlyVec3} a The first vector.
-     * @param {ReadonlyVec3} b The second vector.
+     * @param {vec3} a The first vector.
+     * @param {vec3} b The second vector.
      * @returns {Boolean} True if the vectors are equal, false otherwise.
      */
 
@@ -3444,8 +3460,8 @@ var app = (function (exports) {
     /**
      * Returns whether or not the vectors have approximately the same elements in the same position.
      *
-     * @param {ReadonlyVec3} a The first vector.
-     * @param {ReadonlyVec3} b The second vector.
+     * @param {vec3} a The first vector.
+     * @param {vec3} b The second vector.
      * @returns {Boolean} True if the vectors are equal, false otherwise.
      */
 
@@ -3807,7 +3823,7 @@ var app = (function (exports) {
     	let { process_extra_shader_components } = $$props; // (gl, material) => {}
 
     	let draw = () => {
-
+    		
     	};
 
     	let camera_stores = {
@@ -3824,7 +3840,7 @@ var app = (function (exports) {
     			}
     		}
     	: () => {
-
+    			
     		};
 
     	const width = writable(1);
@@ -3948,7 +3964,7 @@ var app = (function (exports) {
     				return;
     			}
 
-
+    			
     			$$invalidate(12, pending = false);
 
     			// gl.clearColor(...bg, backgroundOpacity);
@@ -4473,7 +4489,7 @@ var app = (function (exports) {
     /**
      * Creates a new vec4 initialized with values from an existing vector
      *
-     * @param {ReadonlyVec4} a vector to clone
+     * @param {vec4} a vector to clone
      * @returns {vec4} a new 4D vector
      */
 
@@ -4507,7 +4523,7 @@ var app = (function (exports) {
      * Copy the values from one vec4 to another
      *
      * @param {vec4} out the receiving vector
-     * @param {ReadonlyVec4} a the source vector
+     * @param {vec4} a the source vector
      * @returns {vec4} out
      */
 
@@ -4540,8 +4556,8 @@ var app = (function (exports) {
      * Adds two vec4's
      *
      * @param {vec4} out the receiving vector
-     * @param {ReadonlyVec4} a the first operand
-     * @param {ReadonlyVec4} b the second operand
+     * @param {vec4} a the first operand
+     * @param {vec4} b the second operand
      * @returns {vec4} out
      */
 
@@ -4556,7 +4572,7 @@ var app = (function (exports) {
      * Scales a vec4 by a scalar number
      *
      * @param {vec4} out the receiving vector
-     * @param {ReadonlyVec4} a the vector to scale
+     * @param {vec4} a the vector to scale
      * @param {Number} b amount to scale the vector by
      * @returns {vec4} out
      */
@@ -4571,7 +4587,7 @@ var app = (function (exports) {
     /**
      * Calculates the length of a vec4
      *
-     * @param {ReadonlyVec4} a vector to calculate length of
+     * @param {vec4} a vector to calculate length of
      * @returns {Number} length of a
      */
 
@@ -4585,7 +4601,7 @@ var app = (function (exports) {
     /**
      * Calculates the squared length of a vec4
      *
-     * @param {ReadonlyVec4} a vector to calculate squared length of
+     * @param {vec4} a vector to calculate squared length of
      * @returns {Number} squared length of a
      */
 
@@ -4600,7 +4616,7 @@ var app = (function (exports) {
      * Normalize a vec4
      *
      * @param {vec4} out the receiving vector
-     * @param {ReadonlyVec4} a vector to normalize
+     * @param {vec4} a vector to normalize
      * @returns {vec4} out
      */
 
@@ -4624,8 +4640,8 @@ var app = (function (exports) {
     /**
      * Calculates the dot product of two vec4's
      *
-     * @param {ReadonlyVec4} a the first operand
-     * @param {ReadonlyVec4} b the second operand
+     * @param {vec4} a the first operand
+     * @param {vec4} b the second operand
      * @returns {Number} dot product of a and b
      */
 
@@ -4636,8 +4652,8 @@ var app = (function (exports) {
      * Performs a linear interpolation between two vec4's
      *
      * @param {vec4} out the receiving vector
-     * @param {ReadonlyVec4} a the first operand
-     * @param {ReadonlyVec4} b the second operand
+     * @param {vec4} a the first operand
+     * @param {vec4} b the second operand
      * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
      * @returns {vec4} out
      */
@@ -4656,8 +4672,8 @@ var app = (function (exports) {
     /**
      * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
      *
-     * @param {ReadonlyVec4} a The first vector.
-     * @param {ReadonlyVec4} b The second vector.
+     * @param {vec4} a The first vector.
+     * @param {vec4} b The second vector.
      * @returns {Boolean} True if the vectors are equal, false otherwise.
      */
 
@@ -4667,8 +4683,8 @@ var app = (function (exports) {
     /**
      * Returns whether or not the vectors have approximately the same elements in the same position.
      *
-     * @param {ReadonlyVec4} a The first vector.
-     * @param {ReadonlyVec4} b The second vector.
+     * @param {vec4} a The first vector.
+     * @param {vec4} b The second vector.
      * @returns {Boolean} True if the vectors are equal, false otherwise.
      */
 
@@ -4773,7 +4789,7 @@ var app = (function (exports) {
      * then returns it.
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyVec3} axis the axis around which to rotate
+     * @param {vec3} axis the axis around which to rotate
      * @param {Number} rad the angle in radians
      * @returns {quat} out
      **/
@@ -4797,7 +4813,7 @@ var app = (function (exports) {
      *  angle -90 is the same as the quaternion formed by
      *  [0, 0, 1] and 270. This method favors the latter.
      * @param  {vec3} out_axis  Vector receiving the axis of rotation
-     * @param  {ReadonlyQuat} q     Quaternion to be decomposed
+     * @param  {quat} q     Quaternion to be decomposed
      * @return {Number}     Angle, in radians, of the rotation
      */
 
@@ -4821,8 +4837,8 @@ var app = (function (exports) {
     /**
      * Gets the angular distance between two unit quaternions
      *
-     * @param  {ReadonlyQuat} a     Origin unit quaternion
-     * @param  {ReadonlyQuat} b     Destination unit quaternion
+     * @param  {quat} a     Origin unit quaternion
+     * @param  {quat} b     Destination unit quaternion
      * @return {Number}     Angle, in radians, between the two quaternions
      */
 
@@ -4834,8 +4850,8 @@ var app = (function (exports) {
      * Multiplies two quat's
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a the first operand
-     * @param {ReadonlyQuat} b the second operand
+     * @param {quat} a the first operand
+     * @param {quat} b the second operand
      * @returns {quat} out
      */
 
@@ -4858,7 +4874,7 @@ var app = (function (exports) {
      * Rotates a quaternion by the given angle about the X axis
      *
      * @param {quat} out quat receiving operation result
-     * @param {ReadonlyQuat} a quat to rotate
+     * @param {quat} a quat to rotate
      * @param {number} rad angle (in radians) to rotate
      * @returns {quat} out
      */
@@ -4881,7 +4897,7 @@ var app = (function (exports) {
      * Rotates a quaternion by the given angle about the Y axis
      *
      * @param {quat} out quat receiving operation result
-     * @param {ReadonlyQuat} a quat to rotate
+     * @param {quat} a quat to rotate
      * @param {number} rad angle (in radians) to rotate
      * @returns {quat} out
      */
@@ -4904,7 +4920,7 @@ var app = (function (exports) {
      * Rotates a quaternion by the given angle about the Z axis
      *
      * @param {quat} out quat receiving operation result
-     * @param {ReadonlyQuat} a quat to rotate
+     * @param {quat} a quat to rotate
      * @param {number} rad angle (in radians) to rotate
      * @returns {quat} out
      */
@@ -4929,7 +4945,7 @@ var app = (function (exports) {
      * Any existing W component will be ignored.
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a quat to calculate W component of
+     * @param {quat} a quat to calculate W component of
      * @returns {quat} out
      */
 
@@ -4947,7 +4963,7 @@ var app = (function (exports) {
      * Calculate the exponential of a unit quaternion.
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a quat to calculate the exponential of
+     * @param {quat} a quat to calculate the exponential of
      * @returns {quat} out
      */
 
@@ -4969,7 +4985,7 @@ var app = (function (exports) {
      * Calculate the natural logarithm of a unit quaternion.
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a quat to calculate the exponential of
+     * @param {quat} a quat to calculate the exponential of
      * @returns {quat} out
      */
 
@@ -4990,7 +5006,7 @@ var app = (function (exports) {
      * Calculate the scalar power of a unit quaternion.
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a quat to calculate the exponential of
+     * @param {quat} a quat to calculate the exponential of
      * @param {Number} b amount to scale the quaternion by
      * @returns {quat} out
      */
@@ -5005,8 +5021,8 @@ var app = (function (exports) {
      * Performs a spherical linear interpolation between two quat
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a the first operand
-     * @param {ReadonlyQuat} b the second operand
+     * @param {quat} a the first operand
+     * @param {quat} b the second operand
      * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
      * @returns {quat} out
      */
@@ -5080,7 +5096,7 @@ var app = (function (exports) {
      * Calculates the inverse of a quat
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a quat to calculate inverse of
+     * @param {quat} a quat to calculate inverse of
      * @returns {quat} out
      */
 
@@ -5103,7 +5119,7 @@ var app = (function (exports) {
      * If the quaternion is normalized, this function is faster than quat.inverse and produces the same result.
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a quat to calculate conjugate of
+     * @param {quat} a quat to calculate conjugate of
      * @returns {quat} out
      */
 
@@ -5121,7 +5137,7 @@ var app = (function (exports) {
      * to renormalize the quaternion yourself where necessary.
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyMat3} m rotation matrix
+     * @param {mat3} m rotation matrix
      * @returns {quat} out
      * @function
      */
@@ -5190,7 +5206,7 @@ var app = (function (exports) {
     /**
      * Returns a string representation of a quatenion
      *
-     * @param {ReadonlyQuat} a vector to represent as a string
+     * @param {quat} a vector to represent as a string
      * @returns {String} string representation of the vector
      */
 
@@ -5200,7 +5216,7 @@ var app = (function (exports) {
     /**
      * Creates a new quat initialized with values from an existing quaternion
      *
-     * @param {ReadonlyQuat} a quaternion to clone
+     * @param {quat} a quaternion to clone
      * @returns {quat} a new quaternion
      * @function
      */
@@ -5222,7 +5238,7 @@ var app = (function (exports) {
      * Copy the values from one quat to another
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a the source quaternion
+     * @param {quat} a the source quaternion
      * @returns {quat} out
      * @function
      */
@@ -5245,8 +5261,8 @@ var app = (function (exports) {
      * Adds two quat's
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a the first operand
-     * @param {ReadonlyQuat} b the second operand
+     * @param {quat} a the first operand
+     * @param {quat} b the second operand
      * @returns {quat} out
      * @function
      */
@@ -5262,7 +5278,7 @@ var app = (function (exports) {
      * Scales a quat by a scalar number
      *
      * @param {quat} out the receiving vector
-     * @param {ReadonlyQuat} a the vector to scale
+     * @param {quat} a the vector to scale
      * @param {Number} b amount to scale the vector by
      * @returns {quat} out
      * @function
@@ -5272,8 +5288,8 @@ var app = (function (exports) {
     /**
      * Calculates the dot product of two quat's
      *
-     * @param {ReadonlyQuat} a the first operand
-     * @param {ReadonlyQuat} b the second operand
+     * @param {quat} a the first operand
+     * @param {quat} b the second operand
      * @returns {Number} dot product of a and b
      * @function
      */
@@ -5283,8 +5299,8 @@ var app = (function (exports) {
      * Performs a linear interpolation between two quat's
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a the first operand
-     * @param {ReadonlyQuat} b the second operand
+     * @param {quat} a the first operand
+     * @param {quat} b the second operand
      * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
      * @returns {quat} out
      * @function
@@ -5294,7 +5310,7 @@ var app = (function (exports) {
     /**
      * Calculates the length of a quat
      *
-     * @param {ReadonlyQuat} a vector to calculate length of
+     * @param {quat} a vector to calculate length of
      * @returns {Number} length of a
      */
 
@@ -5308,7 +5324,7 @@ var app = (function (exports) {
     /**
      * Calculates the squared length of a quat
      *
-     * @param {ReadonlyQuat} a vector to calculate squared length of
+     * @param {quat} a vector to calculate squared length of
      * @returns {Number} squared length of a
      * @function
      */
@@ -5324,7 +5340,7 @@ var app = (function (exports) {
      * Normalize a quat
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a quaternion to normalize
+     * @param {quat} a quaternion to normalize
      * @returns {quat} out
      * @function
      */
@@ -5333,8 +5349,8 @@ var app = (function (exports) {
     /**
      * Returns whether or not the quaternions have exactly the same elements in the same position (when compared with ===)
      *
-     * @param {ReadonlyQuat} a The first quaternion.
-     * @param {ReadonlyQuat} b The second quaternion.
+     * @param {quat} a The first quaternion.
+     * @param {quat} b The second quaternion.
      * @returns {Boolean} True if the vectors are equal, false otherwise.
      */
 
@@ -5342,8 +5358,8 @@ var app = (function (exports) {
     /**
      * Returns whether or not the quaternions have approximately the same elements in the same position.
      *
-     * @param {ReadonlyQuat} a The first vector.
-     * @param {ReadonlyQuat} b The second vector.
+     * @param {quat} a The first vector.
+     * @param {quat} b The second vector.
      * @returns {Boolean} True if the vectors are equal, false otherwise.
      */
 
@@ -5355,8 +5371,8 @@ var app = (function (exports) {
      * Both vectors are assumed to be unit length.
      *
      * @param {quat} out the receiving quaternion.
-     * @param {ReadonlyVec3} a the initial vector
-     * @param {ReadonlyVec3} b the destination vector
+     * @param {vec3} a the initial vector
+     * @param {vec3} b the destination vector
      * @returns {quat} out
      */
 
@@ -5393,10 +5409,10 @@ var app = (function (exports) {
      * Performs a spherical linear interpolation with two control points
      *
      * @param {quat} out the receiving quaternion
-     * @param {ReadonlyQuat} a the first operand
-     * @param {ReadonlyQuat} b the second operand
-     * @param {ReadonlyQuat} c the third operand
-     * @param {ReadonlyQuat} d the fourth operand
+     * @param {quat} a the first operand
+     * @param {quat} b the second operand
+     * @param {quat} c the third operand
+     * @param {quat} d the fourth operand
      * @param {Number} t interpolation amount, in the range [0-1], between the two inputs
      * @returns {quat} out
      */
@@ -5416,9 +5432,9 @@ var app = (function (exports) {
      * axes. Each axis is a vec3 and is expected to be unit length and
      * perpendicular to all other specified axes.
      *
-     * @param {ReadonlyVec3} view  the vector representing the viewing direction
-     * @param {ReadonlyVec3} right the vector representing the local "right" direction
-     * @param {ReadonlyVec3} up    the vector representing the local "up" direction
+     * @param {vec3} view  the vector representing the viewing direction
+     * @param {vec3} right the vector representing the local "right" direction
+     * @param {vec3} up    the vector representing the local "up" direction
      * @returns {quat} out
      */
 
@@ -7894,7 +7910,7 @@ var app = (function (exports) {
     			rotate(dx * 0.003, dy * 0.003);
     			last_x = touch.clientX;
     			last_y = touch.clientY;
-
+    			
     		});
 
     		function handle_touchend(event) {
@@ -8610,7 +8626,7 @@ var app = (function (exports) {
     			gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, index, gl.STATIC_DRAW);
     			this.buffers.__index = buffer;
     		}
-
+    		
     		// Un-bind buffers
     		gl.bindBuffer(gl.ARRAY_BUFFER, null);
     		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
@@ -8633,7 +8649,7 @@ var app = (function (exports) {
 
     			// Bind the position buffer.
     			const buffer = this.buffers[key];
-
+    			
     			// if (this.primitive = 'POINTS') console.log("enableVertexAttribArray on location ", key);
 
     			gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -9717,9 +9733,9 @@ var app = (function (exports) {
     		} else {
     			gl.texImage2D(TEXTURE_2D, 0, RGBA, RGBA, UNSIGNED_BYTE, data);
     		}
-
+    		
     		gl.generateMipmap(TEXTURE_2D);
-
+    		
     		const width  = 'naturalWidth'  in data ? data.naturalWidth  : data.width;
     		const height = 'naturalHeight' in data ? data.naturalHeight : data.height;
 
@@ -11338,7 +11354,7 @@ var app = (function (exports) {
     	let isFullscreen = false;
 
     	let toggleFullscreen = function () {
-
+    		
     	};
 
     	const init = function () {
@@ -12918,7 +12934,7 @@ var app = (function (exports) {
     /* src/apps/TechApp.svelte generated by Svelte v3.19.1 */
     const file$7 = "src/apps/TechApp.svelte";
 
-    // (77:1) <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>
+    // (64:1) <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>
     function create_default_slot_2$2(ctx) {
     	let current;
 
@@ -12963,14 +12979,14 @@ var app = (function (exports) {
     		block,
     		id: create_default_slot_2$2.name,
     		type: "slot",
-    		source: "(77:1) <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>",
+    		source: "(64:1) <GL.OrbitControls maxPolarAngle={Math.PI / 2} let:location>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (156:1) <GL.Group location={[light.x,light.y,light.z]}>
+    // (143:1) <GL.Group location={[light.x,light.y,light.z]}>
     function create_default_slot_1$2(ctx) {
     	let t;
     	let current;
@@ -13029,14 +13045,14 @@ var app = (function (exports) {
     		block,
     		id: create_default_slot_1$2.name,
     		type: "slot",
-    		source: "(156:1) <GL.Group location={[light.x,light.y,light.z]}>",
+    		source: "(143:1) <GL.Group location={[light.x,light.y,light.z]}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (74:0) <GL.Scene>
+    // (61:0) <GL.Scene>
     function create_default_slot$3(ctx) {
     	let t0;
     	let t1;
@@ -13335,7 +13351,7 @@ var app = (function (exports) {
     		block,
     		id: create_default_slot$3.name,
     		type: "slot",
-    		source: "(74:0) <GL.Scene>",
+    		source: "(61:0) <GL.Scene>",
     		ctx
     	});
 
@@ -13438,33 +13454,33 @@ var app = (function (exports) {
     			create_component(keypad.$$.fragment);
     			attr_dev(input0, "type", "color");
     			set_style(input0, "height", "40px");
-    			add_location(input0, file$7, 173, 2, 3279);
-    			add_location(label0, file$7, 172, 1, 3269);
+    			add_location(input0, file$7, 160, 2, 3014);
+    			add_location(label0, file$7, 159, 1, 3004);
     			attr_dev(input1, "type", "range");
     			attr_dev(input1, "min", input1_min_value = 0.1);
     			attr_dev(input1, "max", input1_max_value = 5);
     			attr_dev(input1, "step", input1_step_value = 0.1);
-    			add_location(input1, file$7, 177, 2, 3362);
-    			add_location(label1, file$7, 176, 1, 3352);
+    			add_location(input1, file$7, 164, 2, 3097);
+    			add_location(label1, file$7, 163, 1, 3087);
     			attr_dev(input2, "type", "range");
     			attr_dev(input2, "min", input2_min_value = 0.1);
     			attr_dev(input2, "max", input2_max_value = 5);
     			attr_dev(input2, "step", input2_step_value = 0.1);
-    			add_location(input2, file$7, 181, 2, 3461);
-    			add_location(label2, file$7, 180, 1, 3451);
+    			add_location(input2, file$7, 168, 2, 3196);
+    			add_location(label2, file$7, 167, 1, 3186);
     			attr_dev(input3, "type", "range");
     			attr_dev(input3, "min", input3_min_value = 0.1);
     			attr_dev(input3, "max", input3_max_value = 5);
     			attr_dev(input3, "step", input3_step_value = 0.1);
-    			add_location(input3, file$7, 185, 2, 3561);
-    			add_location(label3, file$7, 184, 1, 3551);
+    			add_location(input3, file$7, 172, 2, 3296);
+    			add_location(label3, file$7, 171, 1, 3286);
     			attr_dev(div0, "class", "controls");
-    			add_location(div0, file$7, 171, 0, 3245);
+    			add_location(div0, file$7, 158, 0, 2980);
     			set_style(h1, "color", /*pin*/ ctx[1] ? "#999" : "#fff");
-    			attr_dev(h1, "class", "svelte-tdzx7i");
-    			add_location(h1, file$7, 190, 1, 3685);
-    			attr_dev(div1, "class", "controls keys svelte-tdzx7i");
-    			add_location(div1, file$7, 189, 0, 3656);
+    			attr_dev(h1, "class", "svelte-wp77q5");
+    			add_location(h1, file$7, 177, 1, 3420);
+    			attr_dev(div1, "class", "controls keys svelte-wp77q5");
+    			add_location(div1, file$7, 176, 0, 3391);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -13769,7 +13785,7 @@ var app = (function (exports) {
             target: appElement,
             props: {
                 greeting:
-`Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>SveltR</a>!`
+`Hooray 🎉 - you've built this with <a href='https://github.com/dancingfrog/sveltr' target='_blank'>Sveltr</a>!`
             }
         }) : {};
 
@@ -13814,7 +13830,7 @@ var app = (function (exports) {
         new VizRApp({
             target: vizrAppElement,
             props: {
-                title: 'Visualizing R Data with SveltR'
+                title: 'Visualizing R Data with Sveltr'
             }
         }) : {};
 

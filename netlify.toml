@@ -1,14 +1,10 @@
-[build]
-command = "hugo"
-publish = "public"
 [build.environment]
-HUGO_VERSION = "0.80.0"
+  YARN_VERSION = "1.12.1"
+  NPM_VERSION = "6.4.1"
 
-[context]
-[context.branch-deploy]
-command = "hugo -F -b $DEPLOY_PRIME_URL"
+[build]
+  command = "npm run build"
+  publish = "dist"
+
 [context.deploy-preview]
-command = "hugo -F -b $DEPLOY_PRIME_URL"
-[context.production]
-[context.production.environment]
-HUGO_ENV = "production"
+  command = "npm run build:preview"

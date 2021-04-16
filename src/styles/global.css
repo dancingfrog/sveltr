@@ -1,5 +1,18 @@
 @import url("imports/reset.css");
 
+@font-face {
+    font-family: 'Lion kinG';
+    src: url('/vision/lion_king.woff2') format('woff2'), /* Super Modern Browsers */
+        url('/vision/lion_king.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Liberation Serif';
+    src: url('/vision/liberation-serif.woff2') format('woff2'), /* Super Modern Browsers */
+        url('/vision/liberation-serif/LiberationSerif-Bold.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+
 html {
     font-family: -apple-system, BlinkMacSystemFont, 'Fira Sans', 'Cantarell', 'Droid Sans', 'Roboto', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -7,25 +20,27 @@ html {
 }
 
 body {
+    display: flex;
     color: #e8c063;
+    font-weight: bolder;
     text-shadow: 1px 0.5px 0.025em rgba(34, 6, 20, 0.5);
-    background-color: rgb(34, 6, 20);
+    background-color: rgba(34, 6, 20, 0.5);
 }
 
-body>div, main>div {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1344px;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Liberation Serif', serif;
 }
 
-body>div.front {
-    position: relative;
-    margin-top: -50%;
+h1 {
+    font-family: 'Lion kinG', 'Liberation Serif', serif;
+}
+
+div, a, p, td {
+    font-size: 1.25rem;
 }
 
 a {
     color: pink;
-    font-weight: bold;
     text-decoration: none;
 }
 
@@ -163,8 +178,7 @@ pre code {
 
 .controls {
     position: absolute;
-    left: 0;
-    margin: -20% 8px 8px 2.5rem;
+    margin: -50% 8px 8px 0px;
     color: #282c34;
     width: 300px;
     padding: 1em;
@@ -197,11 +211,7 @@ pre code {
 }
 
 
-@media screen and (max-width: 960px) {
-
-    body>div.front {
-        margin-top: -66%;
-    }
+@media screen and (max-width: 604px) {
 
     pre {
         width: 100%;
@@ -209,8 +219,9 @@ pre code {
 
     .controls {
         position: relative;
-        margin: auto;
         margin-top: 8px;
+        margin-left: auto;
+        margin-right: auto;
         padding-left: 0;
         padding-right: 0;
     }
@@ -221,12 +232,4 @@ pre code {
         left: auto;
     }
 
-}
-
-
-@media screen and (max-height: 720px) {
-
-    body>div.front {
-        margin-top: -75%;
-    }
 }

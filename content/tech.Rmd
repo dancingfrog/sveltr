@@ -3,15 +3,15 @@ title: Tech
 author: John
 date: '2020-02-27'
 draft: false
+always_allow_html: true
 categories:
   - R
 tags:
   - R Markdown
-output:
-  html_document:
-    keep_md: yes
 ---
-<div id="tech-app" role="main" style="width: 100%;"></div>
+<div id="tech-app" role="main" style="width: 100%; min-width: 800px;">
+&nbsp;
+</div>
 
 # [SveltR](https://github.com/Real-Currents/SveltR)
 
@@ -33,6 +33,7 @@ if (!require("knitr")) {
 }
 knitr::opts_chunk$set(cache = TRUE)
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
 This is a boilerplate for using [blogdown (R Markdown x Hugo)](https://github.com/rstudio/blogdown/) as a static site generator and [SvelteJS](https://svelte.dev/) as your reactive app engine. This project is released under the [MIT license](LICENSE). Please make sure you understand its implications and guarantees.
@@ -46,11 +47,15 @@ You can embed an R code chunk like this:
 
 ```{r echo}
 print(mean(1 : 5))
+
 Sys.getenv("R_HOME")
+
 r_profiles <- c(file.path(Sys.getenv("R_HOME"), "etc", "Rprofile.site"),
                 file.path(Sys.getenv("R_HOME"), "etc", "Rprofile"),
                 file.path(Sys.getenv("R_HOME"), "library", "base", "R", "Rprofile") )
+
 Filter(file.exists, r_profiles)
+
 .libPaths()
 ```
 <br />
@@ -91,12 +96,14 @@ if (!require("maptools")) {
   require(rgeos)
   options(warn = 0)
   require(maptools)
+
   data(wrld_simpl)
   xlim <- c(-130,-60)
   ylim <- c(35,50)
   plot(wrld_simpl,xlim=xlim,ylim=ylim,col='olivedrab3',bg='lightblue')
   plot(wrld_simpl)
   coords <- matrix(c(-122.92,-79.4, 49.277,43.66),ncol=2)
+
   coords <- matrix(c(-122.92,-79.4, 49.277,43.66),ncol=2)
   coords <- coordinates(coords)
   spoints <- SpatialPoints(coords)
@@ -111,6 +118,7 @@ if (!require("maptools")) {
 
 If the output target is HTML, R has some methods for turning R data into JavaScript or JSON data and printing the results within HTML tags:
 ```{r car_data}
+
 head(mtcars)
 ```
 
@@ -119,6 +127,7 @@ The mtcars sample dataset printed above has been serialized to JSON and added to
 
 ```{r car_data_in_html, results = 'asis'}
 require(jsonlite)
+
 # print without tabs so R markdown will add it to the DOM tree of the resulting page
 cat(paste('<div id="car_data_in_html"><script type="application/json">', toJSON(mtcars), '\n</script>\n</div>', sep=""))
 ```
@@ -145,16 +154,13 @@ It is also possible to include Python code chunks in R Markdown, by first loadin
 # Load reticulate package for running python
 if (!require("reticulate")) {
   install.packages("reticulate")
-  reticulate::conda_create(envname = "r-reticulate")
   reticulate::conda_python(envname = "r-reticulate")
   reticulate::use_condaenv(condaenv = "r-reticulate", required = TRUE)
-  reticulate::py_install("matplotlib")
-
-} else {
-  reticulate::conda_list()
 }
 
-py_sys <- reticulate::import("sys")
+reticulate::py_install(c("matplotlib"))
+
+py_sys <- import("sys")
 print(py_sys$path)
 cat(list.files(py_sys$path)[grepl("matplot", list.files(py_sys$path))])
 ```
@@ -163,21 +169,27 @@ cat(list.files(py_sys$path)[grepl("matplot", list.files(py_sys$path))])
 ```{python data_test}
 data = {"foo": {"bar": "baz"}}
 string = "Reticulate"
+
 for index, letter in enumerate(string):
     print((letter, index))
 ```
 
 ```{python pyplot}
 import sys
+
 sys.path
+
 try:
   import matplotlib.pyplot as plt
   import numpy as np
+
   # %matplotlib inline
   # %config InlineBackend.figure_format = 'svg'
   t = np.linspace(0, 20, 500)
+
   plt.plot(t, np.sin(t))
   plt.show()
+
 except Exception as e:
   print(e)
 ```
